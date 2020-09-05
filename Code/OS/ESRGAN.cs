@@ -16,6 +16,7 @@ namespace Cupscale.OS
 			string modelArg = "\"" + formattedModelPath + "/" + model + ".pth\"";
 			Program.mainForm.SetPreviewProgress(5f, "Starting ESRGAN...");
 			await Run(inpath, outpath, modelArg, tilesize, alpha);
+			File.Delete(Paths.progressLogfile);
 			if (isPreview)
 			{
 				Program.mainForm.SetPreviewProgress(100f, "Merging into preview...");

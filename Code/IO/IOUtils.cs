@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Cupscale
 {
@@ -154,5 +155,19 @@ namespace Cupscale
 			}
 			File.Move(path, targetPath);
 		}
+
+		public static bool TryCopy (string source, string dest, bool overwrite)		// Copy with error handling. Returns false if failed
+        {
+            try
+            {
+				File.Copy(source, dest, overwrite);
+			}
+			catch (Exception e)
+            {
+				MessageBox.Show("Copy from \"" + source + "\" to \"" + dest + " (Overwrite: " + overwrite + " failed: \n\n" + e.Message);
+				return false;
+            }
+			return true;
+        }
 	}
 }

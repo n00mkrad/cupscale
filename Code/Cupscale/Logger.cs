@@ -17,7 +17,6 @@ namespace Cupscale
 			s = s.Replace("\n", Environment.NewLine);
 			if (textbox != null)
 			{
-				Console.WriteLine("appending to logTbox: " + s);
 				textbox.AppendText(Environment.NewLine + s);
 			}
             else

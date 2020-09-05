@@ -149,7 +149,7 @@ namespace Cupscale.UI
 			Program.mainForm.SetPreviewProgress(3f, "Preparing...");
             if (fullImage)
             {
-				previewImg.Image.Save(Path.Combine(Paths.previewPath, "preview.png"));
+				if(!IOUtils.TryCopy(Program.lastFilename, Path.Combine(Paths.previewPath, "preview.png"), true)) return;
 			}
             else
             {
@@ -159,6 +159,7 @@ namespace Cupscale.UI
 			{
 				string mdl = GetMdl();
 				if (string.IsNullOrWhiteSpace(mdl)) return;
+				Logger.Log(Paths.previewPath + " - " + Paths.previewOutPath + " - " + mdl + " - " + Config.Get("tilesize") + " - " + bool.Parse(Config.Get("alpha")));
 				await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), isPreview: true);
 			}
 		}
@@ -185,7 +186,7 @@ namespace Cupscale.UI
 			GetCurrentRegion().Save(path);
 		}
 
-		public static Bitmap GetCurrentRegion()
+		public static Bitmap GetCurrentRegion()		// thx ieu
 		{
 			RectangleF sourceImageRegion = previewImg.GetSourceImageRegion();
 			int num = (int)Math.Round(sourceImageRegion.Width);
