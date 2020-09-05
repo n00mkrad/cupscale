@@ -1,5 +1,8 @@
+using Cupscale.ImageUtils;
 using Cupscale.IO;
+using Cupscale.UI;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -10,18 +13,32 @@ namespace Cupscale.OS
 	{
 		private static Process currentProcess;
 
-		public static async Task UpscaleBasic(string inpath, string outpath, string model, string tilesize, bool alpha, bool isPreview = false)
+		public enum PreviewMode { None, Cutout, FullImage }
+		public static async Task UpscaleBasic(string inpath, string outpath, string model, string tilesize, bool alpha, PreviewMode mode)
 		{
 			string formattedModelPath = Config.Get("modelPath").Replace("/", "\\").TrimEnd('\\');
 			string modelArg = "\"" + formattedModelPath + "/" + model + ".pth\"";
 			Program.mainForm.SetPreviewProgress(5f, "Starting ESRGAN...");
 			await Run(inpath, outpath, modelArg, tilesize, alpha);
 			File.Delete(Paths.progressLogfile);
-			if (isPreview)
+			if (mode == PreviewMode.Cutout)
 			{
 				Program.mainForm.SetPreviewProgress(100f, "Merging into preview...");
 				await Program.PutTaskDelay();
 				PreviewMerger.Merge();
+			}
+			if (mode == PreviewMode.FullImage)
+			{
+				Program.mainForm.SetPreviewProgress(100f, "Merging into preview...");
+				await Program.PutTaskDelay();
+				Image outImg = IOUtils.GetImage(Path.Combine(Paths.previewOutPath, "preview.png"));
+				Image inputImg = IOUtils.GetImage(Program.lastFilename);
+				PreviewTabHelper.previewImg.Image = outImg;
+				PreviewTabHelper.currentOriginal = inputImg;
+				PreviewTabHelper.currentOutput = outImg;
+				PreviewTabHelper.currentScale = ImgUtils.GetScale(inputImg, outImg);
+				PreviewTabHelper.previewImg.ZoomToFit();
+				Program.mainForm.SetPreviewProgress(0f, "Done.");
 			}
 		}
 

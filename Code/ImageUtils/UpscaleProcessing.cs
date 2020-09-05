@@ -8,7 +8,7 @@ using Paths = Cupscale.IO.Paths;
 
 namespace shellUpscaler
 {
-	internal class ImageProcessing
+	internal class UpscaleProcessing
 	{
 		public enum Format
 		{

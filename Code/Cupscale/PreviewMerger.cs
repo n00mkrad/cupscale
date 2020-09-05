@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.IO;
+using Cupscale.ImageUtils;
 using Cupscale.IO;
 using Cupscale.UI;
 using ImageMagick;
@@ -10,18 +11,13 @@ namespace Cupscale
 {
 	internal class PreviewMerger
 	{
-		public static Image currentOriginal;
-		public static Image currentOutput;
-
 		public static float offsetX;
-
 		public static float offsetY;
-
 		public static string inputCutoutPath;
-
 		public static string outputCutoutPath;
-
 		public static int scale;
+
+		public static bool showingOriginal = false;
 
 		public static void Merge()
 		{
@@ -44,16 +40,17 @@ namespace Cupscale
 			MagickImage val2 = new MagickImage(outputCutoutPath);
 			val.FilterType = (FilterType)1;
 			val.Scale(new Percentage(num * 100));
-			string text = Path.Combine(Paths.previewOutPath, "preview-input-scaled.png");
+			string scaledPrevPath = Path.Combine(Paths.previewOutPath, "preview-input-scaled.png");
 			val.Format = (MagickFormat)171;
 			val.Quality = (10);
-			val.Write(text);
+			val.Write(scaledPrevPath);
 			val.Composite((IMagickImage<ushort>)(object)val2, (Gravity)1, new PointD((double)offsetX, (double)offsetY));
 			string text2 = Path.Combine(Paths.previewOutPath, "preview-merged.png");
 			val.Write(text2);
 			Image image = IOUtils.GetImage(text2);
-			currentOriginal = IOUtils.GetImage(text);
-			currentOutput = image;
+			PreviewTabHelper.currentOriginal = IOUtils.GetImage(scaledPrevPath);
+			PreviewTabHelper.currentOutput = image;
+			PreviewTabHelper.currentScale = ImgUtils.GetScale(IOUtils.GetImage(inputCutoutPath), IOUtils.GetImage(outputCutoutPath));
 			UIHelpers.ReplaceImageAtSameScale(PreviewTabHelper.previewImg, image);
 			Program.mainForm.SetPreviewProgress(0f, "Done.");
 		}
@@ -67,25 +64,21 @@ namespace Cupscale
 			return result;
 		}
 
-		public static void ResetCachedImages()
-		{
-			currentOriginal = null;
-			currentOutput = null;
-		}
-
 		public static void ShowOutput()
 		{
-			if (currentOutput != null)
+			if (PreviewTabHelper.currentOutput != null)
 			{
-				UIHelpers.ReplaceImageAtSameScale(PreviewTabHelper.previewImg, currentOutput);
+				showingOriginal = false;
+				UIHelpers.ReplaceImageAtSameScale(PreviewTabHelper.previewImg, PreviewTabHelper.currentOutput);
 			}
 		}
 
 		public static void ShowOriginal()
 		{
-			if (currentOriginal != null)
+			if (PreviewTabHelper.currentOriginal != null)
 			{
-				UIHelpers.ReplaceImageAtSameScale(PreviewTabHelper.previewImg, currentOriginal);
+				showingOriginal = true;
+				UIHelpers.ReplaceImageAtSameScale(PreviewTabHelper.previewImg, PreviewTabHelper.currentOriginal);
 			}
 		}
 	}

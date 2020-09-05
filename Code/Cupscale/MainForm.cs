@@ -117,7 +117,7 @@ namespace Cupscale
         private Button copyComparisonClipboardBtn;
         private Label label12;
         private GroupBox groupBox1;
-        private Label previewInfoLabel;
+        private Label prevZoomLabel;
         private TableLayoutPanel tableLayoutPanel5;
         private Label statusLabel;
         private TableLayoutPanel tableLayoutPanel6;
@@ -128,6 +128,8 @@ namespace Cupscale
         private Label label9;
         private ColorDialog alphaBgColorDialog;
         private Button refreshPrevFullBtn;
+        private Label prevSizeLabel;
+        private Label prevCutoutLabel;
         private ComboBox prevOutputFormatCombox;
 
 		public MainForm()
@@ -205,17 +207,11 @@ namespace Cupscale
 		{
 			string[] array = e.Data.GetData(DataFormats.FileDrop) as string[];
             previewImg.Text = "";
-			PreviewMerger.ResetCachedImages();
-			//previewImg.Image = Image.FromFile(array[0]);
+			PreviewTabHelper.ResetCachedImages();
             previewImg.Image = IOUtils.GetImage(array[0]);
             Program.lastFilename = array[0];
+            PreviewTabHelper.currentScale = 1;
 			previewImg.ZoomToFit();
-		}
-
-		private void button2_Click(object sender, EventArgs e)
-		{
-			Logger.Log("AutoScrollPosition: " + previewImg.AutoScrollPosition.X + "x" + previewImg.AutoScrollPosition.Y);
-			Logger.Log("AutoScrollPosition / Zoom: " + (double)previewImg.AutoScrollPosition.X / previewImg.ZoomFactor + "x" + (double)previewImg.AutoScrollPosition.Y / previewImg.ZoomFactor);
 		}
 
 		private void previewImg_MouseDown(object sender, MouseEventArgs e)
@@ -244,71 +240,73 @@ namespace Cupscale
 
 		private void InitializeComponent()
 		{
-            this.leftPanel = new Panel();
-            this.panel2 = new Panel();
-            this.panel1 = new Panel();
+            this.leftPanel = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.img = new Cyotek.Windows.Forms.ImageBox();
-            this.rightPanel = new Panel();
+            this.rightPanel = new System.Windows.Forms.Panel();
             this.mainTabControl = new Manina.Windows.Forms.TabControl();
             this.upscaleTab = new Manina.Windows.Forms.Tab();
-            this.tableLayoutPanel1 = new TableLayoutPanel();
-            this.tableLayoutPanel2 = new TableLayoutPanel();
-            this.panel5 = new Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.modelTabControl = new Manina.Windows.Forms.TabControl();
             this.basicMdlTab = new Manina.Windows.Forms.Tab();
-            this.singleModelBox = new ComboBox();
+            this.singleModelBox = new System.Windows.Forms.ComboBox();
             this.interpMdlTab = new Manina.Windows.Forms.Tab();
             this.chainMdlTab = new Manina.Windows.Forms.Tab();
             this.advancedMdlTab = new Manina.Windows.Forms.Tab();
-            this.label3 = new Label();
-            this.panel3 = new Panel();
-            this.groupBox1 = new GroupBox();
-            this.previewInfoLabel = new Label();
-            this.previewGroupbox = new GroupBox();
-            this.copyComparisonClipboardBtn = new Button();
-            this.label12 = new Label();
-            this.prevClipboardTypeCombox = new ComboBox();
-            this.prevToggleFilterBtn = new Button();
-            this.refreshPrevBtn = new Button();
-            this.button1 = new Button();
-            this.label1 = new Label();
-            this.tableLayoutPanel4 = new TableLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.refreshPrevFullBtn = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.prevSizeLabel = new System.Windows.Forms.Label();
+            this.prevZoomLabel = new System.Windows.Forms.Label();
+            this.previewGroupbox = new System.Windows.Forms.GroupBox();
+            this.copyComparisonClipboardBtn = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.prevClipboardTypeCombox = new System.Windows.Forms.ComboBox();
+            this.prevToggleFilterBtn = new System.Windows.Forms.Button();
+            this.refreshPrevBtn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.previewImg = new Cyotek.Windows.Forms.ImageBox();
-            this.tableLayoutPanel5 = new TableLayoutPanel();
-            this.prevProgbar = new ProgressBar();
-            this.statusLabel = new Label();
-            this.tableLayoutPanel6 = new TableLayoutPanel();
-            this.panel4 = new Panel();
-            this.label11 = new Label();
-            this.prevOutputFormatCombox = new ComboBox();
-            this.label10 = new Label();
-            this.prevOverwriteCombox = new ComboBox();
-            this.upscalePrevBtn = new Button();
-            this.label2 = new Label();
-            this.upscalePreviewBtn = new Button();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.prevProgbar = new System.Windows.Forms.ProgressBar();
+            this.statusLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.prevOutputFormatCombox = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.prevOverwriteCombox = new System.Windows.Forms.ComboBox();
+            this.upscalePrevBtn = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.upscalePreviewBtn = new System.Windows.Forms.Button();
             this.tab2 = new Manina.Windows.Forms.Tab();
             this.tab3 = new Manina.Windows.Forms.Tab();
-            this.tableLayoutPanel7 = new TableLayoutPanel();
-            this.logTbox = new TextBox();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.logTbox = new System.Windows.Forms.TextBox();
             this.tab4 = new Manina.Windows.Forms.Tab();
-            this.tableLayoutPanel3 = new TableLayoutPanel();
-            this.panel7 = new Panel();
-            this.confAlphaBgColorBtn = new Button();
-            this.label13 = new Label();
-            this.confAlphaBgColorTbox = new TextBox();
-            this.label9 = new Label();
-            this.confAlpha = new CheckBox();
-            this.label7 = new Label();
-            this.confTilesize = new ComboBox();
-            this.label6 = new Label();
-            this.label5 = new Label();
-            this.panel6 = new Panel();
-            this.modelPathBox = new TextBox();
-            this.label8 = new Label();
-            this.label4 = new Label();
-            this.confSaveBtn = new Button();
-            this.alphaBgColorDialog = new ColorDialog();
-            this.refreshPrevFullBtn = new Button();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.confAlphaBgColorBtn = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.confAlphaBgColorTbox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.confAlpha = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.confTilesize = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.modelPathBox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.confSaveBtn = new System.Windows.Forms.Button();
+            this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
+            this.prevCutoutLabel = new System.Windows.Forms.Label();
             this.mainTabControl.SuspendLayout();
             this.upscaleTab.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -334,7 +332,7 @@ namespace Cupscale
             // leftPanel
             // 
             this.leftPanel.AutoSize = true;
-            this.leftPanel.BorderStyle = BorderStyle.Fixed3D;
+            this.leftPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.leftPanel.Location = new System.Drawing.Point(3, 3);
             this.leftPanel.Name = "leftPanel";
             this.leftPanel.Size = new System.Drawing.Size(200, 532);
@@ -342,7 +340,7 @@ namespace Cupscale
             // 
             // panel2
             // 
-            this.panel2.BorderStyle = BorderStyle.Fixed3D;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(190, 94);
@@ -350,7 +348,7 @@ namespace Cupscale
             // 
             // panel1
             // 
-            this.panel1.BorderStyle = BorderStyle.Fixed3D;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Location = new System.Drawing.Point(3, 431);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(190, 94);
@@ -358,9 +356,9 @@ namespace Cupscale
             // 
             // img
             // 
-            this.img.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom) 
-            | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.img.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.img.Location = new System.Drawing.Point(259, 3);
             this.img.Name = "img";
             this.img.Size = new System.Drawing.Size(568, 556);
@@ -368,7 +366,7 @@ namespace Cupscale
             // 
             // rightPanel
             // 
-            this.rightPanel.BorderStyle = BorderStyle.Fixed3D;
+            this.rightPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.rightPanel.Location = new System.Drawing.Point(833, 3);
             this.rightPanel.Name = "rightPanel";
             this.rightPanel.Size = new System.Drawing.Size(239, 552);
@@ -381,7 +379,7 @@ namespace Cupscale
             this.mainTabControl.Controls.Add(this.tab2);
             this.mainTabControl.Controls.Add(this.tab3);
             this.mainTabControl.Controls.Add(this.tab4);
-            this.mainTabControl.Dock = DockStyle.Fill;
+            this.mainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainTabControl.Location = new System.Drawing.Point(0, 0);
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.SelectedIndex = 0;
@@ -406,41 +404,41 @@ namespace Cupscale
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 350F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 350F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel6, 2, 0);
-            this.tableLayoutPanel1.Dock = DockStyle.Fill;
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1151, 604);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.panel5, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 1);
-            this.tableLayoutPanel2.Dock = DockStyle.Fill;
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 598);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
             // panel5
             // 
-            this.panel5.BorderStyle = BorderStyle.FixedSingle;
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.modelTabControl);
             this.panel5.Controls.Add(this.label3);
-            this.panel5.Dock = DockStyle.Fill;
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 3);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(338, 293);
@@ -448,8 +446,8 @@ namespace Cupscale
             // 
             // modelTabControl
             // 
-            this.modelTabControl.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.modelTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.modelTabControl.Controls.Add(this.basicMdlTab);
             this.modelTabControl.Controls.Add(this.interpMdlTab);
             this.modelTabControl.Controls.Add(this.chainMdlTab);
@@ -476,14 +474,14 @@ namespace Cupscale
             // 
             // singleModelBox
             // 
-            this.singleModelBox.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.singleModelBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.singleModelBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.singleModelBox.FlatStyle = FlatStyle.Flat;
+            this.singleModelBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.singleModelBox.ForeColor = System.Drawing.Color.White;
             this.singleModelBox.FormattingEnabled = true;
             this.singleModelBox.Location = new System.Drawing.Point(8, 8);
-            this.singleModelBox.Margin = new Padding(8);
+            this.singleModelBox.Margin = new System.Windows.Forms.Padding(8);
             this.singleModelBox.Name = "singleModelBox";
             this.singleModelBox.Size = new System.Drawing.Size(312, 21);
             this.singleModelBox.TabIndex = 1;
@@ -524,7 +522,7 @@ namespace Cupscale
             // 
             // panel3
             // 
-            this.panel3.BorderStyle = BorderStyle.FixedSingle;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.refreshPrevFullBtn);
             this.panel3.Controls.Add(this.groupBox1);
             this.panel3.Controls.Add(this.previewGroupbox);
@@ -532,38 +530,63 @@ namespace Cupscale
             this.panel3.Controls.Add(this.refreshPrevBtn);
             this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.label1);
-            this.panel3.Dock = DockStyle.Fill;
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 302);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(338, 293);
             this.panel3.TabIndex = 0;
             // 
+            // refreshPrevFullBtn
+            // 
+            this.refreshPrevFullBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.refreshPrevFullBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.refreshPrevFullBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.refreshPrevFullBtn.Location = new System.Drawing.Point(3, 257);
+            this.refreshPrevFullBtn.Name = "refreshPrevFullBtn";
+            this.refreshPrevFullBtn.Size = new System.Drawing.Size(162, 30);
+            this.refreshPrevFullBtn.TabIndex = 7;
+            this.refreshPrevFullBtn.Text = "Refresh Preview (Full Image)";
+            this.refreshPrevFullBtn.UseVisualStyleBackColor = false;
+            this.refreshPrevFullBtn.Click += new System.EventHandler(this.refreshPrevFullBtn_Click);
+            // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.previewInfoLabel);
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.prevCutoutLabel);
+            this.groupBox1.Controls.Add(this.prevSizeLabel);
+            this.groupBox1.Controls.Add(this.prevZoomLabel);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(3, 78);
+            this.groupBox1.Location = new System.Drawing.Point(4, 47);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(330, 38);
+            this.groupBox1.Size = new System.Drawing.Size(330, 69);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Preview Info";
             // 
-            // previewInfoLabel
+            // prevSizeLabel
             // 
-            this.previewInfoLabel.AutoSize = true;
-            this.previewInfoLabel.Location = new System.Drawing.Point(6, 16);
-            this.previewInfoLabel.Name = "previewInfoLabel";
-            this.previewInfoLabel.Size = new System.Drawing.Size(66, 13);
-            this.previewInfoLabel.TabIndex = 6;
-            this.previewInfoLabel.Text = "Zoom: 100%";
+            this.prevSizeLabel.AutoSize = true;
+            this.prevSizeLabel.Location = new System.Drawing.Point(6, 32);
+            this.prevSizeLabel.Name = "prevSizeLabel";
+            this.prevSizeLabel.Size = new System.Drawing.Size(27, 13);
+            this.prevSizeLabel.TabIndex = 7;
+            this.prevSizeLabel.Text = "Size";
+            // 
+            // prevZoomLabel
+            // 
+            this.prevZoomLabel.AutoSize = true;
+            this.prevZoomLabel.Location = new System.Drawing.Point(6, 16);
+            this.prevZoomLabel.Name = "prevZoomLabel";
+            this.prevZoomLabel.Size = new System.Drawing.Size(34, 13);
+            this.prevZoomLabel.TabIndex = 6;
+            this.prevZoomLabel.Text = "Zoom";
             // 
             // previewGroupbox
             // 
-            this.previewGroupbox.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.previewGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.previewGroupbox.Controls.Add(this.copyComparisonClipboardBtn);
             this.previewGroupbox.Controls.Add(this.label12);
             this.previewGroupbox.Controls.Add(this.prevClipboardTypeCombox);
@@ -577,10 +600,10 @@ namespace Cupscale
             // 
             // copyComparisonClipboardBtn
             // 
-            this.copyComparisonClipboardBtn.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.copyComparisonClipboardBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.copyComparisonClipboardBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.copyComparisonClipboardBtn.FlatStyle = FlatStyle.Flat;
+            this.copyComparisonClipboardBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.copyComparisonClipboardBtn.Location = new System.Drawing.Point(6, 53);
             this.copyComparisonClipboardBtn.Name = "copyComparisonClipboardBtn";
             this.copyComparisonClipboardBtn.Size = new System.Drawing.Size(318, 30);
@@ -600,27 +623,27 @@ namespace Cupscale
             // 
             // prevClipboardTypeCombox
             // 
-            this.prevClipboardTypeCombox.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.prevClipboardTypeCombox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.prevClipboardTypeCombox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.prevClipboardTypeCombox.FlatStyle = FlatStyle.Flat;
+            this.prevClipboardTypeCombox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.prevClipboardTypeCombox.ForeColor = System.Drawing.Color.White;
             this.prevClipboardTypeCombox.FormattingEnabled = true;
             this.prevClipboardTypeCombox.Items.AddRange(new object[] {
             "Upscaled Cutout - Side By Side",
             "Upscaled Cutout - 50/50 View"});
             this.prevClipboardTypeCombox.Location = new System.Drawing.Point(117, 24);
-            this.prevClipboardTypeCombox.Margin = new Padding(8);
+            this.prevClipboardTypeCombox.Margin = new System.Windows.Forms.Padding(8);
             this.prevClipboardTypeCombox.Name = "prevClipboardTypeCombox";
             this.prevClipboardTypeCombox.Size = new System.Drawing.Size(207, 21);
             this.prevClipboardTypeCombox.TabIndex = 5;
             // 
             // prevToggleFilterBtn
             // 
-            this.prevToggleFilterBtn.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.prevToggleFilterBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.prevToggleFilterBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.prevToggleFilterBtn.FlatStyle = FlatStyle.Flat;
+            this.prevToggleFilterBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.prevToggleFilterBtn.Location = new System.Drawing.Point(3, 221);
             this.prevToggleFilterBtn.Name = "prevToggleFilterBtn";
             this.prevToggleFilterBtn.Size = new System.Drawing.Size(330, 30);
@@ -631,10 +654,10 @@ namespace Cupscale
             // 
             // refreshPrevBtn
             // 
-            this.refreshPrevBtn.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.refreshPrevBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.refreshPrevBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.refreshPrevBtn.FlatStyle = FlatStyle.Flat;
+            this.refreshPrevBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refreshPrevBtn.Location = new System.Drawing.Point(171, 257);
             this.refreshPrevBtn.Name = "refreshPrevBtn";
             this.refreshPrevBtn.Size = new System.Drawing.Size(162, 30);
@@ -645,10 +668,10 @@ namespace Cupscale
             // 
             // button1
             // 
-            this.button1.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button1.FlatStyle = FlatStyle.Flat;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(3, 367);
             this.button1.Name = "button1";
@@ -669,23 +692,23 @@ namespace Cupscale
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.previewImg, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel5, 0, 1);
-            this.tableLayoutPanel4.Dock = DockStyle.Fill;
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(353, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 96.99611F));
-            this.tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 3.003888F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 96.99611F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.003888F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(495, 598);
             this.tableLayoutPanel4.TabIndex = 5;
             // 
             // previewImg
             // 
             this.previewImg.AllowDrop = true;
-            this.previewImg.BorderStyle = BorderStyle.FixedSingle;
-            this.previewImg.Dock = DockStyle.Fill;
+            this.previewImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.previewImg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.previewImg.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.previewImg.ForeColor = System.Drawing.Color.White;
             this.previewImg.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
@@ -698,29 +721,29 @@ namespace Cupscale
             this.previewImg.TabStop = false;
             this.previewImg.Text = "Drag And Drop An Image Into This Area";
             this.previewImg.Zoomed += new System.EventHandler<Cyotek.Windows.Forms.ImageBoxZoomEventArgs>(this.previewImg_Zoomed);
-            this.previewImg.DragDrop += new DragEventHandler(this.previewImg_DragDrop);
-            this.previewImg.DragEnter += new DragEventHandler(this.previewImg_DragEnter);
-            this.previewImg.MouseDown += new MouseEventHandler(this.previewImg_MouseDown);
-            this.previewImg.MouseUp += new MouseEventHandler(this.previewImg_MouseUp);
+            this.previewImg.DragDrop += new System.Windows.Forms.DragEventHandler(this.previewImg_DragDrop);
+            this.previewImg.DragEnter += new System.Windows.Forms.DragEventHandler(this.previewImg_DragEnter);
+            this.previewImg.MouseDown += new System.Windows.Forms.MouseEventHandler(this.previewImg_MouseDown);
+            this.previewImg.MouseUp += new System.Windows.Forms.MouseEventHandler(this.previewImg_MouseUp);
             // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.Controls.Add(this.prevProgbar, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.statusLabel, 0, 0);
-            this.tableLayoutPanel5.Dock = DockStyle.Fill;
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 583);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(489, 12);
             this.tableLayoutPanel5.TabIndex = 1;
             // 
             // prevProgbar
             // 
-            this.prevProgbar.Dock = DockStyle.Fill;
+            this.prevProgbar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.prevProgbar.Location = new System.Drawing.Point(153, 3);
             this.prevProgbar.MarqueeAnimationSpeed = 20;
             this.prevProgbar.Name = "prevProgbar";
@@ -729,8 +752,8 @@ namespace Cupscale
             // 
             // statusLabel
             // 
-            this.statusLabel.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Bottom) 
-            | AnchorStyles.Left)));
+            this.statusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.statusLabel.AutoSize = true;
             this.statusLabel.Location = new System.Drawing.Point(3, 0);
             this.statusLabel.Name = "statusLabel";
@@ -742,19 +765,19 @@ namespace Cupscale
             // tableLayoutPanel6
             // 
             this.tableLayoutPanel6.ColumnCount = 1;
-            this.tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel6.Controls.Add(this.panel4, 0, 0);
-            this.tableLayoutPanel6.Dock = DockStyle.Fill;
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(854, 3);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(294, 598);
             this.tableLayoutPanel6.TabIndex = 6;
             // 
             // panel4
             // 
-            this.panel4.BorderStyle = BorderStyle.FixedSingle;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.label11);
             this.panel4.Controls.Add(this.prevOutputFormatCombox);
             this.panel4.Controls.Add(this.label10);
@@ -762,7 +785,7 @@ namespace Cupscale
             this.panel4.Controls.Add(this.upscalePrevBtn);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.upscalePreviewBtn);
-            this.panel4.Dock = DockStyle.Fill;
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(288, 592);
@@ -770,8 +793,8 @@ namespace Cupscale
             // 
             // label11
             // 
-            this.label11.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(3, 443);
             this.label11.Name = "label11";
@@ -781,11 +804,11 @@ namespace Cupscale
             // 
             // prevOutputFormatCombox
             // 
-            this.prevOutputFormatCombox.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.prevOutputFormatCombox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.prevOutputFormatCombox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.prevOutputFormatCombox.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.prevOutputFormatCombox.FlatStyle = FlatStyle.Flat;
+            this.prevOutputFormatCombox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.prevOutputFormatCombox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.prevOutputFormatCombox.ForeColor = System.Drawing.Color.White;
             this.prevOutputFormatCombox.FormattingEnabled = true;
             this.prevOutputFormatCombox.Items.AddRange(new object[] {
@@ -796,15 +819,15 @@ namespace Cupscale
             "WEBP - High",
             "WEBP - Medium"});
             this.prevOutputFormatCombox.Location = new System.Drawing.Point(3, 464);
-            this.prevOutputFormatCombox.Margin = new Padding(8);
+            this.prevOutputFormatCombox.Margin = new System.Windows.Forms.Padding(8);
             this.prevOutputFormatCombox.Name = "prevOutputFormatCombox";
             this.prevOutputFormatCombox.Size = new System.Drawing.Size(280, 21);
             this.prevOutputFormatCombox.TabIndex = 4;
             // 
             // label10
             // 
-            this.label10.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(3, 393);
             this.label10.Name = "label10";
@@ -814,11 +837,11 @@ namespace Cupscale
             // 
             // prevOverwriteCombox
             // 
-            this.prevOverwriteCombox.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.prevOverwriteCombox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.prevOverwriteCombox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.prevOverwriteCombox.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.prevOverwriteCombox.FlatStyle = FlatStyle.Flat;
+            this.prevOverwriteCombox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.prevOverwriteCombox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.prevOverwriteCombox.ForeColor = System.Drawing.Color.White;
             this.prevOverwriteCombox.FormattingEnabled = true;
             this.prevOverwriteCombox.Items.AddRange(new object[] {
@@ -826,17 +849,17 @@ namespace Cupscale
             "Yes - Always Replace Input Image",
             "Yes - Overwrite Only If File Extension Matches"});
             this.prevOverwriteCombox.Location = new System.Drawing.Point(3, 414);
-            this.prevOverwriteCombox.Margin = new Padding(8);
+            this.prevOverwriteCombox.Margin = new System.Windows.Forms.Padding(8);
             this.prevOverwriteCombox.Name = "prevOverwriteCombox";
             this.prevOverwriteCombox.Size = new System.Drawing.Size(280, 21);
             this.prevOverwriteCombox.TabIndex = 2;
             // 
             // upscalePrevBtn
             // 
-            this.upscalePrevBtn.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.upscalePrevBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.upscalePrevBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.upscalePrevBtn.FlatStyle = FlatStyle.Flat;
+            this.upscalePrevBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.upscalePrevBtn.Location = new System.Drawing.Point(3, 559);
             this.upscalePrevBtn.Name = "upscalePrevBtn";
             this.upscalePrevBtn.Size = new System.Drawing.Size(280, 30);
@@ -856,10 +879,10 @@ namespace Cupscale
             // 
             // upscalePreviewBtn
             // 
-            this.upscalePreviewBtn.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.upscalePreviewBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.upscalePreviewBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.upscalePreviewBtn.FlatStyle = FlatStyle.Flat;
+            this.upscalePreviewBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.upscalePreviewBtn.ForeColor = System.Drawing.Color.White;
             this.upscalePreviewBtn.Location = new System.Drawing.Point(3, 758);
             this.upscalePreviewBtn.Name = "upscalePreviewBtn";
@@ -890,30 +913,30 @@ namespace Cupscale
             // tableLayoutPanel7
             // 
             this.tableLayoutPanel7.ColumnCount = 3;
-            this.tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 1F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 98F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 1F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 98F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1F));
             this.tableLayoutPanel7.Controls.Add(this.logTbox, 1, 1);
-            this.tableLayoutPanel7.Dock = DockStyle.Fill;
+            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 3;
-            this.tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 0.990099F));
-            this.tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 98.0198F));
-            this.tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 0.990099F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 0.990099F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 98.0198F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 0.990099F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(0, 0);
             this.tableLayoutPanel7.TabIndex = 12;
             // 
             // logTbox
             // 
             this.logTbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.logTbox.Dock = DockStyle.Fill;
+            this.logTbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logTbox.ForeColor = System.Drawing.Color.Silver;
             this.logTbox.Location = new System.Drawing.Point(24, 24);
-            this.logTbox.Margin = new Padding(24);
+            this.logTbox.Margin = new System.Windows.Forms.Padding(24);
             this.logTbox.Multiline = true;
             this.logTbox.Name = "logTbox";
-            this.logTbox.ScrollBars = ScrollBars.Vertical;
+            this.logTbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.logTbox.Size = new System.Drawing.Size(1, 1);
             this.logTbox.TabIndex = 11;
             // 
@@ -922,35 +945,35 @@ namespace Cupscale
             this.tab4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.tab4.Controls.Add(this.tableLayoutPanel3);
             this.tab4.ForeColor = System.Drawing.Color.White;
-            this.tab4.Location = new System.Drawing.Point(1, 21);
+            this.tab4.Location = new System.Drawing.Point(0, 0);
             this.tab4.Name = "tab4";
-            this.tab4.Size = new System.Drawing.Size(1151, 604);
+            this.tab4.Size = new System.Drawing.Size(0, 0);
             this.tab4.Text = "Settings";
             // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Controls.Add(this.panel7, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.panel6, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.confSaveBtn, 1, 1);
-            this.tableLayoutPanel3.Dock = DockStyle.Fill;
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1151, 604);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(0, 0);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // panel7
             // 
-            this.panel7.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom) 
-            | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
-            this.panel7.BorderStyle = BorderStyle.FixedSingle;
+            this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel7.Controls.Add(this.confAlphaBgColorBtn);
             this.panel7.Controls.Add(this.label13);
             this.panel7.Controls.Add(this.confAlphaBgColorTbox);
@@ -962,13 +985,13 @@ namespace Cupscale
             this.panel7.Controls.Add(this.label5);
             this.panel7.Location = new System.Drawing.Point(3, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(569, 558);
+            this.panel7.Size = new System.Drawing.Size(1, 1);
             this.panel7.TabIndex = 4;
             // 
             // confAlphaBgColorBtn
             // 
             this.confAlphaBgColorBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.confAlphaBgColorBtn.FlatStyle = FlatStyle.Flat;
+            this.confAlphaBgColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.confAlphaBgColorBtn.ForeColor = System.Drawing.Color.White;
             this.confAlphaBgColorBtn.Location = new System.Drawing.Point(242, 135);
             this.confAlphaBgColorBtn.Name = "confAlphaBgColorBtn";
@@ -1027,7 +1050,7 @@ namespace Cupscale
             // confTilesize
             // 
             this.confTilesize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.confTilesize.FlatStyle = FlatStyle.Flat;
+            this.confTilesize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.confTilesize.ForeColor = System.Drawing.Color.White;
             this.confTilesize.FormattingEnabled = true;
             this.confTilesize.Items.AddRange(new object[] {
@@ -1041,7 +1064,7 @@ namespace Cupscale
             "192",
             "128"});
             this.confTilesize.Location = new System.Drawing.Point(170, 77);
-            this.confTilesize.Margin = new Padding(8);
+            this.confTilesize.Margin = new System.Windows.Forms.Padding(8);
             this.confTilesize.Name = "confTilesize";
             this.confTilesize.Size = new System.Drawing.Size(100, 21);
             this.confTilesize.TabIndex = 3;
@@ -1067,16 +1090,16 @@ namespace Cupscale
             // 
             // panel6
             // 
-            this.panel6.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom) 
-            | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
-            this.panel6.BorderStyle = BorderStyle.FixedSingle;
+            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel6.Controls.Add(this.modelPathBox);
             this.panel6.Controls.Add(this.label8);
             this.panel6.Controls.Add(this.label4);
-            this.panel6.Location = new System.Drawing.Point(578, 3);
+            this.panel6.Location = new System.Drawing.Point(3, 3);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(570, 558);
+            this.panel6.Size = new System.Drawing.Size(1, 1);
             this.panel6.TabIndex = 3;
             // 
             // modelPathBox
@@ -1110,34 +1133,29 @@ namespace Cupscale
             // confSaveBtn
             // 
             this.confSaveBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.confSaveBtn.Dock = DockStyle.Fill;
-            this.confSaveBtn.FlatStyle = FlatStyle.Flat;
-            this.confSaveBtn.Location = new System.Drawing.Point(578, 567);
+            this.confSaveBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.confSaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.confSaveBtn.Location = new System.Drawing.Point(3, -36);
             this.confSaveBtn.Name = "confSaveBtn";
-            this.confSaveBtn.Size = new System.Drawing.Size(570, 34);
+            this.confSaveBtn.Size = new System.Drawing.Size(1, 34);
             this.confSaveBtn.TabIndex = 3;
             this.confSaveBtn.Text = "Save All Settings";
             this.confSaveBtn.UseVisualStyleBackColor = false;
             this.confSaveBtn.Click += new System.EventHandler(this.confSaveEsrganBtn_Click);
             // 
-            // refreshPrevFullBtn
+            // prevCutoutLabel
             // 
-            this.refreshPrevFullBtn.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
-            this.refreshPrevFullBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.refreshPrevFullBtn.FlatStyle = FlatStyle.Flat;
-            this.refreshPrevFullBtn.Location = new System.Drawing.Point(3, 257);
-            this.refreshPrevFullBtn.Name = "refreshPrevFullBtn";
-            this.refreshPrevFullBtn.Size = new System.Drawing.Size(162, 30);
-            this.refreshPrevFullBtn.TabIndex = 7;
-            this.refreshPrevFullBtn.Text = "Refresh Preview (Full Image)";
-            this.refreshPrevFullBtn.UseVisualStyleBackColor = false;
-            this.refreshPrevFullBtn.Click += new System.EventHandler(this.refreshPrevFullBtn_Click);
+            this.prevCutoutLabel.AutoSize = true;
+            this.prevCutoutLabel.Location = new System.Drawing.Point(6, 48);
+            this.prevCutoutLabel.Name = "prevCutoutLabel";
+            this.prevCutoutLabel.Size = new System.Drawing.Size(38, 13);
+            this.prevCutoutLabel.TabIndex = 8;
+            this.prevCutoutLabel.Text = "Cutout";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(1153, 626);
             this.Controls.Add(this.mainTabControl);
@@ -1196,7 +1214,7 @@ namespace Cupscale
 
         void UpdatePreviewInfo ()
         {
-            previewInfoLabel.Text = "Zoom: " + previewImg.Zoom + "%";
+            PreviewTabHelper.UpdatePreviewLabels(prevZoomLabel, prevSizeLabel, prevCutoutLabel);
         }
 
         private void confAlphaBgColorBtn_Click(object sender, EventArgs e)

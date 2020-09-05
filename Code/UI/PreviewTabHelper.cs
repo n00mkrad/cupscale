@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Numerics;
 using System.Security.AccessControl;
 using System.Windows.Forms;
 using Cupscale.IO;
@@ -19,6 +20,11 @@ namespace Cupscale.UI
 		private static ComboBox basicModel;
 		private static ComboBox outputFormat;
 		private static ComboBox overwrite;
+
+		public static Image currentOriginal;
+		public static Image currentOutput;
+
+		public static int currentScale = 1;
 
 		public static void Init(ImageBox imgBox, ComboBox basicModelBox, ComboBox formatBox, ComboBox overwriteBox)
 		{
@@ -60,14 +66,14 @@ namespace Cupscale.UI
 					Cancel("I/O Error");  
 					return;
 				}
-				ImageProcessing.ConvertImages(ImageProcessing.Format.PngFast, !Config.GetBool("alpha"), true, true);
+				UpscaleProcessing.ConvertImages(UpscaleProcessing.Format.PngFast, !Config.GetBool("alpha"), true, true);
 				string mdl = GetMdl();
 				if (string.IsNullOrWhiteSpace(mdl))
 				{
 					Cancel("Model Not Found");
 					return;
 				}
-				await ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")));
+				await ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None);
 				Postprocessing();
 				AddModelSuffix(Paths.imgOutPath);
 				CopyImagesToOriginalLocation();
@@ -109,17 +115,17 @@ namespace Cupscale.UI
 			await Program.PutTaskDelay();
 			Logger.Log("Postprocessing - outputFormat.SelectedIndex = " + outputFormat.SelectedIndex);
 			if (outputFormat.SelectedIndex == 0)
-				ImageProcessing.ChangeOutputExtensions("png");
+				UpscaleProcessing.ChangeOutputExtensions("png");
 			if (outputFormat.SelectedIndex == 1)
-				ImageProcessing.ConvertImagesToOriginalFormat();
+				UpscaleProcessing.ConvertImagesToOriginalFormat();
 			if (outputFormat.SelectedIndex == 2)
-				ImageProcessing.ConvertImages(ImageProcessing.Format.JpegHigh);
+				UpscaleProcessing.ConvertImages(UpscaleProcessing.Format.JpegHigh);
 			if (outputFormat.SelectedIndex == 3)
-				ImageProcessing.ConvertImages(ImageProcessing.Format.JpegMed);
+				UpscaleProcessing.ConvertImages(UpscaleProcessing.Format.JpegMed);
 			if (outputFormat.SelectedIndex == 4)
-				ImageProcessing.ConvertImages(ImageProcessing.Format.WeppyHigh);
+				UpscaleProcessing.ConvertImages(UpscaleProcessing.Format.WeppyHigh);
 			if (outputFormat.SelectedIndex == 5)
-				ImageProcessing.ConvertImages(ImageProcessing.Format.WeppyLow);
+				UpscaleProcessing.ConvertImages(UpscaleProcessing.Format.WeppyLow);
 		}
 
 		static void AddModelSuffix(string path)
@@ -147,9 +153,11 @@ namespace Cupscale.UI
 		public static async void UpscalePreview(bool fullImage = false)
 		{
 			Program.mainForm.SetPreviewProgress(3f, "Preparing...");
-            if (fullImage)
+			ESRGAN.PreviewMode prevMode = ESRGAN.PreviewMode.Cutout;
+			if (fullImage)
             {
-				if(!IOUtils.TryCopy(Program.lastFilename, Path.Combine(Paths.previewPath, "preview.png"), true)) return;
+				prevMode = ESRGAN.PreviewMode.FullImage;
+				if (!IOUtils.TryCopy(Program.lastFilename, Path.Combine(Paths.previewPath, "preview.png"), true)) return;
 			}
             else
             {
@@ -160,7 +168,7 @@ namespace Cupscale.UI
 				string mdl = GetMdl();
 				if (string.IsNullOrWhiteSpace(mdl)) return;
 				Logger.Log(Paths.previewPath + " - " + Paths.previewOutPath + " - " + mdl + " - " + Config.Get("tilesize") + " - " + bool.Parse(Config.Get("alpha")));
-				await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), isPreview: true);
+				await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), prevMode);
 			}
 		}
 
@@ -194,18 +202,17 @@ namespace Cupscale.UI
 			double zoomFactor = previewImg.ZoomFactor;
 			int num3 = (int)Math.Round(SystemInformation.VerticalScrollBarWidth / zoomFactor);
 			int num4 = (int)Math.Round(SystemInformation.HorizontalScrollBarHeight / zoomFactor);
-			Size size = previewImg.Image.Size;
 			int num5 = (int)Math.Round(sourceImageRegion.Width * zoomFactor);
 			int num6 = (int)Math.Round(sourceImageRegion.Height * zoomFactor);
-			Size size2 = previewImg.GetInsideViewPort().Size;
+			Size size = previewImg.GetInsideViewPort().Size;
 			Logger.Log("Saving current region to bitmap. Offset: " + previewImg.AutoScrollPosition.X + "x" + previewImg.AutoScrollPosition.Y);
 			PreviewMerger.offsetX = (float)previewImg.AutoScrollPosition.X / (float)previewImg.ZoomFactor;
 			PreviewMerger.offsetY = (float)previewImg.AutoScrollPosition.Y / (float)previewImg.ZoomFactor;
-			if (num5 <= size2.Width)
+			if (num5 <= size.Width)
 			{
 				num3 = 0;
 			}
-			if (num6 <= size2.Height)
+			if (num6 <= size.Height)
 			{
 				num4 = 0;
 			}
@@ -221,6 +228,30 @@ namespace Cupscale.UI
 				graphics.DrawImage(previewImg.Image, new Rectangle(0, 0, num, num2), sourceImageRegion, GraphicsUnit.Pixel);
 			}
 			return bitmap;
+		}
+
+		public static SizeF GetCutoutSize ()
+        {
+			SizeF cutoutSize = previewImg.GetSourceImageRegion().Size;
+			cutoutSize.Width = (int)Math.Round(cutoutSize.Width);
+			cutoutSize.Height = (int)Math.Round(cutoutSize.Height);
+			return cutoutSize; 
+		}
+
+		public static void ResetCachedImages()
+		{
+			currentOriginal = null;
+			currentOutput = null;
+		}
+
+		public static void UpdatePreviewLabels(Label zoom, Label size, Label cutout)
+        {
+			int currScale = currentScale;
+			int cutoutW = (int)GetCutoutSize().Width;
+			int cutoutH = (int)GetCutoutSize().Height;
+			zoom.Text = "Zoom: " + previewImg.Zoom + "% (Original: " + previewImg.Zoom * currScale + "%)";
+			size.Text = "Size: " + previewImg.Image.Width + "x" + previewImg.Image.Height + " (Original: " + previewImg.Image.Width / currScale + "x" + previewImg.Image.Height / currScale + ")";
+			cutout.Text = "Cutout: " + cutoutW + "x" + cutoutH + " (Original: " + cutoutW / currScale + "x" + cutoutH / currScale + ")";// + "% - Unscaled Size: " + previewImg.Image.Size * currScale + "%";
 		}
 	}
 }
