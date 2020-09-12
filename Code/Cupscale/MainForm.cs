@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing;
 using System.Windows.Forms;
 using Cupscale.UI;
 using Cyotek.Windows.Forms;
@@ -208,6 +207,8 @@ namespace Cupscale
 			string[] array = e.Data.GetData(DataFormats.FileDrop) as string[];
             previewImg.Text = "";
 			PreviewTabHelper.ResetCachedImages();
+            if (!PreviewTabHelper.DroppedImageIsValid(array[0]))
+                return;
             previewImg.Image = IOUtils.GetImage(array[0]);
             Program.lastFilename = array[0];
             PreviewTabHelper.currentScale = 1;
@@ -260,6 +261,7 @@ namespace Cupscale
             this.panel3 = new System.Windows.Forms.Panel();
             this.refreshPrevFullBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.prevCutoutLabel = new System.Windows.Forms.Label();
             this.prevSizeLabel = new System.Windows.Forms.Label();
             this.prevZoomLabel = new System.Windows.Forms.Label();
             this.previewGroupbox = new System.Windows.Forms.GroupBox();
@@ -306,7 +308,6 @@ namespace Cupscale
             this.label4 = new System.Windows.Forms.Label();
             this.confSaveBtn = new System.Windows.Forms.Button();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
-            this.prevCutoutLabel = new System.Windows.Forms.Label();
             this.mainTabControl.SuspendLayout();
             this.upscaleTab.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -565,6 +566,15 @@ namespace Cupscale
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Preview Info";
             // 
+            // prevCutoutLabel
+            // 
+            this.prevCutoutLabel.AutoSize = true;
+            this.prevCutoutLabel.Location = new System.Drawing.Point(6, 48);
+            this.prevCutoutLabel.Name = "prevCutoutLabel";
+            this.prevCutoutLabel.Size = new System.Drawing.Size(38, 13);
+            this.prevCutoutLabel.TabIndex = 8;
+            this.prevCutoutLabel.Text = "Cutout";
+            // 
             // prevSizeLabel
             // 
             this.prevSizeLabel.AutoSize = true;
@@ -721,6 +731,7 @@ namespace Cupscale
             this.previewImg.TabStop = false;
             this.previewImg.Text = "Drag And Drop An Image Into This Area";
             this.previewImg.Zoomed += new System.EventHandler<Cyotek.Windows.Forms.ImageBoxZoomEventArgs>(this.previewImg_Zoomed);
+            this.previewImg.Click += new System.EventHandler(this.previewImg_Click);
             this.previewImg.DragDrop += new System.Windows.Forms.DragEventHandler(this.previewImg_DragDrop);
             this.previewImg.DragEnter += new System.Windows.Forms.DragEventHandler(this.previewImg_DragEnter);
             this.previewImg.MouseDown += new System.Windows.Forms.MouseEventHandler(this.previewImg_MouseDown);
@@ -1143,15 +1154,6 @@ namespace Cupscale
             this.confSaveBtn.UseVisualStyleBackColor = false;
             this.confSaveBtn.Click += new System.EventHandler(this.confSaveEsrganBtn_Click);
             // 
-            // prevCutoutLabel
-            // 
-            this.prevCutoutLabel.AutoSize = true;
-            this.prevCutoutLabel.Location = new System.Drawing.Point(6, 48);
-            this.prevCutoutLabel.Name = "prevCutoutLabel";
-            this.prevCutoutLabel.Size = new System.Drawing.Size(38, 13);
-            this.prevCutoutLabel.TabIndex = 8;
-            this.prevCutoutLabel.Text = "Cutout";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1210,6 +1212,7 @@ namespace Cupscale
         private void previewImg_Zoomed(object sender, ImageBoxZoomEventArgs e)
         {
             UpdatePreviewInfo();
+            if (previewImg.Zoom < 25) previewImg.Zoom = 25;
         }
 
         void UpdatePreviewInfo ()
@@ -1228,6 +1231,11 @@ namespace Cupscale
         private void refreshPrevFullBtn_Click(object sender, EventArgs e)
         {
             PreviewTabHelper.UpscalePreview(true);
+        }
+
+        private void previewImg_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

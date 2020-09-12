@@ -4,6 +4,7 @@ using System.Drawing.Drawing2D;
 using System.IO;
 using System.Numerics;
 using System.Security.AccessControl;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cupscale.IO;
 using Cupscale.OS;
@@ -37,21 +38,13 @@ namespace Cupscale.UI
 		public static void UpdateMode(int tabIndex)
 		{
 			if (tabIndex == 0)
-			{
 				currentMode = Mode.Basic;
-			}
 			if (tabIndex == 1)
-			{
 				currentMode = Mode.Interp;
-			}
 			if (tabIndex == 2)
-			{
 				currentMode = Mode.Chain;
-			}
 			if (tabIndex == 3)
-			{
 				currentMode = Mode.Advanced;
-			}
 		}
 
 		public static async void UpscaleImage()
@@ -63,7 +56,7 @@ namespace Cupscale.UI
 				Program.mainForm.SetPreviewProgress(3f, "Preprocessing...");
 				if (!CopyImage())  // Try to copy/move image to input folder, return if failed
 				{
-					Cancel("I/O Error");  
+					Cancel("I/O Error");
 					return;
 				}
 				UpscaleProcessing.ConvertImages(UpscaleProcessing.Format.PngFast, !Config.GetBool("alpha"), true, true);
@@ -74,9 +67,9 @@ namespace Cupscale.UI
 					return;
 				}
 				await ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None);
-				Postprocessing();
-				AddModelSuffix(Paths.imgOutPath);
-				CopyImagesToOriginalLocation();
+				await Postprocessing();
+				await AddModelSuffix(Paths.imgOutPath);
+				await CopyImagesToOriginalLocation();
 				Program.mainForm.SetPreviewProgress(0, "Done.");
 			}
 		}
@@ -109,7 +102,7 @@ namespace Cupscale.UI
 			return true;
 		}
 
-		static async void Postprocessing()
+		static async Task Postprocessing()
 		{
 			Program.mainForm.SetPreviewProgress(100f, "Postprocessing...");
 			await Program.PutTaskDelay();
@@ -128,7 +121,7 @@ namespace Cupscale.UI
 				UpscaleProcessing.ConvertImages(UpscaleProcessing.Format.WeppyLow);
 		}
 
-		static void AddModelSuffix(string path)
+		static async Task AddModelSuffix(string path)
 		{
 			DirectoryInfo d = new DirectoryInfo(path);
 			FileInfo[] files = d.GetFiles("*", SearchOption.AllDirectories);
@@ -137,10 +130,11 @@ namespace Cupscale.UI
 				string pathNoExt = Path.ChangeExtension(file.FullName, null);
 				string ext = Path.GetExtension(file.FullName);
 				File.Move(file.FullName, pathNoExt + "-" + Program.lastModelName + ext);
+				await Task.Delay(1);
 			}
 		}
 
-		static void CopyImagesToOriginalLocation()
+		static async Task CopyImagesToOriginalLocation()
 		{
 			if (overwrite.SelectedIndex == 1)
 			{
@@ -148,11 +142,15 @@ namespace Cupscale.UI
 				IOUtils.ReplaceInFilenamesDir(Paths.imgOutPath, "-" + Program.lastModelName, "");
 			}
 			IOUtils.Copy(Paths.imgOutPath, Path.GetDirectoryName(Program.lastFilename));
+			await Task.Delay(1);
 		}
 
 		public static async void UpscalePreview(bool fullImage = false)
 		{
 			Program.mainForm.SetPreviewProgress(3f, "Preparing...");
+			ResetCachedImages();
+			IOUtils.DeleteContentsOfDir(Paths.previewPath);
+			IOUtils.DeleteContentsOfDir(Paths.previewOutPath);
 			ESRGAN.PreviewMode prevMode = ESRGAN.PreviewMode.Cutout;
 			if (fullImage)
             {
@@ -253,5 +251,24 @@ namespace Cupscale.UI
 			size.Text = "Size: " + previewImg.Image.Width + "x" + previewImg.Image.Height + " (Original: " + previewImg.Image.Width / currScale + "x" + previewImg.Image.Height / currScale + ")";
 			cutout.Text = "Cutout: " + cutoutW + "x" + cutoutH + " (Original: " + cutoutW / currScale + "x" + cutoutH / currScale + ")";// + "% - Unscaled Size: " + previewImg.Image.Size * currScale + "%";
 		}
+
+		public static bool DroppedImageIsValid (string path)
+        {
+            try
+            {
+				Image img =IOUtils.GetImage(path);
+				if(img.Width > 4096 || img.Height > 4096)
+                {
+					MessageBox.Show("Image is too big for the preview!\nPlease use images with less than 4096 pixels on either side.", "Error");
+					return false;
+				}
+            }
+			catch (Exception e)
+            {
+				MessageBox.Show("Failed to open image:\n\n" + e.Message, "Error");
+				return false;
+            }
+			return true;
+        }
 	}
 }

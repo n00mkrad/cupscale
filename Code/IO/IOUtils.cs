@@ -83,11 +83,12 @@ namespace Cupscale
 			return true;
 		}
 
-		public static void Copy(string sourceDirectoryName, string targetDirectoryName, bool move = false)
+		public static void Copy(string sourceDir, string targetDir, bool move = false)
 		{
-			Directory.CreateDirectory(targetDirectoryName);
-			DirectoryInfo source = new DirectoryInfo(sourceDirectoryName);
-			DirectoryInfo target = new DirectoryInfo(targetDirectoryName);
+			Logger.Log("Copying directory \"" + sourceDir + "\" to \"" + targetDir + "\" (Move: " + move + ")");
+			Directory.CreateDirectory(targetDir);
+			DirectoryInfo source = new DirectoryInfo(sourceDir);
+			DirectoryInfo target = new DirectoryInfo(targetDir);
 			CopyWork(source, target, move);
 		}
 

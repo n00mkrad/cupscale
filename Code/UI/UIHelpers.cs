@@ -20,10 +20,8 @@ namespace Cupscale
 		{
 			EsrganData.ReloadModelList();
 			box.Items.Clear();
-			Console.WriteLine("Clearing " + box.ToString() + ".Items");
 			foreach (string model in EsrganData.models)
 			{
-				Console.WriteLine("Adding " + model + " to " + box.ToString() + ".Items");
 				box.Items.Add(model);
 			}
 			if (resetIndex || string.IsNullOrEmpty(box.Text))
