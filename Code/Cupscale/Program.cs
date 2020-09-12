@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cupscale.Forms;
 using Cupscale.IO;
+using ImageMagick;
 
 namespace Cupscale
 {
@@ -11,6 +12,7 @@ namespace Cupscale
 		public static MainForm mainForm;
 		public static string lastFilename;
 		public static string lastModelName;
+		public static FilterType currentFilter = FilterType.Point;
 
 		[STAThread]
 		private static void Main()

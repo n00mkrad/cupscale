@@ -178,11 +178,15 @@ namespace Cupscale
 			if (previewImg.InterpolationMode != InterpolationMode.NearestNeighbor)
 			{
 				previewImg.InterpolationMode = InterpolationMode.NearestNeighbor;
-			}
+                prevToggleFilterBtn.Text = "Switch To Bicubic Filtering";
+                Program.currentFilter = ImageMagick.FilterType.Point;
+            }
 			else
 			{
 				previewImg.InterpolationMode = InterpolationMode.HighQualityBicubic;
-			}
+                prevToggleFilterBtn.Text = "Switch To Point Filtering";
+                Program.currentFilter = ImageMagick.FilterType.Catrom;
+            }
 		}
 
 		private void modelTabControl_PageChanged(object sender, PageChangedEventArgs e)
@@ -658,7 +662,7 @@ namespace Cupscale
             this.prevToggleFilterBtn.Name = "prevToggleFilterBtn";
             this.prevToggleFilterBtn.Size = new System.Drawing.Size(330, 30);
             this.prevToggleFilterBtn.TabIndex = 4;
-            this.prevToggleFilterBtn.Text = "Toggle Filtering Mode (Bilinear/Nearest)";
+            this.prevToggleFilterBtn.Text = "Switch To Bicubic Filtering";
             this.prevToggleFilterBtn.UseVisualStyleBackColor = false;
             this.prevToggleFilterBtn.Click += new System.EventHandler(this.prevToggleFilterBtn_Click);
             // 
