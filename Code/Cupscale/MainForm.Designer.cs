@@ -163,6 +163,7 @@ namespace Cupscale
             this.label4 = new System.Windows.Forms.Label();
             this.confSaveBtn = new System.Windows.Forms.Button();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
+            this.modelDropdown1 = new Cupscale.UI.Controls.ModelDropdown();
             this.mainTabControl.SuspendLayout();
             this.upscaleTab.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -359,6 +360,7 @@ namespace Cupscale
             // interpMdlTab
             // 
             this.interpMdlTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.interpMdlTab.Controls.Add(this.modelDropdown1);
             this.interpMdlTab.Controls.Add(this.label16);
             this.interpMdlTab.Controls.Add(this.label14);
             this.interpMdlTab.Location = new System.Drawing.Point(1, 21);
@@ -1069,6 +1071,18 @@ namespace Cupscale
             this.confSaveBtn.UseVisualStyleBackColor = false;
             this.confSaveBtn.Click += new System.EventHandler(this.confSaveEsrganBtn_Click);
             // 
+            // modelDropdown1
+            // 
+            this.modelDropdown1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.modelDropdown1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.modelDropdown1.ForeColor = System.Drawing.Color.White;
+            this.modelDropdown1.FormattingEnabled = true;
+            this.modelDropdown1.Location = new System.Drawing.Point(5, 28);
+            this.modelDropdown1.Margin = new System.Windows.Forms.Padding(8);
+            this.modelDropdown1.Name = "modelDropdown1";
+            this.modelDropdown1.Size = new System.Drawing.Size(315, 21);
+            this.modelDropdown1.TabIndex = 6;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1118,5 +1132,7 @@ namespace Cupscale
             this.ResumeLayout(false);
 
         }
+
+        private UI.Controls.ModelDropdown modelDropdown1;
     }
 }
