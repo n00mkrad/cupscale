@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Cupscale.Forms;
 using Cupscale.IO;
 using ImageMagick;
+using Paths = Cupscale.IO.Paths;
 
 namespace Cupscale
 {

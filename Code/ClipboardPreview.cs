@@ -22,16 +22,22 @@ namespace Cupscale
             //return;
             int footerHeight = 45;
 
-
-            if (fullImage)
+            try
             {
-                originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-input-scaled.png")));
-                resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-merged.png")));
+                if (fullImage)
+                {
+                    originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-input-scaled.png")));
+                    resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-merged.png")));
+                }
+                else
+                {
+                    originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png")));
+                    resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png")));
+                }
             }
-            else
+            catch
             {
-                originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png")));
-                resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png")));
+                MessageBox.Show("Error creating clipboard preview!", "Error");
             }
 
             int comparisonMod = 1;
@@ -107,16 +113,24 @@ namespace Cupscale
             //return;
             int footerHeight = 45;
 
-            if (fullImage)
+            try
             {
-                originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-input-scaled.png")));
-                resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-merged.png")));
+                if (fullImage)
+                {
+                    originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-input-scaled.png")));
+                    resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-merged.png")));
+                }
+                else
+                {
+                    originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png")));
+                    resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png")));
+                }
             }
-            else
+            catch
             {
-                originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png")));
-                resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png")));
+                MessageBox.Show("Error creating clipboard preview!", "Error");
             }
+            
 
             int comparisonMod = 1;
             //int.TryParse(comparisonMod_comboBox.SelectedValue.ToString(), out comparisonMod);

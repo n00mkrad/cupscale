@@ -37,6 +37,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Cupscale\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Cupscale\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
