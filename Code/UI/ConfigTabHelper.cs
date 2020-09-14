@@ -12,13 +12,13 @@ namespace Cupscale.UI
 			alphaTextbox.Text = Config.Get("alphaBgColor");
 		}
 
-		public static void SaveEsrganSettings(ComboBox tilesizeBox, CheckBox alphaBox, TextBox modelPathBox, TextBox alphaTextbox)
+		public static void SaveSettings(ComboBox tilesizeBox, CheckBox alphaBox, TextBox modelPathBox, TextBox alphaTextbox)
 		{
 			Config.Set("tilesize", tilesizeBox.Text.TrimNumbers());
 			Config.Set("alpha", alphaBox.Checked.ToString());
 			Config.Set("modelPath", modelPathBox.Text.Trim());
 			Config.Set("alphaBgColor", alphaTextbox.Text.Trim());
-			MessageBox.Show("Saved settings to config file.", "Notice");
+			//MessageBox.Show("Saved settings to config file.", "Notice");
 			EsrganData.CheckModelDir();
 		}
 	}

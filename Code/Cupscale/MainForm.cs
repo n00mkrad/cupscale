@@ -10,6 +10,7 @@ using Tab = Manina.Windows.Forms.Tab;
 using ImageBox = Cyotek.Windows.Forms.ImageBox;
 using Cupscale.Properties;
 using System.Drawing.Drawing2D;
+using Cupscale.Forms;
 
 namespace Cupscale
 {
@@ -21,16 +22,13 @@ namespace Cupscale
 			EsrganData.ReloadModelList();
 			CheckForIllegalCrossThreadCalls = false;
 			InitializeComponent();
-			ConfigTabHelper.LoadEsrganSettings(confTilesize, confAlpha, modelPathBox, confAlphaBgColorTbox);
-			PreviewTabHelper.Init(previewImg, singleModelBox, prevOutputFormatCombox, prevOverwriteCombox);
-			UIHelpers.FillModelComboBox(singleModelBox);
+			PreviewTabHelper.Init(previewImg, modelCombox1, modelCombox2, prevOutputFormatCombox, prevOverwriteCombox);
 			Program.mainForm = this;
 			WindowState = FormWindowState.Maximized;
 		}
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			Logger.textbox = logTbox;
             UIHelpers.InitCombox(prevOverwriteCombox, 0);
             UIHelpers.InitCombox(prevOutputFormatCombox, 0);
             UIHelpers.InitCombox(prevClipboardTypeCombox, 0);
@@ -46,11 +44,6 @@ namespace Cupscale
 		private void refreshModelsBtn_Click(object sender, EventArgs e)
 		{
 			EsrganData.ReloadModelList();
-		}
-
-		private void confSaveEsrganBtn_Click(object sender, EventArgs e)
-		{
-			ConfigTabHelper.SaveEsrganSettings(confTilesize, confAlpha, modelPathBox, confAlphaBgColorTbox);
 		}
 
 		private void refreshPrevBtn_Click(object sender, EventArgs e)
@@ -72,11 +65,6 @@ namespace Cupscale
                 prevToggleFilterBtn.Text = "Switch To Point Filtering";
                 Program.currentFilter = ImageMagick.FilterType.Catrom;
             }
-		}
-
-		private void modelTabControl_PageChanged(object sender, PageChangedEventArgs e)
-		{
-			PreviewTabHelper.UpdateMode(modelTabControl.SelectedIndex);
 		}
 
 		private void previewImg_DragEnter(object sender, DragEventArgs e)
@@ -128,11 +116,6 @@ namespace Cupscale
 			base.Dispose(disposing);
 		}
 
-        private void singleModelBox_DropDown(object sender, EventArgs e)
-        {
-            UIHelpers.FillModelComboBox(singleModelBox);
-        }
-
         private void copyComparisonClipboardBtn_Click(object sender, EventArgs e)
         {
             if(prevClipboardTypeCombox.SelectedIndex == 0) ClipboardPreview.CopyToClipboardSideBySide();
@@ -150,17 +133,48 @@ namespace Cupscale
             PreviewTabHelper.UpdatePreviewLabels(prevZoomLabel, prevSizeLabel, prevCutoutLabel);
         }
 
-        private void confAlphaBgColorBtn_Click(object sender, EventArgs e)
-        {
-            alphaBgColorDialog.ShowDialog();
-            string colorStr = ColorTranslator.ToHtml(Color.FromArgb(alphaBgColorDialog.Color.ToArgb())).Replace("#", "") + "FF";
-            confAlphaBgColorTbox.Text = colorStr;
-            Config.Set("alphaBgColor", colorStr);
-        }
-
         private void refreshPrevFullBtn_Click(object sender, EventArgs e)
         {
             PreviewTabHelper.UpscalePreview(true);
+        }
+
+        private void settingsBtn_Click(object sender, EventArgs e)
+        {
+			SettingsForm settingsForm = new SettingsForm();
+        }
+
+        private void singleModelRbtn_CheckedChanged(object sender, EventArgs e)
+        {
+			UpdateModelMode();
+		}
+
+        private void interpRbtn_CheckedChanged(object sender, EventArgs e)
+        {
+			UpdateModelMode();
+		}
+
+        private void chainRbtn_CheckedChanged(object sender, EventArgs e)
+        {
+			UpdateModelMode();
+		}
+
+		public void UpdateModelMode()
+		{
+			modelCombox2.Enabled = (interpRbtn.Checked || chainRbtn.Checked);
+			interpConfigureBtn.Visible = interpRbtn.Checked;
+			if (singleModelRbtn.Checked) PreviewTabHelper.currentMode = PreviewTabHelper.Mode.Single;
+			if (interpRbtn.Checked) PreviewTabHelper.currentMode = PreviewTabHelper.Mode.Interp;
+			if (chainRbtn.Checked) PreviewTabHelper.currentMode = PreviewTabHelper.Mode.Chain;
+		}
+
+        private void interpConfigureBtn_Click(object sender, EventArgs e)
+        {
+			if (modelCombox1.SelectedIndex == -1 || modelCombox2.SelectedIndex == -1)
+            {
+				MessageBox.Show("Please select two models for interpolation.", "Message");
+				return;
+            }
+			InterpForm interpForm = new InterpForm(modelCombox1.Text.Trim(), modelCombox2.Text.Trim());
         }
     }
 }

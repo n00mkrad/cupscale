@@ -32,7 +32,7 @@ namespace Cupscale
 
 		public static void ReplaceImageAtSameScale(ImageBox imgBox, Image newImg)
 		{
-			Logger.Log("Replacing image on " + imgBox.Name + " with new image (" + newImg.Width + "x" + newImg.Height + ")");
+			//Logger.Log("Replacing image on " + imgBox.Name + " with new image (" + newImg.Width + "x" + newImg.Height + ")");
 			float num = (float)imgBox.Image.Width / (float)newImg.Width;
 			float num2 = (float)imgBox.AutoScrollPosition.X / num;
 			float num3 = (float)imgBox.AutoScrollPosition.Y / num;

@@ -14,10 +14,12 @@ namespace Cupscale.OS
 		private static Process currentProcess;
 
 		public enum PreviewMode { None, Cutout, FullImage }
-		public static async Task UpscaleBasic(string inpath, string outpath, string model, string tilesize, bool alpha, PreviewMode mode)
+		
+
+		public static async Task UpscaleBasic(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode)
 		{
-			string formattedModelPath = Config.Get("modelPath").Replace("/", "\\").TrimEnd('\\');
-			string modelArg = "\"" + formattedModelPath + "/" + model + ".pth\"";
+			string modelArg = GetModelArg(mdl);
+			Logger.Log("Model Arg: " + modelArg);
 			Program.mainForm.SetPreviewProgress(5f, "Starting ESRGAN...");
 			await Run(inpath, outpath, modelArg, tilesize, alpha);
 			File.Delete(Paths.progressLogfile);
@@ -42,6 +44,32 @@ namespace Cupscale.OS
 			}
 		}
 
+		public static string GetModelArg (ModelData modelData)
+        {
+			string mdl1 = modelData.model1;
+			string mdl2 = modelData.model2;
+			ModelData.ModelMode mdlMode = modelData.mode;
+			string mdlPath = Config.Get("modelPath").Replace("/", "\\").TrimEnd('\\');
+			if(mdlMode == ModelData.ModelMode.Single)
+            {
+				Program.lastModelName = mdl1;
+				return " --model \"" + mdlPath + "/" + mdl1 + ".pth\"";
+			}
+			if (mdlMode == ModelData.ModelMode.Interp)
+			{
+				int interpLeft = 100 - modelData.interp;
+				int interpRight = modelData.interp;
+				Program.lastModelName = mdl1 + ":" + interpLeft + ":" + mdl2 + ":" + interpRight;
+				return " --model \"" + mdlPath + "/" + mdl1 + ".pth\";" + interpLeft + ";" + "\"" + mdlPath + "/" + mdl2 + ".pth\";" + interpRight;
+			}
+			if (mdlMode == ModelData.ModelMode.Chain)
+			{
+				Program.lastModelName = mdl1 + ">>" + mdl2;
+				return " --prefilter  \"" + mdlPath + "/" + mdl1 + ".pth\" --model \"" + mdlPath + "/" + mdl2 + ".pth\"";
+			}
+			return null;
+		}
+
 		public static async Task Run(string inpath, string outpath, string modelArg, string tilesize, bool alpha)
 		{
 			inpath = "\"" + inpath + "\"";
@@ -52,7 +80,7 @@ namespace Cupscale.OS
 				alphaStr = "";
 			}
 			string cmd2 = "/C cd /D \"" + Config.Get("esrganPath") + "\" & ";
-			cmd2 = cmd2 + "python esrlmain.py " + inpath + " " + outpath + " --tilesize " + tilesize + alphaStr + " --model " + modelArg;
+			cmd2 = cmd2 + "python esrlmain.py " + inpath + " " + outpath + " --tilesize " + tilesize + alphaStr + modelArg;
 			Logger.Log("CMD: " + cmd2);
 			Process esrganProcess = new Process();
 			esrganProcess.StartInfo.UseShellExecute = false;
