@@ -1,3 +1,4 @@
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -19,6 +20,11 @@ namespace Cupscale.UI
 		public static int GetInt(this ComboBox combobox)
 		{
 			return int.Parse(combobox.Text.TrimNumbers());
+		}
+
+		public static string GetParentDir (this string path)
+        {
+			return Directory.GetParent(path).FullName;
 		}
 	}
 }

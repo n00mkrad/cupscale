@@ -7,6 +7,7 @@ namespace Cupscale
 	internal class EsrganData
 	{
 		public static List<string> models = new List<string>();
+		public static List<string> modelsFullPath = new List<string>();
 
 		public static void CheckModelDir()
 		{
@@ -30,6 +31,7 @@ namespace Cupscale
 				return;
 			}
 			models.Clear();
+			modelsFullPath.Clear();
 			string[] files = Directory.GetFiles(text);
 			string[] array = files;
 			foreach (string path in array)
@@ -38,6 +40,7 @@ namespace Cupscale
 				if (fileName.EndsWith(".pth"))
 				{
 					models.Add(fileName.Replace(".pth", ""));
+					modelsFullPath.Add(path);
 				}
 			}
 		}

@@ -17,7 +17,7 @@ namespace Cupscale.Forms
         {
             InitializeComponent();
             Show();
-            CenterToParent();
+            CenterToScreen();
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)

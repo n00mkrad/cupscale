@@ -245,5 +245,10 @@ namespace Cupscale
 			if (prevClipboardTypeCombox.SelectedIndex == 0) ClipboardPreview.CopyToClipboardSideBySide();
 			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardPreview.CopyToClipboardSlider();
 		}
+
+        private void model1TreeBtn_Click(object sender, EventArgs e)
+        {
+			new ModelSelectForm();
+        }
     }
 }

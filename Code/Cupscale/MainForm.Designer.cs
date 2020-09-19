@@ -57,6 +57,7 @@ namespace Cupscale
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.model1TreeBtn = new System.Windows.Forms.Button();
             this.interpConfigureBtn = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.chainRbtn = new System.Windows.Forms.RadioButton();
@@ -217,6 +218,7 @@ namespace Cupscale
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.model1TreeBtn);
             this.panel5.Controls.Add(this.interpConfigureBtn);
             this.panel5.Controls.Add(this.label4);
             this.panel5.Controls.Add(this.chainRbtn);
@@ -232,6 +234,22 @@ namespace Cupscale
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(338, 311);
             this.panel5.TabIndex = 1;
+            // 
+            // model1TreeBtn
+            // 
+            this.model1TreeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.model1TreeBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.model1TreeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.model1TreeBtn.ForeColor = System.Drawing.Color.White;
+            this.model1TreeBtn.Location = new System.Drawing.Point(198, 198);
+            this.model1TreeBtn.Name = "model1TreeBtn";
+            this.model1TreeBtn.Size = new System.Drawing.Size(129, 23);
+            this.model1TreeBtn.TabIndex = 17;
+            this.model1TreeBtn.Text = "Tree";
+            this.model1TreeBtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.model1TreeBtn.UseVisualStyleBackColor = false;
+            this.model1TreeBtn.Click += new System.EventHandler(this.model1TreeBtn_Click);
             // 
             // interpConfigureBtn
             // 
@@ -1061,5 +1079,6 @@ namespace Cupscale
         private TextBox batchFileList;
         private TableLayoutPanel tableLayoutPanel7;
         private HTAlt.WinForms.HTButton settingsBtn;
+        private Button model1TreeBtn;
     }
 }
