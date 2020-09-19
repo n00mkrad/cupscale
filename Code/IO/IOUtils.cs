@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Windows.Forms;
 
@@ -10,6 +11,8 @@ namespace Cupscale
 {
 	internal class IOUtils
 	{
+		public static string[] compatibleExtensions = new string[] { ".png", ".jpg", ".jpeg", ".bmp", ".tga", ".webp", ".dds" };
+
 		public static string GetAppDataDir()
 		{
 			string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -25,6 +28,7 @@ namespace Cupscale
 
 		public static Image GetImage(string path)
 		{
+			Logger.Log("IOUtils.GetImage: Reading Image from " + path);
 			using MemoryStream stream = new MemoryStream(File.ReadAllBytes(path));
 			return Image.FromStream(stream);
 		}
@@ -83,25 +87,27 @@ namespace Cupscale
 			return true;
 		}
 
-		public static void Copy(string sourceDir, string targetDir, bool move = false)
+		public static void Copy(string sourceDir, string targetDir, bool move = false, bool onlyCompatibles = false)
 		{
 			Logger.Log("Copying directory \"" + sourceDir + "\" to \"" + targetDir + "\" (Move: " + move + ")");
 			Directory.CreateDirectory(targetDir);
 			DirectoryInfo source = new DirectoryInfo(sourceDir);
 			DirectoryInfo target = new DirectoryInfo(targetDir);
-			CopyWork(source, target, move);
+			CopyWork(source, target, move, onlyCompatibles);
 		}
 
-		private static void CopyWork(DirectoryInfo source, DirectoryInfo target, bool move)
+		private static void CopyWork(DirectoryInfo source, DirectoryInfo target, bool move, bool onlyCompatibles)
 		{
 			DirectoryInfo[] directories = source.GetDirectories();
 			foreach (DirectoryInfo directoryInfo in directories)
 			{
-				CopyWork(directoryInfo, target.CreateSubdirectory(directoryInfo.Name), move);
+				CopyWork(directoryInfo, target.CreateSubdirectory(directoryInfo.Name), move, onlyCompatibles);
 			}
 			FileInfo[] files = source.GetFiles();
 			foreach (FileInfo fileInfo in files)
 			{
+				if (onlyCompatibles && !compatibleExtensions.Contains(fileInfo.Extension))
+					continue;
 				if (move)
 				{
 					fileInfo.MoveTo(Path.Combine(target.FullName, fileInfo.Name));
@@ -125,6 +131,21 @@ namespace Cupscale
 			foreach (DirectoryInfo directoryInfo2 in directories)
 			{
 				directoryInfo2.Delete(recursive: true);
+			}
+		}
+
+		public static void DeleteFilesWithoutExt (string path, bool recursive)
+		{
+			DirectoryInfo d = new DirectoryInfo(path);
+			FileInfo[] files = null;
+			if (recursive)
+				files = d.GetFiles("*", SearchOption.AllDirectories);
+			else
+				files = d.GetFiles("*", SearchOption.TopDirectoryOnly);
+			foreach (FileInfo fileInfo in files)
+			{
+				if(string.IsNullOrWhiteSpace(fileInfo.Extension))
+					fileInfo.Delete();
 			}
 		}
 
@@ -157,6 +178,21 @@ namespace Cupscale
 			File.Move(path, targetPath);
 		}
 
+		public static void RenameExtensions (string dir, string oldExt, string newExt, bool recursive = true, string wildcard = "*")
+		{
+			DirectoryInfo d = new DirectoryInfo(dir);
+			FileInfo[] files = null;
+			if (recursive)
+				files = d.GetFiles(wildcard, SearchOption.AllDirectories);
+			else
+				files = d.GetFiles(wildcard, SearchOption.TopDirectoryOnly);
+			foreach (FileInfo file in files)
+			{
+				if (file.Extension.Replace(".","") == oldExt.Replace(".", ""))
+					Path.ChangeExtension(file.FullName, newExt);
+			}
+		}
+
 		public static bool TryCopy (string source, string dest, bool overwrite)		// Copy with error handling. Returns false if failed
         {
             try
@@ -170,5 +206,31 @@ namespace Cupscale
             }
 			return true;
         }
+
+		public static int GetAmountOfFiles(string path, bool recursive, string wildcard = "*")
+		{
+			DirectoryInfo d = new DirectoryInfo(path);
+			FileInfo[] files = null;
+			if (recursive)
+				files = d.GetFiles(wildcard, SearchOption.AllDirectories);
+			else
+				files = d.GetFiles(wildcard, SearchOption.TopDirectoryOnly);
+			return files.Length;
+		}
+
+		public static int GetAmountOfCompatibleFiles(string path, bool recursive, string wildcard = "*")
+		{
+			DirectoryInfo d = new DirectoryInfo(path);
+			string[] files = null;
+			SearchOption rec = SearchOption.AllDirectories;
+			SearchOption top = SearchOption.TopDirectoryOnly;
+			StringComparison ignCase = StringComparison.OrdinalIgnoreCase;
+
+			if (recursive)
+				files = Directory.GetFiles(path, wildcard, rec).Where(file => compatibleExtensions.Any(x => file.EndsWith(x, ignCase))).ToArray();
+			else
+				files = Directory.GetFiles(path, wildcard, top).Where(file => compatibleExtensions.Any(x => file.EndsWith(x, ignCase))).ToArray();
+			return files.Length;
+		}
 	}
 }

@@ -15,9 +15,15 @@ namespace Cupscale.Forms
         public DialogForm(string message)
         {
             InitializeComponent();
+            Program.currentTemporaryForms.Add(this);
             mainLabel.Text = message;
             Show();
             TopMost = true;
+        }
+
+        private void DialogForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Program.currentTemporaryForms.Remove(this);
         }
     }
 }

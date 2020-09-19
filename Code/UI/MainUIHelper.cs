@@ -7,25 +7,27 @@ using System.Security.AccessControl;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cupscale.IO;
+using Cupscale.Main;
 using Cupscale.OS;
 using Cyotek.Windows.Forms;
-using shellUpscaler;
+using ImageMagick;
+using Paths = Cupscale.IO.Paths;
 
 namespace Cupscale.UI
 {
-    internal class PreviewTabHelper
+    internal class MainUIHelper
     {
         public enum Mode { Single, Interp, Chain, Advanced }
         public static Mode currentMode;
         public static ImageBox previewImg;
 
-        private static ComboBox model1;
-        private static ComboBox model2;
+        public static ComboBox model1;
+        public static ComboBox model2;
 
         public static int interpValue;
 
-        private static ComboBox outputFormat;
-        private static ComboBox overwrite;
+        public static ComboBox outputFormat;
+        public static ComboBox overwrite;
 
         public static Image currentOriginal;
         public static Image currentOutput;
@@ -43,50 +45,31 @@ namespace Cupscale.UI
 
         public static async void UpscaleImage()
         {
+            Program.mainForm.SetBusy(true);
             IOUtils.DeleteContentsOfDir(Paths.imgInPath);
             IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
-            Program.mainForm.SetPreviewProgress(3f, "Preprocessing...");
+            Program.mainForm.SetProgress(3f, "Preprocessing...");
             if (!CopyImage())  // Try to copy/move image to input folder, return if failed
             {
                 Cancel("I/O Error");
                 return;
             }
-            UpscaleProcessing.ConvertImages(UpscaleProcessing.Format.PngFast, !Config.GetBool("alpha"), true, true);
-            ModelData mdl = new ModelData();
-
-            if (currentMode == Mode.Single)
-            {
-                string mdl1 = GetMdl(model1);
-                if (string.IsNullOrWhiteSpace(mdl1)) return;
-                mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
-            }
-            if (currentMode == Mode.Interp)
-            {
-                string mdl1 = GetMdl(model1);
-                string mdl2 = GetMdl(model2);
-                if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
-                mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, 80);
-            }
-            if (currentMode == Mode.Chain)
-            {
-                string mdl1 = GetMdl(model1);
-                string mdl2 = GetMdl(model2);
-                if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
-                mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
-            }
+            await UpscaleProcessing.ConvertImages(Paths.imgInPath, UpscaleProcessing.Format.PngFast, !Config.GetBool("alpha"), true, true);
+            ModelData mdl = Upscale.GetModelData();
             await ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None);
-            await Postprocessing();
-            await AddModelSuffix(Paths.imgOutPath);
-            await CopyImagesToOriginalLocation();
-            Program.mainForm.SetPreviewProgress(0, "Done.");
+            await Upscale.Postprocessing();
+            await Upscale.FilenamePostprocessing();
+            await Upscale.CopyImagesTo(Path.GetDirectoryName(Program.lastFilename));
+            Program.mainForm.SetProgress(0, "Done.");
+            Program.mainForm.SetBusy(false);
         }
 
         static void Cancel(string reason = "")
         {
             if (string.IsNullOrWhiteSpace(reason))
-                Program.mainForm.SetPreviewProgress(0f, "Cancelled.");
+                Program.mainForm.SetProgress(0f, "Cancelled.");
             else
-                Program.mainForm.SetPreviewProgress(0f, "Cancelled: " + reason);
+                Program.mainForm.SetProgress(0f, "Cancelled: " + reason);
             string inputImgPath = Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastFilename));
             if (overwrite.SelectedIndex == 1 && File.Exists(inputImgPath) && !File.Exists(Program.lastFilename))    // Copy image back if overwrite mode was on
                 File.Move(inputImgPath, Program.lastFilename);
@@ -96,10 +79,10 @@ namespace Cupscale.UI
         {
             try
             {
-                if (overwrite.SelectedIndex == 1)
-                    File.Move(Program.lastFilename, Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastFilename)));
-                else
-                    File.Copy(Program.lastFilename, Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastFilename)));
+                //if (overwrite.SelectedIndex == 1)
+                //    File.Move(Program.lastFilename, Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastFilename)));
+                //else
+                File.Copy(Program.lastFilename, Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastFilename)));
             }
             catch (Exception e)
             {
@@ -109,52 +92,11 @@ namespace Cupscale.UI
             return true;
         }
 
-        static async Task Postprocessing()
-        {
-            Program.mainForm.SetPreviewProgress(100f, "Postprocessing...");
-            await Program.PutTaskDelay();
-            Logger.Log("Postprocessing - outputFormat.SelectedIndex = " + outputFormat.SelectedIndex);
-            if (outputFormat.SelectedIndex == 0)
-                UpscaleProcessing.ChangeOutputExtensions("png");
-            if (outputFormat.SelectedIndex == 1)
-                UpscaleProcessing.ConvertImagesToOriginalFormat();
-            if (outputFormat.SelectedIndex == 2)
-                UpscaleProcessing.ConvertImages(UpscaleProcessing.Format.JpegHigh);
-            if (outputFormat.SelectedIndex == 3)
-                UpscaleProcessing.ConvertImages(UpscaleProcessing.Format.JpegMed);
-            if (outputFormat.SelectedIndex == 4)
-                UpscaleProcessing.ConvertImages(UpscaleProcessing.Format.WeppyHigh);
-            if (outputFormat.SelectedIndex == 5)
-                UpscaleProcessing.ConvertImages(UpscaleProcessing.Format.WeppyLow);
-        }
-
-        static async Task AddModelSuffix(string path)
-        {
-            DirectoryInfo d = new DirectoryInfo(path);
-            FileInfo[] files = d.GetFiles("*", SearchOption.AllDirectories);
-            foreach (FileInfo file in files)     // Remove PNG extensions
-            {
-                string pathNoExt = Path.ChangeExtension(file.FullName, null);
-                string ext = Path.GetExtension(file.FullName);
-                File.Move(file.FullName, pathNoExt + "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+") + ext);
-                await Task.Delay(1);
-            }
-        }
-
-        static async Task CopyImagesToOriginalLocation()
-        {
-            if (overwrite.SelectedIndex == 1)
-            {
-                Logger.Log("Overwrite mode - removing suffix from filenames");
-                IOUtils.ReplaceInFilenamesDir(Paths.imgOutPath, "-" + Program.lastModelName, "");
-            }
-            IOUtils.Copy(Paths.imgOutPath, Path.GetDirectoryName(Program.lastFilename));
-            await Task.Delay(1);
-        }
 
         public static async void UpscalePreview(bool fullImage = false)
         {
-            Program.mainForm.SetPreviewProgress(3f, "Preparing...");
+            Program.mainForm.SetBusy(true);
+            Program.mainForm.SetProgress(3f, "Preparing...");
             ResetCachedImages();
             IOUtils.DeleteContentsOfDir(Paths.previewPath);
             IOUtils.DeleteContentsOfDir(Paths.previewOutPath);
@@ -168,43 +110,33 @@ namespace Cupscale.UI
             {
                 SaveCurrentCutout();
             }
+            await Upscale.Preprocessing(Paths.previewPath);
             if (currentMode == Mode.Single)
             {
-                string mdl1 = GetMdl(model1);
+                string mdl1 = Upscale.GetMdl(model1);
                 if (string.IsNullOrWhiteSpace(mdl1)) return;
                 ModelData mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
                 await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), prevMode);
             }
             if (currentMode == Mode.Interp)
             {
-                string mdl1 = GetMdl(model1);
-                string mdl2 = GetMdl(model2);
+                string mdl1 = Upscale.GetMdl(model1);
+                string mdl2 = Upscale.GetMdl(model2);
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
-                ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, 80);
+                ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
                 await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), prevMode);
             }
             if (currentMode == Mode.Chain)
             {
-                string mdl1 = GetMdl(model1);
-                string mdl2 = GetMdl(model2);
+                string mdl1 = Upscale.GetMdl(model1);
+                string mdl2 = Upscale.GetMdl(model2);
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
                 ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
                 await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), prevMode);
             }
+            Program.mainForm.SetBusy(false);
         }
 
-        static string GetMdl(ComboBox box)
-        {
-            string mdl = box.Text.Trim();
-            EsrganData.ReloadModelList();
-            if (!EsrganData.models.Contains(mdl))
-            {
-                MessageBox.Show("Model file not found!", "Error");
-                Program.mainForm.SetPreviewProgress(0);
-                return "";
-            }
-            return mdl;
-        }
 
         public static void SaveCurrentCutout()
         {
@@ -278,7 +210,7 @@ namespace Cupscale.UI
         {
             try
             {
-                Image img = IOUtils.GetImage(path);
+                MagickImage img = new MagickImage(path);
                 if (img.Width > 4096 || img.Height > 4096)
                 {
                     MessageBox.Show("Image is too big for the preview!\nPlease use images with less than 4096 pixels on either side.", "Error");

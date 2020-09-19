@@ -1,12 +1,12 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using Cupscale;
 using Cupscale.IO;
 using ImageMagick;
 using Paths = Cupscale.IO.Paths;
 
-namespace shellUpscaler
+namespace Cupscale
 {
 	internal class UpscaleProcessing
 	{
@@ -23,9 +23,9 @@ namespace shellUpscaler
 			DDS
 		}
 
-		public static Button upscaleBtn;
+		//public static Button upscaleBtn;
 
-		public static async void ChangeOutputExtensions(string newExtension)
+		public static void ChangeOutputExtensions(string newExtension)
 		{
 			string path = Paths.imgOutPath;
 			DirectoryInfo d = new DirectoryInfo(path);
@@ -42,7 +42,7 @@ namespace shellUpscaler
 			}
 		}
 
-		public static async void ConvertImagesToOriginalFormat()
+		public static async Task ConvertImagesToOriginalFormat()
 		{
 			string path = Paths.imgOutPath;
 			DirectoryInfo d = new DirectoryInfo(path);
@@ -80,7 +80,8 @@ namespace shellUpscaler
 				{
 					format = Format.DDS;
 				}
-				ConvertImage(file2.FullName, format, false, false, false);
+				await ConvertImage(file2.FullName, format, false, false, false);
+				await Task.Delay(1);
 			}
 		}
 
@@ -89,24 +90,20 @@ namespace shellUpscaler
 			return file.Extension.ToLower().Replace(".", "");
 		}
 
-		public static async void ConvertImages(Format format, bool removeAlpha = false, bool preprocess = false, bool appendExtension = false, bool delSource = true)
+		public static async Task ConvertImages(string path, Format format, bool removeAlpha = false, bool preprocess = false, bool appendExtension = false, bool delSource = true)
 		{
-			string path = Paths.imgOutPath;
-			if (preprocess)
-			{
-				path = Paths.imgInPath;
-			}
 			DirectoryInfo d = new DirectoryInfo(path);
 			FileInfo[] files = d.GetFiles("*", SearchOption.AllDirectories);
 			FileInfo[] array = files;
 			foreach (FileInfo file in array)
 			{
 				Logger.Log("Converting " + file.Name + " to " + format.ToString() + ", appendExtension = " + appendExtension);
-				ConvertImage(file.FullName, format, removeAlpha, appendExtension, delSource);
+				await ConvertImage(file.FullName, format, removeAlpha, appendExtension, delSource);
+				await Task.Delay(1);
 			}
 		}
 
-		public static void ConvertImage(string path, Format format, bool removeAlpha, bool appendExtension, bool deleteSource = true)
+		public static async Task ConvertImage(string path, Format format, bool fillAlpha, bool appendExtension, bool deleteSource = true)
 		{
 			MagickImage img = new MagickImage(path);
 			Logger.Log("Converting: " + img.ToString() + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource);
@@ -160,11 +157,9 @@ namespace shellUpscaler
 				img.Format = (MagickFormat)43;
 				text = "dds";
 			}
-            if (removeAlpha)
+            if (fillAlpha)
             {
-				MagickImage colorImg = new MagickImage(new MagickColor("#" + Config.Get("alphaBgColor")), img.Width, img.Height);
-				colorImg.Composite(img, Gravity.Center, CompositeOperator.Over);
-				// TODO
+				img.ColorAlpha(new MagickColor("#" + Config.Get("alphaBgColor")));
 			}
 			if (appendExtension)
 			{
@@ -187,6 +182,7 @@ namespace shellUpscaler
 					File.Delete(path);
 				}
 			}
+			await Task.Delay(1);
 		}
 	}
 }

@@ -13,7 +13,6 @@
     <ApplicationIcon>CupscaleLogo1.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="BetterTabControl" Version="1.0.19295.1523" />
     <PackageReference Include="Costura.Fody" Version="4.1.0" />
     <PackageReference Include="CyotekImageBox" Version="1.2.1" />
     <PackageReference Include="CyotekTabList" Version="2.0.0" />
@@ -22,6 +21,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="HTAlt.WinForms" Version="0.1.5.1" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.21.1" />
     <PackageReference Include="TabControl" Version="2.1.2" />
   </ItemGroup>

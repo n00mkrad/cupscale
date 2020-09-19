@@ -64,6 +64,7 @@ namespace Cupscale
 				"tilesize" => WriteDefault("tilesize", "512"), 
 				"alpha" => WriteDefault("alpha", "False"),
 				"alphaBgColor" => WriteDefault("alphaBgColor", "000000FF"),
+				"jpegExtension" => WriteDefault("jpegExtension", "jpg"),
 				_ => null, 
 			};
 		}

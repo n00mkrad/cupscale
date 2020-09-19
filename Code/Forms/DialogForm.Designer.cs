@@ -36,6 +36,7 @@
             // 
             this.mainLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainLabel.ForeColor = System.Drawing.Color.White;
             this.mainLabel.Location = new System.Drawing.Point(0, 0);
             this.mainLabel.Name = "mainLabel";
             this.mainLabel.Size = new System.Drawing.Size(300, 50);
@@ -47,6 +48,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(300, 50);
             this.Controls.Add(this.mainLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -54,6 +56,7 @@
             this.Name = "DialogForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DialogForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DialogForm_FormClosing);
             this.ResumeLayout(false);
 
         }

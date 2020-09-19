@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cupscale.Forms;
@@ -12,8 +13,13 @@ namespace Cupscale
 	{
 		public static MainForm mainForm;
 		public static string lastFilename;
+		public static string lastDirPath;
 		public static string lastModelName;
 		public static FilterType currentFilter = FilterType.Point;
+
+		public static List<Form> currentTemporaryForms = new List<Form>();	// Temp forms that get closed when something gets cancelled
+
+		public static bool busy;
 
 		[STAThread]
 		private static void Main()
@@ -30,7 +36,11 @@ namespace Cupscale
 			Application.Run(new MainForm());
 		}
 
-
+		public static void CloseTempForms ()
+        {
+			foreach (Form form in currentTemporaryForms)
+				form.Close();
+        }
 
 		public static async Task PutTaskDelay()
 		{

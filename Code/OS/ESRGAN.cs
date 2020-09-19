@@ -16,31 +16,31 @@ namespace Cupscale.OS
 		public enum PreviewMode { None, Cutout, FullImage }
 		
 
-		public static async Task UpscaleBasic(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode)
+		public static async Task UpscaleBasic(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, bool showTileProgress = true)
 		{
 			string modelArg = GetModelArg(mdl);
 			Logger.Log("Model Arg: " + modelArg);
-			Program.mainForm.SetPreviewProgress(5f, "Starting ESRGAN...");
-			await Run(inpath, outpath, modelArg, tilesize, alpha);
+			Program.mainForm.SetProgress(5f, "Starting ESRGAN...");
+			await Run(inpath, outpath, modelArg, tilesize, alpha, showTileProgress);
 			File.Delete(Paths.progressLogfile);
 			if (mode == PreviewMode.Cutout)
 			{
-				Program.mainForm.SetPreviewProgress(100f, "Merging into preview...");
+				Program.mainForm.SetProgress(100f, "Merging into preview...");
 				await Program.PutTaskDelay();
 				PreviewMerger.Merge();
 			}
 			if (mode == PreviewMode.FullImage)
 			{
-				Program.mainForm.SetPreviewProgress(100f, "Merging into preview...");
+				Program.mainForm.SetProgress(100f, "Merging into preview...");
 				await Program.PutTaskDelay();
 				Image outImg = IOUtils.GetImage(Path.Combine(Paths.previewOutPath, "preview.png"));
 				Image inputImg = IOUtils.GetImage(Program.lastFilename);
-				PreviewTabHelper.previewImg.Image = outImg;
-				PreviewTabHelper.currentOriginal = inputImg;
-				PreviewTabHelper.currentOutput = outImg;
-				PreviewTabHelper.currentScale = ImgUtils.GetScale(inputImg, outImg);
-				PreviewTabHelper.previewImg.ZoomToFit();
-				Program.mainForm.SetPreviewProgress(0f, "Done.");
+				MainUIHelper.previewImg.Image = outImg;
+				MainUIHelper.currentOriginal = inputImg;
+				MainUIHelper.currentOutput = outImg;
+				MainUIHelper.currentScale = ImgUtils.GetScale(inputImg, outImg);
+				MainUIHelper.previewImg.ZoomToFit();
+				Program.mainForm.SetProgress(0f, "Done.");
 			}
 		}
 
@@ -70,7 +70,7 @@ namespace Cupscale.OS
 			return null;
 		}
 
-		public static async Task Run(string inpath, string outpath, string modelArg, string tilesize, bool alpha)
+		public static async Task Run(string inpath, string outpath, string modelArg, string tilesize, bool alpha, bool showTileProgress)
 		{
 			inpath = "\"" + inpath + "\"";
 			outpath = "\"" + outpath + "\"";
@@ -97,7 +97,8 @@ namespace Cupscale.OS
 			esrganProcess.BeginErrorReadLine();
 			while (!esrganProcess.HasExited)
 			{
-				UpdateProgressFromFile();
+				if(showTileProgress)
+					await UpdateProgressFromFile();
 				await Task.Delay(100);
 			}
 			File.Delete(Paths.progressLogfile);
@@ -126,7 +127,7 @@ namespace Cupscale.OS
 		}
 
 		static string lastProgressString = "";
-		private static void UpdateProgressFromFile()
+		private static async Task UpdateProgressFromFile()
 		{
 			string progressLogFile = Paths.progressLogfile;
 			if (!File.Exists(progressLogFile))
@@ -144,7 +145,8 @@ namespace Cupscale.OS
 			int num2 = int.Parse(text.Split('/')[1]);
 			float previewProgress = (float)num / (float)num2 * 100f;
 			Logger.Log(" = " + previewProgress);
-			Program.mainForm.SetPreviewProgress(previewProgress, "Upscaling tiles - " + previewProgress.ToString("0") + "%");
+			Program.mainForm.SetProgress(previewProgress, "Upscaling tiles - " + previewProgress.ToString("0") + "%");
+			await Task.Delay(1);
 		}
 	}
 }

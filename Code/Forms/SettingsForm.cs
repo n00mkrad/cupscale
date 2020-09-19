@@ -24,12 +24,12 @@ namespace Cupscale.Forms
         {
             Program.mainForm.Enabled = false;
             Logger.textbox = logTbox;
-            ConfigTabHelper.LoadEsrganSettings(confTilesize, confAlpha, modelPathBox, confAlphaBgColorTbox);
+            ConfigTabHelper.LoadEsrganSettings(confTilesize, confAlpha, modelPathBox, alphaColorTbox, jpegExtBox);
         }
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ConfigTabHelper.SaveSettings(confTilesize, confAlpha, modelPathBox, confAlphaBgColorTbox);
+            ConfigTabHelper.SaveSettings(confTilesize, confAlpha, modelPathBox, alphaColorTbox, jpegExtBox);
             Program.mainForm.Enabled = true;
         }
 
@@ -37,7 +37,7 @@ namespace Cupscale.Forms
         {
             alphaBgColorDialog.ShowDialog();
             string colorStr = ColorTranslator.ToHtml(Color.FromArgb(alphaBgColorDialog.Color.ToArgb())).Replace("#", "") + "FF";
-            confAlphaBgColorTbox.Text = colorStr;
+            alphaColorTbox.Text = colorStr;
             Config.Set("alphaBgColor", colorStr);
         }
 

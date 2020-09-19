@@ -34,7 +34,7 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.confAlphaBgColorBtn = new System.Windows.Forms.Button();
-            this.confAlphaBgColorTbox = new System.Windows.Forms.TextBox();
+            this.alphaColorTbox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.confAlpha = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -48,6 +48,8 @@
             this.logPage = new Cyotek.Windows.Forms.TabListPage();
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
+            this.label1 = new System.Windows.Forms.Label();
+            this.jpegExtBox = new System.Windows.Forms.TextBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -95,8 +97,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.jpegExtBox);
+            this.panel7.Controls.Add(this.label1);
             this.panel7.Controls.Add(this.confAlphaBgColorBtn);
-            this.panel7.Controls.Add(this.confAlphaBgColorTbox);
+            this.panel7.Controls.Add(this.alphaColorTbox);
             this.panel7.Controls.Add(this.label9);
             this.panel7.Controls.Add(this.confAlpha);
             this.panel7.Controls.Add(this.label7);
@@ -123,12 +127,12 @@
             // 
             // confAlphaBgColorTbox
             // 
-            this.confAlphaBgColorTbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.confAlphaBgColorTbox.ForeColor = System.Drawing.Color.White;
-            this.confAlphaBgColorTbox.Location = new System.Drawing.Point(160, 137);
-            this.confAlphaBgColorTbox.Name = "confAlphaBgColorTbox";
-            this.confAlphaBgColorTbox.Size = new System.Drawing.Size(66, 20);
-            this.confAlphaBgColorTbox.TabIndex = 8;
+            this.alphaColorTbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.alphaColorTbox.ForeColor = System.Drawing.Color.White;
+            this.alphaColorTbox.Location = new System.Drawing.Point(160, 137);
+            this.alphaColorTbox.Name = "confAlphaBgColorTbox";
+            this.alphaColorTbox.Size = new System.Drawing.Size(66, 20);
+            this.alphaColorTbox.TabIndex = 8;
             // 
             // label9
             // 
@@ -244,7 +248,7 @@
             // 
             this.logPage.Controls.Add(this.logTbox);
             this.logPage.Name = "logPage";
-            this.logPage.Size = new System.Drawing.Size(762, 469);
+            this.logPage.Size = new System.Drawing.Size(812, 469);
             this.logPage.Text = "View Log";
             // 
             // logTbox
@@ -257,9 +261,27 @@
             this.logTbox.Multiline = true;
             this.logTbox.Name = "logTbox";
             this.logTbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.logTbox.Size = new System.Drawing.Size(762, 469);
+            this.logTbox.Size = new System.Drawing.Size(812, 469);
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 170);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "JPEG File Extension";
+            // 
+            // jpegExtBox
+            // 
+            this.jpegExtBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.jpegExtBox.ForeColor = System.Drawing.Color.White;
+            this.jpegExtBox.Location = new System.Drawing.Point(160, 167);
+            this.jpegExtBox.Name = "jpegExtBox";
+            this.jpegExtBox.Size = new System.Drawing.Size(66, 20);
+            this.jpegExtBox.TabIndex = 12;
             // 
             // SettingsForm
             // 
@@ -295,7 +317,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Button confAlphaBgColorBtn;
-        private System.Windows.Forms.TextBox confAlphaBgColorTbox;
+        private System.Windows.Forms.TextBox alphaColorTbox;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox confAlpha;
         private System.Windows.Forms.Label label7;
@@ -307,5 +329,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ColorDialog alphaBgColorDialog;
+        private System.Windows.Forms.TextBox jpegExtBox;
+        private System.Windows.Forms.Label label1;
     }
 }

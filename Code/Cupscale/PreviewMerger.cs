@@ -21,7 +21,7 @@ namespace Cupscale
 
 		public static void Merge()
 		{
-			Program.mainForm.SetPreviewProgress(100f);
+			Program.mainForm.SetProgress(100f);
 			inputCutoutPath = Path.Combine(Paths.previewPath, "preview.png");
 			outputCutoutPath = Path.Combine(Paths.previewOutPath, "preview.png");
 			if (offsetX < 0f)
@@ -39,20 +39,21 @@ namespace Cupscale
 			MagickImage sourceImg = new MagickImage(Program.lastFilename);
 			MagickImage cutout = new MagickImage(outputCutoutPath);
 			sourceImg.FilterType = Program.currentFilter;
-			sourceImg.Scale(new Percentage(num * 100));
+			Logger.Log("Scaling preview-input-scaled.png with filter " + sourceImg.FilterType + " which should match " + Program.currentFilter);
+			sourceImg.Resize(new Percentage(num * 100));
 			string scaledPrevPath = Path.Combine(Paths.previewOutPath, "preview-input-scaled.png");
-			sourceImg.Format = MagickFormat.Jpg;
-			sourceImg.Quality = 98;
+			sourceImg.Format = MagickFormat.Png;
+			sourceImg.Quality = 0;	// Save preview as uncompressed PNG for max speed
 			sourceImg.Write(scaledPrevPath);
-			sourceImg.Composite(cutout, (Gravity)1, new PointD(offsetX, offsetY));
-			string text2 = Path.Combine(Paths.previewOutPath, "preview-merged.png");
-			sourceImg.Write(text2);
-			Image image = IOUtils.GetImage(text2);
-			PreviewTabHelper.currentOriginal = IOUtils.GetImage(scaledPrevPath);
-			PreviewTabHelper.currentOutput = image;
-			PreviewTabHelper.currentScale = ImgUtils.GetScale(IOUtils.GetImage(inputCutoutPath), IOUtils.GetImage(outputCutoutPath));
-			UIHelpers.ReplaceImageAtSameScale(PreviewTabHelper.previewImg, image);
-			Program.mainForm.SetPreviewProgress(0f, "Done.");
+			sourceImg.Composite(cutout, (Gravity)1, new PointD(offsetX, offsetY), CompositeOperator.Replace);
+			string mergedPreviewPath = Path.Combine(Paths.previewOutPath, "preview-merged.png");
+			sourceImg.Write(mergedPreviewPath);
+			Image image = IOUtils.GetImage(mergedPreviewPath);
+			MainUIHelper.currentOriginal = IOUtils.GetImage(scaledPrevPath);
+			MainUIHelper.currentOutput = image;
+			MainUIHelper.currentScale = ImgUtils.GetScale(IOUtils.GetImage(inputCutoutPath), IOUtils.GetImage(outputCutoutPath));
+			UIHelpers.ReplaceImageAtSameScale(MainUIHelper.previewImg, image);
+			Program.mainForm.SetProgress(0f, "Done.");
 		}
 
 		private static int GetScale()
@@ -66,19 +67,19 @@ namespace Cupscale
 
 		public static void ShowOutput()
 		{
-			if (PreviewTabHelper.currentOutput != null)
+			if (MainUIHelper.currentOutput != null)
 			{
 				showingOriginal = false;
-				UIHelpers.ReplaceImageAtSameScale(PreviewTabHelper.previewImg, PreviewTabHelper.currentOutput);
+				UIHelpers.ReplaceImageAtSameScale(MainUIHelper.previewImg, MainUIHelper.currentOutput);
 			}
 		}
 
 		public static void ShowOriginal()
 		{
-			if (PreviewTabHelper.currentOriginal != null)
+			if (MainUIHelper.currentOriginal != null)
 			{
 				showingOriginal = true;
-				UIHelpers.ReplaceImageAtSameScale(PreviewTabHelper.previewImg, PreviewTabHelper.currentOriginal);
+				UIHelpers.ReplaceImageAtSameScale(MainUIHelper.previewImg, MainUIHelper.currentOriginal);
 			}
 		}
 	}
