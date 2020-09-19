@@ -110,6 +110,7 @@ namespace Cupscale.Main
             {
                 MessageBox.Show("Model file not found!", "Error");
                 Program.mainForm.SetProgress(0);
+                Program.mainForm.SetBusy(false);
                 return "";
             }
             return mdl;

@@ -104,7 +104,7 @@ namespace Cupscale.UI
             if (fullImage)
             {
                 prevMode = ESRGAN.PreviewMode.FullImage;
-                if (!IOUtils.TryCopy(Program.lastFilename, Path.Combine(Paths.previewPath, "preview.png"), true)) return;
+                if (!IOUtils.TryCopy(Paths.tempImgPath, Path.Combine(Paths.previewPath, "preview.png"), true)) return;
             }
             else
             {
@@ -140,7 +140,7 @@ namespace Cupscale.UI
 
         public static void SaveCurrentCutout()
         {
-            UIHelpers.ReplaceImageAtSameScale(previewImg, IOUtils.GetImage(Program.lastFilename));
+            UIHelpers.ReplaceImageAtSameScale(previewImg, IOUtils.GetImage(Paths.tempImgPath));
             string path = Path.Combine(Paths.previewPath, "preview.png");
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             GetCurrentRegion().Save(path);

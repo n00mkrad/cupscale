@@ -196,21 +196,20 @@ namespace Cupscale
 			htTabControl.SelectedIndex = 0;
 			previewImg.Text = "";
 			SetProgress(0f, "Loading image...");
-			DialogForm loadingDialogForm = new DialogForm("Loading image...");
+			DialogForm loadingDialogForm = new DialogForm("Loading " + Path.GetFileName(path) +"...");
 			await Task.Delay(1);
 			MainUIHelper.ResetCachedImages();
-			if (!MainUIHelper.DroppedImageIsValid(array[0]))
+			if (!MainUIHelper.DroppedImageIsValid(path))
             {
 				SetProgress(0f, "Ready.");
 				await Task.Delay(1);
 				Program.CloseTempForms();
 				return;
 			}
-			string imgTempPath = Path.Combine(Paths.imgInPath, "temp.png");
-			File.Copy(array[0], imgTempPath, true);
+			File.Copy(path, Paths.tempImgPath, true);
 			await Upscale.Preprocessing(Paths.imgInPath);
-			previewImg.Image = IOUtils.GetImage(imgTempPath);
-			Program.lastFilename = array[0];
+			previewImg.Image = IOUtils.GetImage(Paths.tempImgPath);
+			Program.lastFilename = path;
 			MainUIHelper.currentScale = 1;
 			previewImg.ZoomToFit();
 			loadingDialogForm.Close();

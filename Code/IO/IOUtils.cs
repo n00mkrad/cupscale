@@ -186,10 +186,17 @@ namespace Cupscale
 				files = d.GetFiles(wildcard, SearchOption.AllDirectories);
 			else
 				files = d.GetFiles(wildcard, SearchOption.TopDirectoryOnly);
+
+			string targetPath = "";
 			foreach (FileInfo file in files)
 			{
 				if (file.Extension.Replace(".","") == oldExt.Replace(".", ""))
-					Path.ChangeExtension(file.FullName, newExt);
+                {
+					targetPath = Path.ChangeExtension(file.FullName, newExt);
+					if (!File.Exists(targetPath))
+						File.Delete(targetPath);
+					File.Move(file.FullName, targetPath);
+				}
 			}
 		}
 

@@ -9,6 +9,7 @@ namespace Cupscale.IO
 		public static string previewOutPath;
 		public static string imgInPath;
 		public static string imgOutPath;
+		public static string tempImgPath;
 		public static string progressLogfile;
 
 		public static void Init()
@@ -18,6 +19,7 @@ namespace Cupscale.IO
 			previewOutPath = Path.Combine(IOUtils.GetAppDataDir(), "preview-out");
 			imgInPath = Path.Combine(IOUtils.GetAppDataDir(), "img-in");
 			imgOutPath = Path.Combine(IOUtils.GetAppDataDir(), "img-out");
+			tempImgPath = Path.Combine(IOUtils.GetAppDataDir(), "temp.png");
 			progressLogfile = Path.Combine(esrganPath, "prog");
 			Directory.CreateDirectory(previewPath);
 			Directory.CreateDirectory(previewOutPath);

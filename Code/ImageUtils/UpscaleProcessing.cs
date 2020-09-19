@@ -80,8 +80,7 @@ namespace Cupscale
 				{
 					format = Format.DDS;
 				}
-				await ConvertImage(file2.FullName, format, false, false, false);
-				await Task.Delay(1);
+				await ConvertImage(file2.FullName, format, false, false, true);
 			}
 		}
 
@@ -164,9 +163,10 @@ namespace Cupscale
 			if (appendExtension)
 			{
 				string extension = Path.GetExtension(path);
-				Logger.Log("Appending old extension; writing image to " + Path.ChangeExtension(path, null) + extension + "." + text);
-				img.Write(Path.ChangeExtension(path, null) + extension + "." + text);
-				if (deleteSource && !(Path.ChangeExtension(path, null) + extension + "." + text == path))
+				string outPath = Path.ChangeExtension(path, null) + extension + "." + text;
+				Logger.Log("Appending old extension; writing image to " + outPath);
+				img.Write(outPath);
+				if (deleteSource && outPath != path)
 				{
 					Logger.Log("Deleting source file: " + path);
 					File.Delete(path);
