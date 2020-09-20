@@ -42,9 +42,10 @@
             this.modelTree.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
             this.modelTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.modelTree.ForeColor = System.Drawing.Color.White;
-            this.modelTree.Location = new System.Drawing.Point(3, 3);
+            this.modelTree.Location = new System.Drawing.Point(6, 6);
+            this.modelTree.Margin = new System.Windows.Forms.Padding(6);
             this.modelTree.Name = "modelTree";
-            this.modelTree.Size = new System.Drawing.Size(714, 664);
+            this.modelTree.Size = new System.Drawing.Size(708, 658);
             this.modelTree.TabIndex = 0;
             this.modelTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.modelTree_AfterSelect);
             // 

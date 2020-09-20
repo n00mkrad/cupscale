@@ -26,6 +26,7 @@ namespace Cupscale.Forms
             CenterToScreen();
             modelBtn = modelButton;
             modelNo = modelNumber;
+            SelectLastUsed();
         }
 
         private void ModelSelectForm_Load(object sender, EventArgs e)
@@ -33,7 +34,26 @@ namespace Cupscale.Forms
             DirectoryInfo modelsDir = new DirectoryInfo(Config.Get("modelPath"));
             BuildTree(modelsDir, modelTree.Nodes);
             modelTree.ExpandAll();
-            modelTree.SelectedNode = modelTree.Nodes[0];
+        }
+
+        private void SelectLastUsed()
+        {
+            if(string.IsNullOrWhiteSpace(Program.currentModel1))
+                modelTree.SelectedNode = modelTree.Nodes[0];
+            else
+                CheckNodesRecursive(modelTree.Nodes[0]);
+        }
+
+        private void CheckNodesRecursive(TreeNode parentNode)
+        {
+            Logger.Log("Checking if " + parentNode.Text.Trim() + " == " + modelBtn.Text.Trim());
+            if (parentNode.Text.Trim() == modelBtn.Text.Trim())
+                modelTree.SelectedNode = parentNode;
+
+            foreach (TreeNode oSubNode in parentNode.Nodes)
+            {
+                CheckNodesRecursive(oSubNode);
+            }
         }
 
         private void BuildTree(DirectoryInfo directoryInfo, TreeNodeCollection addInMe)

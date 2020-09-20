@@ -212,7 +212,7 @@ namespace Cupscale
 			File.Copy(path, Paths.tempImgPath, true);
 			//await Upscale.Preprocessing(Paths.tempImgPath.GetParentDir());
 			bool fillAlpha = !bool.Parse(Config.Get("alpha"));
-			await UpscaleProcessing.ConvertImageTo(path, Paths.tempImgPath, UpscaleProcessing.Format.PngFast, fillAlpha, false, false);
+			await ImageProcessing.ConvertImageTo(path, Paths.tempImgPath, ImageProcessing.Format.PngFast, fillAlpha, false, false);
 			Logger.Log("Done Preprocessing");
 			previewImg.Image = IOUtils.GetImage(Paths.tempImgPath);
 			Program.lastFilename = path;
@@ -248,8 +248,8 @@ namespace Cupscale
 
         private void copyCompToClipboardBtn_Click(object sender, EventArgs e)
         {
-			if (prevClipboardTypeCombox.SelectedIndex == 0) ClipboardPreview.CopyToClipboardSideBySide();
-			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardPreview.CopyToClipboardSlider();
+			if (prevClipboardTypeCombox.SelectedIndex == 0) ClipboardPreview.CopyToClipboardSideBySide(false);
+			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardPreview.CopyToClipboardSlider(false);
 		}
 
         private void model1TreeBtn_Click(object sender, EventArgs e)
@@ -260,6 +260,12 @@ namespace Cupscale
         private void model2TreeBtn_Click(object sender, EventArgs e)
         {
 			ModelSelectForm treeForm = new ModelSelectForm(model2TreeBtn, 2);
+		}
+
+        private void savePreviewToFileBtn_Click(object sender, EventArgs e)
+        {
+			if (prevClipboardTypeCombox.SelectedIndex == 0) ClipboardPreview.CopyToClipboardSideBySide(true);
+			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardPreview.CopyToClipboardSlider(true);
 		}
     }
 }

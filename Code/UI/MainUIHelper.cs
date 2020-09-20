@@ -55,7 +55,7 @@ namespace Cupscale.UI
                 Cancel("I/O Error");
                 return;
             }
-            await UpscaleProcessing.ConvertImages(Paths.imgInPath, UpscaleProcessing.Format.PngFast, !Config.GetBool("alpha"), true, true);
+            await ImageProcessing.ConvertImages(Paths.imgInPath, ImageProcessing.Format.PngFast, !Config.GetBool("alpha"), true, true);
             ModelData mdl = Upscale.GetModelData();
             await ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None);
             await Upscale.Postprocessing();

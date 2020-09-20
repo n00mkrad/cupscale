@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ImageMagick;
+using SixLabors.ImageSharp.Processing.Processors.Quantization;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -16,7 +18,7 @@ namespace Cupscale
         public static Bitmap originalPreview;
         public static Bitmap resultPreview;
 
-        public static void CopyToClipboardSideBySide(bool fullImage = false)
+        public static async void CopyToClipboardSideBySide(bool saveToFile, bool fullImage = false)
         {
             //if (resultPreview == null)
             //return;
@@ -101,10 +103,22 @@ namespace Cupscale
             }
             try
             {
-                Clipboard.SetDataObject(outputImage);
+                if (saveToFile)
+                {
+                    string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison.png";
+                    outputImage.Save(comparisonSavePath);
+                    await ImageProcessing.ConvertImage(comparisonSavePath, ImageProcessing.Format.PngFast, false, false);
+                    MessageBox.Show("Saved current comparison to:\n\n" + comparisonSavePath, "Message");
+                }
+                else
+                {
+                    Clipboard.SetDataObject(outputImage);
+                }
             }
             catch
-            { }
+            {
+                MessageBox.Show("Failed to save comparison.", "Error");
+            }
         }
 
         public static void CopyToClipboardSlider(bool fullImage = false)

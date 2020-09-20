@@ -73,7 +73,7 @@ namespace Cupscale.Main
         {
             Logger.Log("Preprocessing: " + path);
             bool fillAlpha = !bool.Parse(Config.Get("alpha"));
-            await UpscaleProcessing.ConvertImages(path, UpscaleProcessing.Format.PngFast, fillAlpha);
+            await ImageProcessing.ConvertImages(path, ImageProcessing.Format.PngFast, fillAlpha);
         }
 
         public static async Task Postprocessing()
@@ -82,17 +82,17 @@ namespace Cupscale.Main
             await Program.PutTaskDelay();
             Logger.Log("Postprocessing - outputFormat.SelectedIndex = " + outputFormat.SelectedIndex);
             if (outputFormat.SelectedIndex == 0)
-                UpscaleProcessing.ChangeOutputExtensions("png");
+                ImageProcessing.ChangeOutputExtensions("png");
             if (outputFormat.SelectedIndex == 1)
-                await UpscaleProcessing.ConvertImagesToOriginalFormat();
+                await ImageProcessing.ConvertImagesToOriginalFormat();
             if (outputFormat.SelectedIndex == 2)
-                await UpscaleProcessing.ConvertImages(Paths.imgOutPath, UpscaleProcessing.Format.JpegHigh);
+                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.JpegHigh);
             if (outputFormat.SelectedIndex == 3)
-                await UpscaleProcessing.ConvertImages(Paths.imgOutPath, UpscaleProcessing.Format.JpegMed);
+                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.JpegMed);
             if (outputFormat.SelectedIndex == 4)
-                await UpscaleProcessing.ConvertImages(Paths.imgOutPath, UpscaleProcessing.Format.WeppyHigh);
+                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.WeppyHigh);
             if (outputFormat.SelectedIndex == 5)
-                await UpscaleProcessing.ConvertImages(Paths.imgOutPath, UpscaleProcessing.Format.WeppyLow);
+                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.WeppyLow);
         }
 
         public static async Task FilenamePostprocessing ()

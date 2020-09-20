@@ -112,6 +112,7 @@ namespace Cupscale
             this.panel7 = new System.Windows.Forms.Panel();
             this.settingsBtn = new HTAlt.WinForms.HTButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.savePreviewToFileBtn = new HTAlt.WinForms.HTButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -485,6 +486,7 @@ namespace Cupscale
             // 
             this.previewGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.previewGroupbox.Controls.Add(this.savePreviewToFileBtn);
             this.previewGroupbox.Controls.Add(this.copyCompToClipboardBtn);
             this.previewGroupbox.Controls.Add(this.label12);
             this.previewGroupbox.Controls.Add(this.prevClipboardTypeCombox);
@@ -506,9 +508,9 @@ namespace Cupscale
             this.copyCompToClipboardBtn.ForeColor = System.Drawing.Color.White;
             this.copyCompToClipboardBtn.Location = new System.Drawing.Point(6, 56);
             this.copyCompToClipboardBtn.Name = "copyCompToClipboardBtn";
-            this.copyCompToClipboardBtn.Size = new System.Drawing.Size(318, 30);
+            this.copyCompToClipboardBtn.Size = new System.Drawing.Size(156, 30);
             this.copyCompToClipboardBtn.TabIndex = 12;
-            this.copyCompToClipboardBtn.Text = "Copy Comparison To Clipboard";
+            this.copyCompToClipboardBtn.Text = "Copy To Clipboard";
             this.copyCompToClipboardBtn.UseVisualStyleBackColor = false;
             this.copyCompToClipboardBtn.Click += new System.EventHandler(this.copyCompToClipboardBtn_Click);
             // 
@@ -988,6 +990,22 @@ namespace Cupscale
             this.settingsBtn.UseVisualStyleBackColor = false;
             this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
             // 
+            // savePreviewToFileBtn
+            // 
+            this.savePreviewToFileBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.savePreviewToFileBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.savePreviewToFileBtn.FlatAppearance.BorderSize = 0;
+            this.savePreviewToFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.savePreviewToFileBtn.ForeColor = System.Drawing.Color.White;
+            this.savePreviewToFileBtn.Location = new System.Drawing.Point(168, 56);
+            this.savePreviewToFileBtn.Name = "savePreviewToFileBtn";
+            this.savePreviewToFileBtn.Size = new System.Drawing.Size(156, 30);
+            this.savePreviewToFileBtn.TabIndex = 13;
+            this.savePreviewToFileBtn.Text = "Save To File";
+            this.savePreviewToFileBtn.UseVisualStyleBackColor = false;
+            this.savePreviewToFileBtn.Click += new System.EventHandler(this.savePreviewToFileBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1064,5 +1082,6 @@ namespace Cupscale
         private HTAlt.WinForms.HTButton settingsBtn;
         private Button model1TreeBtn;
         private Button model2TreeBtn;
+        private HTAlt.WinForms.HTButton savePreviewToFileBtn;
     }
 }

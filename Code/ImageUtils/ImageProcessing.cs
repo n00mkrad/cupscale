@@ -1,14 +1,17 @@
 using System;
+using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cupscale.IO;
 using ImageMagick;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Png;
 using Paths = Cupscale.IO.Paths;
 
 namespace Cupscale
 {
-	internal class UpscaleProcessing
+	internal class ImageProcessing
 	{
 		public enum Format
 		{
