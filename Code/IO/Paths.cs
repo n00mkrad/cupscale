@@ -1,3 +1,4 @@
+using Cupscale.UI;
 using System.IO;
 
 namespace Cupscale.IO
@@ -19,12 +20,13 @@ namespace Cupscale.IO
 			previewOutPath = Path.Combine(IOUtils.GetAppDataDir(), "preview-out");
 			imgInPath = Path.Combine(IOUtils.GetAppDataDir(), "img-in");
 			imgOutPath = Path.Combine(IOUtils.GetAppDataDir(), "img-out");
-			tempImgPath = Path.Combine(IOUtils.GetAppDataDir(), "temp.png");
+			tempImgPath = Path.Combine(IOUtils.GetAppDataDir(), "loaded-img", "temp.png");
 			progressLogfile = Path.Combine(esrganPath, "prog");
 			Directory.CreateDirectory(previewPath);
 			Directory.CreateDirectory(previewOutPath);
 			Directory.CreateDirectory(imgInPath);
 			Directory.CreateDirectory(imgOutPath);
+			Directory.CreateDirectory(tempImgPath.GetParentDir());
 		}
 	}
 }

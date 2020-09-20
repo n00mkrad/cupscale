@@ -36,10 +36,9 @@ namespace Cupscale
 			offsetX *= num;
 			offsetY *= num;
 			Logger.Log("Merging " + outputCutoutPath + " onto " + Program.lastFilename + " using offset " + offsetX + "x" + offsetY);
-			MagickImage sourceImg = new MagickImage(Program.lastFilename);
+			MagickImage sourceImg = new MagickImage(Paths.tempImgPath);
 			MagickImage cutout = new MagickImage(outputCutoutPath);
 			sourceImg.FilterType = Program.currentFilter;
-			Logger.Log("Scaling preview-input-scaled.png with filter " + sourceImg.FilterType + " which should match " + Program.currentFilter);
 			sourceImg.Resize(new Percentage(num * 100));
 			string scaledPrevPath = Path.Combine(Paths.previewOutPath, "preview-input-scaled.png");
 			sourceImg.Format = MagickFormat.Png;

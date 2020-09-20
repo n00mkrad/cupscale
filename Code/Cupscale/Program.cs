@@ -15,6 +15,8 @@ namespace Cupscale
 		public static string lastFilename;
 		public static string lastDirPath;
 		public static string lastModelName;
+		public static string currentModel1;
+		public static string currentModel2;
 		public static FilterType currentFilter = FilterType.Point;
 
 		public static List<Form> currentTemporaryForms = new List<Form>();	// Temp forms that get closed when something gets cancelled

@@ -121,6 +121,7 @@ namespace Cupscale
 
 		public static void DeleteContentsOfDir(string path)
 		{
+			Logger.Log("Clearing " + path);
 			DirectoryInfo directoryInfo = new DirectoryInfo(path);
 			FileInfo[] files = directoryInfo.GetFiles();
 			foreach (FileInfo fileInfo in files)

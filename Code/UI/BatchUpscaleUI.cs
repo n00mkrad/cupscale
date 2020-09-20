@@ -35,6 +35,7 @@ namespace Cupscale.UI
 
         static void FillFileList ()
         {
+            fileList.Clear();
             string[] files = Directory.GetFiles(currentInDir, "*", SearchOption.AllDirectories).Where(file => IOUtils.compatibleExtensions.Any(x => file.EndsWith(x, StringComparison.OrdinalIgnoreCase))).ToArray();
             string text = "";
 
@@ -79,7 +80,7 @@ namespace Cupscale.UI
                     int count = IOUtils.GetAmountOfFiles(outdir, true);
                     float percentage = (float)count / target;
                     percentage = percentage * 100f;
-                    if (percentage > 100f)
+                    if (percentage >= 100f)
                         break;
                     Program.mainForm.SetProgress((int)Math.Round(percentage), "Upscaled " + count + "/" + target + " images");
                 }

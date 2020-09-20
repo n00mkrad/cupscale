@@ -47,21 +47,21 @@ namespace Cupscale.Main
 
             if (currentMode == Mode.Single)
             {
-                string mdl1 = GetMdl(model1);
+                string mdl1 = Program.currentModel1;
                 if (string.IsNullOrWhiteSpace(mdl1)) return mdl;
                 mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
             }
             if (currentMode == Mode.Interp)
             {
-                string mdl1 = GetMdl(model1);
-                string mdl2 = GetMdl(model2);
+                string mdl1 = Program.currentModel1;
+                string mdl2 = Program.currentModel2;
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return mdl;
                 mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
             }
             if (currentMode == Mode.Chain)
             {
-                string mdl1 = GetMdl(model1);
-                string mdl2 = GetMdl(model2);
+                string mdl1 = Program.currentModel1;
+                string mdl2 = Program.currentModel2;
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return mdl;
                 mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
             }
@@ -69,8 +69,9 @@ namespace Cupscale.Main
             return mdl;
         }
 
-        public static async Task Preprocessing (string path)
+        public static async Task Preprocessing (string path, bool appendExt = false)
         {
+            Logger.Log("Preprocessing: " + path);
             bool fillAlpha = !bool.Parse(Config.Get("alpha"));
             await UpscaleProcessing.ConvertImages(path, UpscaleProcessing.Format.PngFast, fillAlpha);
         }
@@ -102,9 +103,10 @@ namespace Cupscale.Main
             await Program.PutTaskDelay();
         }
 
-        public static string GetMdl(ComboBox box)
+        /*
+        public static string GetMdl(Button btn)
         {
-            string mdl = box.Text.Trim();
+            string mdl = btn.Text.Trim();
             EsrganData.ReloadModelList();
             if (!EsrganData.models.Contains(mdl))
             {
@@ -115,5 +117,6 @@ namespace Cupscale.Main
             }
             return mdl;
         }
+        */
     }
 }

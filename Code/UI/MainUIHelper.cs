@@ -10,6 +10,7 @@ using Cupscale.IO;
 using Cupscale.Main;
 using Cupscale.OS;
 using Cyotek.Windows.Forms;
+using HTAlt.WinForms;
 using ImageMagick;
 using Paths = Cupscale.IO.Paths;
 
@@ -21,8 +22,8 @@ namespace Cupscale.UI
         public static Mode currentMode;
         public static ImageBox previewImg;
 
-        public static ComboBox model1;
-        public static ComboBox model2;
+        public static Button model1;
+        public static Button model2;
 
         public static int interpValue;
 
@@ -34,11 +35,11 @@ namespace Cupscale.UI
 
         public static int currentScale = 1;
 
-        public static void Init(ImageBox imgBox, ComboBox model1Box, ComboBox model2Box, ComboBox formatBox, ComboBox overwriteBox)
+        public static void Init(ImageBox imgBox, Button model1Btn, Button model2Btn, ComboBox formatBox, ComboBox overwriteBox)
         {
             previewImg = imgBox;
-            model1 = model1Box;
-            model2 = model2Box;
+            model1 = model1Btn;
+            model2 = model2Btn;
             outputFormat = formatBox;
             overwrite = overwriteBox;
         }
@@ -98,6 +99,7 @@ namespace Cupscale.UI
             Program.mainForm.SetBusy(true);
             Program.mainForm.SetProgress(3f, "Preparing...");
             ResetCachedImages();
+            IOUtils.DeleteContentsOfDir(Paths.imgInPath);
             IOUtils.DeleteContentsOfDir(Paths.previewPath);
             IOUtils.DeleteContentsOfDir(Paths.previewOutPath);
             ESRGAN.PreviewMode prevMode = ESRGAN.PreviewMode.Cutout;
@@ -113,23 +115,23 @@ namespace Cupscale.UI
             await Upscale.Preprocessing(Paths.previewPath);
             if (currentMode == Mode.Single)
             {
-                string mdl1 = Upscale.GetMdl(model1);
+                string mdl1 = Program.currentModel1;
                 if (string.IsNullOrWhiteSpace(mdl1)) return;
                 ModelData mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
                 await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), prevMode);
             }
             if (currentMode == Mode.Interp)
             {
-                string mdl1 = Upscale.GetMdl(model1);
-                string mdl2 = Upscale.GetMdl(model2);
+                string mdl1 = Program.currentModel1;
+                string mdl2 = Program.currentModel2;
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
                 ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
                 await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), prevMode);
             }
             if (currentMode == Mode.Chain)
             {
-                string mdl1 = Upscale.GetMdl(model1);
-                string mdl2 = Upscale.GetMdl(model2);
+                string mdl1 = Program.currentModel1;
+                string mdl2 = Program.currentModel2;
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
                 ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
                 await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), prevMode);

@@ -26,7 +26,7 @@ namespace Cupscale
 			EsrganData.ReloadModelList();
 			CheckForIllegalCrossThreadCalls = false;
 			InitializeComponent();
-			MainUIHelper.Init(previewImg, modelCombox1, modelCombox2, prevOutputFormatCombox, prevOverwriteCombox);
+			MainUIHelper.Init(previewImg, model1TreeBtn, model2TreeBtn, prevOutputFormatCombox, prevOverwriteCombox);
 			BatchUpscaleUI.Init(batchOutDir, batchFileList);
 			Program.mainForm = this;
 			WindowState = FormWindowState.Maximized;
@@ -148,7 +148,7 @@ namespace Cupscale
 
 		public void UpdateModelMode()
 		{
-			modelCombox2.Enabled = (interpRbtn.Checked || chainRbtn.Checked);
+			model2TreeBtn.Enabled = (interpRbtn.Checked || chainRbtn.Checked);
 			interpConfigureBtn.Visible = interpRbtn.Checked;
 			if (singleModelRbtn.Checked) MainUIHelper.currentMode = MainUIHelper.Mode.Single;
 			if (interpRbtn.Checked) MainUIHelper.currentMode = MainUIHelper.Mode.Interp;
@@ -157,12 +157,14 @@ namespace Cupscale
 
         private void interpConfigureBtn_Click(object sender, EventArgs e)
         {
+			/*
 			if (modelCombox1.SelectedIndex == -1 || modelCombox2.SelectedIndex == -1)
             {
 				MessageBox.Show("Please select two models for interpolation.", "Message");
 				return;
             }
-			InterpForm interpForm = new InterpForm(modelCombox1.Text.Trim(), modelCombox2.Text.Trim());
+			*/
+			InterpForm interpForm = new InterpForm(model1TreeBtn.Text.Trim(), model1TreeBtn.Text.Trim());
         }
 
         private void batchTab_DragEnter(object sender, DragEventArgs e)
@@ -199,6 +201,7 @@ namespace Cupscale
 			DialogForm loadingDialogForm = new DialogForm("Loading " + Path.GetFileName(path) +"...");
 			await Task.Delay(1);
 			MainUIHelper.ResetCachedImages();
+			Logger.Log("3");
 			if (!MainUIHelper.DroppedImageIsValid(path))
             {
 				SetProgress(0f, "Ready.");
@@ -207,7 +210,10 @@ namespace Cupscale
 				return;
 			}
 			File.Copy(path, Paths.tempImgPath, true);
-			await Upscale.Preprocessing(Paths.imgInPath);
+			//await Upscale.Preprocessing(Paths.tempImgPath.GetParentDir());
+			bool fillAlpha = !bool.Parse(Config.Get("alpha"));
+			await UpscaleProcessing.ConvertImageTo(path, Paths.tempImgPath, UpscaleProcessing.Format.PngFast, fillAlpha, false, false);
+			Logger.Log("Done Preprocessing");
 			previewImg.Image = IOUtils.GetImage(Paths.tempImgPath);
 			Program.lastFilename = path;
 			MainUIHelper.currentScale = 1;
@@ -248,7 +254,12 @@ namespace Cupscale
 
         private void model1TreeBtn_Click(object sender, EventArgs e)
         {
-			new ModelSelectForm();
+			ModelSelectForm treeForm = new ModelSelectForm(model1TreeBtn, 1);
         }
+
+        private void model2TreeBtn_Click(object sender, EventArgs e)
+        {
+			ModelSelectForm treeForm = new ModelSelectForm(model2TreeBtn, 2);
+		}
     }
 }

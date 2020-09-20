@@ -57,14 +57,13 @@ namespace Cupscale
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.model2TreeBtn = new System.Windows.Forms.Button();
             this.model1TreeBtn = new System.Windows.Forms.Button();
             this.interpConfigureBtn = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.chainRbtn = new System.Windows.Forms.RadioButton();
             this.interpRbtn = new System.Windows.Forms.RadioButton();
             this.singleModelRbtn = new System.Windows.Forms.RadioButton();
-            this.modelCombox2 = new System.Windows.Forms.ModelCombox();
-            this.modelCombox1 = new System.Windows.Forms.ModelCombox();
             this.label16 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -218,14 +217,13 @@ namespace Cupscale
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.model2TreeBtn);
             this.panel5.Controls.Add(this.model1TreeBtn);
             this.panel5.Controls.Add(this.interpConfigureBtn);
             this.panel5.Controls.Add(this.label4);
             this.panel5.Controls.Add(this.chainRbtn);
             this.panel5.Controls.Add(this.interpRbtn);
             this.panel5.Controls.Add(this.singleModelRbtn);
-            this.panel5.Controls.Add(this.modelCombox2);
-            this.panel5.Controls.Add(this.modelCombox1);
             this.panel5.Controls.Add(this.label16);
             this.panel5.Controls.Add(this.label14);
             this.panel5.Controls.Add(this.label3);
@@ -235,6 +233,24 @@ namespace Cupscale
             this.panel5.Size = new System.Drawing.Size(338, 311);
             this.panel5.TabIndex = 1;
             // 
+            // model2TreeBtn
+            // 
+            this.model2TreeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.model2TreeBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.model2TreeBtn.Enabled = false;
+            this.model2TreeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.model2TreeBtn.ForeColor = System.Drawing.Color.White;
+            this.model2TreeBtn.Location = new System.Drawing.Point(6, 278);
+            this.model2TreeBtn.Margin = new System.Windows.Forms.Padding(8);
+            this.model2TreeBtn.Name = "model2TreeBtn";
+            this.model2TreeBtn.Size = new System.Drawing.Size(322, 23);
+            this.model2TreeBtn.TabIndex = 18;
+            this.model2TreeBtn.Text = "None Selected. Click To Change.";
+            this.model2TreeBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.model2TreeBtn.UseVisualStyleBackColor = false;
+            this.model2TreeBtn.Click += new System.EventHandler(this.model2TreeBtn_Click);
+            // 
             // model1TreeBtn
             // 
             this.model1TreeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -242,12 +258,13 @@ namespace Cupscale
             this.model1TreeBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.model1TreeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.model1TreeBtn.ForeColor = System.Drawing.Color.White;
-            this.model1TreeBtn.Location = new System.Drawing.Point(198, 198);
+            this.model1TreeBtn.Location = new System.Drawing.Point(6, 228);
+            this.model1TreeBtn.Margin = new System.Windows.Forms.Padding(8);
             this.model1TreeBtn.Name = "model1TreeBtn";
-            this.model1TreeBtn.Size = new System.Drawing.Size(129, 23);
+            this.model1TreeBtn.Size = new System.Drawing.Size(322, 23);
             this.model1TreeBtn.TabIndex = 17;
-            this.model1TreeBtn.Text = "Tree";
-            this.model1TreeBtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.model1TreeBtn.Text = "None Selected. Click To Change.";
+            this.model1TreeBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.model1TreeBtn.UseVisualStyleBackColor = false;
             this.model1TreeBtn.Click += new System.EventHandler(this.model1TreeBtn_Click);
             // 
@@ -324,37 +341,6 @@ namespace Cupscale
             this.singleModelRbtn.UseVisualStyleBackColor = true;
             this.singleModelRbtn.CheckedChanged += new System.EventHandler(this.singleModelRbtn_CheckedChanged);
             // 
-            // modelCombox2
-            // 
-            this.modelCombox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.modelCombox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.modelCombox2.Enabled = false;
-            this.modelCombox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.modelCombox2.ForeColor = System.Drawing.Color.White;
-            this.modelCombox2.FormattingEnabled = true;
-            this.modelCombox2.Location = new System.Drawing.Point(8, 280);
-            this.modelCombox2.Margin = new System.Windows.Forms.Padding(8);
-            this.modelCombox2.Name = "modelCombox2";
-            this.modelCombox2.Size = new System.Drawing.Size(320, 21);
-            this.modelCombox2.TabIndex = 11;
-            this.modelCombox2.Text = "Open the dropdown to load available models.";
-            // 
-            // modelCombox1
-            // 
-            this.modelCombox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.modelCombox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.modelCombox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.modelCombox1.ForeColor = System.Drawing.Color.White;
-            this.modelCombox1.FormattingEnabled = true;
-            this.modelCombox1.Location = new System.Drawing.Point(8, 229);
-            this.modelCombox1.Margin = new System.Windows.Forms.Padding(8);
-            this.modelCombox1.Name = "modelCombox1";
-            this.modelCombox1.Size = new System.Drawing.Size(320, 21);
-            this.modelCombox1.TabIndex = 10;
-            this.modelCombox1.Text = "Open the dropdown to load available models.";
-            // 
             // label16
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -373,7 +359,7 @@ namespace Cupscale
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
             this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(6, 208);
+            this.label14.Location = new System.Drawing.Point(6, 207);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(48, 13);
             this.label14.TabIndex = 8;
@@ -508,7 +494,7 @@ namespace Cupscale
             this.previewGroupbox.Size = new System.Drawing.Size(330, 93);
             this.previewGroupbox.TabIndex = 5;
             this.previewGroupbox.TabStop = false;
-            this.previewGroupbox.Text = "Copy Comparison To Clipboard";
+            this.previewGroupbox.Text = "Save Comparison";
             // 
             // copyCompToClipboardBtn
             // 
@@ -1044,9 +1030,6 @@ namespace Cupscale
             this.ResumeLayout(false);
 
         }
-
-        private ModelCombox modelCombox2;
-        private ModelCombox modelCombox1;
         private Label label16;
         private Label label14;
         private RadioButton singleModelRbtn;
@@ -1080,5 +1063,6 @@ namespace Cupscale
         private TableLayoutPanel tableLayoutPanel7;
         private HTAlt.WinForms.HTButton settingsBtn;
         private Button model1TreeBtn;
+        private Button model2TreeBtn;
     }
 }

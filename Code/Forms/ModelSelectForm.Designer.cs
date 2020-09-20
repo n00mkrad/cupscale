@@ -31,8 +31,8 @@
             this.modelTree = new System.Windows.Forms.TreeView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.confirmBtn = new HTAlt.WinForms.HTButton();
             this.cancelBtn = new HTAlt.WinForms.HTButton();
+            this.confirmBtn = new HTAlt.WinForms.HTButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -46,6 +46,7 @@
             this.modelTree.Name = "modelTree";
             this.modelTree.Size = new System.Drawing.Size(714, 664);
             this.modelTree.TabIndex = 0;
+            this.modelTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.modelTree_AfterSelect);
             // 
             // tableLayoutPanel1
             // 
@@ -73,23 +74,6 @@
             this.panel1.Size = new System.Drawing.Size(714, 44);
             this.panel1.TabIndex = 1;
             // 
-            // confirmBtn
-            // 
-            this.confirmBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.confirmBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.confirmBtn.FlatAppearance.BorderSize = 0;
-            this.confirmBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.confirmBtn.ForeColor = System.Drawing.Color.White;
-            this.confirmBtn.Location = new System.Drawing.Point(186, 6);
-            this.confirmBtn.Margin = new System.Windows.Forms.Padding(180, 6, 6, 6);
-            this.confirmBtn.Name = "confirmBtn";
-            this.confirmBtn.Size = new System.Drawing.Size(162, 32);
-            this.confirmBtn.TabIndex = 12;
-            this.confirmBtn.Text = "Select Model";
-            this.confirmBtn.UseVisualStyleBackColor = false;
-            this.confirmBtn.Click += new System.EventHandler(this.confirmBtn_Click);
-            // 
             // cancelBtn
             // 
             this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -106,6 +90,23 @@
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = false;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            // 
+            // confirmBtn
+            // 
+            this.confirmBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.confirmBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.confirmBtn.FlatAppearance.BorderSize = 0;
+            this.confirmBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.confirmBtn.ForeColor = System.Drawing.Color.White;
+            this.confirmBtn.Location = new System.Drawing.Point(186, 6);
+            this.confirmBtn.Margin = new System.Windows.Forms.Padding(180, 6, 6, 6);
+            this.confirmBtn.Name = "confirmBtn";
+            this.confirmBtn.Size = new System.Drawing.Size(162, 32);
+            this.confirmBtn.TabIndex = 12;
+            this.confirmBtn.Text = "Select Model";
+            this.confirmBtn.UseVisualStyleBackColor = false;
+            this.confirmBtn.Click += new System.EventHandler(this.confirmBtn_Click);
             // 
             // ModelSelectForm
             // 

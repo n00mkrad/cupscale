@@ -1,9 +1,11 @@
 using Cupscale.ImageUtils;
 using Cupscale.IO;
 using Cupscale.UI;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,54 +20,62 @@ namespace Cupscale.OS
 
 		public static async Task UpscaleBasic(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, bool showTileProgress = true)
 		{
-			string modelArg = GetModelArg(mdl);
-			Logger.Log("Model Arg: " + modelArg);
-			Program.mainForm.SetProgress(5f, "Starting ESRGAN...");
-			await Run(inpath, outpath, modelArg, tilesize, alpha, showTileProgress);
-			File.Delete(Paths.progressLogfile);
-			if (mode == PreviewMode.Cutout)
-			{
-				Program.mainForm.SetProgress(100f, "Merging into preview...");
-				await Program.PutTaskDelay();
-				PreviewMerger.Merge();
+            try
+            {
+				string modelArg = GetModelArg(mdl);
+				Logger.Log("Model Arg: " + modelArg);
+				Program.mainForm.SetProgress(5f, "Starting ESRGAN...");
+				await Run(inpath, outpath, modelArg, tilesize, alpha, showTileProgress);
+				File.Delete(Paths.progressLogfile);
+				if (mode == PreviewMode.Cutout)
+				{
+					Program.mainForm.SetProgress(100f, "Merging into preview...");
+					await Program.PutTaskDelay();
+					PreviewMerger.Merge();
+				}
+				if (mode == PreviewMode.FullImage)
+				{
+					Program.mainForm.SetProgress(100f, "Merging into preview...");
+					await Program.PutTaskDelay();
+					Image outImg = IOUtils.GetImage(Path.Combine(Paths.previewOutPath, "preview.png"));
+					Image inputImg = IOUtils.GetImage(Paths.tempImgPath);
+					MainUIHelper.previewImg.Image = outImg;
+					MainUIHelper.currentOriginal = inputImg;
+					MainUIHelper.currentOutput = outImg;
+					MainUIHelper.currentScale = ImgUtils.GetScale(inputImg, outImg);
+					MainUIHelper.previewImg.ZoomToFit();
+					Program.mainForm.SetProgress(0f, "Done.");
+				}
 			}
-			if (mode == PreviewMode.FullImage)
-			{
-				Program.mainForm.SetProgress(100f, "Merging into preview...");
-				await Program.PutTaskDelay();
-				Image outImg = IOUtils.GetImage(Path.Combine(Paths.previewOutPath, "preview.png"));
-				Image inputImg = IOUtils.GetImage(Program.lastFilename);
-				MainUIHelper.previewImg.Image = outImg;
-				MainUIHelper.currentOriginal = inputImg;
-				MainUIHelper.currentOutput = outImg;
-				MainUIHelper.currentScale = ImgUtils.GetScale(inputImg, outImg);
-				MainUIHelper.previewImg.ZoomToFit();
-				Program.mainForm.SetProgress(0f, "Done.");
-			}
+			catch(Exception e)
+            {
+				MessageBox.Show("An error occured during upscaling: \n\n" + e.Message, "Error");
+            }
+			
 		}
 
-		public static string GetModelArg (ModelData modelData)
+		public static string GetModelArg (ModelData mdl)
         {
-			string mdl1 = modelData.model1;
-			string mdl2 = modelData.model2;
-			ModelData.ModelMode mdlMode = modelData.mode;
+			string mdl1 = mdl.model1Path;
+			string mdl2 = mdl.model2Path;
+			ModelData.ModelMode mdlMode = mdl.mode;
 			string mdlPath = Config.Get("modelPath").Replace("/", "\\").TrimEnd('\\');
 			if(mdlMode == ModelData.ModelMode.Single)
             {
-				Program.lastModelName = mdl1;
-				return " --model \"" + mdlPath + "/" + mdl1 + ".pth\"";
+				Program.lastModelName = mdl.model1Name;
+				return " --model \"" + mdl1 + "\"";
 			}
 			if (mdlMode == ModelData.ModelMode.Interp)
 			{
-				int interpLeft = 100 - modelData.interp;
-				int interpRight = modelData.interp;
-				Program.lastModelName = mdl1 + ":" + interpLeft + ":" + mdl2 + ":" + interpRight;
-				return " --model \"" + mdlPath + "/" + mdl1 + ".pth\";" + interpLeft + ";" + "\"" + mdlPath + "/" + mdl2 + ".pth\";" + interpRight;
+				int interpLeft = 100 - mdl.interp;
+				int interpRight = mdl.interp;
+				Program.lastModelName = mdl.model1Name + ":" + interpLeft + ":" + mdl.model2Name + ":" + interpRight;
+				return " --model \"" + mdl1 + "\";" + interpLeft + ";" + "\"" + mdl2 + "\";" + interpRight;
 			}
 			if (mdlMode == ModelData.ModelMode.Chain)
 			{
-				Program.lastModelName = mdl1 + ">>" + mdl2;
-				return " --prefilter  \"" + mdlPath + "/" + mdl1 + ".pth\" --model \"" + mdlPath + "/" + mdl2 + ".pth\"";
+				Program.lastModelName = mdl.model1Name + ">>" + mdl.model2Name;
+				return " --prefilter  \"" + mdl1 + "\" --model \"" + mdl2 + "\"";
 			}
 			return null;
 		}
