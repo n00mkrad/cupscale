@@ -65,6 +65,7 @@ namespace Cupscale
 				"alpha" => WriteDefault("alpha", "False"),
 				"alphaBgColor" => WriteDefault("alphaBgColor", "000000FF"),
 				"jpegExtension" => WriteDefault("jpegExtension", "jpg"),
+				"useCpu" => WriteDefault("useCpu", "False"),
 				_ => null, 
 			};
 		}

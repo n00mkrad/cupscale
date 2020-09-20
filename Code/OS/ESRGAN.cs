@@ -59,7 +59,6 @@ namespace Cupscale.OS
 			string mdl1 = mdl.model1Path;
 			string mdl2 = mdl.model2Path;
 			ModelData.ModelMode mdlMode = mdl.mode;
-			string mdlPath = Config.Get("modelPath").Replace("/", "\\").TrimEnd('\\');
 			if(mdlMode == ModelData.ModelMode.Single)
             {
 				Program.lastModelName = mdl.model1Name;
@@ -86,11 +85,12 @@ namespace Cupscale.OS
 			outpath = "\"" + outpath + "\"";
 			string alphaStr = " --noalpha";
 			if (alpha)
-			{
 				alphaStr = "";
-			}
+			string deviceStr = " --device cuda";
+			if(Config.GetBool("useCpu"))
+				deviceStr = " --device cpu";
 			string cmd2 = "/C cd /D \"" + Config.Get("esrganPath") + "\" & ";
-			cmd2 = cmd2 + "python esrlmain.py " + inpath + " " + outpath + " --tilesize " + tilesize + alphaStr + modelArg;
+			cmd2 = cmd2 + "python esrlmain.py " + inpath + " " + outpath + deviceStr + " --tilesize " + tilesize + alphaStr + modelArg;
 			Logger.Log("CMD: " + cmd2);
 			Process esrganProcess = new Process();
 			esrganProcess.StartInfo.UseShellExecute = false;

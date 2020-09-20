@@ -33,23 +33,25 @@
             this.settingsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.jpegExt = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.confAlphaBgColorBtn = new System.Windows.Forms.Button();
-            this.alphaColorTbox = new System.Windows.Forms.TextBox();
+            this.alphaColor = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.confAlpha = new System.Windows.Forms.CheckBox();
+            this.alpha = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.confTilesize = new System.Windows.Forms.ComboBox();
+            this.tilesize = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.modelPathBox = new System.Windows.Forms.TextBox();
+            this.modelPath = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.logPage = new Cyotek.Windows.Forms.TabListPage();
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
-            this.label1 = new System.Windows.Forms.Label();
-            this.jpegExtBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.useCpu = new System.Windows.Forms.CheckBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -97,14 +99,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.jpegExtBox);
-            this.panel7.Controls.Add(this.label1);
-            this.panel7.Controls.Add(this.confAlphaBgColorBtn);
-            this.panel7.Controls.Add(this.alphaColorTbox);
-            this.panel7.Controls.Add(this.label9);
-            this.panel7.Controls.Add(this.confAlpha);
+            this.panel7.Controls.Add(this.useCpu);
+            this.panel7.Controls.Add(this.label2);
+            this.panel7.Controls.Add(this.alpha);
             this.panel7.Controls.Add(this.label7);
-            this.panel7.Controls.Add(this.confTilesize);
+            this.panel7.Controls.Add(this.tilesize);
             this.panel7.Controls.Add(this.label6);
             this.panel7.Controls.Add(this.label5);
             this.panel7.Location = new System.Drawing.Point(3, 3);
@@ -112,12 +111,30 @@
             this.panel7.Size = new System.Drawing.Size(375, 463);
             this.panel7.TabIndex = 4;
             // 
+            // jpegExtBox
+            // 
+            this.jpegExt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.jpegExt.ForeColor = System.Drawing.Color.White;
+            this.jpegExt.Location = new System.Drawing.Point(160, 137);
+            this.jpegExt.Name = "jpegExtBox";
+            this.jpegExt.Size = new System.Drawing.Size(66, 20);
+            this.jpegExt.TabIndex = 12;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 140);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "JPEG File Extension";
+            // 
             // confAlphaBgColorBtn
             // 
             this.confAlphaBgColorBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.confAlphaBgColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.confAlphaBgColorBtn.ForeColor = System.Drawing.Color.White;
-            this.confAlphaBgColorBtn.Location = new System.Drawing.Point(232, 135);
+            this.confAlphaBgColorBtn.Location = new System.Drawing.Point(232, 105);
             this.confAlphaBgColorBtn.Name = "confAlphaBgColorBtn";
             this.confAlphaBgColorBtn.Size = new System.Drawing.Size(28, 23);
             this.confAlphaBgColorBtn.TabIndex = 10;
@@ -125,19 +142,19 @@
             this.confAlphaBgColorBtn.UseVisualStyleBackColor = false;
             this.confAlphaBgColorBtn.Click += new System.EventHandler(this.confAlphaBgColorBtn_Click);
             // 
-            // confAlphaBgColorTbox
+            // alphaColorTbox
             // 
-            this.alphaColorTbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.alphaColorTbox.ForeColor = System.Drawing.Color.White;
-            this.alphaColorTbox.Location = new System.Drawing.Point(160, 137);
-            this.alphaColorTbox.Name = "confAlphaBgColorTbox";
-            this.alphaColorTbox.Size = new System.Drawing.Size(66, 20);
-            this.alphaColorTbox.TabIndex = 8;
+            this.alphaColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.alphaColor.ForeColor = System.Drawing.Color.White;
+            this.alphaColor.Location = new System.Drawing.Point(160, 107);
+            this.alphaColor.Name = "alphaColorTbox";
+            this.alphaColor.Size = new System.Drawing.Size(66, 20);
+            this.alphaColor.TabIndex = 8;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 140);
+            this.label9.Location = new System.Drawing.Point(6, 110);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(92, 13);
             this.label9.TabIndex = 6;
@@ -145,12 +162,12 @@
             // 
             // confAlpha
             // 
-            this.confAlpha.AutoSize = true;
-            this.confAlpha.Location = new System.Drawing.Point(160, 110);
-            this.confAlpha.Name = "confAlpha";
-            this.confAlpha.Size = new System.Drawing.Size(15, 14);
-            this.confAlpha.TabIndex = 5;
-            this.confAlpha.UseVisualStyleBackColor = true;
+            this.alpha.AutoSize = true;
+            this.alpha.Location = new System.Drawing.Point(160, 110);
+            this.alpha.Name = "confAlpha";
+            this.alpha.Size = new System.Drawing.Size(15, 14);
+            this.alpha.TabIndex = 5;
+            this.alpha.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -163,11 +180,11 @@
             // 
             // confTilesize
             // 
-            this.confTilesize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.confTilesize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.confTilesize.ForeColor = System.Drawing.Color.White;
-            this.confTilesize.FormattingEnabled = true;
-            this.confTilesize.Items.AddRange(new object[] {
+            this.tilesize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tilesize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.tilesize.ForeColor = System.Drawing.Color.White;
+            this.tilesize.FormattingEnabled = true;
+            this.tilesize.Items.AddRange(new object[] {
             "2048",
             "1536",
             "1024",
@@ -177,11 +194,11 @@
             "256",
             "192",
             "128"});
-            this.confTilesize.Location = new System.Drawing.Point(160, 77);
-            this.confTilesize.Margin = new System.Windows.Forms.Padding(8);
-            this.confTilesize.Name = "confTilesize";
-            this.confTilesize.Size = new System.Drawing.Size(100, 21);
-            this.confTilesize.TabIndex = 3;
+            this.tilesize.Location = new System.Drawing.Point(160, 77);
+            this.tilesize.Margin = new System.Windows.Forms.Padding(8);
+            this.tilesize.Name = "confTilesize";
+            this.tilesize.Size = new System.Drawing.Size(100, 21);
+            this.tilesize.TabIndex = 3;
             // 
             // label6
             // 
@@ -208,9 +225,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Controls.Add(this.modelPathBox);
+            this.panel6.Controls.Add(this.jpegExt);
+            this.panel6.Controls.Add(this.modelPath);
+            this.panel6.Controls.Add(this.label1);
             this.panel6.Controls.Add(this.label8);
+            this.panel6.Controls.Add(this.confAlphaBgColorBtn);
             this.panel6.Controls.Add(this.label4);
+            this.panel6.Controls.Add(this.alphaColor);
+            this.panel6.Controls.Add(this.label9);
             this.panel6.Location = new System.Drawing.Point(384, 3);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(375, 463);
@@ -218,12 +240,12 @@
             // 
             // modelPathBox
             // 
-            this.modelPathBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.modelPathBox.ForeColor = System.Drawing.Color.White;
-            this.modelPathBox.Location = new System.Drawing.Point(160, 77);
-            this.modelPathBox.Name = "modelPathBox";
-            this.modelPathBox.Size = new System.Drawing.Size(210, 20);
-            this.modelPathBox.TabIndex = 7;
+            this.modelPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.modelPath.ForeColor = System.Drawing.Color.White;
+            this.modelPath.Location = new System.Drawing.Point(160, 77);
+            this.modelPath.Name = "modelPathBox";
+            this.modelPath.Size = new System.Drawing.Size(210, 20);
+            this.modelPath.TabIndex = 7;
             // 
             // label8
             // 
@@ -265,23 +287,23 @@
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
             // 
-            // label1
+            // label2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 170);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "JPEG File Extension";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 140);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(133, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Use CPU instead of CUDA";
             // 
-            // jpegExtBox
+            // useCpu
             // 
-            this.jpegExtBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.jpegExtBox.ForeColor = System.Drawing.Color.White;
-            this.jpegExtBox.Location = new System.Drawing.Point(160, 167);
-            this.jpegExtBox.Name = "jpegExtBox";
-            this.jpegExtBox.Size = new System.Drawing.Size(66, 20);
-            this.jpegExtBox.TabIndex = 12;
+            this.useCpu.AutoSize = true;
+            this.useCpu.Location = new System.Drawing.Point(160, 140);
+            this.useCpu.Name = "useCpu";
+            this.useCpu.Size = new System.Drawing.Size(15, 14);
+            this.useCpu.TabIndex = 7;
+            this.useCpu.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -317,19 +339,21 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Button confAlphaBgColorBtn;
-        private System.Windows.Forms.TextBox alphaColorTbox;
+        private System.Windows.Forms.TextBox alphaColor;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.CheckBox confAlpha;
+        private System.Windows.Forms.CheckBox alpha;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox confTilesize;
+        private System.Windows.Forms.ComboBox tilesize;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.TextBox modelPathBox;
+        private System.Windows.Forms.TextBox modelPath;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ColorDialog alphaBgColorDialog;
-        private System.Windows.Forms.TextBox jpegExtBox;
+        private System.Windows.Forms.TextBox jpegExt;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox useCpu;
+        private System.Windows.Forms.Label label2;
     }
 }
