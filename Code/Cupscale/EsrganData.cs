@@ -21,18 +21,29 @@ namespace Cupscale
 			}
 		}
 
+		public static bool ModelExists (string modelName)
+        {
+			string[] files = Directory.GetFiles("*.pth", Config.Get("modelPath"), SearchOption.AllDirectories);
+			foreach(string modelFile in files)
+            {
+				if (Path.GetFileNameWithoutExtension(modelFile) == modelName)
+					return true;
+            }
+			return false;
+		}
+
 		public static void ReloadModelList()
 		{
-			string text = Config.Get("modelPath");
-			Logger.Log("Loading model names from " + text);
-            if (!Directory.Exists(text))
+			string mdlPath = Config.Get("modelPath");
+			Logger.Log("Loading model names from " + mdlPath);
+            if (!Directory.Exists(mdlPath))
             {
 				Logger.Log("Model dir doesn't exist!");
 				return;
 			}
 			models.Clear();
 			modelsFullPath.Clear();
-			string[] files = Directory.GetFiles(text);
+			string[] files = Directory.GetFiles(mdlPath);
 			string[] array = files;
 			foreach (string path in array)
 			{

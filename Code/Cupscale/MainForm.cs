@@ -238,14 +238,17 @@ namespace Cupscale
         {
 			if (Program.busy)
 				return;
-			if(htTabControl.SelectedIndex == 0)
+
+            if (!MainUIHelper.HasValidModelSelection())
             {
+				MessageBox.Show("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
+				return;
+            }
+
+			if(htTabControl.SelectedIndex == 0)
 				MainUIHelper.UpscaleImage();
-			}
 			if (htTabControl.SelectedIndex == 1)
-			{
 				BatchUpscaleUI.Run();
-			}
 		}
 
         private void refreshPreviewFullBtn_Click(object sender, EventArgs e)

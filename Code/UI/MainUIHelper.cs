@@ -76,6 +76,16 @@ namespace Cupscale.UI
                 File.Move(inputImgPath, Program.lastFilename);
         }
 
+        public static bool HasValidModelSelection ()
+        {
+            bool valid = true;
+            if (model1.Enabled && !File.Exists(Program.currentModel1))
+                valid = false;
+            if (model2.Enabled && !File.Exists(Program.currentModel2))
+                valid = false;
+            return valid;
+        }
+
         static bool CopyImage()
         {
             try
@@ -96,6 +106,11 @@ namespace Cupscale.UI
 
         public static async void UpscalePreview(bool fullImage = false)
         {
+            if (!HasValidModelSelection())
+            {
+                MessageBox.Show("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
+                return;
+            }
             Program.mainForm.SetBusy(true);
             Program.mainForm.SetProgress(3f, "Preparing...");
             Program.mainForm.resetState = new Cupscale.PreviewState(previewImg.Image, previewImg.Zoom, previewImg.AutoScrollPosition);
