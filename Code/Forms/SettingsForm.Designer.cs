@@ -49,27 +49,32 @@
             this.label4 = new System.Windows.Forms.Label();
             this.alphaBgColor = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.logPage = new Cyotek.Windows.Forms.TabListPage();
-            this.logTbox = new System.Windows.Forms.TextBox();
-            this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.formatsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.webpQ = new System.Windows.Forms.TextBox();
+            this.jpegQ = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.jpegQ = new System.Windows.Forms.TextBox();
-            this.webpQ = new System.Windows.Forms.TextBox();
+            this.logPage = new Cyotek.Windows.Forms.TabListPage();
+            this.logTbox = new System.Windows.Forms.TextBox();
+            this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.ddsMipsAmount = new System.Windows.Forms.TextBox();
+            this.ddsUseDxt = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.logPage.SuspendLayout();
             this.formatsPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.logPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabList1
@@ -297,27 +302,6 @@
             this.label9.TabIndex = 6;
             this.label9.Text = "Background Color";
             // 
-            // logPage
-            // 
-            this.logPage.Controls.Add(this.logTbox);
-            this.logPage.Name = "logPage";
-            this.logPage.Size = new System.Drawing.Size(762, 469);
-            this.logPage.Text = "View Log";
-            // 
-            // logTbox
-            // 
-            this.logTbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.logTbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logTbox.ForeColor = System.Drawing.Color.Silver;
-            this.logTbox.Location = new System.Drawing.Point(0, 0);
-            this.logTbox.Margin = new System.Windows.Forms.Padding(24);
-            this.logTbox.Multiline = true;
-            this.logTbox.Name = "logTbox";
-            this.logTbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.logTbox.Size = new System.Drawing.Size(762, 469);
-            this.logTbox.TabIndex = 12;
-            this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
-            // 
             // formatsPage
             // 
             this.formatsPage.Controls.Add(this.tableLayoutPanel1);
@@ -347,6 +331,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label14);
+            this.panel1.Controls.Add(this.ddsUseDxt);
+            this.panel1.Controls.Add(this.ddsMipsAmount);
+            this.panel1.Controls.Add(this.label13);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.webpQ);
             this.panel1.Controls.Add(this.jpegQ);
             this.panel1.Controls.Add(this.label10);
@@ -357,23 +346,41 @@
             this.panel1.Size = new System.Drawing.Size(375, 463);
             this.panel1.TabIndex = 4;
             // 
+            // webpQ
+            // 
+            this.webpQ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.webpQ.ForeColor = System.Drawing.Color.White;
+            this.webpQ.Location = new System.Drawing.Point(160, 107);
+            this.webpQ.Name = "webpQ";
+            this.webpQ.Size = new System.Drawing.Size(66, 20);
+            this.webpQ.TabIndex = 13;
+            // 
+            // jpegQ
+            // 
+            this.jpegQ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.jpegQ.ForeColor = System.Drawing.Color.White;
+            this.jpegQ.Location = new System.Drawing.Point(160, 77);
+            this.jpegQ.Name = "jpegQ";
+            this.jpegQ.Size = new System.Drawing.Size(66, 20);
+            this.jpegQ.TabIndex = 12;
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(6, 110);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(74, 13);
+            this.label10.Size = new System.Drawing.Size(106, 13);
             this.label10.TabIndex = 4;
-            this.label10.Text = "WEBP Quality";
+            this.label10.Text = "WEBP: Quality Level";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(6, 80);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(69, 13);
+            this.label11.Size = new System.Drawing.Size(101, 13);
             this.label11.TabIndex = 2;
-            this.label11.Text = "JPEG Quality";
+            this.label11.Text = "JPEG: Quality Level";
             // 
             // label12
             // 
@@ -396,23 +403,72 @@
             this.panel2.Size = new System.Drawing.Size(375, 463);
             this.panel2.TabIndex = 3;
             // 
-            // jpegQ
+            // logPage
             // 
-            this.jpegQ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.jpegQ.ForeColor = System.Drawing.Color.White;
-            this.jpegQ.Location = new System.Drawing.Point(160, 77);
-            this.jpegQ.Name = "jpegQ";
-            this.jpegQ.Size = new System.Drawing.Size(66, 20);
-            this.jpegQ.TabIndex = 12;
+            this.logPage.Controls.Add(this.logTbox);
+            this.logPage.Name = "logPage";
+            this.logPage.Size = new System.Drawing.Size(762, 469);
+            this.logPage.Text = "View Log";
             // 
-            // webpQ
+            // logTbox
             // 
-            this.webpQ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.webpQ.ForeColor = System.Drawing.Color.White;
-            this.webpQ.Location = new System.Drawing.Point(160, 107);
-            this.webpQ.Name = "webpQ";
-            this.webpQ.Size = new System.Drawing.Size(66, 20);
-            this.webpQ.TabIndex = 13;
+            this.logTbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.logTbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logTbox.ForeColor = System.Drawing.Color.Silver;
+            this.logTbox.Location = new System.Drawing.Point(0, 0);
+            this.logTbox.Margin = new System.Windows.Forms.Padding(24);
+            this.logTbox.Multiline = true;
+            this.logTbox.Name = "logTbox";
+            this.logTbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.logTbox.Size = new System.Drawing.Size(762, 469);
+            this.logTbox.TabIndex = 12;
+            this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 140);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(143, 13);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "DDS: Use DXT Compression";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 170);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(131, 13);
+            this.label13.TabIndex = 15;
+            this.label13.Text = "DDS: Amount Of Mipmaps";
+            // 
+            // ddsMipsAmount
+            // 
+            this.ddsMipsAmount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ddsMipsAmount.ForeColor = System.Drawing.Color.White;
+            this.ddsMipsAmount.Location = new System.Drawing.Point(160, 167);
+            this.ddsMipsAmount.Name = "ddsMipsAmount";
+            this.ddsMipsAmount.Size = new System.Drawing.Size(66, 20);
+            this.ddsMipsAmount.TabIndex = 16;
+            // 
+            // ddsUseDxt
+            // 
+            this.ddsUseDxt.AutoSize = true;
+            this.ddsUseDxt.Location = new System.Drawing.Point(160, 140);
+            this.ddsUseDxt.Name = "ddsUseDxt";
+            this.ddsUseDxt.Size = new System.Drawing.Size(15, 14);
+            this.ddsUseDxt.TabIndex = 17;
+            this.ddsUseDxt.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.Color.Silver;
+            this.label14.Location = new System.Drawing.Point(232, 170);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(127, 13);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "Use 0 to disable mipmaps";
             // 
             // SettingsForm
             // 
@@ -433,12 +489,12 @@
             this.panel7.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.logPage.ResumeLayout(false);
-            this.logPage.PerformLayout();
             this.formatsPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.logPage.ResumeLayout(false);
+            this.logPage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -477,5 +533,10 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.CheckBox ddsUseDxt;
+        private System.Windows.Forms.TextBox ddsMipsAmount;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label3;
     }
 }

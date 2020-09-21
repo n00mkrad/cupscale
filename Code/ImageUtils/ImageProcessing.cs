@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cupscale.IO;
 using ImageMagick;
+using ImageMagick.Formats.Bmp;
+using ImageMagick.Formats.Dds;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using Paths = Cupscale.IO.Paths;
@@ -147,6 +149,11 @@ namespace Cupscale
 			{
 				img.Format = MagickFormat.Dds;
 				ext = "dds";
+				DdsCompression comp = DdsCompression.None;
+				if(Config.GetBool("ddsUseDxt"))
+					comp = DdsCompression.Dxt1;
+				DdsWriteDefines ddsDefines = new DdsWriteDefines { Compression = comp, Mipmaps = Config.GetInt("ddsMipsAmount") };
+				img.Settings.SetDefines(ddsDefines);
 			}
             if (fillAlpha)
             {
