@@ -98,6 +98,7 @@ namespace Cupscale.UI
         {
             Program.mainForm.SetBusy(true);
             Program.mainForm.SetProgress(3f, "Preparing...");
+            Program.mainForm.resetState = new Cupscale.PreviewState(previewImg.Image, previewImg.Zoom, previewImg.AutoScrollPosition);
             ResetCachedImages();
             IOUtils.DeleteContentsOfDir(Paths.imgInPath);
             IOUtils.DeleteContentsOfDir(Paths.previewPath);

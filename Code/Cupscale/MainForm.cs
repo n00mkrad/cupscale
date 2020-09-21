@@ -15,11 +15,14 @@ using Cupscale.Main;
 using System.Threading.Tasks;
 using System.IO;
 using Cupscale.IO;
+using Cupscale.Cupscale;
 
 namespace Cupscale
 {
 	public partial class MainForm : Form
 	{
+		public bool resetImageOnMove = false;
+		public PreviewState resetState;
 
 		public MainForm()
 		{
@@ -113,12 +116,19 @@ namespace Cupscale
 			base.Dispose(disposing);
 		}
 
+		int lastZoom;
         private void previewImg_Zoomed(object sender, ImageBoxZoomEventArgs e)
         {
 			if (previewImg.Image == null)
 				return;
-            UpdatePreviewInfo();
-            if (previewImg.Zoom < 25) previewImg.Zoom = 25;
+			if (previewImg.Zoom < 25) previewImg.Zoom = 25;
+			if(previewImg.Zoom != lastZoom)
+            {
+				if (resetImageOnMove)
+					ResetToLastState();
+				lastZoom = previewImg.Zoom;
+			}
+			UpdatePreviewInfo();
         }
 
         void UpdatePreviewInfo ()
@@ -218,6 +228,7 @@ namespace Cupscale
 			Program.lastFilename = path;
 			MainUIHelper.currentScale = 1;
 			previewImg.ZoomToFit();
+			lastZoom = previewImg.Zoom;
 			loadingDialogForm.Close();
 			SetProgress(0f, "Ready.");
 		}
@@ -266,6 +277,15 @@ namespace Cupscale
         {
 			if (prevClipboardTypeCombox.SelectedIndex == 0) ClipboardPreview.CopyToClipboardSideBySide(true);
 			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardPreview.CopyToClipboardSlider(true);
+		}
+
+		public void ResetToLastState ()
+        {
+			previewImg.Image = resetState.image;
+			previewImg.Zoom = resetState.zoom;
+			previewImg.AutoScrollPosition = resetState.autoScrollPosition;		// This doesn't work correctly :/
+			MainUIHelper.ResetCachedImages();
+			resetImageOnMove = false;
 		}
     }
 }

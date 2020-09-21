@@ -35,6 +35,7 @@ namespace Cupscale
 			ShippedEsrgan.Init();
 			EsrganData.CheckModelDir();
 			dialogForm.Close();
+			ResourceLimits.Memory = (ulong)Math.Round(ResourceLimits.Memory * 1.5f);
 			Application.Run(new MainForm());
 		}
 

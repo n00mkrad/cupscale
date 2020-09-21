@@ -46,13 +46,12 @@ namespace Cupscale.Forms
 
         private void CheckNodesRecursive(TreeNode parentNode)
         {
-            Logger.Log("Checking if " + parentNode.Text.Trim() + " == " + modelBtn.Text.Trim());
             if (parentNode.Text.Trim() == modelBtn.Text.Trim())
                 modelTree.SelectedNode = parentNode;
 
-            foreach (TreeNode oSubNode in parentNode.Nodes)
+            foreach (TreeNode subNode in parentNode.Nodes)
             {
-                CheckNodesRecursive(oSubNode);
+                CheckNodesRecursive(subNode);
             }
         }
 
@@ -62,11 +61,12 @@ namespace Cupscale.Forms
 
             foreach (FileInfo file in directoryInfo.GetFiles())
             {
-                curNode.Nodes.Add(file.FullName, Path.ChangeExtension(file.Name, null));
+                if(file.Extension == ".pth")    // Hide any other file extension
+                    curNode.Nodes.Add(file.FullName, Path.ChangeExtension(file.Name, null));
             }
             foreach (DirectoryInfo subdir in directoryInfo.GetDirectories())
             {
-                if(subdir.GetFiles().Length > 0)
+                if(subdir.GetFiles("*.pth", SearchOption.AllDirectories).Length > 0)     // Don't list folders that have no PTH files
                     BuildTree(subdir, curNode.Nodes);
             }
         }
