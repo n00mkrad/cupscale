@@ -168,14 +168,14 @@ namespace Cupscale
 
         private void interpConfigureBtn_Click(object sender, EventArgs e)
         {
-			/*
-			if (modelCombox1.SelectedIndex == -1 || modelCombox2.SelectedIndex == -1)
+			
+			if (!MainUIHelper.HasValidModelSelection())
             {
 				MessageBox.Show("Please select two models for interpolation.", "Message");
 				return;
             }
-			*/
-			InterpForm interpForm = new InterpForm(model1TreeBtn.Text.Trim(), model1TreeBtn.Text.Trim());
+
+			InterpForm interpForm = new InterpForm(model1TreeBtn.Text.Trim(), model2TreeBtn.Text.Trim());
         }
 
         private void batchTab_DragEnter(object sender, DragEventArgs e)
