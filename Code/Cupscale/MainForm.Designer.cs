@@ -76,6 +76,7 @@ namespace Cupscale
             this.prevSizeLabel = new System.Windows.Forms.Label();
             this.prevZoomLabel = new System.Windows.Forms.Label();
             this.previewGroupbox = new System.Windows.Forms.GroupBox();
+            this.savePreviewToFileBtn = new HTAlt.WinForms.HTButton();
             this.copyCompToClipboardBtn = new HTAlt.WinForms.HTButton();
             this.label12 = new System.Windows.Forms.Label();
             this.prevClipboardTypeCombox = new System.Windows.Forms.ComboBox();
@@ -112,7 +113,6 @@ namespace Cupscale
             this.panel7 = new System.Windows.Forms.Panel();
             this.settingsBtn = new HTAlt.WinForms.HTButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.savePreviewToFileBtn = new HTAlt.WinForms.HTButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -498,6 +498,22 @@ namespace Cupscale
             this.previewGroupbox.TabStop = false;
             this.previewGroupbox.Text = "Save Comparison";
             // 
+            // savePreviewToFileBtn
+            // 
+            this.savePreviewToFileBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.savePreviewToFileBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.savePreviewToFileBtn.FlatAppearance.BorderSize = 0;
+            this.savePreviewToFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.savePreviewToFileBtn.ForeColor = System.Drawing.Color.White;
+            this.savePreviewToFileBtn.Location = new System.Drawing.Point(168, 56);
+            this.savePreviewToFileBtn.Name = "savePreviewToFileBtn";
+            this.savePreviewToFileBtn.Size = new System.Drawing.Size(156, 30);
+            this.savePreviewToFileBtn.TabIndex = 13;
+            this.savePreviewToFileBtn.Text = "Save To File";
+            this.savePreviewToFileBtn.UseVisualStyleBackColor = false;
+            this.savePreviewToFileBtn.Click += new System.EventHandler(this.savePreviewToFileBtn_Click);
+            // 
             // copyCompToClipboardBtn
             // 
             this.copyCompToClipboardBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -818,7 +834,7 @@ namespace Cupscale
             this.batchFileList.Name = "batchFileList";
             this.batchFileList.ReadOnly = true;
             this.batchFileList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.batchFileList.Size = new System.Drawing.Size(275, 485);
+            this.batchFileList.Size = new System.Drawing.Size(275, 450);
             this.batchFileList.TabIndex = 12;
             // 
             // tableLayoutPanel6
@@ -989,22 +1005,6 @@ namespace Cupscale
             this.settingsBtn.Text = " ";
             this.settingsBtn.UseVisualStyleBackColor = false;
             this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
-            // 
-            // savePreviewToFileBtn
-            // 
-            this.savePreviewToFileBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.savePreviewToFileBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.savePreviewToFileBtn.FlatAppearance.BorderSize = 0;
-            this.savePreviewToFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.savePreviewToFileBtn.ForeColor = System.Drawing.Color.White;
-            this.savePreviewToFileBtn.Location = new System.Drawing.Point(168, 56);
-            this.savePreviewToFileBtn.Name = "savePreviewToFileBtn";
-            this.savePreviewToFileBtn.Size = new System.Drawing.Size(156, 30);
-            this.savePreviewToFileBtn.TabIndex = 13;
-            this.savePreviewToFileBtn.Text = "Save To File";
-            this.savePreviewToFileBtn.UseVisualStyleBackColor = false;
-            this.savePreviewToFileBtn.Click += new System.EventHandler(this.savePreviewToFileBtn_Click);
             // 
             // MainForm
             // 

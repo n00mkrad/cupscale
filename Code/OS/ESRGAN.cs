@@ -158,5 +158,40 @@ namespace Cupscale.OS
 			Program.mainForm.SetProgress(previewProgress, "Upscaling tiles - " + previewProgress.ToString("0") + "%");
 			await Task.Delay(1);
 		}
+
+		public static async Task RunNcnn (string inpath, string outpath, string modelArg, string tilesize)
+		{
+			/*
+			inpath = "\"" + inpath + "\"";
+			outpath = "\"" + outpath + "\"";
+			string alphaStr = " --noalpha";
+			if (alpha)
+				alphaStr = "";
+			string deviceStr = " --device cuda";
+			if (Config.GetBool("useCpu"))
+				deviceStr = " --device cpu";
+			string cmd2 = "/C cd /D \"" + Config.Get("esrganPath") + "\" & ";
+			cmd2 = cmd2 + "python esrlmain.py " + inpath + " " + outpath + deviceStr + " --tilesize " + tilesize + alphaStr + modelArg;
+			Logger.Log("CMD: " + cmd2);
+			Process esrganProcess = new Process();
+			esrganProcess.StartInfo.UseShellExecute = false;
+			esrganProcess.StartInfo.RedirectStandardOutput = true;
+			esrganProcess.StartInfo.RedirectStandardError = true;
+			esrganProcess.StartInfo.CreateNoWindow = true;
+			esrganProcess.StartInfo.FileName = "cmd.exe";
+			esrganProcess.StartInfo.Arguments = cmd2;
+			esrganProcess.OutputDataReceived += OutputHandler;
+			esrganProcess.ErrorDataReceived += OutputHandler;
+			currentProcess = esrganProcess;
+			esrganProcess.Start();
+			esrganProcess.BeginOutputReadLine();
+			esrganProcess.BeginErrorReadLine();
+			while (!esrganProcess.HasExited)
+			{
+				await Task.Delay(100);
+			}
+			File.Delete(Paths.progressLogfile);
+			*/
+		}
 	}
 }

@@ -40,6 +40,7 @@ namespace Cupscale
             UIHelpers.InitCombox(prevOverwriteCombox, 0);
             UIHelpers.InitCombox(prevOutputFormatCombox, 0);
             UIHelpers.InitCombox(prevClipboardTypeCombox, 0);
+			UIHelpers.FillFormatComboBox(prevOutputFormatCombox);
         }
 
 		public void SetProgress(float prog, string statusText = "")
@@ -222,7 +223,7 @@ namespace Cupscale
 			File.Copy(path, Paths.tempImgPath, true);
 			//await Upscale.Preprocessing(Paths.tempImgPath.GetParentDir());
 			bool fillAlpha = !bool.Parse(Config.Get("alpha"));
-			await ImageProcessing.ConvertImageTo(path, Paths.tempImgPath, ImageProcessing.Format.PngFast, fillAlpha, false, false);
+			await ImageProcessing.ConvertImage(path, ImageProcessing.Format.PngRaw, fillAlpha, false, false, Paths.tempImgPath);
 			Logger.Log("Done Preprocessing");
 			previewImg.Image = IOUtils.GetImage(Paths.tempImgPath);
 			Program.lastFilename = path;

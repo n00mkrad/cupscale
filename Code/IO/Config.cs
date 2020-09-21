@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using Cupscale.IO;
 
 namespace Cupscale
@@ -56,6 +57,17 @@ namespace Cupscale
 			return bool.Parse(Get(key));
         }
 
+		public static int GetInt (string key)
+		{
+			for (int i = 0; i < cachedLines.Length; i++)
+			{
+				string[] keyValuePair = cachedLines[i].Split('|');
+				if (keyValuePair[0] == key)
+					return int.Parse(keyValuePair[1].Trim());
+			}
+			return int.Parse(WriteDefaultValIfExists(key).Trim());
+		}
+
 		private static string WriteDefaultValIfExists(string key)
 		{
 			return key switch
@@ -66,6 +78,8 @@ namespace Cupscale
 				"alphaBgColor" => WriteDefault("alphaBgColor", "000000FF"),
 				"jpegExtension" => WriteDefault("jpegExtension", "jpg"),
 				"useCpu" => WriteDefault("useCpu", "False"),
+				"jpegQ" => WriteDefault("jpegQ", "95"),
+				"webpQ" => WriteDefault("webpQ", "95"),
 				_ => null, 
 			};
 		}
@@ -79,6 +93,36 @@ namespace Cupscale
 		private static void Reload()
 		{
 			cachedLines = File.ReadAllLines(configPath);
+		}
+
+		public static void SaveGuiElement(TextBox textbox)
+		{
+			Set(textbox.Name, textbox.Text);
+		}
+
+		public static void SaveGuiElement(ComboBox comboBox)
+		{
+			Set(comboBox.Name, comboBox.Text);
+		}
+
+		public static void SaveGuiElement(CheckBox checkbox)
+		{
+			Set(checkbox.Name, checkbox.Checked.ToString());
+		}
+
+		public static void LoadGuiElement(ComboBox comboBox)
+		{
+			comboBox.Text = Get(comboBox.Name);
+		}
+
+		public static void LoadGuiElement (TextBox textbox)
+        {
+			textbox.Text = Get(textbox.Name);
+		}
+
+		public static void LoadGuiElement (CheckBox checkbox)
+		{
+			checkbox.Checked = bool.Parse(Get(checkbox.Name));
 		}
 	}
 }

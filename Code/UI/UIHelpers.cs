@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Cupscale.Main;
 using Cupscale.UI;
 using Cyotek.Windows.Forms;
 
@@ -27,6 +28,19 @@ namespace Cupscale
 			foreach (string model in EsrganData.models)
 			{
 				box.Items.Add(model);
+			}
+			if (resetIndex || string.IsNullOrEmpty(box.Text))
+			{
+				InitCombox(box, 0);
+			}
+		}
+
+		public static void FillFormatComboBox(ComboBox box, bool resetIndex = true)
+		{
+			box.Items.Clear();
+			foreach (string format in Enum.GetNames(typeof(Upscale.ExportFormats)))
+			{
+				box.Items.Add(format);
 			}
 			if (resetIndex || string.IsNullOrEmpty(box.Text))
 			{

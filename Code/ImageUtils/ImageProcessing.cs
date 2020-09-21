@@ -17,10 +17,9 @@ namespace Cupscale
 		{
 			PngOpti,
 			PngFast,
-			JpegHigh,
-			JpegMed,
-			WeppyHigh,
-			WeppyLow,
+			PngRaw,
+			Jpeg,
+			Weppy,
 			BMP,
 			TGA,
 			DDS
@@ -65,11 +64,11 @@ namespace Cupscale
 				Format format = Format.PngOpti;
 				if (GetTrimmedExtension(file2) == "jpg" || GetTrimmedExtension(file2) == "jpeg")
 				{
-					format = Format.JpegHigh;
+					format = Format.Jpeg;
 				}
 				if (GetTrimmedExtension(file2) == "webp")
 				{
-					format = Format.WeppyHigh;
+					format = Format.Weppy;
 				}
 				if (GetTrimmedExtension(file2) == "bmp")
 				{
@@ -106,7 +105,7 @@ namespace Cupscale
 			Logger.Log("Done converting images");
 		}
 
-		public static async Task ConvertImage(string path, Format format, bool fillAlpha, bool appendExtension, bool deleteSource = true)
+		public static async Task ConvertImage(string path, Format format, bool fillAlpha, bool appendExtension, bool deleteSource = true, string overrideOutPath = "")
 		{
 			Logger.Log("ConvertImage: Loading MagickImage from " + path);
 			MagickImage img = new MagickImage(path);
@@ -122,28 +121,16 @@ namespace Cupscale
 				img.Format = MagickFormat.Png;
 				img.Quality = 20;
 			}
-			if (format == Format.JpegHigh)
+			if (format == Format.Jpeg)
 			{
 				img.Format = MagickFormat.Jpeg;
-				img.Quality = 95;
+				img.Quality = Config.GetInt("jpegQ");
 				ext = "jpg";
 			}
-			if (format == Format.JpegMed)
-			{
-				img.Format = MagickFormat.Jpeg;
-				img.Quality = 80;
-				ext = "jpg";
-			}
-			if (format == Format.WeppyHigh)
+			if (format == Format.Weppy)
 			{
 				img.Format = MagickFormat.WebP;
-				img.Quality = 92;
-				ext = "webp";
-			}
-			if (format == Format.WeppyLow)
-			{
-				img.Format = MagickFormat.WebP;
-				img.Quality = 80;
+				img.Quality = Config.GetInt("webpQ");
 				ext = "webp";
 			}
 			if (format == Format.BMP)
@@ -167,7 +154,7 @@ namespace Cupscale
 				colorImg.Composite(img, Gravity.Center, CompositeOperator.Over);
 				// img.ColorAlpha(new MagickColor("#" + Config.Get("alphaBgColor")));	// Might not work correctly for DDS n stuff?
 			}
-			if (appendExtension)
+			if (string.IsNullOrWhiteSpace(overrideOutPath) && appendExtension)
 			{
 				string extension = Path.GetExtension(path);
 				string outPath = Path.ChangeExtension(path, null) + extension + "." + ext;
@@ -181,96 +168,15 @@ namespace Cupscale
 			}
 			else
 			{
-				img.Write(Path.ChangeExtension(path, ext));
-				Logger.Log("Writing image to " + Path.ChangeExtension(path, ext));
-				if (deleteSource && !(Path.ChangeExtension(path, ext) == path))
+				string outPath = Path.ChangeExtension(path, ext);
+				if (!string.IsNullOrWhiteSpace(overrideOutPath))
+					outPath = overrideOutPath;
+				img.Write(outPath);
+				Logger.Log("Writing image to " + outPath);
+				if (deleteSource && outPath != path)
 				{
 					Logger.Log("Deleting source file: " + path);
 					File.Delete(path);
-				}
-			}
-			await Task.Delay(1);
-		}
-
-		public static async Task ConvertImageTo(string inPath, string outPath, Format format, bool fillAlpha, bool appendExtension, bool deleteSource = true)
-		{
-			Logger.Log("ConvertImage: Loading MagickImage from " + inPath);
-			MagickImage img = new MagickImage(inPath);
-			Logger.Log("Converting: " + img.ToString() + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource);
-			string ext = "png";
-			if (format == Format.PngOpti)
-			{
-				img.Format = MagickFormat.Png;
-				img.Quality = 70;
-			}
-			if (format == Format.PngFast)
-			{
-				img.Format = MagickFormat.Png;
-				img.Quality = 20;
-			}
-			if (format == Format.JpegHigh)
-			{
-				img.Format = MagickFormat.Jpeg;
-				img.Quality = 95;
-				ext = "jpg";
-			}
-			if (format == Format.JpegMed)
-			{
-				img.Format = MagickFormat.Jpeg;
-				img.Quality = 80;
-				ext = "jpg";
-			}
-			if (format == Format.WeppyHigh)
-			{
-				img.Format = MagickFormat.WebP;
-				img.Quality = 92;
-				ext = "webp";
-			}
-			if (format == Format.WeppyLow)
-			{
-				img.Format = MagickFormat.WebP;
-				img.Quality = 80;
-				ext = "webp";
-			}
-			if (format == Format.BMP)
-			{
-				img.Format = MagickFormat.Bmp;
-				ext = "bmp";
-			}
-			if (format == Format.TGA)
-			{
-				img.Format = MagickFormat.Tga;
-				ext = "tga";
-			}
-			if (format == Format.DDS)
-			{
-				img.Format = MagickFormat.Dds;
-				ext = "dds";
-			}
-			if (fillAlpha)
-			{
-				img.ColorAlpha(new MagickColor("#" + Config.Get("alphaBgColor")));
-			}
-			if (appendExtension)
-			{
-				string extension = Path.GetExtension(inPath);
-				//string outPath = Path.ChangeExtension(inPath, null) + extension + "." + ext;
-				Logger.Log("Appending old extension; writing image to " + outPath);
-				img.Write(outPath);
-				if (deleteSource && outPath != inPath)
-				{
-					Logger.Log("Deleting source file: " + inPath);
-					File.Delete(inPath);
-				}
-			}
-			else
-			{
-				img.Write(Path.ChangeExtension(outPath, ext));
-				Logger.Log("Writing image to " + Path.ChangeExtension(outPath, ext));
-				if (deleteSource && !(Path.ChangeExtension(outPath, ext) == inPath))
-				{
-					Logger.Log("Deleting source file: " + inPath);
-					File.Delete(inPath);
 				}
 			}
 			await Task.Delay(1);

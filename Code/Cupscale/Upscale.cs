@@ -15,6 +15,8 @@ namespace Cupscale.Main
 {
     class Upscale
     {
+        public enum ExportFormats { PNG, SameAsSource, JPEG, WEBP, BMP, TGA, DDS}
+
         public static async Task CopyImagesTo(string path)
         {
             if (overwrite.SelectedIndex == 1)
@@ -80,19 +82,20 @@ namespace Cupscale.Main
         {
             Program.mainForm.SetProgress(100f, "Postprocessing...");
             await Program.PutTaskDelay();
-            Logger.Log("Postprocessing - outputFormat.SelectedIndex = " + outputFormat.SelectedIndex);
-            if (outputFormat.SelectedIndex == 0)
+            if (outputFormat.Text == ExportFormats.PNG.ToString())
                 ImageProcessing.ChangeOutputExtensions("png");
-            if (outputFormat.SelectedIndex == 1)
+            if (outputFormat.Text == ExportFormats.SameAsSource.ToString())
                 await ImageProcessing.ConvertImagesToOriginalFormat();
-            if (outputFormat.SelectedIndex == 2)
-                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.JpegHigh);
-            if (outputFormat.SelectedIndex == 3)
-                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.JpegMed);
-            if (outputFormat.SelectedIndex == 4)
-                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.WeppyHigh);
-            if (outputFormat.SelectedIndex == 5)
-                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.WeppyLow);
+            if (outputFormat.Text == ExportFormats.JPEG.ToString())
+                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.Jpeg);
+            if (outputFormat.Text == ExportFormats.WEBP.ToString())
+                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.Weppy);
+            if (outputFormat.Text == ExportFormats.BMP.ToString())
+                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.BMP);
+            if (outputFormat.Text == ExportFormats.TGA.ToString())
+                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.TGA);
+            if (outputFormat.Text == ExportFormats.DDS.ToString())
+                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.DDS);
         }
 
         public static async Task FilenamePostprocessing ()
