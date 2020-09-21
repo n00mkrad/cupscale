@@ -37,6 +37,7 @@ namespace Cupscale.Forms
         {
             Config.LoadGuiElement(tilesize);
             Config.LoadGuiElement(alpha);
+            Config.LoadGuiElement(modelPath);
             Config.LoadGuiElement(alphaBgColor);
             Config.LoadGuiElement(jpegExtension);
             Config.LoadGuiElement(useCpu);
@@ -57,6 +58,7 @@ namespace Cupscale.Forms
         {
             Config.SaveGuiElement(tilesize);
             Config.SaveGuiElement(alpha);
+            Config.SaveGuiElement(modelPath);
             Config.SaveGuiElement(alphaBgColor);
             Config.SaveGuiElement(jpegExtension);
             Config.SaveGuiElement(useCpu);

@@ -31,7 +31,13 @@ namespace Cupscale.Forms
 
         private void ModelSelectForm_Load(object sender, EventArgs e)
         {
-            DirectoryInfo modelsDir = new DirectoryInfo(Config.Get("modelPath"));
+            string modelDir = Config.Get("modelPath");
+            if (!Directory.Exists(modelDir))
+            {
+                MessageBox.Show("The saved model directory does not exist - Make sure you've set a models folder!");
+                return;
+            }
+            DirectoryInfo modelsDir = new DirectoryInfo(modelDir);
             BuildTree(modelsDir, modelTree.Nodes);
             modelTree.ExpandAll();
         }
