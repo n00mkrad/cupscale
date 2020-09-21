@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows;
 using Cupscale.ImageUtils;
@@ -29,10 +30,10 @@ namespace Cupscale
 			//MagickImage sourceImg = new MagickImage(Paths.tempImgPath);
 			Image sourceImg = IOUtils.GetImage(Paths.tempImgPath);
 			int scale = GetScale();
-			if (sourceImg.Width * scale > 5000 || sourceImg.Height * scale > 5000)
+			if (sourceImg.Width * scale > 6000 || sourceImg.Height * scale > 6000)
             {
 				MergeOnlyCutout();
-				MessageBox.Show("The output image is very large (>5000px), so only the cutout will be shown.", "Warning");
+				MessageBox.Show("The output image is very large (>6000px), so only the cutout will be shown.", "Warning");
 				return;
 			}
 			MergeScrollable();
@@ -40,31 +41,60 @@ namespace Cupscale
 
 		static void MergeScrollable ()
         {
-			MagickImage sourceImg = new MagickImage(Paths.tempImgPath);
-			if (offsetX < 0f)
-				offsetX *= -1f;
-			if (offsetY < 0f)
-				offsetY *= -1f;
+			
+			if (offsetX < 0f) offsetX *= -1f;
+			if (offsetY < 0f) offsetY *= -1f;
 			int scale = GetScale();
 			offsetX *= scale;
 			offsetY *= scale;
 			Logger.Log("Merging " + outputCutoutPath + " onto " + Program.lastFilename + " using offset " + offsetX + "x" + offsetY);
+			string scaledPrevPath = Path.Combine(Paths.previewOutPath, "preview-input-scaled.png");
+			//Image image = MergeOnDisk(scale, scaledPrevPath);
+			Image image = MergeInMemory(scale, scaledPrevPath);
+			MainUIHelper.currentOriginal = IOUtils.GetImage(Paths.tempImgPath);
+			MainUIHelper.currentOutput = image;
+			MainUIHelper.currentScale = ImgUtils.GetScale(IOUtils.GetImage(inputCutoutPath), IOUtils.GetImage(outputCutoutPath));
+			UIHelpers.ReplaceImageAtSameScale(MainUIHelper.previewImg, image);
+			Program.mainForm.SetProgress(0f, "Done.");
+		}
+
+		public static Image MergeInMemory(int scale, string scaledPrevPath)
+		{
+			Image sourceImg = IOUtils.GetImage(Paths.tempImgPath);
+			Image cutout = IOUtils.GetImage(outputCutoutPath);
+
+			var destImage = new Bitmap(sourceImg.Width * scale, sourceImg.Height * scale);
+
+			using (var graphics = Graphics.FromImage(destImage))
+			{
+				graphics.CompositingMode = CompositingMode.SourceCopy;
+				graphics.CompositingQuality = CompositingQuality.HighQuality;
+				graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+				if(Program.currentFilter == FilterType.Point)
+					graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+				graphics.SmoothingMode = SmoothingMode.HighQuality;
+				graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+				graphics.DrawImage(sourceImg, 0, 0, destImage.Width, destImage.Height);		// Scale up
+				graphics.DrawImage(cutout, offsetX, offsetY);     // Overlay cutout
+			}
+
+			return destImage;
+		}
+
+		public static Image MergeOnDisk (int scale, string scaledPrevPath)
+        {
+			MagickImage sourceImg = new MagickImage(Paths.tempImgPath);
 			MagickImage cutout = new MagickImage(outputCutoutPath);
 			sourceImg.FilterType = Program.currentFilter;
 			sourceImg.Resize(new Percentage(scale * 100));
-			string scaledPrevPath = Path.Combine(Paths.previewOutPath, "preview-input-scaled.png");
 			sourceImg.Format = MagickFormat.Png;
 			sourceImg.Quality = 0;  // Save preview as uncompressed PNG for max speed
 			sourceImg.Write(scaledPrevPath);
 			sourceImg.Composite(cutout, (Gravity)1, new PointD(offsetX, offsetY), CompositeOperator.Replace);
 			string mergedPreviewPath = Path.Combine(Paths.previewOutPath, "preview-merged.png");
 			sourceImg.Write(mergedPreviewPath);
-			Image image = IOUtils.GetImage(mergedPreviewPath);
-			MainUIHelper.currentOriginal = IOUtils.GetImage(scaledPrevPath);
-			MainUIHelper.currentOutput = image;
-			MainUIHelper.currentScale = ImgUtils.GetScale(IOUtils.GetImage(inputCutoutPath), IOUtils.GetImage(outputCutoutPath));
-			UIHelpers.ReplaceImageAtSameScale(MainUIHelper.previewImg, image);
-			Program.mainForm.SetProgress(0f, "Done.");
+			return IOUtils.GetImage(mergedPreviewPath);
 		}
 
 		static void MergeOnlyCutout ()
