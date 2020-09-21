@@ -50,7 +50,7 @@ namespace Cupscale
 			Logger.Log("Merging " + outputCutoutPath + " onto " + Program.lastFilename + " using offset " + offsetX + "x" + offsetY);
 			string scaledPrevPath = Path.Combine(Paths.previewOutPath, "preview-input-scaled.png");
 			//Image image = MergeOnDisk(scale, scaledPrevPath);
-			Image image = MergeInMemory(scale, scaledPrevPath);
+			Image image = MergeInMemory(scale);
 			MainUIHelper.currentOriginal = IOUtils.GetImage(Paths.tempImgPath);
 			MainUIHelper.currentOutput = image;
 			MainUIHelper.currentScale = ImgUtils.GetScale(IOUtils.GetImage(inputCutoutPath), IOUtils.GetImage(outputCutoutPath));
@@ -58,10 +58,16 @@ namespace Cupscale
 			Program.mainForm.SetProgress(0f, "Done.");
 		}
 
-		public static Image MergeInMemory(int scale, string scaledPrevPath)
+		public static Image MergeInMemory(int scale)
 		{
 			Image sourceImg = IOUtils.GetImage(Paths.tempImgPath);
 			Image cutout = IOUtils.GetImage(outputCutoutPath);
+
+			if (sourceImg.Width * scale == cutout.Width && sourceImg.Height * scale == cutout.Height)
+            {
+				Logger.Log("Cutout is the entire image - skipping merge");
+				return cutout;
+            }
 
 			var destImage = new Bitmap(sourceImg.Width * scale, sourceImg.Height * scale);
 
