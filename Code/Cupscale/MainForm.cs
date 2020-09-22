@@ -273,6 +273,7 @@ namespace Cupscale
 			ImageProcessing.currentFilter = (Upscale.Filter)Enum.Parse(typeof(Upscale.Filter), postResizeFilter.Text.RemoveSpaces());
 			ImageProcessing.currentScaleMode = (Upscale.ScaleMode)Enum.Parse(typeof(Upscale.ScaleMode), postResizeMode.Text.RemoveSpaces());
 			ImageProcessing.currentScaleValue = postResizeScale.GetInt();
+			ImageProcessing.onlyDownscale = postResizeOnlyDownscale.Checked;
 		}
 
         private void refreshPreviewFullBtn_Click(object sender, EventArgs e)

@@ -34,6 +34,7 @@ namespace Cupscale.UI
             multiImgMode = false;
             outDir.Text = path;
             currentInDir = path.Trim();
+            currentParentDir = path.Trim();
             currentInFiles = null;
             Program.lastDirPath = currentInDir;
             string[] files = Directory.GetFiles(currentInDir, "*", SearchOption.AllDirectories).Where(file => IOUtils.compatibleExtensions.Any(x => file.EndsWith(x, StringComparison.OrdinalIgnoreCase))).ToArray();

@@ -21,19 +21,19 @@ namespace Cupscale
 		public static Upscale.Filter currentFilter = Upscale.Filter.Mitchell;
 		public static Upscale.ScaleMode currentScaleMode = Upscale.ScaleMode.Percent;
 		public static int currentScaleValue = 100;
+		public static bool onlyDownscale = true;
 
 		public static void ChangeOutputExtensions(string newExtension)
 		{
 			string path = Paths.imgOutPath;
 			DirectoryInfo d = new DirectoryInfo(path);
 			FileInfo[] files = d.GetFiles("*", SearchOption.AllDirectories);
-			FileInfo[] array = files;
-			foreach (FileInfo file in array)
+			foreach (FileInfo file in files)
 			{
 				file.MoveTo(file.FullName.Substring(0, file.FullName.Length - 4));
 			}
-			FileInfo[] array2 = files;
-			foreach (FileInfo file2 in array2)
+			files = d.GetFiles("*", SearchOption.AllDirectories);
+			foreach (FileInfo file2 in files)
 			{
 				file2.MoveTo(Path.ChangeExtension(file2.FullName, newExtension));
 			}
@@ -71,7 +71,7 @@ namespace Cupscale
 				if (GetTrimmedExtension(file2) == "dds")
 					format = Format.DDS;
 
-				Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Post-Processing " + file2.Name);
+				Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Processing " + file2.Name);
 
 				if (postprocess)
 					await PostProcessImage(file2.FullName, format);
@@ -192,7 +192,7 @@ namespace Cupscale
 			foreach (FileInfo file in files)
 			{
 				Logger.Log("Post-Processing " + file.Name);
-				Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Post-Processing " + file.Name);
+				Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Processing " + file.Name);
 				await PostProcessImage(file.FullName, format);
 				i++;
 			}
@@ -249,7 +249,7 @@ namespace Cupscale
 				img.Settings.SetDefines(ddsDefines);
 			}
 			if (!(currentScaleMode == Upscale.ScaleMode.Percent && currentScaleValue == 100))	// Skip if target scale is 100%
-				img = ResizeImage(img, currentScaleValue, currentScaleMode, currentFilter);
+				img = ResizeImage(img, currentScaleValue, currentScaleMode, currentFilter, onlyDownscale);
 
 			await Task.Delay(1);
 			string outPath = Path.ChangeExtension(img.FileName, ext);
@@ -262,7 +262,7 @@ namespace Cupscale
 			}
 		}
 
-		public static MagickImage ResizeImage (MagickImage img, int scaleValue, Upscale.ScaleMode scaleMode, Upscale.Filter filter, bool onlyDownscale = false)
+		public static MagickImage ResizeImage (MagickImage img, int scaleValue, Upscale.ScaleMode scaleMode, Upscale.Filter filter, bool onlyDownscale)
         {
 			img.FilterType = FilterType.Mitchell;
 			if(filter == Upscale.Filter.Bicubic)
