@@ -270,5 +270,16 @@ namespace Cupscale
 				files = Directory.GetFiles(path, wildcard, top).Where(file => compatibleExtensions.Any(x => file.EndsWith(x, ignCase))).ToArray();
 			return files.Length;
 		}
+
+		public static int GetAmountOfCompatibleFiles(string[] files)
+		{
+			int num = 0;
+			foreach (string file in files)
+			{
+				if (compatibleExtensions.Contains(Path.GetExtension(file)))
+					num++;
+			}
+			return num;
+		}
 	}
 }

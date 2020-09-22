@@ -18,6 +18,8 @@ namespace Cupscale.UI
         static TextBox fileList;
 
         static string currentInDir;
+        static string currentParentDir;
+        static string[] currentInFiles;
 
         static bool multiImgMode = false;
 
@@ -32,8 +34,10 @@ namespace Cupscale.UI
             multiImgMode = false;
             outDir.Text = path;
             currentInDir = path.Trim();
+            currentInFiles = null;
             Program.lastDirPath = currentInDir;
-            FillFileList();
+            string[] files = Directory.GetFiles(currentInDir, "*", SearchOption.AllDirectories).Where(file => IOUtils.compatibleExtensions.Any(x => file.EndsWith(x, StringComparison.OrdinalIgnoreCase))).ToArray();
+            FillFileList(files, true);
         }
 
         public static void LoadImages(string[] imgs)
@@ -41,8 +45,10 @@ namespace Cupscale.UI
             multiImgMode = true;
             outDir.Text = imgs[0].GetParentDir();
             currentInDir = Paths.imgInPath;
+            currentParentDir = imgs[0].GetParentDir();
+            currentInFiles = imgs;
             Program.lastDirPath = outDir.Text;
-            FillFileList();
+            FillFileList(imgs, false);
         }
 
         public static async Task CopyDroppedImages (string[] imgs)
@@ -52,20 +58,26 @@ namespace Cupscale.UI
             {
                 if(IOUtils.compatibleExtensions.Contains(Path.GetExtension(img)))
                     File.Copy(img, Path.Combine(Paths.imgInPath, Path.GetFileName(img)));
+                await Task.Delay(1);
             }
-                
         }
 
-        static void FillFileList ()
+        static void FillFileList (string[] files, bool relativePath)
         {
             fileList.Clear();
-            string[] files = Directory.GetFiles(currentInDir, "*", SearchOption.AllDirectories).Where(file => IOUtils.compatibleExtensions.Any(x => file.EndsWith(x, StringComparison.OrdinalIgnoreCase))).ToArray();
             string text = "";
 
             foreach (string file in files)
             {
-                string relPath = file.Replace(@"\", "/").Replace(currentInDir.Replace(@"\", "/"), "");
-                text = text + "Root" + relPath + Environment.NewLine;
+                if (relativePath)
+                {
+                    string relPath = file.Replace(@"\", "/").Replace(currentParentDir.Replace(@"\", "/"), "");
+                    text = text + "Root" + relPath + Environment.NewLine;
+                }
+                else
+                {
+                    text = text + file + Environment.NewLine;
+                }
             }
 
             fileList.AppendText(text);
@@ -79,7 +91,7 @@ namespace Cupscale.UI
                 return;
             }
             Program.mainForm.SetBusy(true);
-            CopyCompatibleImagesToTemp();
+            await CopyCompatibleImagesToTemp();
             Program.mainForm.SetProgress(0f, "Pre-Processing...");
             await Upscale.Preprocessing(Paths.imgInPath);
             ModelData mdl = Upscale.GetModelData();
@@ -112,13 +124,17 @@ namespace Cupscale.UI
             Program.mainForm.SetProgress(0);
         }
 
-        static void CopyCompatibleImagesToTemp(bool move = false)
+        static async Task CopyCompatibleImagesToTemp(bool move = false)
         {
             IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
-            if (!multiImgMode)
+            IOUtils.DeleteContentsOfDir(Paths.imgInPath);
+            if (multiImgMode)
+            {
+                await CopyDroppedImages(currentInFiles);
+            }
+            else
             {
                 IOUtils.Copy(currentInDir, Paths.imgInPath, move, true);
-                IOUtils.DeleteContentsOfDir(Paths.imgInPath);
             }
         }
     }

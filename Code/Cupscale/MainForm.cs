@@ -217,13 +217,10 @@ namespace Cupscale
 			if(files.Length > 1)
             {
 				htTabControl.SelectedIndex = 1;
-				loadingDialogForm = new DialogForm("Loading " + files.Length + " images...");
-				await BatchUpscaleUI.CopyDroppedImages(files);
-				int compatFilesAmount = IOUtils.GetAmountOfCompatibleFiles(Paths.imgInPath, true);
+				int compatFilesAmount = IOUtils.GetAmountOfCompatibleFiles(files);
 				BatchUpscaleUI.LoadImages(files);
 				batchDirLabel.Text = "Loaded " + compatFilesAmount + " compatible files.";
 				upscaleBtn.Text = "Upscale " + compatFilesAmount + " Images";
-				loadingDialogForm.Close();
 				return;
 			}
 			upscaleBtn.Text = "Upscale And Save";
