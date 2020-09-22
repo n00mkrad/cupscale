@@ -19,6 +19,8 @@ namespace Cupscale.UI
 
         static string currentInDir;
 
+        static bool multiImgMode = false;
+
         public static void Init (TextBox outDirBox, TextBox fileListBox)
         {
             outDir = outDirBox;
@@ -27,10 +29,31 @@ namespace Cupscale.UI
 
         public static void LoadDir (string path)
         {
+            multiImgMode = false;
             outDir.Text = path;
             currentInDir = path.Trim();
             Program.lastDirPath = currentInDir;
             FillFileList();
+        }
+
+        public static void LoadImages(string[] imgs)
+        {
+            multiImgMode = true;
+            outDir.Text = imgs[0].GetParentDir();
+            currentInDir = Paths.imgInPath;
+            Program.lastDirPath = outDir.Text;
+            FillFileList();
+        }
+
+        public static async Task CopyDroppedImages (string[] imgs)
+        {
+            IOUtils.DeleteContentsOfDir(Paths.imgInPath);
+            foreach (string img in imgs)
+            {
+                if(IOUtils.compatibleExtensions.Contains(Path.GetExtension(img)))
+                    File.Copy(img, Path.Combine(Paths.imgInPath, Path.GetFileName(img)));
+            }
+                
         }
 
         static void FillFileList ()
@@ -91,9 +114,12 @@ namespace Cupscale.UI
 
         static void CopyCompatibleImagesToTemp(bool move = false)
         {
-            IOUtils.DeleteContentsOfDir(Paths.imgInPath);
             IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
-            IOUtils.Copy(currentInDir, Paths.imgInPath, move, true);
+            if (!multiImgMode)
+            {
+                IOUtils.Copy(currentInDir, Paths.imgInPath, move, true);
+                IOUtils.DeleteContentsOfDir(Paths.imgInPath);
+            }
         }
     }
 }

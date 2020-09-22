@@ -200,27 +200,39 @@ namespace Cupscale
 			DragNDrop(array);
 		}
 
-		async Task DragNDrop (string [] array)
+		async Task DragNDrop (string [] files)
         {
-			string path = array[0];
+			Logger.Log("Dropped " + files.Length + " files, files[0] = " + files[0]);
+			string path = files[0];
+			DialogForm loadingDialogForm = null;
 			if (IOUtils.IsPathDirectory(path))
 			{
 				htTabControl.SelectedIndex = 1;
 				int compatFilesAmount = IOUtils.GetAmountOfCompatibleFiles(path, true);
 				batchDirLabel.Text = "Loaded \"" + path + "\" - Found " + compatFilesAmount + " compatible files.";
 				BatchUpscaleUI.LoadDir(path);
-				BringToFront();
 				upscaleBtn.Text = "Upscale " + compatFilesAmount + " Images";
+				return;
+			}
+			if(files.Length > 1)
+            {
+				htTabControl.SelectedIndex = 1;
+				loadingDialogForm = new DialogForm("Loading " + files.Length + " images...");
+				await BatchUpscaleUI.CopyDroppedImages(files);
+				int compatFilesAmount = IOUtils.GetAmountOfCompatibleFiles(Paths.imgInPath, true);
+				BatchUpscaleUI.LoadImages(files);
+				batchDirLabel.Text = "Loaded " + compatFilesAmount + " compatible files.";
+				upscaleBtn.Text = "Upscale " + compatFilesAmount + " Images";
+				loadingDialogForm.Close();
 				return;
 			}
 			upscaleBtn.Text = "Upscale And Save";
 			htTabControl.SelectedIndex = 0;
 			previewImg.Text = "";
 			SetProgress(0f, "Loading image...");
-			DialogForm loadingDialogForm = new DialogForm("Loading " + Path.GetFileName(path) +"...");
+			loadingDialogForm = new DialogForm("Loading " + Path.GetFileName(path) +"...");
 			await Task.Delay(1);
 			MainUIHelper.ResetCachedImages();
-			Logger.Log("3");
 			if (!MainUIHelper.DroppedImageIsValid(path))
             {
 				SetProgress(0f, "Ready.");

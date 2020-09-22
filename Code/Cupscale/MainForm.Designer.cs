@@ -95,8 +95,6 @@ namespace Cupscale
             this.panel8 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.batchOutDir = new System.Windows.Forms.TextBox();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.batchFileList = new System.Windows.Forms.TextBox();
@@ -120,6 +118,10 @@ namespace Cupscale
             this.panel7 = new System.Windows.Forms.Panel();
             this.settingsBtn = new HTAlt.WinForms.HTButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.batchOutDir = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.label13 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -142,6 +144,8 @@ namespace Cupscale
             this.groupBox2.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
+            this.tableLayoutPanel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // leftPanel
@@ -779,8 +783,7 @@ namespace Cupscale
             // 
             // panel9
             // 
-            this.panel9.Controls.Add(this.label7);
-            this.panel9.Controls.Add(this.batchOutDir);
+            this.panel9.Controls.Add(this.tableLayoutPanel9);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel9.Location = new System.Drawing.Point(0, 0);
             this.panel9.Margin = new System.Windows.Forms.Padding(0);
@@ -788,33 +791,9 @@ namespace Cupscale
             this.panel9.Size = new System.Drawing.Size(291, 486);
             this.panel9.TabIndex = 0;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(8, 8);
-            this.label7.Margin = new System.Windows.Forms.Padding(8);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(96, 15);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "Output Directory";
-            // 
-            // batchOutDir
-            // 
-            this.batchOutDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.batchOutDir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.batchOutDir.ForeColor = System.Drawing.Color.White;
-            this.batchOutDir.Location = new System.Drawing.Point(8, 28);
-            this.batchOutDir.Margin = new System.Windows.Forms.Padding(8);
-            this.batchOutDir.Name = "batchOutDir";
-            this.batchOutDir.Size = new System.Drawing.Size(275, 23);
-            this.batchOutDir.TabIndex = 10;
-            // 
             // panel10
             // 
-            this.panel10.Controls.Add(this.label6);
-            this.panel10.Controls.Add(this.batchFileList);
+            this.panel10.Controls.Add(this.tableLayoutPanel8);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(291, 0);
             this.panel10.Margin = new System.Windows.Forms.Padding(0);
@@ -829,24 +808,22 @@ namespace Cupscale
             this.label6.Location = new System.Drawing.Point(8, 8);
             this.label6.Margin = new System.Windows.Forms.Padding(8);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 15);
+            this.label6.Size = new System.Drawing.Size(46, 14);
             this.label6.TabIndex = 11;
             this.label6.Text = "File List";
             // 
             // batchFileList
             // 
-            this.batchFileList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.batchFileList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.batchFileList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.batchFileList.ForeColor = System.Drawing.Color.White;
-            this.batchFileList.Location = new System.Drawing.Point(8, 28);
+            this.batchFileList.Location = new System.Drawing.Point(8, 38);
             this.batchFileList.Margin = new System.Windows.Forms.Padding(8);
             this.batchFileList.Multiline = true;
             this.batchFileList.Name = "batchFileList";
             this.batchFileList.ReadOnly = true;
             this.batchFileList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.batchFileList.Size = new System.Drawing.Size(275, 485);
+            this.batchFileList.Size = new System.Drawing.Size(275, 440);
             this.batchFileList.TabIndex = 12;
             // 
             // tableLayoutPanel6
@@ -1133,6 +1110,61 @@ namespace Cupscale
             this.settingsBtn.UseVisualStyleBackColor = false;
             this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
             // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.ColumnCount = 1;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.Controls.Add(this.batchFileList, 0, 1);
+            this.tableLayoutPanel8.Controls.Add(this.label6, 0, 0);
+            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 2;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(291, 486);
+            this.tableLayoutPanel8.TabIndex = 12;
+            // 
+            // batchOutDir
+            // 
+            this.batchOutDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.batchOutDir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.batchOutDir.ForeColor = System.Drawing.Color.White;
+            this.batchOutDir.Location = new System.Drawing.Point(8, 38);
+            this.batchOutDir.Margin = new System.Windows.Forms.Padding(8);
+            this.batchOutDir.Name = "batchOutDir";
+            this.batchOutDir.Size = new System.Drawing.Size(275, 23);
+            this.batchOutDir.TabIndex = 10;
+            // 
+            // tableLayoutPanel9
+            // 
+            this.tableLayoutPanel9.ColumnCount = 1;
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel9.Controls.Add(this.label13, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.batchOutDir, 0, 1);
+            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            this.tableLayoutPanel9.RowCount = 2;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(291, 486);
+            this.tableLayoutPanel9.TabIndex = 13;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(8, 8);
+            this.label13.Margin = new System.Windows.Forms.Padding(8);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(96, 14);
+            this.label13.TabIndex = 11;
+            this.label13.Text = "Output Directory";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1164,9 +1196,7 @@ namespace Cupscale
             this.panel8.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
             this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -1176,6 +1206,10 @@ namespace Cupscale
             this.groupBox2.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            this.tableLayoutPanel8.ResumeLayout(false);
+            this.tableLayoutPanel8.PerformLayout();
+            this.tableLayoutPanel9.ResumeLayout(false);
+            this.tableLayoutPanel9.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1200,8 +1234,6 @@ namespace Cupscale
         private HTAlt.WinForms.HTButton refreshPreviewCutoutBtn;
         private HTAlt.WinForms.HTButton refreshPreviewFullBtn;
         private HTAlt.WinForms.HTButton copyCompToClipboardBtn;
-        private TextBox batchOutDir;
-        private Label label7;
         private Label batchDirLabel;
         private Panel panel8;
         private TableLayoutPanel tableLayoutPanel3;
@@ -1221,5 +1253,9 @@ namespace Cupscale
         private ComboBox postResizeFilter;
         private GroupBox groupBox2;
         private ComboBox postResizeMode;
+        private TableLayoutPanel tableLayoutPanel9;
+        private Label label13;
+        private TextBox batchOutDir;
+        private TableLayoutPanel tableLayoutPanel8;
     }
 }
