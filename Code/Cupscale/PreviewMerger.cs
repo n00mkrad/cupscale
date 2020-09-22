@@ -27,7 +27,7 @@ namespace Cupscale
 			inputCutoutPath = Path.Combine(Paths.previewPath, "preview.png");
 			outputCutoutPath = Path.Combine(Paths.previewOutPath, "preview.png");
 
-			//MagickImage sourceImg = new MagickImage(Paths.tempImgPath);
+			//MagickImage sourceImg = IOUtils.GetMagickImage(Paths.tempImgPath);
 			Image sourceImg = IOUtils.GetImage(Paths.tempImgPath);
 			int scale = GetScale();
 			if (sourceImg.Width * scale > 6000 || sourceImg.Height * scale > 6000)
@@ -90,8 +90,8 @@ namespace Cupscale
 
 		public static Image MergeOnDisk (int scale, string scaledPrevPath)
         {
-			MagickImage sourceImg = new MagickImage(Paths.tempImgPath);
-			MagickImage cutout = new MagickImage(outputCutoutPath);
+			MagickImage sourceImg = IOUtils.GetMagickImage(Paths.tempImgPath);
+			MagickImage cutout = IOUtils.GetMagickImage(outputCutoutPath);
 			sourceImg.FilterType = Program.currentFilter;
 			sourceImg.Resize(new Percentage(scale * 100));
 			sourceImg.Format = MagickFormat.Png;
@@ -107,7 +107,7 @@ namespace Cupscale
 		{
 			int scale = GetScale();
 
-			MagickImage originalCutout = new MagickImage(inputCutoutPath);
+			MagickImage originalCutout = IOUtils.GetMagickImage(inputCutoutPath);
 			originalCutout.FilterType = Program.currentFilter;
 			originalCutout.Resize(new Percentage(scale * 100));
 			string scaledCutoutPath = Path.Combine(Paths.previewOutPath, "preview-input-scaled.png");
@@ -127,8 +127,8 @@ namespace Cupscale
 
 		private static int GetScale()
 		{
-			MagickImage val = new MagickImage(inputCutoutPath);
-			MagickImage val2 = new MagickImage(outputCutoutPath);
+			MagickImage val = IOUtils.GetMagickImage(inputCutoutPath);
+			MagickImage val2 = IOUtils.GetMagickImage(outputCutoutPath);
 			int result = (int)Math.Round((float)val2.Width / (float)val.Width);
 			return result;
 		}

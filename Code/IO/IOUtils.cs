@@ -1,3 +1,6 @@
+using DdsFileTypePlus;
+using ImageMagick;
+using PaintDotNet;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -31,6 +34,33 @@ namespace Cupscale
 			Logger.Log("IOUtils.GetImage: Reading Image from " + path);
 			using MemoryStream stream = new MemoryStream(File.ReadAllBytes(path));
 			return Image.FromStream(stream);
+		}
+
+		public static MagickImage GetMagickImage (string path)
+        {
+			MagickImage image;
+			if (Path.GetExtension(path).ToLower() == ".dds")
+			{
+				Surface surface = DdsFile.Load(path);
+				image = ConvertToMagickImage(surface);
+				image.HasAlpha = DdsFile.HasTransparency(surface);
+			}
+			else
+				image = new MagickImage(path);
+			return image;
+		}
+
+		public static MagickImage ConvertToMagickImage(Surface surface)
+		{
+			MagickImage result;
+			Bitmap bitmap = surface.CreateAliasedBitmap();
+			using (MemoryStream memoryStream = new MemoryStream())
+			{
+				bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+				memoryStream.Position = 0;
+				result = new MagickImage(memoryStream, new MagickReadSettings() { Format = MagickFormat.Png00 });
+			}
+			return result;
 		}
 
 		public static string[] ReadLines(string path)

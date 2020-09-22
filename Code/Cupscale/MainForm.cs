@@ -241,7 +241,6 @@ namespace Cupscale
 				return;
 			}
 			File.Copy(path, Paths.tempImgPath, true);
-			//await Upscale.Preprocessing(Paths.tempImgPath.GetParentDir());
 			bool fillAlpha = !bool.Parse(Config.Get("alpha"));
 			await ImageProcessing.ConvertImage(path, ImageProcessing.Format.PngRaw, fillAlpha, false, false, Paths.tempImgPath);
 			Logger.Log("Done Preprocessing");

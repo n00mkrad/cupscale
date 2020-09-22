@@ -105,7 +105,7 @@ namespace Cupscale
 		public static async Task ConvertImage(string path, Format format, bool fillAlpha, bool appendExtension, bool deleteSource = true, string overrideOutPath = "")
 		{
 			Logger.Log("ConvertImage: Loading MagickImage from " + path);
-			MagickImage img = new MagickImage(path);
+			MagickImage img = IOUtils.GetMagickImage(path);
 			Logger.Log("Converting: " + img.ToString() + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource);
 			string ext = "png";
 			if (format == Format.PngOpti)
@@ -202,7 +202,7 @@ namespace Cupscale
 		public static async Task PostProcessImage (string path, Format format)
 		{
 			Logger.Log("PostProcess: Loading MagickImage from " + path);
-			MagickImage img = new MagickImage(path);
+			MagickImage img = IOUtils.GetMagickImage(path);
 			string ext = "png";
 			if (format == Format.Source)
 				ext = Path.GetExtension(path).Replace(".","");
