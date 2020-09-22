@@ -35,17 +35,14 @@ namespace Cupscale
 			}
 		}
 
-		public static void FillFormatComboBox(ComboBox box, bool resetIndex = true)
+		public static void FillEnumComboBox(ComboBox box, Type type, int defaultIndex = 0)
 		{
 			box.Items.Clear();
-			foreach (string format in Enum.GetNames(typeof(Upscale.ExportFormats)))
+			foreach (string format in Enum.GetNames(type))
 			{
-				box.Items.Add(format);
+				box.Items.Add(format.TitleCase());
 			}
-			if (resetIndex || string.IsNullOrEmpty(box.Text))
-			{
-				InitCombox(box, 0);
-			}
+			InitCombox(box, defaultIndex);
 		}
 
 		public static void ReplaceImageAtSameScale(ImageBox imgBox, Image newImg)

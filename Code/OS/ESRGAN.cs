@@ -121,7 +121,6 @@ namespace Cupscale.OS
 				return;
 			}
 			string data = output.Data;
-			Logger.Log(data.Replace("\n", " ").Replace("\r", " "));
 			if (data.Contains("RuntimeError"))
 			{
 				if (currentProcess != null && !currentProcess.HasExited)
@@ -129,6 +128,7 @@ namespace Cupscale.OS
 					currentProcess.Kill();
 				}
 				MessageBox.Show("Error occurred: \n\n" + data + "\n\nThe ESRGAN process was killed to avoid lock-ups.", "Error");
+				Logger.Log("Error Output: " + data.Replace("\n", " ").Replace("\r", " "));
 			}
 			if (data.Contains("out of memory"))
 			{
@@ -149,12 +149,10 @@ namespace Cupscale.OS
 			if (outStr == lastProgressString)
 				return;
 			lastProgressString = outStr;
-			Logger.Log("Progress from log file: " + outStr);
 			string text = outStr.Replace("Tile ", "").Trim();
 			int num = int.Parse(text.Split('/')[0]);
 			int num2 = int.Parse(text.Split('/')[1]);
 			float previewProgress = (float)num / (float)num2 * 100f;
-			Logger.Log(" = " + previewProgress);
 			Program.mainForm.SetProgress(previewProgress, "Upscaling tiles - " + previewProgress.ToString("0") + "%");
 			await Task.Delay(1);
 		}

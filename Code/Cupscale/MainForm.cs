@@ -37,11 +37,16 @@ namespace Cupscale
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-            UIHelpers.InitCombox(prevOverwriteCombox, 0);
-            UIHelpers.InitCombox(prevOutputFormatCombox, 0);
+			// Left Panel
             UIHelpers.InitCombox(prevClipboardTypeCombox, 0);
-			UIHelpers.FillFormatComboBox(prevOutputFormatCombox);
-        }
+			// Right Panel
+			UIHelpers.InitCombox(prevOverwriteCombox, 0);
+			UIHelpers.InitCombox(prevOutputFormatCombox, 0);
+			UIHelpers.FillEnumComboBox(prevOutputFormatCombox, typeof(Upscale.ExportFormats));
+			UIHelpers.InitCombox(postResizeScale, 1);
+			UIHelpers.InitCombox(postResizeMode, 0);
+			UIHelpers.FillEnumComboBox(postResizeFilter, typeof(Upscale.Filter), 0);
+		}
 
 		public void SetProgress(float prog, string statusText = "")
 		{
@@ -52,7 +57,10 @@ namespace Cupscale
 			htProgBar.Value = percent;
 			htProgBar.Visible = true;
 			if (!string.IsNullOrWhiteSpace(statusText))
-                statusLabel.Text = statusText;
+            {
+				statusLabel.Text = statusText;
+				Logger.Log("Status changed: " + statusText);
+			}
 		}
 
 		public void SetBusy (bool state)
@@ -234,7 +242,7 @@ namespace Cupscale
 			SetProgress(0f, "Ready.");
 		}
 
-        private void upscaleBtn_Click(object sender, EventArgs e)
+        private async void upscaleBtn_Click(object sender, EventArgs e)
         {
 			if (Program.busy)
 				return;
@@ -245,10 +253,18 @@ namespace Cupscale
 				return;
             }
 
-			if(htTabControl.SelectedIndex == 0)
-				MainUIHelper.UpscaleImage();
+			UpdateResizeMode();
+			if (htTabControl.SelectedIndex == 0)
+				await MainUIHelper.UpscaleImage();
 			if (htTabControl.SelectedIndex == 1)
-				BatchUpscaleUI.Run();
+				await BatchUpscaleUI.Run();
+		}
+
+		public void UpdateResizeMode ()
+        {
+			ImageProcessing.currentFilter = (Upscale.Filter)Enum.Parse(typeof(Upscale.Filter), postResizeFilter.Text.RemoveSpaces());
+			ImageProcessing.currentScaleMode = (Upscale.ScaleMode)Enum.Parse(typeof(Upscale.ScaleMode), postResizeMode.Text.RemoveSpaces());
+			ImageProcessing.currentScaleValue = postResizeScale.GetInt();
 		}
 
         private void refreshPreviewFullBtn_Click(object sender, EventArgs e)
@@ -290,6 +306,14 @@ namespace Cupscale
 			previewImg.AutoScrollPosition = resetState.autoScrollPosition;		// This doesn't work correctly :/
 			MainUIHelper.ResetCachedImages();
 			resetImageOnMove = false;
+		}
+
+        private void prevOverwriteCombox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			if (prevOverwriteCombox.SelectedIndex == 0)
+				Upscale.overwriteMode = Upscale.Overwrite.No;
+			if (prevOverwriteCombox.SelectedIndex == 1)
+				Upscale.overwriteMode = Upscale.Overwrite.Yes;
 		}
     }
 }

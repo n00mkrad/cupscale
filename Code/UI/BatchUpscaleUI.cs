@@ -48,7 +48,7 @@ namespace Cupscale.UI
             fileList.AppendText(text);
         }
 
-        public static async void Run ()
+        public static async Task Run ()
         {
             if (string.IsNullOrWhiteSpace(currentInDir))
             {

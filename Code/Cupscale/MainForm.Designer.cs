@@ -102,11 +102,18 @@ namespace Cupscale
             this.batchFileList = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.upscaleBtn = new HTAlt.WinForms.HTButton();
-            this.label11 = new System.Windows.Forms.Label();
-            this.prevOutputFormatCombox = new System.Windows.Forms.ComboBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.postResizeMode = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.postResizeScale = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.postResizeFilter = new System.Windows.Forms.ComboBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
             this.prevOverwriteCombox = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.prevOutputFormatCombox = new System.Windows.Forms.ComboBox();
+            this.upscaleBtn = new HTAlt.WinForms.HTButton();
             this.label2 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
@@ -131,6 +138,8 @@ namespace Cupscale
             this.panel10.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.SuspendLayout();
@@ -448,7 +457,7 @@ namespace Cupscale
             this.groupBox1.Controls.Add(this.prevSizeLabel);
             this.groupBox1.Controls.Add(this.prevZoomLabel);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(4, 67);
+            this.groupBox1.Location = new System.Drawing.Point(3, 67);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(330, 69);
             this.groupBox1.TabIndex = 6;
@@ -599,7 +608,7 @@ namespace Cupscale
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.Controls.Add(this.statusLabel, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.htProgBar, 1, 0);
@@ -615,6 +624,7 @@ namespace Cupscale
             // 
             this.statusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.statusLabel.AutoEllipsis = true;
             this.statusLabel.AutoSize = true;
             this.statusLabel.ForeColor = System.Drawing.Color.White;
             this.statusLabel.Location = new System.Drawing.Point(3, 0);
@@ -629,9 +639,11 @@ namespace Cupscale
             this.htProgBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
             this.htProgBar.BorderThickness = 0;
             this.htProgBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.htProgBar.Location = new System.Drawing.Point(153, 3);
+            this.htProgBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.htProgBar.ForeColor = System.Drawing.Color.White;
+            this.htProgBar.Location = new System.Drawing.Point(203, 3);
             this.htProgBar.Name = "htProgBar";
-            this.htProgBar.Size = new System.Drawing.Size(446, 8);
+            this.htProgBar.Size = new System.Drawing.Size(396, 8);
             this.htProgBar.TabIndex = 8;
             this.htProgBar.TabStop = false;
             // 
@@ -834,7 +846,7 @@ namespace Cupscale
             this.batchFileList.Name = "batchFileList";
             this.batchFileList.ReadOnly = true;
             this.batchFileList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.batchFileList.Size = new System.Drawing.Size(275, 450);
+            this.batchFileList.Size = new System.Drawing.Size(275, 485);
             this.batchFileList.TabIndex = 12;
             // 
             // tableLayoutPanel6
@@ -853,11 +865,9 @@ namespace Cupscale
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.groupBox3);
+            this.panel4.Controls.Add(this.groupBox2);
             this.panel4.Controls.Add(this.upscaleBtn);
-            this.panel4.Controls.Add(this.label11);
-            this.panel4.Controls.Add(this.prevOutputFormatCombox);
-            this.panel4.Controls.Add(this.label10);
-            this.panel4.Controls.Add(this.prevOverwriteCombox);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 3);
@@ -865,21 +875,152 @@ namespace Cupscale
             this.panel4.Size = new System.Drawing.Size(288, 629);
             this.panel4.TabIndex = 3;
             // 
-            // upscaleBtn
+            // groupBox3
             // 
-            this.upscaleBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.upscaleBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.upscaleBtn.FlatAppearance.BorderSize = 0;
-            this.upscaleBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.upscaleBtn.ForeColor = System.Drawing.Color.White;
-            this.upscaleBtn.Location = new System.Drawing.Point(3, 592);
-            this.upscaleBtn.Name = "upscaleBtn";
-            this.upscaleBtn.Size = new System.Drawing.Size(280, 30);
-            this.upscaleBtn.TabIndex = 8;
-            this.upscaleBtn.Text = "Upscale And Save";
-            this.upscaleBtn.UseVisualStyleBackColor = false;
-            this.upscaleBtn.Click += new System.EventHandler(this.upscaleBtn_Click);
+            this.groupBox3.Controls.Add(this.postResizeMode);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.postResizeScale);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.postResizeFilter);
+            this.groupBox3.ForeColor = System.Drawing.Color.White;
+            this.groupBox3.Location = new System.Drawing.Point(3, 346);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(280, 117);
+            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Resize After Upscaling";
+            // 
+            // postResizeMode
+            // 
+            this.postResizeMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.postResizeMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.postResizeMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.postResizeMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.postResizeMode.ForeColor = System.Drawing.Color.White;
+            this.postResizeMode.FormattingEnabled = true;
+            this.postResizeMode.Items.AddRange(new object[] {
+            "Percent",
+            "Pixels Height",
+            "Pixels Width",
+            "Pixels Longer Side",
+            "Pixels Shorter Side"});
+            this.postResizeMode.Location = new System.Drawing.Point(122, 37);
+            this.postResizeMode.Margin = new System.Windows.Forms.Padding(8);
+            this.postResizeMode.Name = "postResizeMode";
+            this.postResizeMode.Size = new System.Drawing.Size(151, 21);
+            this.postResizeMode.TabIndex = 6;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(6, 16);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 13);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "New Size";
+            // 
+            // postResizeScale
+            // 
+            this.postResizeScale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.postResizeScale.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.postResizeScale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.postResizeScale.ForeColor = System.Drawing.Color.White;
+            this.postResizeScale.FormattingEnabled = true;
+            this.postResizeScale.Items.AddRange(new object[] {
+            "200%",
+            "100%",
+            "50%",
+            "25%"});
+            this.postResizeScale.Location = new System.Drawing.Point(6, 37);
+            this.postResizeScale.Margin = new System.Windows.Forms.Padding(8);
+            this.postResizeScale.Name = "postResizeScale";
+            this.postResizeScale.Size = new System.Drawing.Size(100, 21);
+            this.postResizeScale.TabIndex = 2;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(6, 66);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(67, 13);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Scaling Filter";
+            // 
+            // postResizeFilter
+            // 
+            this.postResizeFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.postResizeFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.postResizeFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.postResizeFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.postResizeFilter.ForeColor = System.Drawing.Color.White;
+            this.postResizeFilter.FormattingEnabled = true;
+            this.postResizeFilter.Items.AddRange(new object[] {
+            "Mitchell",
+            "Nearest Neighbor",
+            "Bicubic"});
+            this.postResizeFilter.Location = new System.Drawing.Point(6, 87);
+            this.postResizeFilter.Margin = new System.Windows.Forms.Padding(8);
+            this.postResizeFilter.Name = "postResizeFilter";
+            this.postResizeFilter.Size = new System.Drawing.Size(268, 21);
+            this.postResizeFilter.TabIndex = 4;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.prevOverwriteCombox);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.prevOutputFormatCombox);
+            this.groupBox2.ForeColor = System.Drawing.Color.White;
+            this.groupBox2.Location = new System.Drawing.Point(3, 469);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(280, 117);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Saving";
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(6, 16);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(82, 13);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "Overwrite Mode";
+            // 
+            // prevOverwriteCombox
+            // 
+            this.prevOverwriteCombox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.prevOverwriteCombox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.prevOverwriteCombox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.prevOverwriteCombox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.prevOverwriteCombox.ForeColor = System.Drawing.Color.White;
+            this.prevOverwriteCombox.FormattingEnabled = true;
+            this.prevOverwriteCombox.Items.AddRange(new object[] {
+            "No - Add Suffix To Upscaled Images",
+            "Yes - Only works when using the same format!"});
+            this.prevOverwriteCombox.Location = new System.Drawing.Point(6, 37);
+            this.prevOverwriteCombox.Margin = new System.Windows.Forms.Padding(8);
+            this.prevOverwriteCombox.Name = "prevOverwriteCombox";
+            this.prevOverwriteCombox.Size = new System.Drawing.Size(268, 21);
+            this.prevOverwriteCombox.TabIndex = 2;
+            this.prevOverwriteCombox.SelectedIndexChanged += new System.EventHandler(this.prevOverwriteCombox_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -887,7 +1028,7 @@ namespace Cupscale
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
             this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(8, 481);
+            this.label11.Location = new System.Drawing.Point(6, 66);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(74, 13);
             this.label11.TabIndex = 5;
@@ -909,41 +1050,27 @@ namespace Cupscale
             "JPEG - Medium",
             "WEBP - High",
             "WEBP - Medium"});
-            this.prevOutputFormatCombox.Location = new System.Drawing.Point(8, 502);
+            this.prevOutputFormatCombox.Location = new System.Drawing.Point(6, 87);
             this.prevOutputFormatCombox.Margin = new System.Windows.Forms.Padding(8);
             this.prevOutputFormatCombox.Name = "prevOutputFormatCombox";
             this.prevOutputFormatCombox.Size = new System.Drawing.Size(268, 21);
             this.prevOutputFormatCombox.TabIndex = 4;
             // 
-            // label10
+            // upscaleBtn
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.upscaleBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(8, 431);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(82, 13);
-            this.label10.TabIndex = 3;
-            this.label10.Text = "Overwrite Mode";
-            // 
-            // prevOverwriteCombox
-            // 
-            this.prevOverwriteCombox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.prevOverwriteCombox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.prevOverwriteCombox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.prevOverwriteCombox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.prevOverwriteCombox.ForeColor = System.Drawing.Color.White;
-            this.prevOverwriteCombox.FormattingEnabled = true;
-            this.prevOverwriteCombox.Items.AddRange(new object[] {
-            "No - Add Suffix To Upscaled Images",
-            "Yes - Only works when using the same format!"});
-            this.prevOverwriteCombox.Location = new System.Drawing.Point(8, 452);
-            this.prevOverwriteCombox.Margin = new System.Windows.Forms.Padding(8);
-            this.prevOverwriteCombox.Name = "prevOverwriteCombox";
-            this.prevOverwriteCombox.Size = new System.Drawing.Size(268, 21);
-            this.prevOverwriteCombox.TabIndex = 2;
+            this.upscaleBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.upscaleBtn.FlatAppearance.BorderSize = 0;
+            this.upscaleBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.upscaleBtn.ForeColor = System.Drawing.Color.White;
+            this.upscaleBtn.Location = new System.Drawing.Point(3, 592);
+            this.upscaleBtn.Name = "upscaleBtn";
+            this.upscaleBtn.Size = new System.Drawing.Size(280, 30);
+            this.upscaleBtn.TabIndex = 8;
+            this.upscaleBtn.Text = "Upscale And Save";
+            this.upscaleBtn.UseVisualStyleBackColor = false;
+            this.upscaleBtn.Click += new System.EventHandler(this.upscaleBtn_Click);
             // 
             // label2
             // 
@@ -1043,6 +1170,10 @@ namespace Cupscale
             this.tableLayoutPanel6.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -1083,5 +1214,12 @@ namespace Cupscale
         private Button model1TreeBtn;
         private Button model2TreeBtn;
         private HTAlt.WinForms.HTButton savePreviewToFileBtn;
+        private GroupBox groupBox3;
+        private Label label8;
+        private ComboBox postResizeScale;
+        private Label label9;
+        private ComboBox postResizeFilter;
+        private GroupBox groupBox2;
+        private ComboBox postResizeMode;
     }
 }

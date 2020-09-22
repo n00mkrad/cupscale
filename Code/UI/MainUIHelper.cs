@@ -44,7 +44,7 @@ namespace Cupscale.UI
             overwrite = overwriteBox;
         }
 
-        public static async void UpscaleImage()
+        public static async Task UpscaleImage()
         {
             Program.mainForm.SetBusy(true);
             IOUtils.DeleteContentsOfDir(Paths.imgInPath);

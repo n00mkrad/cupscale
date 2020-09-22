@@ -16,16 +16,27 @@ namespace Cupscale.Main
     class Upscale
     {
         public enum ExportFormats { PNG, SameAsSource, JPEG, WEBP, BMP, TGA, DDS}
+        public enum Filter { Mitchell, Bicubic, NearestNeighbor }
+        public enum ScaleMode { Percent, PixelsHeight, PixelsWidth, PixelsShorterSide, PixelsLongerSide }
+        public enum Overwrite { No, Yes, }
+        public static Overwrite overwriteMode = Overwrite.No;
 
-        public static async Task CopyImagesTo(string path)
+    public static async Task CopyImagesTo(string path)
         {
-            if (overwrite.SelectedIndex == 1)
+            Logger.Log("Overwrite mode = " + overwriteMode.ToString());
+            if (overwriteMode == Overwrite.Yes)
             {
                 Logger.Log("Overwrite mode - removing suffix from filenames");
                 IOUtils.ReplaceInFilenamesDir(Paths.imgOutPath, "-" + Program.lastModelName, "");
             }
+            else
+            {
+                Logger.Log("Overwrite is off - keeping suffix.");
+            }
             IOUtils.Copy(Paths.imgOutPath, path);
             await Task.Delay(1);
+            IOUtils.DeleteContentsOfDir(Paths.imgInPath);
+            IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
         }
 
         public static async Task AddModelSuffix(string path)
@@ -35,9 +46,7 @@ namespace Cupscale.Main
             foreach (FileInfo file in files)     // Remove PNG extensions
             {
                 string pathNoExt = Path.ChangeExtension(file.FullName, null);
-                Logger.Log("pathNoExt: " + pathNoExt);
                 string ext = Path.GetExtension(file.FullName);
-                Logger.Log("ext: " + ext);
                 File.Move(file.FullName, pathNoExt + "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+") + ext);
                 await Task.Delay(1);
             }
@@ -82,20 +91,23 @@ namespace Cupscale.Main
         {
             Program.mainForm.SetProgress(100f, "Postprocessing...");
             await Program.PutTaskDelay();
-            if (outputFormat.Text == ExportFormats.PNG.ToString())
+            if (outputFormat.Text == ExportFormats.PNG.ToStringTitleCase())
+            {
                 ImageProcessing.ChangeOutputExtensions("png");
-            if (outputFormat.Text == ExportFormats.SameAsSource.ToString())
-                await ImageProcessing.ConvertImagesToOriginalFormat();
-            if (outputFormat.Text == ExportFormats.JPEG.ToString())
-                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.Jpeg);
-            if (outputFormat.Text == ExportFormats.WEBP.ToString())
-                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.Weppy);
-            if (outputFormat.Text == ExportFormats.BMP.ToString())
-                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.BMP);
-            if (outputFormat.Text == ExportFormats.TGA.ToString())
-                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.TGA);
-            if (outputFormat.Text == ExportFormats.DDS.ToString())
-                await ImageProcessing.ConvertImages(Paths.imgOutPath, ImageProcessing.Format.DDS);
+                await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.Source);
+            }
+            if (outputFormat.Text == ExportFormats.SameAsSource.ToStringTitleCase())
+                await ImageProcessing.ConvertImagesToOriginalFormat(true);
+            if (outputFormat.Text == ExportFormats.JPEG.ToStringTitleCase())
+                await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.Jpeg);
+            if (outputFormat.Text == ExportFormats.WEBP.ToStringTitleCase())
+                await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.Weppy);
+            if (outputFormat.Text == ExportFormats.BMP.ToStringTitleCase())
+                await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.BMP);
+            if (outputFormat.Text == ExportFormats.TGA.ToStringTitleCase())
+                await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.TGA);
+            if (outputFormat.Text == ExportFormats.DDS.ToStringTitleCase())
+                await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.DDS);
         }
 
         public static async Task FilenamePostprocessing ()
@@ -105,21 +117,5 @@ namespace Cupscale.Main
             IOUtils.RenameExtensions(Paths.imgOutPath, "jpg", Config.Get("jpegExtension"));
             await Program.PutTaskDelay();
         }
-
-        /*
-        public static string GetMdl(Button btn)
-        {
-            string mdl = btn.Text.Trim();
-            EsrganData.ReloadModelList();
-            if (!EsrganData.models.Contains(mdl))
-            {
-                MessageBox.Show("Model file not found!", "Error");
-                Program.mainForm.SetProgress(0);
-                Program.mainForm.SetBusy(false);
-                return "";
-            }
-            return mdl;
-        }
-        */
     }
 }

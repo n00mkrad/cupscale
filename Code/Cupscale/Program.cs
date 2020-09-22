@@ -49,5 +49,10 @@ namespace Cupscale
 		{
 			await Task.Delay(1);
 		}
+
+		public static int GetPercentage (float val1, float val2)
+        {
+			return (int)Math.Round((val1 / val2) * 100f);
+        }
 	}
 }

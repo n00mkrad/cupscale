@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -25,6 +27,21 @@ namespace Cupscale.UI
 		public static string GetParentDir (this string path)
         {
 			return Directory.GetParent(path).FullName;
+		}
+
+		public static string TitleCase (this string str)
+        {
+			return Regex.Replace(str, @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0");
+		}
+
+		public static string RemoveSpaces(this string input)
+		{
+			return new string(input.Where(c => !Char.IsWhiteSpace(c)).ToArray());
+		}
+
+		public static string ToStringTitleCase(this Enum en)
+		{
+			return en.ToString().TitleCase();
 		}
 	}
 }
