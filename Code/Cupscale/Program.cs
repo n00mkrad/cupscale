@@ -28,13 +28,10 @@ namespace Cupscale
 		{
 			Application.SetCompatibleTextRenderingDefault(defaultValue: false);
 			Application.EnableVisualStyles();
-			DialogForm dialogForm = new DialogForm("Initializing...");
 			Console.WriteLine("Main()");
 			Config.Init();
 			Paths.Init();
-			ShippedEsrgan.Init();
 			EsrganData.CheckModelDir();
-			dialogForm.Close();
 			ResourceLimits.Memory = (ulong)Math.Round(ResourceLimits.Memory * 1.5f);
 			Application.Run(new MainForm());
 		}

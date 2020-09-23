@@ -265,13 +265,20 @@ namespace Cupscale
 
 		public static int GetAmountOfFiles(string path, bool recursive, string wildcard = "*")
 		{
-			DirectoryInfo d = new DirectoryInfo(path);
-			FileInfo[] files = null;
-			if (recursive)
-				files = d.GetFiles(wildcard, SearchOption.AllDirectories);
-			else
-				files = d.GetFiles(wildcard, SearchOption.TopDirectoryOnly);
-			return files.Length;
+            try
+            {
+				DirectoryInfo d = new DirectoryInfo(path);
+				FileInfo[] files = null;
+				if (recursive)
+					files = d.GetFiles(wildcard, SearchOption.AllDirectories);
+				else
+					files = d.GetFiles(wildcard, SearchOption.TopDirectoryOnly);
+				return files.Length;
+			}
+			catch
+            {
+				return 0;
+            }
 		}
 
 		public static int GetAmountOfCompatibleFiles(string path, bool recursive, string wildcard = "*")
@@ -298,6 +305,28 @@ namespace Cupscale
 					num++;
 			}
 			return num;
+		}
+
+		public static long GetDirSize(string path, string[] excludedExtensions = null)
+		{
+			long size = 0;
+			// Add file sizes.
+			string[] files;
+			StringComparison ignCase = StringComparison.OrdinalIgnoreCase;
+			if (excludedExtensions == null)
+				files = Directory.GetFiles(path);
+			else
+				files = Directory.GetFiles(path).Where(file => excludedExtensions.Any(x => !file.EndsWith(x, ignCase))).ToArray();
+
+			foreach (string file in files)
+				size += new FileInfo(file).Length;
+
+			// Add subdirectory sizes.
+			DirectoryInfo[] dis = new DirectoryInfo(path).GetDirectories();
+			foreach (DirectoryInfo di in dis)
+				size += GetDirSize(di.FullName, excludedExtensions);
+
+			return size;
 		}
 	}
 }

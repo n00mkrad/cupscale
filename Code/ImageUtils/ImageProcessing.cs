@@ -8,8 +8,6 @@ using Cupscale.Main;
 using ImageMagick;
 using ImageMagick.Formats.Bmp;
 using ImageMagick.Formats.Dds;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Png;
 using Paths = Cupscale.IO.Paths;
 
 namespace Cupscale

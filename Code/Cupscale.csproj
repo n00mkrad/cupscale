@@ -25,6 +25,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="7z.NET" Version="1.0.3" />
     <PackageReference Include="Costura.Fody" Version="4.1.0" />
     <PackageReference Include="CyotekImageBox" Version="1.2.1" />
     <PackageReference Include="CyotekTabList" Version="2.0.0" />
@@ -36,7 +37,6 @@
     </PackageReference>
     <PackageReference Include="HTAlt.WinForms" Version="0.1.5.1" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.21.1" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.1" />
     <PackageReference Include="TabControl" Version="2.1.2" />
   </ItemGroup>
   <ItemGroup>

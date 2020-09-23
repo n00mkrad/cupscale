@@ -1,5 +1,4 @@
 ﻿using ImageMagick;
-using SixLabors.ImageSharp.Processing.Processors.Quantization;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

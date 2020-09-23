@@ -39,7 +39,7 @@
             this.mainLabel.ForeColor = System.Drawing.Color.White;
             this.mainLabel.Location = new System.Drawing.Point(0, 0);
             this.mainLabel.Name = "mainLabel";
-            this.mainLabel.Size = new System.Drawing.Size(500, 75);
+            this.mainLabel.Size = new System.Drawing.Size(500, 80);
             this.mainLabel.TabIndex = 0;
             this.mainLabel.Text = "Dialog Text Here...";
             this.mainLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -49,7 +49,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(500, 75);
+            this.ClientSize = new System.Drawing.Size(500, 80);
             this.Controls.Add(this.mainLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

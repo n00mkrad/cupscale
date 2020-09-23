@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Cupscale.IO;
 using Cupscale.Cupscale;
+using Win32Interop.Structs;
 
 namespace Cupscale
 {
@@ -35,7 +36,7 @@ namespace Cupscale
 			WindowState = FormWindowState.Maximized;
 		}
 
-		private void MainForm_Load(object sender, EventArgs e)
+		private async void MainForm_Load(object sender, EventArgs e)
 		{
 			// Left Panel
             UIHelpers.InitCombox(prevClipboardTypeCombox, 0);
@@ -46,20 +47,34 @@ namespace Cupscale
 			UIHelpers.InitCombox(postResizeScale, 1);
 			UIHelpers.InitCombox(postResizeMode, 0);
 			UIHelpers.FillEnumComboBox(postResizeFilter, typeof(Upscale.Filter), 0);
+			await CheckInstallation();
 		}
 
+		public async Task CheckInstallation ()
+        {
+			await ShippedEsrgan.Init();
+			Enabled = true;
+		}
+
+		float lastProg;
+		string lastStatus = "";
 		public void SetProgress(float prog, string statusText = "")
 		{
-			int percent = (int)Math.Round(prog);
-			if (percent < 0) percent = 0;
-			if (percent > 100) percent = 100;
-			htProgBar.Visible = false;
-			htProgBar.Value = percent;
-			htProgBar.Visible = true;
-			if (!string.IsNullOrWhiteSpace(statusText))
+			if(lastProg != prog)
+            {
+				int percent = (int)Math.Round(prog);
+				if (percent < 0) percent = 0;
+				if (percent > 100) percent = 100;
+				htProgBar.Visible = false;
+				htProgBar.Value = percent;
+				htProgBar.Visible = true;
+				lastProg = prog;
+			}
+			if (!string.IsNullOrWhiteSpace(statusText) && lastStatus != statusText) ;
             {
 				statusLabel.Text = statusText;
 				Logger.Log("Status changed: " + statusText);
+				lastStatus = statusText;
 			}
 		}
 

@@ -97,7 +97,7 @@ namespace Cupscale.UI
             await Upscale.Preprocessing(Paths.imgInPath);
             ModelData mdl = Upscale.GetModelData();
             GetProgress(Paths.imgOutPath, IOUtils.GetAmountOfFiles(Paths.imgInPath, true));
-            await ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, false);
+            await ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, true);
             Program.mainForm.SetProgress(100f, "Post-Processing...");
             await Upscale.Postprocessing();
             await Upscale.FilenamePostprocessing();
@@ -118,7 +118,8 @@ namespace Cupscale.UI
                     percentage = percentage * 100f;
                     if (percentage >= 100f)
                         break;
-                    Program.mainForm.SetProgress((int)Math.Round(percentage), "Upscaled " + count + "/" + target + " images");
+                    if(count > 0)
+                        Program.mainForm.SetProgress((int)Math.Round(percentage), "Upscaled " + count + "/" + target + " images");
                 }
                 await Task.Delay(500);
             }

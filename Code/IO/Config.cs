@@ -78,6 +78,7 @@ namespace Cupscale
 				"alphaBgColor" => WriteDefault("alphaBgColor", "000000FF"),
 				"jpegExtension" => WriteDefault("jpegExtension", "jpg"),
 				"useCpu" => WriteDefault("useCpu", "False"),
+				"useNcnn" => WriteDefault("useNcnn", "False"),
 				"jpegQ" => WriteDefault("jpegQ", "95"),
 				"webpQ" => WriteDefault("webpQ", "95"),
 				"ddsUseDxt" => WriteDefault("ddsUseDxt", "True"),

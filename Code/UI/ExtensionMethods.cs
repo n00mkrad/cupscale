@@ -8,10 +8,15 @@ namespace Cupscale.UI
 {
 	public static class ExtensionMethods
 	{
-		public static string TrimNumbers(this string s)
+		public static string TrimNumbers(this string str)
 		{
-			s = Regex.Replace(s, "[^.0-9]", "");
-			return s.Trim();
+			str = Regex.Replace(str, "[^.0-9]", "");
+			return str.Trim();
+		}
+
+		public static int GetInt(this string str)
+		{
+			return int.Parse(TrimNumbers(str));
 		}
 
 		public static int GetInt(this TextBox textbox)
@@ -42,6 +47,11 @@ namespace Cupscale.UI
 		public static string ToStringTitleCase(this Enum en)
 		{
 			return en.ToString().TitleCase();
+		}
+
+		public static string WrapPath (this string path)
+		{
+			return "\"" + path + "\"";
 		}
 	}
 }

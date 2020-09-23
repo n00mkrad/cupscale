@@ -81,11 +81,31 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap questmark {
+            get {
+                object obj = ResourceManager.GetObject("questmark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] ShippedEsrgan {
             get {
                 object obj = ResourceManager.GetObject("ShippedEsrgan", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ShippedNCNN {
+            get {
+                object obj = ResourceManager.GetObject("ShippedNCNN", resourceCulture);
                 return ((byte[])(obj));
             }
         }

@@ -28,11 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.tabList1 = new Cyotek.Windows.Forms.TabList();
             this.settingsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.useNcnn = new System.Windows.Forms.CheckBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.useCpu = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.alpha = new System.Windows.Forms.CheckBox();
@@ -52,6 +56,11 @@
             this.formatsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.ddsUseDxt = new System.Windows.Forms.CheckBox();
+            this.ddsMipsAmount = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.webpQ = new System.Windows.Forms.TextBox();
             this.jpegQ = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -61,15 +70,12 @@
             this.logPage = new Cyotek.Windows.Forms.TabListPage();
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.ddsMipsAmount = new System.Windows.Forms.TextBox();
-            this.ddsUseDxt = new System.Windows.Forms.CheckBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel6.SuspendLayout();
             this.formatsPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -85,14 +91,14 @@
             this.tabList1.ForeColor = System.Drawing.Color.White;
             this.tabList1.Location = new System.Drawing.Point(12, 12);
             this.tabList1.Name = "tabList1";
-            this.tabList1.Size = new System.Drawing.Size(920, 477);
+            this.tabList1.Size = new System.Drawing.Size(984, 477);
             this.tabList1.TabIndex = 0;
             // 
             // settingsPage
             // 
             this.settingsPage.Controls.Add(this.tableLayoutPanel3);
             this.settingsPage.Name = "settingsPage";
-            this.settingsPage.Size = new System.Drawing.Size(762, 469);
+            this.settingsPage.Size = new System.Drawing.Size(826, 469);
             this.settingsPage.Text = "Settings";
             // 
             // tableLayoutPanel3
@@ -108,7 +114,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(762, 469);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(826, 469);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // panel7
@@ -117,6 +123,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.pictureBox1);
+            this.panel7.Controls.Add(this.useNcnn);
+            this.panel7.Controls.Add(this.label15);
             this.panel7.Controls.Add(this.useCpu);
             this.panel7.Controls.Add(this.label2);
             this.panel7.Controls.Add(this.alpha);
@@ -126,13 +135,46 @@
             this.panel7.Controls.Add(this.label5);
             this.panel7.Location = new System.Drawing.Point(3, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(375, 463);
+            this.panel7.Size = new System.Drawing.Size(407, 463);
             this.panel7.TabIndex = 4;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox1.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox1.Location = new System.Drawing.Point(114, 166);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox1, "Use this if you have an AMD GPU.\r\nOnly works in batch upscaling mode, as the load" +
+        "ing time is too long for the preview.\r\nIf you want to use the preview without an" +
+        " Nvidia GPU, enable CPU mode.");
+            // 
+            // useNcnn
+            // 
+            this.useNcnn.AutoSize = true;
+            this.useNcnn.Location = new System.Drawing.Point(180, 170);
+            this.useNcnn.Name = "useNcnn";
+            this.useNcnn.Size = new System.Drawing.Size(15, 14);
+            this.useNcnn.TabIndex = 9;
+            this.useNcnn.UseVisualStyleBackColor = true;
+            this.useNcnn.CheckedChanged += new System.EventHandler(this.useNcnn_CheckedChanged);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 170);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(102, 13);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "Use Vulkan (NCNN)";
             // 
             // useCpu
             // 
             this.useCpu.AutoSize = true;
-            this.useCpu.Location = new System.Drawing.Point(160, 140);
+            this.useCpu.Location = new System.Drawing.Point(180, 140);
             this.useCpu.Name = "useCpu";
             this.useCpu.Size = new System.Drawing.Size(15, 14);
             this.useCpu.TabIndex = 7;
@@ -150,7 +192,7 @@
             // alpha
             // 
             this.alpha.AutoSize = true;
-            this.alpha.Location = new System.Drawing.Point(160, 110);
+            this.alpha.Location = new System.Drawing.Point(180, 110);
             this.alpha.Name = "alpha";
             this.alpha.Size = new System.Drawing.Size(15, 14);
             this.alpha.TabIndex = 5;
@@ -181,7 +223,7 @@
             "256",
             "192",
             "128"});
-            this.tilesize.Location = new System.Drawing.Point(160, 77);
+            this.tilesize.Location = new System.Drawing.Point(180, 77);
             this.tilesize.Margin = new System.Windows.Forms.Padding(8);
             this.tilesize.Name = "tilesize";
             this.tilesize.Size = new System.Drawing.Size(100, 21);
@@ -220,16 +262,16 @@
             this.panel6.Controls.Add(this.label4);
             this.panel6.Controls.Add(this.alphaBgColor);
             this.panel6.Controls.Add(this.label9);
-            this.panel6.Location = new System.Drawing.Point(384, 3);
+            this.panel6.Location = new System.Drawing.Point(416, 3);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(375, 463);
+            this.panel6.Size = new System.Drawing.Size(407, 463);
             this.panel6.TabIndex = 3;
             // 
             // jpegExtension
             // 
             this.jpegExtension.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.jpegExtension.ForeColor = System.Drawing.Color.White;
-            this.jpegExtension.Location = new System.Drawing.Point(160, 137);
+            this.jpegExtension.Location = new System.Drawing.Point(180, 137);
             this.jpegExtension.Name = "jpegExtension";
             this.jpegExtension.Size = new System.Drawing.Size(66, 20);
             this.jpegExtension.TabIndex = 12;
@@ -238,9 +280,9 @@
             // 
             this.modelPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.modelPath.ForeColor = System.Drawing.Color.White;
-            this.modelPath.Location = new System.Drawing.Point(160, 77);
+            this.modelPath.Location = new System.Drawing.Point(180, 77);
             this.modelPath.Name = "modelPath";
-            this.modelPath.Size = new System.Drawing.Size(210, 20);
+            this.modelPath.Size = new System.Drawing.Size(222, 20);
             this.modelPath.TabIndex = 7;
             // 
             // label1
@@ -266,7 +308,7 @@
             this.confAlphaBgColorBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.confAlphaBgColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.confAlphaBgColorBtn.ForeColor = System.Drawing.Color.White;
-            this.confAlphaBgColorBtn.Location = new System.Drawing.Point(232, 105);
+            this.confAlphaBgColorBtn.Location = new System.Drawing.Point(252, 105);
             this.confAlphaBgColorBtn.Name = "confAlphaBgColorBtn";
             this.confAlphaBgColorBtn.Size = new System.Drawing.Size(28, 23);
             this.confAlphaBgColorBtn.TabIndex = 10;
@@ -288,7 +330,7 @@
             // 
             this.alphaBgColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.alphaBgColor.ForeColor = System.Drawing.Color.White;
-            this.alphaBgColor.Location = new System.Drawing.Point(160, 107);
+            this.alphaBgColor.Location = new System.Drawing.Point(180, 107);
             this.alphaBgColor.Name = "alphaBgColor";
             this.alphaBgColor.Size = new System.Drawing.Size(66, 20);
             this.alphaBgColor.TabIndex = 8;
@@ -306,7 +348,7 @@
             // 
             this.formatsPage.Controls.Add(this.tableLayoutPanel1);
             this.formatsPage.Name = "formatsPage";
-            this.formatsPage.Size = new System.Drawing.Size(762, 469);
+            this.formatsPage.Size = new System.Drawing.Size(826, 469);
             this.formatsPage.Text = "Output Formats";
             // 
             // tableLayoutPanel1
@@ -322,7 +364,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(762, 469);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(826, 469);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // panel1
@@ -343,14 +385,60 @@
             this.panel1.Controls.Add(this.label12);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(375, 463);
+            this.panel1.Size = new System.Drawing.Size(407, 463);
             this.panel1.TabIndex = 4;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.Color.Silver;
+            this.label14.Location = new System.Drawing.Point(252, 170);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(127, 13);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "Use 0 to disable mipmaps";
+            // 
+            // ddsUseDxt
+            // 
+            this.ddsUseDxt.AutoSize = true;
+            this.ddsUseDxt.Location = new System.Drawing.Point(180, 140);
+            this.ddsUseDxt.Name = "ddsUseDxt";
+            this.ddsUseDxt.Size = new System.Drawing.Size(15, 14);
+            this.ddsUseDxt.TabIndex = 17;
+            this.ddsUseDxt.UseVisualStyleBackColor = true;
+            // 
+            // ddsMipsAmount
+            // 
+            this.ddsMipsAmount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ddsMipsAmount.ForeColor = System.Drawing.Color.White;
+            this.ddsMipsAmount.Location = new System.Drawing.Point(180, 167);
+            this.ddsMipsAmount.Name = "ddsMipsAmount";
+            this.ddsMipsAmount.Size = new System.Drawing.Size(66, 20);
+            this.ddsMipsAmount.TabIndex = 16;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 170);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(131, 13);
+            this.label13.TabIndex = 15;
+            this.label13.Text = "DDS: Amount Of Mipmaps";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 140);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(143, 13);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "DDS: Use DXT Compression";
             // 
             // webpQ
             // 
             this.webpQ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.webpQ.ForeColor = System.Drawing.Color.White;
-            this.webpQ.Location = new System.Drawing.Point(160, 107);
+            this.webpQ.Location = new System.Drawing.Point(180, 107);
             this.webpQ.Name = "webpQ";
             this.webpQ.Size = new System.Drawing.Size(66, 20);
             this.webpQ.TabIndex = 13;
@@ -359,7 +447,7 @@
             // 
             this.jpegQ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.jpegQ.ForeColor = System.Drawing.Color.White;
-            this.jpegQ.Location = new System.Drawing.Point(160, 77);
+            this.jpegQ.Location = new System.Drawing.Point(180, 77);
             this.jpegQ.Name = "jpegQ";
             this.jpegQ.Size = new System.Drawing.Size(66, 20);
             this.jpegQ.TabIndex = 12;
@@ -398,16 +486,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Location = new System.Drawing.Point(384, 3);
+            this.panel2.Location = new System.Drawing.Point(416, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(375, 463);
+            this.panel2.Size = new System.Drawing.Size(407, 463);
             this.panel2.TabIndex = 3;
             // 
             // logPage
             // 
             this.logPage.Controls.Add(this.logTbox);
             this.logPage.Name = "logPage";
-            this.logPage.Size = new System.Drawing.Size(762, 469);
+            this.logPage.Size = new System.Drawing.Size(826, 469);
             this.logPage.Text = "View Log";
             // 
             // logTbox
@@ -420,62 +508,16 @@
             this.logTbox.Multiline = true;
             this.logTbox.Name = "logTbox";
             this.logTbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.logTbox.Size = new System.Drawing.Size(762, 469);
+            this.logTbox.Size = new System.Drawing.Size(826, 469);
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 140);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(143, 13);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "DDS: Use DXT Compression";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 170);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(131, 13);
-            this.label13.TabIndex = 15;
-            this.label13.Text = "DDS: Amount Of Mipmaps";
-            // 
-            // ddsMipsAmount
-            // 
-            this.ddsMipsAmount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ddsMipsAmount.ForeColor = System.Drawing.Color.White;
-            this.ddsMipsAmount.Location = new System.Drawing.Point(160, 167);
-            this.ddsMipsAmount.Name = "ddsMipsAmount";
-            this.ddsMipsAmount.Size = new System.Drawing.Size(66, 20);
-            this.ddsMipsAmount.TabIndex = 16;
-            // 
-            // ddsUseDxt
-            // 
-            this.ddsUseDxt.AutoSize = true;
-            this.ddsUseDxt.Location = new System.Drawing.Point(160, 140);
-            this.ddsUseDxt.Name = "ddsUseDxt";
-            this.ddsUseDxt.Size = new System.Drawing.Size(15, 14);
-            this.ddsUseDxt.TabIndex = 17;
-            this.ddsUseDxt.UseVisualStyleBackColor = true;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.ForeColor = System.Drawing.Color.Silver;
-            this.label14.Location = new System.Drawing.Point(232, 170);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(127, 13);
-            this.label14.TabIndex = 18;
-            this.label14.Text = "Use 0 to disable mipmaps";
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(944, 501);
+            this.ClientSize = new System.Drawing.Size(1008, 501);
             this.Controls.Add(this.tabList1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
@@ -487,6 +529,7 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.formatsPage.ResumeLayout(false);
@@ -538,5 +581,9 @@
         private System.Windows.Forms.TextBox ddsMipsAmount;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.CheckBox useNcnn;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

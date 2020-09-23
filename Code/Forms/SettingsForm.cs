@@ -16,6 +16,8 @@ namespace Cupscale.Forms
         public SettingsGuiCollection settings;
         public FormatsGuiCollection formats;
 
+        bool initialized = false;
+
         public SettingsForm()
         {
             InitializeComponent();
@@ -31,9 +33,10 @@ namespace Cupscale.Forms
             Logger.textbox = logTbox;
             //ConfigTabHelper.LoadSettings(tilesize, alpha, modelPath, alphaBgColor, jpegExtension, useCpu);
             LoadSettings();
+            initialized = true;
         }
 
-        void LoadSettings ()
+        void LoadSettings()
         {
             Config.LoadGuiElement(tilesize);
             Config.LoadGuiElement(alpha);
@@ -41,6 +44,7 @@ namespace Cupscale.Forms
             Config.LoadGuiElement(alphaBgColor);
             Config.LoadGuiElement(jpegExtension);
             Config.LoadGuiElement(useCpu);
+            Config.LoadGuiElement(useNcnn);
 
             Config.LoadGuiElement(jpegQ);
             Config.LoadGuiElement(webpQ);
@@ -62,6 +66,7 @@ namespace Cupscale.Forms
             Config.SaveGuiElement(alphaBgColor);
             Config.SaveGuiElement(jpegExtension);
             Config.SaveGuiElement(useCpu);
+            Config.SaveGuiElement(useNcnn);
 
             Config.SaveGuiElement(jpegQ);
             Config.SaveGuiElement(webpQ);
@@ -82,35 +87,43 @@ namespace Cupscale.Forms
             if (logTbox.Visible)
                 logTbox.Text = Logger.GetSessionLog();
         }
-    }
 
-    public struct SettingsGuiCollection
-    {
-        public ComboBox tilesize;
-        public CheckBox alpha;
-        public TextBox modelPath;
-        public TextBox alphaColor;
-        public TextBox jpegExt;
-        public CheckBox useCpu;
-        public SettingsGuiCollection (ComboBox tilesizeBox, CheckBox alphaBox, TextBox modelPathBox, TextBox alphaColorBox, TextBox jpegExtBox, CheckBox useCpuBox)
+        private void useNcnn_CheckedChanged(object sender, EventArgs e)
         {
-            tilesize = tilesizeBox;
-            alpha = alphaBox;
-            modelPath = modelPathBox;
-            alphaColor = alphaColorBox;
-            jpegExt = jpegExtBox;
-            useCpu = useCpuBox;
+            if (useNcnn.Checked && initialized)
+                MessageBox.Show("This only serves as a fallback mode.\nDon't use this if you have an Nvidia GPU.\n\n" +
+                    "The following features do not work with Vulkan/NCNN:\n- Model Interpolation\n- Model Chaining\n"
+                    + "- Custom Tile Size (Uses Automatic Tile Size)", "Warning");
         }
-    }
 
-    public struct FormatsGuiCollection
-    {
-        public TextBox jpegQ;
-        public TextBox webpQ;
-        public FormatsGuiCollection(TextBox jpegQBox, TextBox webpQBox)
+        public struct SettingsGuiCollection
         {
-            jpegQ = jpegQBox;
-            webpQ = webpQBox;
-        }   
+            public ComboBox tilesize;
+            public CheckBox alpha;
+            public TextBox modelPath;
+            public TextBox alphaColor;
+            public TextBox jpegExt;
+            public CheckBox useCpu;
+            public SettingsGuiCollection(ComboBox tilesizeBox, CheckBox alphaBox, TextBox modelPathBox, TextBox alphaColorBox, TextBox jpegExtBox, CheckBox useCpuBox)
+            {
+                tilesize = tilesizeBox;
+                alpha = alphaBox;
+                modelPath = modelPathBox;
+                alphaColor = alphaColorBox;
+                jpegExt = jpegExtBox;
+                useCpu = useCpuBox;
+            }
+        }
+
+        public struct FormatsGuiCollection
+        {
+            public TextBox jpegQ;
+            public TextBox webpQ;
+            public FormatsGuiCollection(TextBox jpegQBox, TextBox webpQBox)
+            {
+                jpegQ = jpegQBox;
+                webpQ = webpQBox;
+            }
+        }
     }
 }
