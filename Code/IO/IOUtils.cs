@@ -41,12 +41,30 @@ namespace Cupscale
 			MagickImage image;
 			if (Path.GetExtension(path).ToLower() == ".dds")
 			{
-				Surface surface = DdsFile.Load(path);
-				image = ConvertToMagickImage(surface);
-				image.HasAlpha = DdsFile.HasTransparency(surface);
+				try
+				{
+					image = new MagickImage(path);      // Try reading DDS with IM, fall back to DdsFileTypePlusHack if it fails
+				}
+				catch
+				{
+					Logger.Log("Failed to read DDS using Mackig.NET - Trying DdsFileTypePlusHack");
+					try
+					{
+						Surface surface = DdsFile.Load(path);
+						image = ConvertToMagickImage(surface);
+						image.HasAlpha = DdsFile.HasTransparency(surface);
+					}
+					catch (Exception e)
+                    {
+						MessageBox.Show("This DDS format is incompatible.\n\n" + e.Message);
+						return null;
+                    }
+				}
 			}
-			else
+            else
+            {
 				image = new MagickImage(path);
+			}
 			return image;
 		}
 
