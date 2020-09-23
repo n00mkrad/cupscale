@@ -1,4 +1,4 @@
-# cupscale
+# Cupscale
 Image Upscaling GUI based on ESRGAN - **WORK IN PROGRESS**
 
 ![](https://i.imgur.com/tIRI1MO.png)
