@@ -208,13 +208,13 @@ namespace Cupscale.OS
 				return;
 
 			string data = output.Data;
+			Logger.Log("[NCNN] " + data.Replace("\n", " ").Replace("\r", " "));
 			if (data.Contains("failed"))
 			{
 				if (currentProcess != null && !currentProcess.HasExited)
 					currentProcess.Kill();
 
 				MessageBox.Show("Error occurred: \n\n" + data + "\n\nThe ESRGAN-NCNN process was killed to avoid lock-ups.", "Error");
-				Logger.Log("Error Output: " + data.Replace("\n", " ").Replace("\r", " "));
 			}
 
 			if (data.Contains("vkAllocateMemory"))
