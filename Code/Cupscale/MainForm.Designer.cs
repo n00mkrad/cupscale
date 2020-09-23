@@ -84,8 +84,9 @@ namespace Cupscale
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.statusLabel = new System.Windows.Forms.Label();
             this.htProgBar = new HTAlt.WinForms.HTProgressBar();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.statusLabel = new System.Windows.Forms.Label();
             this.htTabControl = new HTAlt.WinForms.HTTabControl();
             this.previewTab = new System.Windows.Forms.TabPage();
             this.previewImg = new Cyotek.Windows.Forms.ImageBox();
@@ -123,7 +124,6 @@ namespace Cupscale
             this.panel7 = new System.Windows.Forms.Panel();
             this.settingsBtn = new HTAlt.WinForms.HTButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.panel11 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -132,6 +132,7 @@ namespace Cupscale
             this.previewGroupbox.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            this.panel11.SuspendLayout();
             this.htTabControl.SuspendLayout();
             this.previewTab.SuspendLayout();
             this.batchTab.SuspendLayout();
@@ -148,7 +149,6 @@ namespace Cupscale
             this.groupBox2.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.panel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // leftPanel
@@ -626,17 +626,6 @@ namespace Cupscale
             this.tableLayoutPanel5.Size = new System.Drawing.Size(602, 19);
             this.tableLayoutPanel5.TabIndex = 1;
             // 
-            // statusLabel
-            // 
-            this.statusLabel.AutoEllipsis = true;
-            this.statusLabel.ForeColor = System.Drawing.Color.White;
-            this.statusLabel.Location = new System.Drawing.Point(-3, 3);
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(204, 16);
-            this.statusLabel.TabIndex = 7;
-            this.statusLabel.Text = "Ready. ";
-            this.statusLabel.UseMnemonic = false;
-            // 
             // htProgBar
             // 
             this.htProgBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
@@ -649,6 +638,26 @@ namespace Cupscale
             this.htProgBar.Size = new System.Drawing.Size(396, 13);
             this.htProgBar.TabIndex = 8;
             this.htProgBar.TabStop = false;
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.statusLabel);
+            this.panel11.Location = new System.Drawing.Point(0, 0);
+            this.panel11.Margin = new System.Windows.Forms.Padding(0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(200, 19);
+            this.panel11.TabIndex = 9;
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.AutoEllipsis = true;
+            this.statusLabel.ForeColor = System.Drawing.Color.White;
+            this.statusLabel.Location = new System.Drawing.Point(-3, 3);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(204, 16);
+            this.statusLabel.TabIndex = 7;
+            this.statusLabel.Text = "Ready. ";
+            this.statusLabel.UseMnemonic = false;
             // 
             // htTabControl
             // 
@@ -720,7 +729,7 @@ namespace Cupscale
             this.batchTab.Location = new System.Drawing.Point(4, 27);
             this.batchTab.Name = "batchTab";
             this.batchTab.Padding = new System.Windows.Forms.Padding(3);
-            this.batchTab.Size = new System.Drawing.Size(594, 578);
+            this.batchTab.Size = new System.Drawing.Size(594, 573);
             this.batchTab.TabIndex = 1;
             this.batchTab.Text = "Batch Upscale";
             this.batchTab.DragDrop += new System.Windows.Forms.DragEventHandler(this.batchTab_DragDrop);
@@ -738,7 +747,7 @@ namespace Cupscale
             this.tableLayoutPanel7.RowCount = 2;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(588, 572);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(588, 567);
             this.tableLayoutPanel7.TabIndex = 13;
             // 
             // batchDirLabel
@@ -761,7 +770,7 @@ namespace Cupscale
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(3, 83);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(582, 486);
+            this.panel8.Size = new System.Drawing.Size(582, 481);
             this.panel8.TabIndex = 12;
             // 
             // tableLayoutPanel3
@@ -777,7 +786,7 @@ namespace Cupscale
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(582, 486);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(582, 481);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // panel9
@@ -787,7 +796,7 @@ namespace Cupscale
             this.panel9.Location = new System.Drawing.Point(0, 0);
             this.panel9.Margin = new System.Windows.Forms.Padding(0);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(291, 486);
+            this.panel9.Size = new System.Drawing.Size(291, 481);
             this.panel9.TabIndex = 0;
             // 
             // tableLayoutPanel9
@@ -803,7 +812,7 @@ namespace Cupscale
             this.tableLayoutPanel9.RowCount = 2;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(291, 486);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(291, 481);
             this.tableLayoutPanel9.TabIndex = 13;
             // 
             // label13
@@ -836,7 +845,7 @@ namespace Cupscale
             this.panel10.Location = new System.Drawing.Point(291, 0);
             this.panel10.Margin = new System.Windows.Forms.Padding(0);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(291, 486);
+            this.panel10.Size = new System.Drawing.Size(291, 481);
             this.panel10.TabIndex = 1;
             // 
             // tableLayoutPanel8
@@ -852,7 +861,7 @@ namespace Cupscale
             this.tableLayoutPanel8.RowCount = 2;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(291, 486);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(291, 481);
             this.tableLayoutPanel8.TabIndex = 12;
             // 
             // batchFileList
@@ -866,7 +875,7 @@ namespace Cupscale
             this.batchFileList.Name = "batchFileList";
             this.batchFileList.ReadOnly = true;
             this.batchFileList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.batchFileList.Size = new System.Drawing.Size(275, 440);
+            this.batchFileList.Size = new System.Drawing.Size(275, 435);
             this.batchFileList.TabIndex = 12;
             // 
             // label6
@@ -931,6 +940,7 @@ namespace Cupscale
             this.postResizeOnlyDownscale.AutoSize = true;
             this.postResizeOnlyDownscale.Checked = true;
             this.postResizeOnlyDownscale.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.postResizeOnlyDownscale.Enabled = false;
             this.postResizeOnlyDownscale.Location = new System.Drawing.Point(6, 120);
             this.postResizeOnlyDownscale.Name = "postResizeOnlyDownscale";
             this.postResizeOnlyDownscale.Size = new System.Drawing.Size(239, 17);
@@ -958,6 +968,7 @@ namespace Cupscale
             this.postResizeMode.Name = "postResizeMode";
             this.postResizeMode.Size = new System.Drawing.Size(151, 21);
             this.postResizeMode.TabIndex = 6;
+            this.postResizeMode.SelectedIndexChanged += new System.EventHandler(this.postResizeMode_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -1179,15 +1190,6 @@ namespace Cupscale
             this.settingsBtn.UseVisualStyleBackColor = false;
             this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
             // 
-            // panel11
-            // 
-            this.panel11.Controls.Add(this.statusLabel);
-            this.panel11.Location = new System.Drawing.Point(0, 0);
-            this.panel11.Margin = new System.Windows.Forms.Padding(0);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(200, 19);
-            this.panel11.TabIndex = 9;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1211,6 +1213,7 @@ namespace Cupscale
             this.previewGroupbox.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
+            this.panel11.ResumeLayout(false);
             this.htTabControl.ResumeLayout(false);
             this.previewTab.ResumeLayout(false);
             this.batchTab.ResumeLayout(false);
@@ -1232,7 +1235,6 @@ namespace Cupscale
             this.groupBox2.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
-            this.panel11.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

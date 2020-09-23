@@ -324,5 +324,10 @@ namespace Cupscale
 			if (prevOverwriteCombox.SelectedIndex == 1)
 				Upscale.overwriteMode = Upscale.Overwrite.Yes;
 		}
+
+        private void postResizeMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			postResizeOnlyDownscale.Enabled = postResizeMode.SelectedIndex != 0;
+        }
     }
 }

@@ -13,6 +13,18 @@
     <ApplicationIcon>CupscaleLogo1.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Costura32\DdsFileTypePlusIO_x86.dll" />
+    <None Remove="Costura64\DdsFileTypePlusIO_x64.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Costura32\DdsFileTypePlusIO_x86.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Costura64\DdsFileTypePlusIO_x64.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Costura.Fody" Version="4.1.0" />
     <PackageReference Include="CyotekImageBox" Version="1.2.1" />
     <PackageReference Include="CyotekTabList" Version="2.0.0" />
