@@ -93,7 +93,7 @@ namespace Cupscale.Forms
             if (useNcnn.Checked && initialized)
                 MessageBox.Show("This only serves as a fallback mode.\nDon't use this if you have an Nvidia GPU.\n\n" +
                     "The following features do not work with Vulkan/NCNN:\n- Model Interpolation\n- Model Chaining\n"
-                    + "- Custom Tile Size (Uses Automatic Tile Size)", "Warning");
+                    + "- Custom Tile Size (Uses Automatic Tile Size)\n\nAlpha is supported and always enabled with NCNN.", "Warning");
         }
 
         public struct SettingsGuiCollection
