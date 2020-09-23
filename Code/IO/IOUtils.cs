@@ -307,7 +307,7 @@ namespace Cupscale
 			return num;
 		}
 
-		public static long GetDirSize(string path, string[] excludedExtensions = null)
+		public static long GetDirSize(string path, bool recursive, string[] excludedExtensions = null)
 		{
 			long size = 0;
 			// Add file sizes.
@@ -321,10 +321,13 @@ namespace Cupscale
 			foreach (string file in files)
 				size += new FileInfo(file).Length;
 
+			if (!recursive)
+				return size;
+
 			// Add subdirectory sizes.
 			DirectoryInfo[] dis = new DirectoryInfo(path).GetDirectories();
 			foreach (DirectoryInfo di in dis)
-				size += GetDirSize(di.FullName, excludedExtensions);
+				size += GetDirSize(di.FullName, true, excludedExtensions);
 
 			return size;
 		}

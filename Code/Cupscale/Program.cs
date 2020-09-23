@@ -12,6 +12,7 @@ namespace Cupscale
 	internal static class Program
 	{
 		public static MainForm mainForm;
+		public static string lastOutputDir;
 		public static string lastFilename;
 		public static string lastDirPath;
 		public static string lastModelName;

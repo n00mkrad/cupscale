@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -241,6 +242,12 @@ namespace Cupscale.UI
                 return false;
             }
             return true;
+        }
+
+        public static void OpenLastOutputFolder ()
+        {
+            if(!string.IsNullOrWhiteSpace(Program.lastOutputDir))
+                Process.Start("explorer.exe", Program.lastOutputDir);
         }
     }
 }

@@ -344,5 +344,26 @@ namespace Cupscale
         {
 			postResizeOnlyDownscale.Enabled = postResizeMode.SelectedIndex != 0;
         }
-    }
+
+        private async void previewImg_KeyUp(object sender, KeyEventArgs e)
+        {
+			if (e.KeyData == (Keys.Control | Keys.V))
+			{
+				Image clipboardImg = Clipboard.GetImage();
+				string savePath = Path.Combine(Paths.clipboardFolderPath, "Clipboard.png");
+				clipboardImg.Save(savePath);
+				await DragNDrop(new string[] { savePath });
+			}
+		}
+
+        private void openOutFolderBtn_Click(object sender, EventArgs e)
+        {
+			MainUIHelper.OpenLastOutputFolder();
+        }
+
+		public void SetOpenOutFolderBtn (bool state)
+        {
+			openOutFolderBtn.Enabled = state;
+		}
+	}
 }

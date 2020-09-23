@@ -124,6 +124,7 @@ namespace Cupscale
             this.panel7 = new System.Windows.Forms.Panel();
             this.settingsBtn = new HTAlt.WinForms.HTButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.openOutFolderBtn = new HTAlt.WinForms.HTButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -718,6 +719,7 @@ namespace Cupscale
             this.previewImg.Zoomed += new System.EventHandler<Cyotek.Windows.Forms.ImageBoxZoomEventArgs>(this.previewImg_Zoomed);
             this.previewImg.DragDrop += new System.Windows.Forms.DragEventHandler(this.previewImg_DragDrop);
             this.previewImg.DragEnter += new System.Windows.Forms.DragEventHandler(this.previewImg_DragEnter);
+            this.previewImg.KeyUp += new System.Windows.Forms.KeyEventHandler(this.previewImg_KeyUp);
             this.previewImg.MouseDown += new System.Windows.Forms.MouseEventHandler(this.previewImg_MouseDown);
             this.previewImg.MouseUp += new System.Windows.Forms.MouseEventHandler(this.previewImg_MouseUp);
             // 
@@ -905,6 +907,7 @@ namespace Cupscale
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.openOutFolderBtn);
             this.panel4.Controls.Add(this.groupBox3);
             this.panel4.Controls.Add(this.groupBox2);
             this.panel4.Controls.Add(this.upscaleBtn);
@@ -926,7 +929,7 @@ namespace Cupscale
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.postResizeFilter);
             this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(3, 321);
+            this.groupBox3.Location = new System.Drawing.Point(3, 285);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(280, 143);
             this.groupBox3.TabIndex = 10;
@@ -1041,7 +1044,7 @@ namespace Cupscale
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.prevOutputFormatCombox);
             this.groupBox2.ForeColor = System.Drawing.Color.White;
-            this.groupBox2.Location = new System.Drawing.Point(3, 469);
+            this.groupBox2.Location = new System.Drawing.Point(3, 433);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(280, 117);
             this.groupBox2.TabIndex = 9;
@@ -1190,6 +1193,23 @@ namespace Cupscale
             this.settingsBtn.UseVisualStyleBackColor = false;
             this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
             // 
+            // openOutFolderBtn
+            // 
+            this.openOutFolderBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.openOutFolderBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.openOutFolderBtn.Enabled = false;
+            this.openOutFolderBtn.FlatAppearance.BorderSize = 0;
+            this.openOutFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.openOutFolderBtn.ForeColor = System.Drawing.Color.White;
+            this.openOutFolderBtn.Location = new System.Drawing.Point(3, 556);
+            this.openOutFolderBtn.Name = "openOutFolderBtn";
+            this.openOutFolderBtn.Size = new System.Drawing.Size(280, 30);
+            this.openOutFolderBtn.TabIndex = 11;
+            this.openOutFolderBtn.Text = "Open Folder Of Last Upscale";
+            this.openOutFolderBtn.UseVisualStyleBackColor = false;
+            this.openOutFolderBtn.Click += new System.EventHandler(this.openOutFolderBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1284,5 +1304,6 @@ namespace Cupscale
         private TableLayoutPanel tableLayoutPanel8;
         private CheckBox postResizeOnlyDownscale;
         private Panel panel11;
+        private HTAlt.WinForms.HTButton openOutFolderBtn;
     }
 }

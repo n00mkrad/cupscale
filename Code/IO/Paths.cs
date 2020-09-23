@@ -11,6 +11,7 @@ namespace Cupscale.IO
 		public static string imgInPath;
 		public static string imgOutPath;
 		public static string tempImgPath;
+		public static string clipboardFolderPath;
 		public static string progressLogfile;
 
 		public static void Init()
@@ -21,12 +22,14 @@ namespace Cupscale.IO
 			imgInPath = Path.Combine(IOUtils.GetAppDataDir(), "img-in");
 			imgOutPath = Path.Combine(IOUtils.GetAppDataDir(), "img-out");
 			tempImgPath = Path.Combine(IOUtils.GetAppDataDir(), "loaded-img", "temp.png");
+			clipboardFolderPath = Path.Combine(IOUtils.GetAppDataDir(), "clipboard");
 			progressLogfile = Path.Combine(esrganPath, "prog");
 			Directory.CreateDirectory(previewPath);
 			Directory.CreateDirectory(previewOutPath);
 			Directory.CreateDirectory(imgInPath);
 			Directory.CreateDirectory(imgOutPath);
 			Directory.CreateDirectory(tempImgPath.GetParentDir());
+			Directory.CreateDirectory(clipboardFolderPath);
 		}
 	}
 }

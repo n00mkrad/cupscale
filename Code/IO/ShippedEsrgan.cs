@@ -17,11 +17,12 @@ namespace Cupscale.IO
 		{
 			Console.WriteLine("ShippedEsrgan Init()");
 			path = Paths.esrganPath;
-			long targetSize = 301969327; ;
+			long targetSize = 39661136;
 			long installationSize;
 			try
             {
-				installationSize = IOUtils.GetDirSize(path, new string[] { ".pyc", ".txt" });
+				installationSize = IOUtils.GetDirSize(path, false, new string[] { ".pyc", ".txt" });
+				installationSize += IOUtils.GetDirSize(Path.Combine(path, "Tools"), false, new string[] { ".pyc", ".txt" });
 			}
             catch
             {
@@ -49,9 +50,11 @@ namespace Cupscale.IO
 
 		static async Task UnSevenzip (string path)
         {
+			Logger.Log("Extracting " + path);
 			SevenZipNET.SevenZipExtractor extractor = new SevenZipNET.SevenZipExtractor(path);
 			extractor.ExtractAll(IOUtils.GetAppDataDir());
 			File.Delete(path);
+			await Task.Delay(1);
 		}
 
 		public static bool Exists()
