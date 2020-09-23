@@ -24,7 +24,7 @@ namespace Cupscale.Main
     public static async Task CopyImagesTo(string path)
         {
             Program.lastOutputDir = path;
-            Program.mainForm.SetOpenOutFolderBtn(true);
+            Program.mainForm.AfterFirstUpscale();
             if (overwriteMode == Overwrite.Yes)
             {
                 Logger.Log("Overwrite mode - removing suffix from filenames");

@@ -361,9 +361,15 @@ namespace Cupscale
 			MainUIHelper.OpenLastOutputFolder();
         }
 
-		public void SetOpenOutFolderBtn (bool state)
+		public void AfterFirstUpscale ()
         {
-			openOutFolderBtn.Enabled = state;
+			openOutFolderBtn.Enabled = true;
+		}
+
+		public void AfterFirstPreview ()
+		{
+			copyCompToClipboardBtn.Enabled = true;
+			savePreviewToFileBtn.Enabled = true;
 		}
 	}
 }

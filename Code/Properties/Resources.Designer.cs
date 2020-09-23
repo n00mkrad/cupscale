@@ -109,5 +109,15 @@ namespace Cupscale.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] x64_7za {
+            get {
+                object obj = ResourceManager.GetObject("x64_7za", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@
     <UseWindowsForms>True</UseWindowsForms>
     <TargetFramework>net472</TargetFramework>
     <Prefer32Bit>True</Prefer32Bit>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>Preview</LangVersion>
@@ -81,5 +82,20 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="C:\Users\NMKD\.nuget\packages\sevenzipextractor\1.0.15\build\x64\7z.dll" Link="Costura64\7z.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="C:\Users\NMKD\.nuget\packages\sevenzipextractor\1.0.15\build\x64\7z.dll" Link="Costura64\7z.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="C:\Users\NMKD\.nuget\packages\sevenzipextractor\1.0.15\build\x86\7z.dll" Link="Costura32\7z.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="C:\Users\NMKD\.nuget\packages\sevenzipextractor\1.0.15\build\x86\7z.dll" Link="Costura32\7z.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <NativeLibs Remove="Resources\7za.exe" />
   </ItemGroup>
 </Project>

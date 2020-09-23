@@ -105,6 +105,7 @@ namespace Cupscale
             this.label6 = new System.Windows.Forms.Label();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.openOutFolderBtn = new HTAlt.WinForms.HTButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.postResizeOnlyDownscale = new System.Windows.Forms.CheckBox();
             this.postResizeMode = new System.Windows.Forms.ComboBox();
@@ -124,7 +125,6 @@ namespace Cupscale
             this.panel7 = new System.Windows.Forms.Panel();
             this.settingsBtn = new HTAlt.WinForms.HTButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.openOutFolderBtn = new HTAlt.WinForms.HTButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -520,6 +520,7 @@ namespace Cupscale
             this.savePreviewToFileBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.savePreviewToFileBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.savePreviewToFileBtn.Enabled = false;
             this.savePreviewToFileBtn.FlatAppearance.BorderSize = 0;
             this.savePreviewToFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.savePreviewToFileBtn.ForeColor = System.Drawing.Color.White;
@@ -536,6 +537,7 @@ namespace Cupscale
             this.copyCompToClipboardBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.copyCompToClipboardBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.copyCompToClipboardBtn.Enabled = false;
             this.copyCompToClipboardBtn.FlatAppearance.BorderSize = 0;
             this.copyCompToClipboardBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.copyCompToClipboardBtn.ForeColor = System.Drawing.Color.White;
@@ -918,6 +920,23 @@ namespace Cupscale
             this.panel4.Size = new System.Drawing.Size(288, 629);
             this.panel4.TabIndex = 3;
             // 
+            // openOutFolderBtn
+            // 
+            this.openOutFolderBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.openOutFolderBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.openOutFolderBtn.Enabled = false;
+            this.openOutFolderBtn.FlatAppearance.BorderSize = 0;
+            this.openOutFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.openOutFolderBtn.ForeColor = System.Drawing.Color.White;
+            this.openOutFolderBtn.Location = new System.Drawing.Point(3, 556);
+            this.openOutFolderBtn.Name = "openOutFolderBtn";
+            this.openOutFolderBtn.Size = new System.Drawing.Size(280, 30);
+            this.openOutFolderBtn.TabIndex = 11;
+            this.openOutFolderBtn.Text = "Open Folder Of Last Upscale";
+            this.openOutFolderBtn.UseVisualStyleBackColor = false;
+            this.openOutFolderBtn.Click += new System.EventHandler(this.openOutFolderBtn_Click);
+            // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -1192,23 +1211,6 @@ namespace Cupscale
             this.settingsBtn.Text = " ";
             this.settingsBtn.UseVisualStyleBackColor = false;
             this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
-            // 
-            // openOutFolderBtn
-            // 
-            this.openOutFolderBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.openOutFolderBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.openOutFolderBtn.Enabled = false;
-            this.openOutFolderBtn.FlatAppearance.BorderSize = 0;
-            this.openOutFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.openOutFolderBtn.ForeColor = System.Drawing.Color.White;
-            this.openOutFolderBtn.Location = new System.Drawing.Point(3, 556);
-            this.openOutFolderBtn.Name = "openOutFolderBtn";
-            this.openOutFolderBtn.Size = new System.Drawing.Size(280, 30);
-            this.openOutFolderBtn.TabIndex = 11;
-            this.openOutFolderBtn.Text = "Open Folder Of Last Upscale";
-            this.openOutFolderBtn.UseVisualStyleBackColor = false;
-            this.openOutFolderBtn.Click += new System.EventHandler(this.openOutFolderBtn_Click);
             // 
             // MainForm
             // 

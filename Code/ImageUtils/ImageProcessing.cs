@@ -93,7 +93,7 @@ namespace Cupscale
 			foreach (FileInfo file in files)
 			{
 				Logger.Log("Converting " + file.Name + " to " + format.ToString() + ", appendExtension = " + appendExtension);
-				Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Converting " + file.Name);
+				Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Processing " + file.Name);
 				await ConvertImage(file.FullName, format, removeAlpha, appendExtension, delSource);
 				i++;
 			}
@@ -104,7 +104,7 @@ namespace Cupscale
 		{
 			Logger.Log("ConvertImage: Loading MagickImage from " + path);
 			MagickImage img = IOUtils.GetMagickImage(path);
-			Logger.Log("Converting: " + img.ToString() + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource);
+			Logger.Log("Converting: " + img.ToString() + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource + " - FillAlpha: " + fillAlpha);
 			string ext = "png";
 			if (format == Format.PngOpti)
 			{
@@ -150,9 +150,9 @@ namespace Cupscale
 			}
             if (fillAlpha)
             {
-				MagickImage colorImg = new MagickImage(new MagickColor("#" + Config.Get("alphaBgColor")), img.Width, img.Height);
-				colorImg.Composite(img, Gravity.Center, CompositeOperator.Over);
-				// img.ColorAlpha(new MagickColor("#" + Config.Get("alphaBgColor")));	// Might not work correctly for DDS n stuff?
+				//MagickImage colorImg = new MagickImage(new MagickColor("#" + Config.Get("alphaBgColor")), img.Width, img.Height);
+				//colorImg.Composite(img, Gravity.Center, CompositeOperator.Overlay);
+				img.ColorAlpha(new MagickColor("#" + Config.Get("alphaBgColor")));	// Might not work correctly for DDS n stuff?
 			}
 			if (string.IsNullOrWhiteSpace(overrideOutPath) && appendExtension)
 			{

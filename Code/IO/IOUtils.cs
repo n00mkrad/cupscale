@@ -257,7 +257,7 @@ namespace Cupscale
 			}
 			catch (Exception e)
             {
-				MessageBox.Show("Copy from \"" + source + "\" to \"" + dest + " (Overwrite: " + overwrite + " failed: \n\n" + e.Message);
+				MessageBox.Show("Copy from \"" + source + "\" to \"" + dest + " (Overwrite: " + overwrite + ") failed: \n\n" + e.Message);
 				return false;
             }
 			return true;

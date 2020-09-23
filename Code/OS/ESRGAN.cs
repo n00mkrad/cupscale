@@ -132,6 +132,7 @@ namespace Cupscale.OS
 				return;
 			}
 			string data = output.Data;
+			Logger.Log("[ESRGAN] " + data.Replace("\n", " ").Replace("\r", " "));
 			if (data.Contains("RuntimeError"))
 			{
 				if (currentProcess != null && !currentProcess.HasExited)
@@ -139,7 +140,6 @@ namespace Cupscale.OS
 					currentProcess.Kill();
 				}
 				MessageBox.Show("Error occurred: \n\n" + data + "\n\nThe ESRGAN process was killed to avoid lock-ups.", "Error");
-				Logger.Log("Error Output: " + data.Replace("\n", " ").Replace("\r", " "));
 			}
 			if (data.Contains("out of memory"))
 			{

@@ -124,6 +124,7 @@ namespace Cupscale.UI
             {
                 prevMode = ESRGAN.PreviewMode.FullImage;
                 if (!IOUtils.TryCopy(Paths.tempImgPath, Path.Combine(Paths.previewPath, "preview.png"), true)) return;
+                //currentOriginal.Save(Path.Combine(Paths.previewPath, "preview.png"));
             }
             else
             {
@@ -153,6 +154,7 @@ namespace Cupscale.UI
                 ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
                 await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), prevMode, false);
             }
+            Program.mainForm.AfterFirstPreview();
             Program.mainForm.SetBusy(false);
         }
 

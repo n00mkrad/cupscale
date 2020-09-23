@@ -34,7 +34,15 @@ namespace Cupscale
 			Paths.Init();
 			EsrganData.CheckModelDir();
 			ResourceLimits.Memory = (ulong)Math.Round(ResourceLimits.Memory * 1.5f);
+			StartupCleanup();
 			Application.Run(new MainForm());
+		}
+
+		static void StartupCleanup ()
+        {
+			IOUtils.DeleteContentsOfDir(Paths.previewPath);
+			IOUtils.DeleteContentsOfDir(Paths.previewPath);
+			IOUtils.DeleteContentsOfDir(Paths.clipboardFolderPath);
 		}
 
 		public static void CloseTempForms ()
