@@ -1,4 +1,5 @@
-﻿using Cupscale.UI;
+﻿using Cupscale.IO;
+using Cupscale.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -60,7 +61,7 @@ namespace Cupscale.Forms
         {
             // ESRGAN/Cupscale
             Config.SaveComboxIndex(esrganVersion);
-            Config.SaveGuiElement(tilesize);
+            Config.SaveGuiElement(tilesize, true);
             Config.SaveGuiElement(alpha);
             Config.SaveGuiElement(modelPath);
             Config.SaveGuiElement(alphaBgColor);
@@ -70,8 +71,8 @@ namespace Cupscale.Forms
             Config.SaveComboxIndex(previewFormat);
 
             // Formats
-            Config.SaveGuiElement(jpegQ);
-            Config.SaveGuiElement(webpQ);
+            Config.SaveGuiElement(jpegQ, true);
+            Config.SaveGuiElement(webpQ, true);
             Config.SaveGuiElement(dxtMode);
             Config.SaveGuiElement(ddsEnableMips);
         }
@@ -103,6 +104,35 @@ namespace Cupscale.Forms
         {
             modelsPathDialog.ShowDialog();
             modelPath.Text = modelsPathDialog.SelectedPath;
+        }
+
+        private async void reinstallOverwriteBtn_Click(object sender, EventArgs e)
+        {
+            await ShippedEsrgan.Install();
+            BringToFront();
+        }
+
+        private async void reinstallCleanBtn_Click(object sender, EventArgs e)
+        {
+            ShippedEsrgan.Uninstall(false);
+            await ShippedEsrgan.Install();
+            BringToFront();
+        }
+
+        private void uninstallResBtn_Click(object sender, EventArgs e)
+        {
+            ShippedEsrgan.Uninstall(false);
+            MessageBox.Show("Uninstalled resources.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.\n" +
+                "However, your settings file was not deleted.", "Message");
+            Program.Quit();
+        }
+
+        private void uninstallFullBtn_Click(object sender, EventArgs e)
+        {
+            Close();
+            ShippedEsrgan.Uninstall(true);
+            MessageBox.Show("Uninstalled all files.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.", "Message");
+            Program.Quit();
         }
     }
 }

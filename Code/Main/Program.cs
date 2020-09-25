@@ -68,5 +68,10 @@ namespace Cupscale
         {
 			return (int)Math.Round((val1 / val2) * 100f);
         }
+
+		public static void Quit ()
+        {
+			Application.Exit();
+		}
 	}
 }

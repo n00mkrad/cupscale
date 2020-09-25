@@ -74,12 +74,23 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.logPage = new Cyotek.Windows.Forms.TabListPage();
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.modelsPathDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.resourceFilesPage = new Cyotek.Windows.Forms.TabListPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.reinstallOverwriteBtn = new HTAlt.WinForms.HTButton();
+            this.reinstallCleanBtn = new HTAlt.WinForms.HTButton();
+            this.label17 = new System.Windows.Forms.Label();
+            this.uninstallResBtn = new HTAlt.WinForms.HTButton();
+            this.label18 = new System.Windows.Forms.Label();
+            this.uninstallFullBtn = new HTAlt.WinForms.HTButton();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -94,6 +105,9 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.logPage.SuspendLayout();
+            this.resourceFilesPage.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabList1
@@ -101,6 +115,7 @@
             this.tabList1.Controls.Add(this.settingsPage);
             this.tabList1.Controls.Add(this.formatsPage);
             this.tabList1.Controls.Add(this.logPage);
+            this.tabList1.Controls.Add(this.resourceFilesPage);
             this.tabList1.ForeColor = System.Drawing.Color.White;
             this.tabList1.Location = new System.Drawing.Point(12, 12);
             this.tabList1.Name = "tabList1";
@@ -503,7 +518,6 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -627,17 +641,6 @@
             this.label12.TabIndex = 1;
             this.label12.Text = "Image Format Settings";
             // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Location = new System.Drawing.Point(464, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(455, 463);
-            this.panel2.TabIndex = 3;
-            // 
             // logPage
             // 
             this.logPage.Controls.Add(this.logTbox);
@@ -659,6 +662,158 @@
             this.logTbox.Size = new System.Drawing.Size(922, 469);
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
+            // 
+            // resourceFilesPage
+            // 
+            this.resourceFilesPage.Controls.Add(this.tableLayoutPanel2);
+            this.resourceFilesPage.Name = "resourceFilesPage";
+            this.resourceFilesPage.Size = new System.Drawing.Size(922, 469);
+            this.resourceFilesPage.Text = "Resource Files";
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.panel2, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(922, 469);
+            this.tableLayoutPanel2.TabIndex = 4;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.uninstallFullBtn);
+            this.panel2.Controls.Add(this.label18);
+            this.panel2.Controls.Add(this.uninstallResBtn);
+            this.panel2.Controls.Add(this.label17);
+            this.panel2.Controls.Add(this.reinstallCleanBtn);
+            this.panel2.Controls.Add(this.reinstallOverwriteBtn);
+            this.panel2.Controls.Add(this.label19);
+            this.panel2.Controls.Add(this.label20);
+            this.panel2.Controls.Add(this.label21);
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(455, 463);
+            this.panel2.TabIndex = 4;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 110);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(160, 13);
+            this.label19.TabIndex = 4;
+            this.label19.Text = "Re-Install Resource Files (Clean)";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 80);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(178, 13);
+            this.label20.TabIndex = 2;
+            this.label20.Text = "Re-Install Resource Files (Overwrite)";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(3, 4);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(115, 20);
+            this.label21.TabIndex = 1;
+            this.label21.Text = "Resource Files";
+            // 
+            // reinstallOverwriteBtn
+            // 
+            this.reinstallOverwriteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.reinstallOverwriteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.reinstallOverwriteBtn.FlatAppearance.BorderSize = 0;
+            this.reinstallOverwriteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.reinstallOverwriteBtn.ForeColor = System.Drawing.Color.White;
+            this.reinstallOverwriteBtn.Location = new System.Drawing.Point(260, 75);
+            this.reinstallOverwriteBtn.Name = "reinstallOverwriteBtn";
+            this.reinstallOverwriteBtn.Size = new System.Drawing.Size(156, 22);
+            this.reinstallOverwriteBtn.TabIndex = 14;
+            this.reinstallOverwriteBtn.Text = "Reinstall";
+            this.reinstallOverwriteBtn.UseVisualStyleBackColor = false;
+            this.reinstallOverwriteBtn.Click += new System.EventHandler(this.reinstallOverwriteBtn_Click);
+            // 
+            // reinstallCleanBtn
+            // 
+            this.reinstallCleanBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.reinstallCleanBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.reinstallCleanBtn.FlatAppearance.BorderSize = 0;
+            this.reinstallCleanBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.reinstallCleanBtn.ForeColor = System.Drawing.Color.White;
+            this.reinstallCleanBtn.Location = new System.Drawing.Point(260, 105);
+            this.reinstallCleanBtn.Name = "reinstallCleanBtn";
+            this.reinstallCleanBtn.Size = new System.Drawing.Size(156, 22);
+            this.reinstallCleanBtn.TabIndex = 15;
+            this.reinstallCleanBtn.Text = "Clean Reinstall";
+            this.reinstallCleanBtn.UseVisualStyleBackColor = false;
+            this.reinstallCleanBtn.Click += new System.EventHandler(this.reinstallCleanBtn_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 140);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(188, 13);
+            this.label17.TabIndex = 16;
+            this.label17.Text = "Uninstall (Cupscale will exit afterwards)";
+            // 
+            // uninstallResBtn
+            // 
+            this.uninstallResBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uninstallResBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.uninstallResBtn.FlatAppearance.BorderSize = 0;
+            this.uninstallResBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.uninstallResBtn.ForeColor = System.Drawing.Color.White;
+            this.uninstallResBtn.Location = new System.Drawing.Point(260, 135);
+            this.uninstallResBtn.Name = "uninstallResBtn";
+            this.uninstallResBtn.Size = new System.Drawing.Size(156, 22);
+            this.uninstallResBtn.TabIndex = 17;
+            this.uninstallResBtn.Text = "Uninstall Resources";
+            this.uninstallResBtn.UseVisualStyleBackColor = false;
+            this.uninstallResBtn.Click += new System.EventHandler(this.uninstallResBtn_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 170);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(153, 13);
+            this.label18.TabIndex = 18;
+            this.label18.Text = "Uninstall Including Settings File";
+            // 
+            // uninstallFullBtn
+            // 
+            this.uninstallFullBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uninstallFullBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.uninstallFullBtn.FlatAppearance.BorderSize = 0;
+            this.uninstallFullBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.uninstallFullBtn.ForeColor = System.Drawing.Color.White;
+            this.uninstallFullBtn.Location = new System.Drawing.Point(260, 165);
+            this.uninstallFullBtn.Name = "uninstallFullBtn";
+            this.uninstallFullBtn.Size = new System.Drawing.Size(156, 22);
+            this.uninstallFullBtn.TabIndex = 19;
+            this.uninstallFullBtn.Text = "Uninstall All Files";
+            this.uninstallFullBtn.UseVisualStyleBackColor = false;
+            this.uninstallFullBtn.Click += new System.EventHandler(this.uninstallFullBtn_Click);
             // 
             // SettingsForm
             // 
@@ -691,6 +846,10 @@
             this.panel1.PerformLayout();
             this.logPage.ResumeLayout(false);
             this.logPage.PerformLayout();
+            this.resourceFilesPage.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -727,7 +886,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox ddsEnableMips;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label3;
@@ -747,5 +905,17 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.FolderBrowserDialog modelsPathDialog;
         private System.Windows.Forms.PictureBox pictureBox5;
+        private Cyotek.Windows.Forms.TabListPage resourceFilesPage;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private HTAlt.WinForms.HTButton uninstallFullBtn;
+        private System.Windows.Forms.Label label18;
+        private HTAlt.WinForms.HTButton uninstallResBtn;
+        private System.Windows.Forms.Label label17;
+        private HTAlt.WinForms.HTButton reinstallCleanBtn;
+        private HTAlt.WinForms.HTButton reinstallOverwriteBtn;
     }
 }

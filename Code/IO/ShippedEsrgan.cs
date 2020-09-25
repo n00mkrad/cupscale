@@ -127,5 +127,13 @@ namespace Cupscale.IO
 			}
 			return false;
 		}
+
+		public static void Uninstall (bool full)
+        { 
+			if (full)
+				Directory.Delete(IOUtils.GetAppDataDir(), true);
+			else
+				Directory.Delete(path, true);
+		}
 	}
 }

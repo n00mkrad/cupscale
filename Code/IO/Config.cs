@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Cupscale.IO;
+using Cupscale.UI;
 
 namespace Cupscale
 {
@@ -100,14 +101,20 @@ namespace Cupscale
 			cachedLines = File.ReadAllLines(configPath);
 		}
 
-		public static void SaveGuiElement(TextBox textbox)
+		public static void SaveGuiElement(TextBox textbox, bool onlyAllowNumbers = false)
 		{
-			Set(textbox.Name, textbox.Text);
+			if(onlyAllowNumbers)
+				Set(textbox.Name, textbox.Text.GetInt().ToString());
+			else
+				Set(textbox.Name, textbox.Text);
 		}
 
-		public static void SaveGuiElement(ComboBox comboBox)
+		public static void SaveGuiElement(ComboBox comboBox, bool onlyAllowNumbers = false)
 		{
-			Set(comboBox.Name, comboBox.Text);
+			if (onlyAllowNumbers)
+				Set(comboBox.Name, comboBox.Text.GetInt().ToString());
+			else
+				Set(comboBox.Name, comboBox.Text);
 		}
 
 		public static void SaveGuiElement(CheckBox checkbox)
