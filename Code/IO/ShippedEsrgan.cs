@@ -39,8 +39,11 @@ namespace Cupscale.IO
 			requiredFiles.Add(Path.Combine(path, "ffmpeg.exe"));
 			requiredFiles.Add(Path.Combine(path, "esrgan-ncnn-vulkan.exe"));
 			requiredFiles.Add(Path.Combine(path, "pth2ncnn.exe"));
+			requiredFiles.Add(Path.Combine(path, "nvcompress.exe"));
+			requiredFiles.Add(Path.Combine(path, "nvtt.dll"));
+			requiredFiles.Add(Path.Combine(path, "gifski.exe"));
 
-			foreach(string dir in requiredDirs)
+			foreach (string dir in requiredDirs)
             {
 				if (!Directory.Exists(dir))
 				{
@@ -79,6 +82,8 @@ namespace Cupscale.IO
 
 			path7za = Path.Combine(path, "7za.exe");
 			File.WriteAllBytes(path7za, Resources.x64_7za);
+			File.WriteAllBytes(Path.Combine(path, "nvcompress.exe"), Resources.nvcompress);
+			File.WriteAllBytes(Path.Combine(path, "nvtt.dll"), Resources.nvtt);
 			File.WriteAllBytes(Path.Combine(IOUtils.GetAppDataDir(), "esrgan.7z"), Resources.esrgan);
 			File.WriteAllBytes(Path.Combine(IOUtils.GetAppDataDir(), "ncnn.7z"), Resources.esrgan_ncnn);
 			File.WriteAllBytes(Path.Combine(IOUtils.GetAppDataDir(), "ffmpeg.7z"), Resources.ffmpeg);

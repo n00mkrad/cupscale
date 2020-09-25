@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cupscale.Forms;
+using Cupscale.ImageUtils;
 using Cupscale.IO;
 using Cupscale.UI;
 using ImageMagick;
@@ -32,6 +33,7 @@ namespace Cupscale
 			Application.SetCompatibleTextRenderingDefault(defaultValue: false);
 			Application.EnableVisualStyles();
 			Console.WriteLine("Main()");
+			IOUtils.DeleteIfExists(Path.Combine(IOUtils.GetAppDataDir(), "sessionlog.txt"));
 			Config.Init();
 			Paths.Init();
 			EsrganData.CheckModelDir();

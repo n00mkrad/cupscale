@@ -7,6 +7,7 @@ using System.Numerics;
 using System.Security.AccessControl;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Cupscale.ImageUtils;
 using Cupscale.IO;
 using Cupscale.Main;
 using Cupscale.OS;
@@ -169,7 +170,7 @@ namespace Cupscale.UI
 
         public static void SaveCurrentCutout()
         {
-            UIHelpers.ReplaceImageAtSameScale(previewImg, IOUtils.GetImage(Paths.tempImgPath));
+            UIHelpers.ReplaceImageAtSameScale(previewImg, ImgUtils.GetImage(Paths.tempImgPath));
             string path = Path.Combine(Paths.previewPath, "preview.png");
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             GetCurrentRegion().Save(path);
@@ -239,7 +240,7 @@ namespace Cupscale.UI
         {
             try
             {
-                MagickImage img = IOUtils.GetMagickImage(path);
+                MagickImage img = ImgUtils.GetMagickImage(path);
                 if (img.Width > 4096 || img.Height > 4096)
                 {
                     MessageBox.Show("Image is too big for the preview!\nPlease use images with less than 4096 pixels on either side.", "Error");

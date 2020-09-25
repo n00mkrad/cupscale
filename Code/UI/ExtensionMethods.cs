@@ -56,9 +56,14 @@ namespace Cupscale.UI
 			return en.ToString().TitleCase();
 		}
 
-		public static string WrapPath (this string path)
+		public static string WrapPath (this string path, bool addSpaceFront = false, bool addSpaceEnd = false)
 		{
-			return "\"" + path + "\"";
+			string s = "\"" + path + "\"";
+			if (addSpaceFront)
+				s =  " " + s;
+			if (addSpaceEnd)
+				s = s + " ";
+			return s;
 		}
 
 		public static string ReplaceInFilename (this string path, string textToFind, string textToReplace, bool includeExtension = true)

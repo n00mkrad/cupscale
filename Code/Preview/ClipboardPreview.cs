@@ -1,4 +1,5 @@
 ﻿using Cupscale.Forms;
+using Cupscale.ImageUtils;
 using Cupscale.UI;
 using ImageMagick;
 using System;
@@ -29,13 +30,13 @@ namespace Cupscale
             {
                 if (fullImage)
                 {
-                    originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-input-scaled.png")));
-                    resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-merged.png")));
+                    originalPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-input-scaled.png")));
+                    resultPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-merged.png")));
                 }
                 else
                 {
-                    originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png")));
-                    resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp")));
+                    originalPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png")));
+                    resultPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp")));
                 }
             }
             catch
@@ -129,13 +130,13 @@ namespace Cupscale
             {
                 if (fullImage)
                 {
-                    originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-input-scaled.png")));
-                    resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-merged.png")));
+                    originalPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-input-scaled.png")));
+                    resultPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-merged.png")));
                 }
                 else
                 {
-                    originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png")));
-                    resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp")));
+                    originalPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png")));
+                    resultPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp")));
                 }
             }
             catch
@@ -264,8 +265,8 @@ namespace Cupscale
             string img1 = Path.Combine(IO.Paths.previewPath, "preview.png");
             string img2 = Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp");
 
-            Image image1 = IOUtils.GetImage(img1);
-            Image image2 = IOUtils.GetImage(img2);
+            Image image1 = ImgUtils.GetImage(img1);
+            Image image2 = ImgUtils.GetImage(img2);
             float scale = (float)image2.Width / (float)image1.Width;
             Logger.Log("Scale for animation: " + scale);
 
@@ -273,17 +274,17 @@ namespace Cupscale
 
             if (image2.Width <= 2048 && image2.Height <= 2048)
             {
-                IOUtils.GetImage(img1).Scale(scale, InterpolationMode.NearestNeighbor).Save(Path.Combine(framesPath, "0.png"));
+                ImgUtils.GetImage(img1).Scale(scale, InterpolationMode.NearestNeighbor).Save(Path.Combine(framesPath, "0.png"));
                 File.Copy(img2, Path.Combine(framesPath, "1.png"), true);
                 if (h264)
                 {
                     await FFmpegCommands.FramesToOneFpsMp4(framesPath, false, 14, 9, "", false);
+                    File.Move(Path.Combine(tempPath, "frames." + ext), outpath);
                 }
                 else
                 {
-                    await FFmpegCommands.FramesToGif(framesPath, false, 1, "", false);
+                    await FFmpeg.RunGifski(" -r 1 -W 2048 -q -o " + outpath.WrapPath() + " \"" + framesPath + "/\"*.\"png\"");
                 }
-                File.Move(Path.Combine(tempPath, "frames." + ext), outpath);
 
                 if (save)
                 {

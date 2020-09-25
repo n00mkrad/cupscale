@@ -35,10 +35,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="HTAlt.WinForms" Version="0.1.5.1" />
+    <PackageReference Include="HTAlt.WinForms" Version="0.1.6" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.21.1" />
-    <PackageReference Include="TabControl" Version="2.1.2" />
-    <PackageReference Include="TeximpNet" Version="1.4.3" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Magick.NET-Q16-AnyCPU" />
@@ -106,5 +104,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Update="C:\Users\NMKD\.nuget\packages\ddsfiletypeplushack\1.0.4\build\\x86\DdsFileTypePlusIO_x86.dll" Link="ThirdParty\DdsFileTypePlusIO_x86.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <NativeLibs Remove="Resources\nvcompress.exe" />
   </ItemGroup>
 </Project>

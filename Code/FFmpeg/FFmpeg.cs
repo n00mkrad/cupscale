@@ -38,6 +38,33 @@ namespace Cupscale
             Logger.Log("[FFmpeg] " + outLine.Data);
         }
 
+        public static async Task RunGifski (string args)
+        {
+            Process ffmpeg = new Process();
+            ffmpeg.StartInfo.UseShellExecute = false;
+            ffmpeg.StartInfo.RedirectStandardOutput = true;
+            ffmpeg.StartInfo.RedirectStandardError = true;
+            ffmpeg.StartInfo.CreateNoWindow = true;
+            ffmpeg.StartInfo.FileName = "cmd.exe";
+            ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.WrapPath()
+                + " & gifski.exe " + args;
+            Logger.Log("Running gifski...");
+            Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
+            ffmpeg.OutputDataReceived += new DataReceivedEventHandler(OutputHandlerGifski);
+            ffmpeg.ErrorDataReceived += new DataReceivedEventHandler(OutputHandlerGifski);
+            ffmpeg.Start();
+            ffmpeg.BeginOutputReadLine();
+            ffmpeg.BeginErrorReadLine();
+            while (!ffmpeg.HasExited)
+                await Task.Delay(100);
+            Logger.Log("Done running gifski.");
+        }
+
+        static void OutputHandlerGifski (object sendingProcess, DataReceivedEventArgs outLine)
+        {
+            Logger.Log("[gifski] " + outLine.Data);
+        }
+
         /*
         public static string RunAndGetOutput (string args)
         {

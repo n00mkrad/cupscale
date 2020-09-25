@@ -35,7 +35,7 @@ namespace Cupscale
 		public static void LogToFile(string s, bool noLineBreak)
         {
 			if (string.IsNullOrWhiteSpace(logFile))
-				logFile = Path.Combine(IOUtils.GetAppDataDir(), "log.txt");
+				logFile = Path.Combine(IOUtils.GetAppDataDir(), "sessionlog.txt");
 			string time = DT.Now.Month + "-" + DT.Now.Day + "-" + DT.Now.Year + " " + DT.Now.Hour + ":" + DT.Now.Minute + ":" + DT.Now.Second;
 
             try

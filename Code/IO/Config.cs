@@ -82,8 +82,8 @@ namespace Cupscale
 				"useNcnn" => WriteDefault("useNcnn", "False"),
 				"jpegQ" => WriteDefault("jpegQ", "95"),
 				"webpQ" => WriteDefault("webpQ", "95"),
-				"ddsUseDxt" => WriteDefault("ddsUseDxt", "True"),
-				"ddsMipsAmount" => WriteDefault("ddsMipsAmount", "0"),
+				"dxtMode" => WriteDefault("dxtMode", "BC1 (DXT1)"),
+				"ddsEnableMips" => WriteDefault("ddsEnableMips", "True"),
 				_ => null, 
 			};
 		}

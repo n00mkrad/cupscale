@@ -136,7 +136,7 @@ namespace Cupscale.Main
             if (outputFormat.Text == ExportFormats.TGA.ToStringTitleCase())
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.TGA, batchProcessing);
             if (outputFormat.Text == ExportFormats.DDS.ToStringTitleCase())
-                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.DDS, batchProcessing);
+                await ImageProcessing.PostProcessDDS(path);
         }
 
         public static async Task FilenamePostprocessing ()

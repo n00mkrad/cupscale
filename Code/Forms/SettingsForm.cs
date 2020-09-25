@@ -48,8 +48,8 @@ namespace Cupscale.Forms
 
             Config.LoadGuiElement(jpegQ);
             Config.LoadGuiElement(webpQ);
-            Config.LoadGuiElement(ddsUseDxt);
-            Config.LoadGuiElement(ddsMipsAmount);
+            Config.LoadGuiElement(dxtMode);
+            Config.LoadGuiElement(ddsEnableMips);
         }
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -71,8 +71,8 @@ namespace Cupscale.Forms
 
             Config.SaveGuiElement(jpegQ);
             Config.SaveGuiElement(webpQ);
-            Config.SaveGuiElement(ddsUseDxt);
-            Config.SaveGuiElement(ddsMipsAmount);
+            Config.SaveGuiElement(dxtMode);
+            Config.SaveGuiElement(ddsEnableMips);
         }
 
         private void confAlphaBgColorBtn_Click(object sender, EventArgs e)

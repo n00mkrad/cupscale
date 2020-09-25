@@ -4,9 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using Cupscale.UI;
 using Cyotek.Windows.Forms;
-using Manina.Windows.Forms;
-using TabControl = Manina.Windows.Forms.TabControl;
-using Tab = Manina.Windows.Forms.Tab;
 using ImageBox = Cyotek.Windows.Forms.ImageBox;
 using Cupscale.Properties;
 using System.Drawing.Drawing2D;
@@ -17,6 +14,7 @@ using System.IO;
 using Cupscale.IO;
 using Cupscale.Cupscale;
 using Win32Interop.Structs;
+using Cupscale.ImageUtils;
 
 namespace Cupscale
 {
@@ -218,6 +216,7 @@ namespace Cupscale
 		async Task DragNDrop (string [] files)
         {
 			Logger.Log("Dropped " + files.Length + " file(s), files[0] = " + files[0]);
+			IOUtils.DeleteContentsOfDir(Paths.tempImgPath.GetParentDir());
 			string path = files[0];
 			DialogForm loadingDialogForm = null;
 			if (IOUtils.IsPathDirectory(path))
@@ -256,7 +255,7 @@ namespace Cupscale
 			bool fillAlpha = !bool.Parse(Config.Get("alpha"));
 			await ImageProcessing.ConvertImage(path, ImageProcessing.Format.PngRaw, fillAlpha, false, false, Paths.tempImgPath);
 			Logger.Log("Done Preprocessing");
-			previewImg.Image = IOUtils.GetImage(Paths.tempImgPath);
+			previewImg.Image = ImgUtils.GetImage(Paths.tempImgPath);
 			Program.lastFilename = path;
 			MainUIHelper.currentScale = 1;
 			previewImg.ZoomToFit();

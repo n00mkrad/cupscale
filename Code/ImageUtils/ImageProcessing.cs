@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cupscale.Cupscale;
+using Cupscale.ImageUtils;
 using Cupscale.IO;
 using Cupscale.Main;
 using Cupscale.UI;
@@ -141,7 +142,7 @@ namespace Cupscale
 
 		public static async Task ConvertImage(string path, Format format, bool fillAlpha, bool keepExtension, bool deleteSource = true, string overrideOutPath = "")
 		{
-			MagickImage img = IOUtils.GetMagickImage(path);
+			MagickImage img = ImgUtils.GetMagickImage(path);
 			Logger.Log("Converting " + path + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource + " - FillAlpha: " + fillAlpha + " - KeepExt: " + keepExtension);
 			string ext = "png";
 			if (format == Format.PngOpti)
@@ -242,7 +243,7 @@ namespace Cupscale
 		public static async Task PostProcessImage (string path, Format format, bool batchProcessing = false)
 		{
 			Logger.Log("PostProcess: Loading MagickImage from " + path);
-			MagickImage img = IOUtils.GetMagickImage(path);
+			MagickImage img = ImgUtils.GetMagickImage(path);
 			string ext = "png";
 			if (format == Format.Source)
 				ext = Path.GetExtension(path).Replace(".","");
@@ -278,16 +279,6 @@ namespace Cupscale
 				img.Format = MagickFormat.Tga;
 				ext = "tga";
 			}
-			if (format == Format.DDS)
-			{
-				img.Format = MagickFormat.Dds;
-				ext = "dds";
-				DdsCompression comp = DdsCompression.None;
-				if (Config.GetBool("ddsUseDxt"))
-					comp = DdsCompression.Dxt1;
-				DdsWriteDefines ddsDefines = new DdsWriteDefines { Compression = comp, Mipmaps = Config.GetInt("ddsMipsAmount") };
-				img.Settings.SetDefines(ddsDefines);
-			}
 			if (!(currentScaleMode == Upscale.ScaleMode.Percent && currentScaleValue == 100))	// Skip if target scale is 100%
 				img = ResizeImage(img, currentScaleValue, currentScaleMode, currentFilter, onlyDownscale);
 
@@ -301,6 +292,35 @@ namespace Cupscale
 				MainUIHelper.lastOutfile = outPath;
 
 			img.Write(outPath);
+
+			if (outPath != path)
+			{
+				Logger.Log("Deleting source file: " + path);
+				File.Delete(path);
+			}
+		}
+
+		public static async Task PostProcessDDS (string path)
+        {
+			Logger.Log("PostProcess: Loading MagickImage from " + path);
+			MagickImage img = ImgUtils.GetMagickImage(path);
+			string ext = "dds";
+
+			if (!(currentScaleMode == Upscale.ScaleMode.Percent && currentScaleValue == 100))   // Skip if target scale is 100%
+				img = ResizeImage(img, currentScaleValue, currentScaleMode, currentFilter, onlyDownscale);
+
+			img.Format = MagickFormat.Png00;
+			img.Write(path);
+
+			string outPath = Path.ChangeExtension(img.FileName, ext);
+
+			await NvCompress.SaveDds(path, outPath);
+
+			if (Upscale.currentMode == Upscale.UpscaleMode.Batch)
+				PostProcessingQueue.lastOutfile = outPath;
+
+			if (Upscale.currentMode == Upscale.UpscaleMode.Single)
+				MainUIHelper.lastOutfile = outPath;
 
 			if (outPath != path)
 			{

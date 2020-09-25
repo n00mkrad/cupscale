@@ -28,7 +28,7 @@ namespace Cupscale
 			outputCutoutPath = Path.Combine(Paths.previewOutPath, "preview.png.tmp");
 
 			//MagickImage sourceImg = IOUtils.GetMagickImage(Paths.tempImgPath);
-			Image sourceImg = IOUtils.GetImage(Paths.tempImgPath);
+			Image sourceImg = ImgUtils.GetImage(Paths.tempImgPath);
 			int scale = GetScale();
 			if (sourceImg.Width * scale > 6000 || sourceImg.Height * scale > 6000)
             {
@@ -51,17 +51,17 @@ namespace Cupscale
 			string scaledPrevPath = Path.Combine(Paths.previewOutPath, "preview-input-scaled.png");
 			//Image image = MergeOnDisk(scale, scaledPrevPath);
 			Image image = MergeInMemory(scale);
-			MainUIHelper.currentOriginal = IOUtils.GetImage(Paths.tempImgPath);
+			MainUIHelper.currentOriginal = ImgUtils.GetImage(Paths.tempImgPath);
 			MainUIHelper.currentOutput = image;
-			MainUIHelper.currentScale = ImgUtils.GetScale(IOUtils.GetImage(inputCutoutPath), IOUtils.GetImage(outputCutoutPath));
+			MainUIHelper.currentScale = ImgUtils.GetScale(ImgUtils.GetImage(inputCutoutPath), ImgUtils.GetImage(outputCutoutPath));
 			UIHelpers.ReplaceImageAtSameScale(MainUIHelper.previewImg, image);
 			Program.mainForm.SetProgress(0f, "Done.");
 		}
 
 		public static Image MergeInMemory(int scale)
 		{
-			Image sourceImg = IOUtils.GetImage(Paths.tempImgPath);
-			Image cutout = IOUtils.GetImage(outputCutoutPath);
+			Image sourceImg = ImgUtils.GetImage(Paths.tempImgPath);
+			Image cutout = ImgUtils.GetImage(outputCutoutPath);
 
 			if (sourceImg.Width * scale == cutout.Width && sourceImg.Height * scale == cutout.Height)
             {
@@ -90,8 +90,8 @@ namespace Cupscale
 
 		public static Image MergeOnDisk (int scale, string scaledPrevPath)
         {
-			MagickImage sourceImg = IOUtils.GetMagickImage(Paths.tempImgPath);
-			MagickImage cutout = IOUtils.GetMagickImage(outputCutoutPath);
+			MagickImage sourceImg = ImgUtils.GetMagickImage(Paths.tempImgPath);
+			MagickImage cutout = ImgUtils.GetMagickImage(outputCutoutPath);
 			sourceImg.FilterType = Program.currentFilter;
 			sourceImg.Resize(new Percentage(scale * 100));
 			sourceImg.Format = MagickFormat.Png;
@@ -100,14 +100,14 @@ namespace Cupscale
 			sourceImg.Composite(cutout, (Gravity)1, new PointD(offsetX, offsetY), CompositeOperator.Replace);
 			string mergedPreviewPath = Path.Combine(Paths.previewOutPath, "preview-merged.png");
 			sourceImg.Write(mergedPreviewPath);
-			return IOUtils.GetImage(mergedPreviewPath);
+			return ImgUtils.GetImage(mergedPreviewPath);
 		}
 
 		static void MergeOnlyCutout ()
 		{
 			int scale = GetScale();
 
-			MagickImage originalCutout = IOUtils.GetMagickImage(inputCutoutPath);
+			MagickImage originalCutout = ImgUtils.GetMagickImage(inputCutoutPath);
 			originalCutout.FilterType = Program.currentFilter;
 			originalCutout.Resize(new Percentage(scale * 100));
 			string scaledCutoutPath = Path.Combine(Paths.previewOutPath, "preview-input-scaled.png");
@@ -115,8 +115,8 @@ namespace Cupscale
 			originalCutout.Quality = 0;  // Save preview as uncompressed PNG for max speed
 			originalCutout.Write(scaledCutoutPath);
 
-			MainUIHelper.currentOriginal = IOUtils.GetImage(scaledCutoutPath);
-			MainUIHelper.currentOutput = IOUtils.GetImage(outputCutoutPath);
+			MainUIHelper.currentOriginal = ImgUtils.GetImage(scaledCutoutPath);
+			MainUIHelper.currentOutput = ImgUtils.GetImage(outputCutoutPath);
 
 			MainUIHelper.previewImg.Image = MainUIHelper.currentOutput;
 			MainUIHelper.previewImg.ZoomToFit();
@@ -127,8 +127,8 @@ namespace Cupscale
 
 		private static int GetScale()
 		{
-			MagickImage val = IOUtils.GetMagickImage(inputCutoutPath);
-			MagickImage val2 = IOUtils.GetMagickImage(outputCutoutPath);
+			MagickImage val = ImgUtils.GetMagickImage(inputCutoutPath);
+			MagickImage val2 = ImgUtils.GetMagickImage(outputCutoutPath);
 			int result = (int)Math.Round((float)val2.Width / (float)val.Width);
 			return result;
 		}

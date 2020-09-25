@@ -60,9 +60,8 @@
             this.formatsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label14 = new System.Windows.Forms.Label();
-            this.ddsUseDxt = new System.Windows.Forms.CheckBox();
-            this.ddsMipsAmount = new System.Windows.Forms.TextBox();
+            this.dxtMode = new System.Windows.Forms.ComboBox();
+            this.ddsEnableMips = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.webpQ = new System.Windows.Forms.TextBox();
@@ -434,9 +433,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label14);
-            this.panel1.Controls.Add(this.ddsUseDxt);
-            this.panel1.Controls.Add(this.ddsMipsAmount);
+            this.panel1.Controls.Add(this.dxtMode);
+            this.panel1.Controls.Add(this.ddsEnableMips);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.webpQ);
@@ -449,33 +447,35 @@
             this.panel1.Size = new System.Drawing.Size(407, 463);
             this.panel1.TabIndex = 4;
             // 
-            // label14
+            // dxtMode
             // 
-            this.label14.AutoSize = true;
-            this.label14.ForeColor = System.Drawing.Color.Silver;
-            this.label14.Location = new System.Drawing.Point(252, 170);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(127, 13);
-            this.label14.TabIndex = 18;
-            this.label14.Text = "Use 0 to disable mipmaps";
+            this.dxtMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dxtMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dxtMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.dxtMode.ForeColor = System.Drawing.Color.White;
+            this.dxtMode.FormattingEnabled = true;
+            this.dxtMode.Items.AddRange(new object[] {
+            "Off",
+            "BC1 (DXT1)",
+            "BC2 (DXT3)",
+            "BC3 (DXT5)",
+            "BC4 ",
+            "BC5"});
+            this.dxtMode.Location = new System.Drawing.Point(180, 137);
+            this.dxtMode.Margin = new System.Windows.Forms.Padding(8);
+            this.dxtMode.Name = "dxtMode";
+            this.dxtMode.Size = new System.Drawing.Size(66, 21);
+            this.dxtMode.TabIndex = 18;
             // 
-            // ddsUseDxt
+            // ddsEnableMips
             // 
-            this.ddsUseDxt.AutoSize = true;
-            this.ddsUseDxt.Location = new System.Drawing.Point(180, 140);
-            this.ddsUseDxt.Name = "ddsUseDxt";
-            this.ddsUseDxt.Size = new System.Drawing.Size(15, 14);
-            this.ddsUseDxt.TabIndex = 17;
-            this.ddsUseDxt.UseVisualStyleBackColor = true;
-            // 
-            // ddsMipsAmount
-            // 
-            this.ddsMipsAmount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ddsMipsAmount.ForeColor = System.Drawing.Color.White;
-            this.ddsMipsAmount.Location = new System.Drawing.Point(180, 167);
-            this.ddsMipsAmount.Name = "ddsMipsAmount";
-            this.ddsMipsAmount.Size = new System.Drawing.Size(66, 20);
-            this.ddsMipsAmount.TabIndex = 16;
+            this.ddsEnableMips.AutoSize = true;
+            this.ddsEnableMips.Location = new System.Drawing.Point(180, 169);
+            this.ddsEnableMips.Name = "ddsEnableMips";
+            this.ddsEnableMips.Size = new System.Drawing.Size(15, 14);
+            this.ddsEnableMips.TabIndex = 17;
+            this.ddsEnableMips.UseVisualStyleBackColor = true;
             // 
             // label13
             // 
@@ -491,9 +491,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 140);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(143, 13);
+            this.label3.Size = new System.Drawing.Size(151, 13);
             this.label3.TabIndex = 14;
-            this.label3.Text = "DDS: Use DXT Compression";
+            this.label3.Text = "DDS: DXT Compression Mode";
             // 
             // webpQ
             // 
@@ -640,9 +640,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.CheckBox ddsUseDxt;
-        private System.Windows.Forms.TextBox ddsMipsAmount;
+        private System.Windows.Forms.CheckBox ddsEnableMips;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -653,5 +651,6 @@
         private System.Windows.Forms.ComboBox esrganVersion;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.ComboBox dxtMode;
     }
 }
