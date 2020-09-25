@@ -26,6 +26,7 @@ namespace Cupscale.Forms
             CenterToScreen();
             modelBtn = modelButton;
             modelNo = modelNumber;
+            SelectLastUsed();
         }
 
         private void ModelSelectForm_Load(object sender, EventArgs e)
@@ -39,12 +40,14 @@ namespace Cupscale.Forms
             DirectoryInfo modelsDir = new DirectoryInfo(modelDir);
             BuildTree(modelsDir, modelTree.Nodes);
             modelTree.ExpandAll();
-            SelectLastUsed();
         }
 
         private void SelectLastUsed()
         {
-            if(string.IsNullOrWhiteSpace(Program.currentModel1))
+            if (!Directory.Exists(Config.Get("modelPath")))
+                return;
+
+            if (string.IsNullOrWhiteSpace(Program.currentModel1))
                 modelTree.SelectedNode = modelTree.Nodes[0];
             else
                 CheckNodesRecursive(modelTree.Nodes[0]);
@@ -67,12 +70,12 @@ namespace Cupscale.Forms
 
             foreach (FileInfo file in directoryInfo.GetFiles())
             {
-                if(file.Extension == ".pth")    // Hide any other file extension
+                if (file.Extension == ".pth")    // Hide any other file extension
                     curNode.Nodes.Add(file.FullName, Path.ChangeExtension(file.Name, null));
             }
             foreach (DirectoryInfo subdir in directoryInfo.GetDirectories())
             {
-                if(subdir.GetFiles("*.pth", SearchOption.AllDirectories).Length > 0)     // Don't list folders that have no PTH files
+                if (subdir.GetFiles("*.pth", SearchOption.AllDirectories).Length > 0)     // Don't list folders that have no PTH files
                     BuildTree(subdir, curNode.Nodes);
             }
         }
