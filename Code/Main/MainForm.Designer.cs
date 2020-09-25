@@ -570,7 +570,8 @@ namespace Cupscale
             this.prevClipboardTypeCombox.Items.AddRange(new object[] {
             "Side By Side",
             "50/50 View",
-            "Before/After GIF"});
+            "Before/After Animation (GIF)",
+            "Before/After Animation (MP4)"});
             this.prevClipboardTypeCombox.Location = new System.Drawing.Point(117, 24);
             this.prevClipboardTypeCombox.Margin = new System.Windows.Forms.Padding(8);
             this.prevClipboardTypeCombox.Name = "prevClipboardTypeCombox";

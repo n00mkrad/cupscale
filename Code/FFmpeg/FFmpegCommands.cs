@@ -50,6 +50,30 @@ namespace Cupscale
                 DeleteSource(inputDir); // CHANGE CODE TO BE ABLE TO DELETE DIRECTORIES!!
         }
 
+        public static async Task FramesToOneFpsMp4(string inputDir, bool useH265, int crf, int loopTimes, string prefix, bool delSrc)
+        {
+            int nums = IOUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
+            string enc = "libx264";
+            if (useH265) enc = "libx265";
+            string args = " -framerate 1 -stream_loop " + loopTimes + " -i \"" + inputDir + "\\" + prefix + "%0" + nums + "d.png\" -c:v " + enc + " -r 30"
+                + " -crf " + crf + " -pix_fmt yuv420p -movflags +faststart -vf \"crop = trunc(iw / 2) * 2:trunc(ih / 2) * 2\"  -c:a copy \"" + inputDir + ".mp4\"";
+            await FFmpeg.Run(args);
+            if (delSrc)
+                DeleteSource(inputDir); // CHANGE CODE TO BE ABLE TO DELETE DIRECTORIES!!
+        }
+
+        public static async Task FramesToMp4Looped(string inputDir, bool useH265, int crf, int fps, int loopTimes, string prefix, bool delSrc)
+        {
+            int nums = IOUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
+            string enc = "libx264";
+            if (useH265) enc = "libx265";
+            string args = " -framerate " + fps + " -stream_loop " + loopTimes + " -i \"" + inputDir + "\\" + prefix + "%0" + nums + "d.png\" -c:v " + enc
+                + " -crf " + crf + " -pix_fmt yuv420p -movflags +faststart -vf \"crop = trunc(iw / 2) * 2:trunc(ih / 2) * 2\"  -c:a copy \"" + inputDir + ".mp4\"";
+            await FFmpeg.Run(args);
+            if (delSrc)
+                DeleteSource(inputDir); // CHANGE CODE TO BE ABLE TO DELETE DIRECTORIES!!
+        }
+
         public static async void FramesToApng (string inputDir, bool opti, int fps, string prefix, bool delSrc)
         {
             int nums = IOUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);

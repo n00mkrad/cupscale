@@ -24,9 +24,9 @@ namespace Cupscale
 			}
 
 			if(!noLineBreak)
-				sessionLog = Environment.NewLine + s;
+				sessionLog += Environment.NewLine + s;
 			else
-				sessionLog = " " + s;
+				sessionLog += " " + s;
 
 			if (logToFile)
 				LogToFile(s, noLineBreak);
@@ -37,11 +37,18 @@ namespace Cupscale
 			if (string.IsNullOrWhiteSpace(logFile))
 				logFile = Path.Combine(IOUtils.GetAppDataDir(), "log.txt");
 			string time = DT.Now.Month + "-" + DT.Now.Day + "-" + DT.Now.Year + " " + DT.Now.Hour + ":" + DT.Now.Minute + ":" + DT.Now.Second;
-			
-			if(!noLineBreak)
-				File.AppendAllText(logFile, Environment.NewLine + time + ": " + s);
-			else
-				File.AppendAllText(logFile, " " + s);
+
+            try
+            {
+				if (!noLineBreak)
+					File.AppendAllText(logFile, Environment.NewLine + time + ": " + s);
+				else
+					File.AppendAllText(logFile, " " + s);
+			}
+            catch
+            {
+				// idk how to deal with this race condition (?)
+            }
 		}
 
 		public static string GetSessionLog ()

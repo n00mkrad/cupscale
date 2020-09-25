@@ -248,35 +248,48 @@ namespace Cupscale
 
         }
 
-        public static async void BeforeAfterGif (bool save)
+        public static async void BeforeAfterAnim (bool save, bool h264)
         {
-            DialogForm dialogForm = new DialogForm("Creating animated GIF...");
+
+            string ext = "gif";
+            if (h264) ext = "mp4";
+
+            DialogForm dialogForm = new DialogForm("Creating comparison " + ext.ToUpper() + "...");
 
             string tempPath = Path.Combine(IOUtils.GetAppDataDir(), "giftemp");
             string framesPath = Path.Combine(tempPath, "frames");
+            IOUtils.DeleteContentsOfDir(tempPath);
             Directory.CreateDirectory(framesPath);
-            IOUtils.DeleteContentsOfDir(framesPath);
 
             string img1 = Path.Combine(IO.Paths.previewPath, "preview.png");
             string img2 = Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp");
 
             Image image1 = IOUtils.GetImage(img1);
             Image image2 = IOUtils.GetImage(img2);
-            int scale = (int)Math.Round((float)image2.Height / (float)image1.Width);
-            Logger.Log("Scale for GIF: " + scale);
-            string outpath = Path.Combine(framesPath, "comparison.gif");
+            float scale = (float)image2.Width / (float)image1.Width;
+            Logger.Log("Scale for animation: " + scale);
+
+            string outpath = Path.Combine(tempPath, "comparison." + ext);
 
             if (image2.Width <= 2048 && image2.Height <= 2048)
             {
                 IOUtils.GetImage(img1).Scale(scale, InterpolationMode.NearestNeighbor).Save(Path.Combine(framesPath, "0.png"));
                 File.Copy(img2, Path.Combine(framesPath, "1.png"), true);
-                await FFmpegCommands.FramesToGif(framesPath, false, 1, "", false);
-                File.Move(Path.Combine(tempPath, "frames.gif"), outpath);
+                if (h264)
+                {
+                    await FFmpegCommands.FramesToOneFpsMp4(framesPath, false, 14, 9, "", false);
+                }
+                else
+                {
+                    await FFmpegCommands.FramesToGif(framesPath, false, 1, "", false);
+                }
+                File.Move(Path.Combine(tempPath, "frames." + ext), outpath);
 
                 if (save)
                 {
-                    string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison.gif";
+                    string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison." + ext;
                     File.Copy(outpath, comparisonSavePath, true);
+                    dialogForm.Close();
                     MessageBox.Show("Saved current comparison to:\n\n" + comparisonSavePath, "Message");
                 }
                 else
@@ -284,17 +297,28 @@ namespace Cupscale
                     StringCollection paths = new StringCollection();
                     paths.Add(outpath);
                     Clipboard.SetFileDropList(paths);
-                    MessageBox.Show("The GIF file has been copied. You can paste it into any folder.\n" +
+                    dialogForm.Close();
+                    MessageBox.Show("The " + ext.ToUpper() + " file has been copied. You can paste it into any folder.\n" +
                         "Please note that pasting it into Discord or other programs won't work as the clipboard can't hold animated images.", "Message");
                 }
                 
             }
             else
             {
-                MessageBox.Show("The preview is too large for making a GIF. Please create a smaller cutout or choose a different comparison type.", "Error");
+                MessageBox.Show("The preview is too large for making an animation. Please create a smaller cutout or choose a different comparison type.", "Error");
             }
 
             dialogForm.Close();
+        }
+
+        static void CopyFrames (string framesPath, int framesAmount = 9)
+        {
+            for(int i = 0; i+1 < framesAmount; i += 2)
+            {
+                File.Copy(Path.Combine(framesPath, i + ".png"), Path.Combine(framesPath, (i + 2) + ".png"));
+                File.Copy(Path.Combine(framesPath, (i + 1) + ".png"), Path.Combine(framesPath, (i + 3) + ".png"));
+            }
+
         }
     }
 }
