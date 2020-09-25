@@ -20,31 +20,37 @@ namespace Cupscale.Cupscale
         public static bool run;
         public static string currentOutPath;
 
+        public static bool ncnn;
+
         public static void Start (string outpath)
         {
-            run = true;
             currentOutPath = outpath;
             outputFileQueue.Clear();
             processedFiles.Clear();
             outputFiles.Clear();
+            IOUtils.DeleteContentsOfDir(Paths.imgOutNcnnPath);
+            run = true;
         }
 
         public static void Stop ()
         {
+            Logger.Log("PostProcessingQueue.Stop()");
             run = false;
         }
 
         public static async Task Update ()
         {
-            while (run || IOUtils.GetCompatibleFiles(Paths.imgOutPath, true).Length > 0)
+            while (run || AnyFilesLeft())
             {
-                string[] outFiles = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories); // IOUtils.Get(Paths.imgOutPath, true);
+                if (ncnn) CheckNcnnOutput();
+                //IOUtils.RenameExtensions(Paths.imgOutPath, "png", "tmp", true, "*.*.png");
+                string[] outFiles = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories);
                 Logger.Log("Queue Update() - " + outFiles.Length + " files in out folder");
                 foreach (string file in outFiles)
                 {
                     if (!outputFileQueue.Contains(file) && !processedFiles.Contains(file) && !outputFiles.Contains(file))
                     {
-                        processedFiles.Add(file);
+                        //processedFiles.Add(file);
                         outputFileQueue.Enqueue(file);
                         Logger.Log("[Queue] Enqueued " + Path.GetFileName(file));
                     }
@@ -57,12 +63,31 @@ namespace Cupscale.Cupscale
             }
         }
 
+        static bool AnyFilesLeft ()
+        {
+            if (IOUtils.GetAmountOfFiles(Paths.imgOutPath, true) > 0)
+                return true;
+            if (ncnn && IOUtils.GetAmountOfFiles(Paths.imgOutNcnnPath, true) > 0)
+                return true;
+            return false;
+        }
+
+        static void CheckNcnnOutput ()
+        {
+            try
+            {
+                IOUtils.RenameExtensions(Paths.imgOutNcnnPath, "png", "tmp", true);
+                IOUtils.Copy(Paths.imgOutNcnnPath, Paths.imgOutPath, "*", true);
+            }
+            catch { }
+        }
+
         public static string lastOutfile;
 
         public static async Task ProcessQueue ()
         {
             Stopwatch sw = new Stopwatch();
-            while (run || IOUtils.GetCompatibleFiles(Paths.imgOutPath, true).Length > 0)
+            while (run || AnyFilesLeft())
             {
                 if (outputFileQueue.Count > 0)
                 {

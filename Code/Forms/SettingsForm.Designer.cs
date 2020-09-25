@@ -48,8 +48,13 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.jpegExtension = new System.Windows.Forms.ComboBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.selectModelsPathBtn = new System.Windows.Forms.Button();
+            this.previewFormat = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.jpegExtension = new System.Windows.Forms.TextBox();
             this.modelPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -74,6 +79,7 @@
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.modelsPathDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -81,6 +87,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.formatsPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -96,14 +104,14 @@
             this.tabList1.ForeColor = System.Drawing.Color.White;
             this.tabList1.Location = new System.Drawing.Point(12, 12);
             this.tabList1.Name = "tabList1";
-            this.tabList1.Size = new System.Drawing.Size(984, 477);
+            this.tabList1.Size = new System.Drawing.Size(1080, 477);
             this.tabList1.TabIndex = 0;
             // 
             // settingsPage
             // 
             this.settingsPage.Controls.Add(this.tableLayoutPanel3);
             this.settingsPage.Name = "settingsPage";
-            this.settingsPage.Size = new System.Drawing.Size(826, 469);
+            this.settingsPage.Size = new System.Drawing.Size(922, 469);
             this.settingsPage.Text = "Settings";
             // 
             // tableLayoutPanel3
@@ -119,7 +127,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(826, 469);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(922, 469);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // panel7
@@ -143,7 +151,7 @@
             this.panel7.Controls.Add(this.label5);
             this.panel7.Location = new System.Drawing.Point(3, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(407, 463);
+            this.panel7.Size = new System.Drawing.Size(455, 463);
             this.panel7.TabIndex = 4;
             // 
             // pictureBox2
@@ -182,7 +190,7 @@
             this.esrganVersion.Location = new System.Drawing.Point(180, 77);
             this.esrganVersion.Margin = new System.Windows.Forms.Padding(8);
             this.esrganVersion.Name = "esrganVersion";
-            this.esrganVersion.Size = new System.Drawing.Size(217, 21);
+            this.esrganVersion.Size = new System.Drawing.Size(200, 21);
             this.esrganVersion.TabIndex = 11;
             // 
             // pictureBox1
@@ -301,8 +309,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Controls.Add(this.pictureBox3);
+            this.panel6.Controls.Add(this.pictureBox5);
             this.panel6.Controls.Add(this.jpegExtension);
+            this.panel6.Controls.Add(this.pictureBox4);
+            this.panel6.Controls.Add(this.selectModelsPathBtn);
+            this.panel6.Controls.Add(this.previewFormat);
+            this.panel6.Controls.Add(this.label14);
+            this.panel6.Controls.Add(this.pictureBox3);
             this.panel6.Controls.Add(this.modelPath);
             this.panel6.Controls.Add(this.label1);
             this.panel6.Controls.Add(this.label8);
@@ -310,10 +323,91 @@
             this.panel6.Controls.Add(this.label4);
             this.panel6.Controls.Add(this.alphaBgColor);
             this.panel6.Controls.Add(this.label9);
-            this.panel6.Location = new System.Drawing.Point(416, 3);
+            this.panel6.Location = new System.Drawing.Point(464, 3);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(407, 463);
+            this.panel6.Size = new System.Drawing.Size(455, 463);
             this.panel6.TabIndex = 3;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox5.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox5.Location = new System.Drawing.Point(78, 75);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 19;
+            this.pictureBox5.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox5, "The root folder for ESRGAN models.\r\nCan have subfolders.");
+            // 
+            // jpegExtension
+            // 
+            this.jpegExtension.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.jpegExtension.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.jpegExtension.ForeColor = System.Drawing.Color.White;
+            this.jpegExtension.FormattingEnabled = true;
+            this.jpegExtension.Items.AddRange(new object[] {
+            "jpg",
+            "jpeg",
+            "jfif"});
+            this.jpegExtension.Location = new System.Drawing.Point(180, 137);
+            this.jpegExtension.Margin = new System.Windows.Forms.Padding(8);
+            this.jpegExtension.Name = "jpegExtension";
+            this.jpegExtension.Size = new System.Drawing.Size(100, 21);
+            this.jpegExtension.TabIndex = 18;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox4.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox4.Location = new System.Drawing.Point(138, 165);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 17;
+            this.pictureBox4.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox4, "File format to use when saving the preview comparison to a file.\r\nNote that JPEG " +
+        "and WEBP will use the same quality levels that can be configured for upscaled im" +
+        "ages.");
+            // 
+            // selectModelsPathBtn
+            // 
+            this.selectModelsPathBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.selectModelsPathBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.selectModelsPathBtn.ForeColor = System.Drawing.Color.White;
+            this.selectModelsPathBtn.Location = new System.Drawing.Point(386, 75);
+            this.selectModelsPathBtn.Name = "selectModelsPathBtn";
+            this.selectModelsPathBtn.Size = new System.Drawing.Size(28, 23);
+            this.selectModelsPathBtn.TabIndex = 16;
+            this.selectModelsPathBtn.Text = "...";
+            this.selectModelsPathBtn.UseVisualStyleBackColor = false;
+            this.selectModelsPathBtn.Click += new System.EventHandler(this.selectModelsPathBtn_Click);
+            // 
+            // previewFormat
+            // 
+            this.previewFormat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.previewFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.previewFormat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.previewFormat.ForeColor = System.Drawing.Color.White;
+            this.previewFormat.FormattingEnabled = true;
+            this.previewFormat.Items.AddRange(new object[] {
+            "PNG",
+            "JPEG",
+            "WEBP"});
+            this.previewFormat.Location = new System.Drawing.Point(180, 167);
+            this.previewFormat.Margin = new System.Windows.Forms.Padding(8);
+            this.previewFormat.Name = "previewFormat";
+            this.previewFormat.Size = new System.Drawing.Size(100, 21);
+            this.previewFormat.TabIndex = 15;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 170);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(126, 13);
+            this.label14.TabIndex = 14;
+            this.label14.Text = "Comparison ImageFormat";
             // 
             // pictureBox3
             // 
@@ -327,22 +421,13 @@
             this.pictureBox3.TabStop = false;
             this.toolTip.SetToolTip(this.pictureBox3, "When Alpha is disabled, the background will be filled with this color.");
             // 
-            // jpegExtension
-            // 
-            this.jpegExtension.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.jpegExtension.ForeColor = System.Drawing.Color.White;
-            this.jpegExtension.Location = new System.Drawing.Point(180, 137);
-            this.jpegExtension.Name = "jpegExtension";
-            this.jpegExtension.Size = new System.Drawing.Size(66, 20);
-            this.jpegExtension.TabIndex = 12;
-            // 
             // modelPath
             // 
             this.modelPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.modelPath.ForeColor = System.Drawing.Color.White;
             this.modelPath.Location = new System.Drawing.Point(180, 77);
             this.modelPath.Name = "modelPath";
-            this.modelPath.Size = new System.Drawing.Size(222, 20);
+            this.modelPath.Size = new System.Drawing.Size(200, 20);
             this.modelPath.TabIndex = 7;
             // 
             // label1
@@ -368,7 +453,7 @@
             this.confAlphaBgColorBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.confAlphaBgColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.confAlphaBgColorBtn.ForeColor = System.Drawing.Color.White;
-            this.confAlphaBgColorBtn.Location = new System.Drawing.Point(252, 105);
+            this.confAlphaBgColorBtn.Location = new System.Drawing.Point(261, 105);
             this.confAlphaBgColorBtn.Name = "confAlphaBgColorBtn";
             this.confAlphaBgColorBtn.Size = new System.Drawing.Size(28, 23);
             this.confAlphaBgColorBtn.TabIndex = 10;
@@ -392,7 +477,7 @@
             this.alphaBgColor.ForeColor = System.Drawing.Color.White;
             this.alphaBgColor.Location = new System.Drawing.Point(180, 107);
             this.alphaBgColor.Name = "alphaBgColor";
-            this.alphaBgColor.Size = new System.Drawing.Size(66, 20);
+            this.alphaBgColor.Size = new System.Drawing.Size(75, 20);
             this.alphaBgColor.TabIndex = 8;
             // 
             // label9
@@ -408,7 +493,7 @@
             // 
             this.formatsPage.Controls.Add(this.tableLayoutPanel1);
             this.formatsPage.Name = "formatsPage";
-            this.formatsPage.Size = new System.Drawing.Size(826, 469);
+            this.formatsPage.Size = new System.Drawing.Size(922, 469);
             this.formatsPage.Text = "Output Formats";
             // 
             // tableLayoutPanel1
@@ -424,7 +509,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(826, 469);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(922, 469);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // panel1
@@ -444,7 +529,7 @@
             this.panel1.Controls.Add(this.label12);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(407, 463);
+            this.panel1.Size = new System.Drawing.Size(455, 463);
             this.panel1.TabIndex = 4;
             // 
             // dxtMode
@@ -452,6 +537,7 @@
             this.dxtMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dxtMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dxtMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dxtMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.dxtMode.ForeColor = System.Drawing.Color.White;
             this.dxtMode.FormattingEnabled = true;
@@ -465,7 +551,7 @@
             this.dxtMode.Location = new System.Drawing.Point(180, 137);
             this.dxtMode.Margin = new System.Windows.Forms.Padding(8);
             this.dxtMode.Name = "dxtMode";
-            this.dxtMode.Size = new System.Drawing.Size(66, 21);
+            this.dxtMode.Size = new System.Drawing.Size(100, 21);
             this.dxtMode.TabIndex = 18;
             // 
             // ddsEnableMips
@@ -482,9 +568,9 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(6, 170);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(131, 13);
+            this.label13.Size = new System.Drawing.Size(125, 13);
             this.label13.TabIndex = 15;
-            this.label13.Text = "DDS: Amount Of Mipmaps";
+            this.label13.Text = "DDS: Generate Mipmaps";
             // 
             // label3
             // 
@@ -501,7 +587,7 @@
             this.webpQ.ForeColor = System.Drawing.Color.White;
             this.webpQ.Location = new System.Drawing.Point(180, 107);
             this.webpQ.Name = "webpQ";
-            this.webpQ.Size = new System.Drawing.Size(66, 20);
+            this.webpQ.Size = new System.Drawing.Size(50, 20);
             this.webpQ.TabIndex = 13;
             // 
             // jpegQ
@@ -510,7 +596,7 @@
             this.jpegQ.ForeColor = System.Drawing.Color.White;
             this.jpegQ.Location = new System.Drawing.Point(180, 77);
             this.jpegQ.Name = "jpegQ";
-            this.jpegQ.Size = new System.Drawing.Size(66, 20);
+            this.jpegQ.Size = new System.Drawing.Size(50, 20);
             this.jpegQ.TabIndex = 12;
             // 
             // label10
@@ -547,16 +633,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Location = new System.Drawing.Point(416, 3);
+            this.panel2.Location = new System.Drawing.Point(464, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(407, 463);
+            this.panel2.Size = new System.Drawing.Size(455, 463);
             this.panel2.TabIndex = 3;
             // 
             // logPage
             // 
             this.logPage.Controls.Add(this.logTbox);
             this.logPage.Name = "logPage";
-            this.logPage.Size = new System.Drawing.Size(826, 469);
+            this.logPage.Size = new System.Drawing.Size(922, 469);
             this.logPage.Text = "View Log";
             // 
             // logTbox
@@ -568,8 +654,9 @@
             this.logTbox.Margin = new System.Windows.Forms.Padding(24);
             this.logTbox.Multiline = true;
             this.logTbox.Name = "logTbox";
+            this.logTbox.ReadOnly = true;
             this.logTbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.logTbox.Size = new System.Drawing.Size(826, 469);
+            this.logTbox.Size = new System.Drawing.Size(922, 469);
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
             // 
@@ -578,7 +665,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(1008, 501);
+            this.ClientSize = new System.Drawing.Size(1104, 501);
             this.Controls.Add(this.tabList1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -595,6 +682,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.formatsPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -627,7 +716,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ColorDialog alphaBgColorDialog;
-        private System.Windows.Forms.TextBox jpegExtension;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox useCpu;
         private System.Windows.Forms.Label label2;
@@ -652,5 +740,12 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.ComboBox dxtMode;
+        private System.Windows.Forms.ComboBox jpegExtension;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Button selectModelsPathBtn;
+        private System.Windows.Forms.ComboBox previewFormat;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.FolderBrowserDialog modelsPathDialog;
+        private System.Windows.Forms.PictureBox pictureBox5;
     }
 }

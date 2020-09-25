@@ -13,8 +13,6 @@ namespace Cupscale.Forms
 {
     public partial class SettingsForm : Form
     {
-        public SettingsGuiCollection settings;
-        public FormatsGuiCollection formats;
 
         bool initialized = false;
 
@@ -23,8 +21,6 @@ namespace Cupscale.Forms
             InitializeComponent();
             Show();
             CenterToScreen();
-            settings = new SettingsGuiCollection(tilesize, alpha, modelPath, alphaBgColor, jpegExtension, useCpu);
-            formats = new FormatsGuiCollection(jpegQ, webpQ);
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
@@ -37,6 +33,7 @@ namespace Cupscale.Forms
 
         void LoadSettings()
         {
+            // ESRGAN/Cupscale
             Config.LoadComboxIndex(esrganVersion);
             Config.LoadGuiElement(tilesize);
             Config.LoadGuiElement(alpha);
@@ -45,7 +42,8 @@ namespace Cupscale.Forms
             Config.LoadGuiElement(jpegExtension);
             Config.LoadGuiElement(useCpu);
             Config.LoadGuiElement(useNcnn);
-
+            Config.LoadComboxIndex(previewFormat);
+            // Formats
             Config.LoadGuiElement(jpegQ);
             Config.LoadGuiElement(webpQ);
             Config.LoadGuiElement(dxtMode);
@@ -60,6 +58,7 @@ namespace Cupscale.Forms
 
         void SaveSettings()
         {
+            // ESRGAN/Cupscale
             Config.SaveComboxIndex(esrganVersion);
             Config.SaveGuiElement(tilesize);
             Config.SaveGuiElement(alpha);
@@ -68,7 +67,9 @@ namespace Cupscale.Forms
             Config.SaveGuiElement(jpegExtension);
             Config.SaveGuiElement(useCpu);
             Config.SaveGuiElement(useNcnn);
+            Config.SaveComboxIndex(previewFormat);
 
+            // Formats
             Config.SaveGuiElement(jpegQ);
             Config.SaveGuiElement(webpQ);
             Config.SaveGuiElement(dxtMode);
@@ -97,34 +98,11 @@ namespace Cupscale.Forms
                     + "- Custom Tile Size (Uses Automatic Tile Size)\n\nAlpha is supported and always enabled with NCNN.", "Warning");
         }
 
-        public struct SettingsGuiCollection
-        {
-            public ComboBox tilesize;
-            public CheckBox alpha;
-            public TextBox modelPath;
-            public TextBox alphaColor;
-            public TextBox jpegExt;
-            public CheckBox useCpu;
-            public SettingsGuiCollection(ComboBox tilesizeBox, CheckBox alphaBox, TextBox modelPathBox, TextBox alphaColorBox, TextBox jpegExtBox, CheckBox useCpuBox)
-            {
-                tilesize = tilesizeBox;
-                alpha = alphaBox;
-                modelPath = modelPathBox;
-                alphaColor = alphaColorBox;
-                jpegExt = jpegExtBox;
-                useCpu = useCpuBox;
-            }
-        }
 
-        public struct FormatsGuiCollection
+        private void selectModelsPathBtn_Click(object sender, EventArgs e)
         {
-            public TextBox jpegQ;
-            public TextBox webpQ;
-            public FormatsGuiCollection(TextBox jpegQBox, TextBox webpQBox)
-            {
-                jpegQ = jpegQBox;
-                webpQ = webpQBox;
-            }
+            modelsPathDialog.ShowDialog();
+            modelPath.Text = modelsPathDialog.SelectedPath;
         }
     }
 }

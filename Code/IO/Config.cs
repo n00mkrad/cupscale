@@ -84,6 +84,7 @@ namespace Cupscale
 				"webpQ" => WriteDefault("webpQ", "95"),
 				"dxtMode" => WriteDefault("dxtMode", "BC1 (DXT1)"),
 				"ddsEnableMips" => WriteDefault("ddsEnableMips", "True"),
+				"previewFormat" => WriteDefault("previewFormat", "0"),
 				_ => null, 
 			};
 		}

@@ -105,16 +105,9 @@ namespace Cupscale
             try
             {
                 if (saveToFile)
-                {
-                    string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison.png";
-                    outputImage.Save(comparisonSavePath);
-                    await ImageProcessing.ConvertImage(comparisonSavePath, ImageProcessing.Format.PngFast, false, false);
-                    MessageBox.Show("Saved current comparison to:\n\n" + comparisonSavePath, "Message");
-                }
+                    await SaveComparisonToFile(outputImage);
                 else
-                {
                     Clipboard.SetDataObject(outputImage);
-                }
             }
             catch
             {
@@ -211,21 +204,22 @@ namespace Cupscale
             try
             {
                 if (saveToFile)
-                {
-                    string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison.png";
-                    outputImage.Save(comparisonSavePath);
-                    await ImageProcessing.ConvertImage(comparisonSavePath, ImageProcessing.Format.PngFast, false, false);
-                    MessageBox.Show("Saved current comparison to:\n\n" + comparisonSavePath, "Message");
-                }
+                    await SaveComparisonToFile(outputImage);
                 else
-                {
                     Clipboard.SetDataObject(outputImage);
-                }
             }
             catch
             {
                 MessageBox.Show("Failed to save comparison.", "Error");
             }
+        }
+
+        static async Task SaveComparisonToFile (Image outputImage)
+        {
+            string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison.png";
+            outputImage.Save(comparisonSavePath);
+            await ImageProcessing.ConvertImage(comparisonSavePath, GetSaveFormat(), false, false);
+            MessageBox.Show("Saved current comparison to:\n\n" + Path.ChangeExtension(comparisonSavePath, null), "Message");
         }
 
         static Bitmap CropImage(Bitmap source, Rectangle section)
@@ -312,14 +306,14 @@ namespace Cupscale
             dialogForm.Close();
         }
 
-        static void CopyFrames (string framesPath, int framesAmount = 9)
+        static ImageProcessing.Format GetSaveFormat ()
         {
-            for(int i = 0; i+1 < framesAmount; i += 2)
-            {
-                File.Copy(Path.Combine(framesPath, i + ".png"), Path.Combine(framesPath, (i + 2) + ".png"));
-                File.Copy(Path.Combine(framesPath, (i + 1) + ".png"), Path.Combine(framesPath, (i + 3) + ".png"));
-            }
-
+            ImageProcessing.Format saveFormat = ImageProcessing.Format.PngFast;
+            if(Config.GetInt("previewFormat") == 1)
+                saveFormat = ImageProcessing.Format.Jpeg;
+            if (Config.GetInt("previewFormat") == 2)
+                saveFormat = ImageProcessing.Format.Weppy;
+            return saveFormat;
         }
     }
 }

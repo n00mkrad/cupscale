@@ -26,7 +26,6 @@ namespace Cupscale.Forms
             CenterToScreen();
             modelBtn = modelButton;
             modelNo = modelNumber;
-            SelectLastUsed();
         }
 
         private void ModelSelectForm_Load(object sender, EventArgs e)
@@ -40,6 +39,7 @@ namespace Cupscale.Forms
             DirectoryInfo modelsDir = new DirectoryInfo(modelDir);
             BuildTree(modelsDir, modelTree.Nodes);
             modelTree.ExpandAll();
+            SelectLastUsed();
         }
 
         private void SelectLastUsed()

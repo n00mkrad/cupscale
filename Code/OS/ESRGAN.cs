@@ -28,9 +28,10 @@ namespace Cupscale.OS
                 if (allowNcnn && Config.GetBool("useNcnn"))
                 {
 					Program.mainForm.SetProgress(1f, "Loading ESRGAN-NCNN...");
-					DialogForm dialogForm = new DialogForm("Loading ESRGAN-NCNN...\nThis should take 10-20 seconds.", 10);
+					DialogForm dialogForm = new DialogForm("Loading ESRGAN-NCNN...\nThis should take 10-25 seconds.", 14);
 					Program.lastModelName = mdl.model1Name;
-					await RunNcnn(inpath, outpath, mdl.model1Path);
+					PostProcessingQueue.ncnn = true;
+					await RunNcnn(inpath, Paths.imgOutNcnnPath, mdl.model1Path);
 				}
                 else
                 {
@@ -38,6 +39,7 @@ namespace Cupscale.OS
 					File.Delete(Paths.progressLogfile);
 					string modelArg = GetModelArg(mdl);
 					Logger.Log("Model Arg: " + modelArg);
+					PostProcessingQueue.ncnn = false;
 					await Run(inpath, outpath, modelArg, tilesize, alpha, showTileProgress);
 				}
 				
@@ -223,14 +225,6 @@ namespace Cupscale.OS
 				await Task.Delay(1000);
 				Program.mainForm.SetProgress(100f, "Post-Processing...");
 				PostProcessingQueue.Stop();
-			}
-            else
-            {
-				//if(Upscale.currentMode == Upscale.UpscaleMode.Preview)
-					//IOUtils.TrimFilenames(Paths.previewOutPath, 4, true, "*.tmp");
-
-				//if (Upscale.currentMode == Upscale.UpscaleMode.Single)
-					//IOUtils.TrimFilenames(Paths.imgOutPath, 4, true, "*.tmp");
 			}
 			File.Delete(Paths.progressLogfile);
 		}
