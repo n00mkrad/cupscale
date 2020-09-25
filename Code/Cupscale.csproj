@@ -54,10 +54,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Cupscale\MainForm.cs">
+    <Compile Update="Main\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Cupscale\MainForm.Designer.cs">
+    <Compile Update="Main\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -97,5 +97,14 @@
   </ItemGroup>
   <ItemGroup>
     <NativeLibs Remove="Resources\7za.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="C:\Users\NMKD\.nuget\packages\7z.net\1.0.3\build\7za.exe" Link="ThirdParty\7za.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="C:\Users\NMKD\.nuget\packages\ddsfiletypeplushack\1.0.4\build\\x64\DdsFileTypePlusIO_x64.dll" Link="ThirdParty\DdsFileTypePlusIO_x64.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="C:\Users\NMKD\.nuget\packages\ddsfiletypeplushack\1.0.4\build\\x86\DdsFileTypePlusIO_x86.dll" Link="ThirdParty\DdsFileTypePlusIO_x86.dll" />
   </ItemGroup>
 </Project>

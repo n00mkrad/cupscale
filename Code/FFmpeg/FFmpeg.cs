@@ -1,4 +1,5 @@
 ﻿using Cupscale.IO;
+using Cupscale.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,7 +20,7 @@ namespace Cupscale
             ffmpeg.StartInfo.RedirectStandardError = true;
             ffmpeg.StartInfo.CreateNoWindow = true;
             ffmpeg.StartInfo.FileName = "cmd.exe";
-            ffmpeg.StartInfo.Arguments = "/C cd /D \"" + Paths.esrganPath + "\" & ffmpeg.exe -hide_banner -loglevel warning -y -stats " + args;
+            ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.WrapPath() + " & ffmpeg.exe -hide_banner -loglevel warning -y -stats " + args;
             Logger.Log("Running ffmpeg...");
             Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
             ffmpeg.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
@@ -34,7 +35,7 @@ namespace Cupscale
 
         static void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
         {
-            Logger.Log(outLine.Data);
+            Logger.Log("[FFmpeg] " + outLine.Data);
         }
 
         /*

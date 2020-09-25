@@ -35,11 +35,14 @@ namespace Cupscale
 		{
 			Logger.Log("IOUtils.GetImage: Reading Image from " + path);
 			using MemoryStream stream = new MemoryStream(File.ReadAllBytes(path));
-			return Image.FromStream(stream);
+			Image img = Image.FromStream(stream);
+			Logger.Log("[OK]", true, true);
+			return img;
 		}
 
 		public static MagickImage GetMagickImage (string path)
         {
+			Logger.Log("IOUtils.GetMagickImage: Reading Image from " + path);
 			MagickImage image;
 			if (Path.GetExtension(path).ToLower() == ".dds")
 			{
@@ -67,6 +70,7 @@ namespace Cupscale
             {
 				image = new MagickImage(path);
 			}
+			Logger.Log("[OK]", true, true);
 			return image;
 		}
 

@@ -1,4 +1,5 @@
 ﻿using Cupscale.IO;
+using Cupscale.UI;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -30,8 +31,8 @@ namespace Cupscale
         {
             string hdrStr = "";
             if (hdr) hdrStr = FFmpegStrings.hdrFilter;
-            string args = "-i \"" + inputFile + "\" " + hdrStr
-                + " -vf \"select=eq(n\\," + frameNum + ")\" -vframes 1  \"" + inputFile + "-frame" + frameNum + ".png\"";
+            string args = "-i " + inputFile.WrapPath() + " " + hdrStr
+                + " -vf \"select=eq(n\\," + frameNum + ")\" -vframes 1  " + inputFile.WrapPath() + "-frame" + frameNum + ".png";
             await FFmpeg.Run(args);
             if (delSrc)
                 DeleteSource(inputFile);

@@ -217,14 +217,14 @@ namespace Cupscale
 
 		async Task DragNDrop (string [] files)
         {
-			Logger.Log("Dropped " + files.Length + " files, files[0] = " + files[0]);
+			Logger.Log("Dropped " + files.Length + " file(s), files[0] = " + files[0]);
 			string path = files[0];
 			DialogForm loadingDialogForm = null;
 			if (IOUtils.IsPathDirectory(path))
 			{
 				htTabControl.SelectedIndex = 1;
 				int compatFilesAmount = IOUtils.GetAmountOfCompatibleFiles(path, true);
-				batchDirLabel.Text = "Loaded \"" + path + "\" - Found " + compatFilesAmount + " compatible files.";
+				batchDirLabel.Text = "Loaded " + path.WrapPath() + " - Found " + compatFilesAmount + " compatible files.";
 				BatchUpscaleUI.LoadDir(path);
 				upscaleBtn.Text = "Upscale " + compatFilesAmount + " Images";
 				return;
@@ -380,5 +380,11 @@ namespace Cupscale
 			copyCompToClipboardBtn.Enabled = true;
 			savePreviewToFileBtn.Enabled = true;
 		}
-	}
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try { Program.Cleanup(); }
+			catch { }                       // This is fine if it fails due to locks, runs on startup anyway.
+		}
+    }
 }

@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cupscale.Forms;
 using Cupscale.IO;
+using Cupscale.UI;
 using ImageMagick;
 using Paths = Cupscale.IO.Paths;
 
@@ -34,17 +36,19 @@ namespace Cupscale
 			Paths.Init();
 			EsrganData.CheckModelDir();
 			ResourceLimits.Memory = (ulong)Math.Round(ResourceLimits.Memory * 1.5f);
-			StartupCleanup();
+			Cleanup();
 			Application.Run(new MainForm());
 		}
 
-		static void StartupCleanup ()
+		public static void Cleanup ()
         {
 			IOUtils.DeleteContentsOfDir(Paths.previewPath);
 			IOUtils.DeleteContentsOfDir(Paths.previewPath);
 			IOUtils.DeleteContentsOfDir(Paths.clipboardFolderPath);
 			IOUtils.DeleteContentsOfDir(Paths.imgInPath);
 			IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
+			IOUtils.DeleteContentsOfDir(Paths.tempImgPath.GetParentDir());
+			IOUtils.DeleteContentsOfDir(Path.Combine(IOUtils.GetAppDataDir(), "giftemp"));
 		}
 
 		public static void CloseTempForms ()

@@ -75,8 +75,9 @@ namespace Cupscale.IO
 		{
 			Program.mainForm.Enabled = false;
 			DialogForm dialog1 = new DialogForm("Installing resources...\nThis only needs to be done once.");
+			Directory.CreateDirectory(path);
 
-			path7za = Path.Combine(IOUtils.GetAppDataDir(), "7za.exe");
+			path7za = Path.Combine(path, "7za.exe");
 			File.WriteAllBytes(path7za, Resources.x64_7za);
 			File.WriteAllBytes(Path.Combine(IOUtils.GetAppDataDir(), "esrgan.7z"), Resources.esrgan);
 			File.WriteAllBytes(Path.Combine(IOUtils.GetAppDataDir(), "ncnn.7z"), Resources.esrgan_ncnn);
