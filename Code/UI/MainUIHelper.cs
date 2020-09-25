@@ -45,22 +45,28 @@ namespace Cupscale.UI
             overwrite = overwriteBox;
         }
 
+        public static string lastOutfile;
+
         public static async Task UpscaleImage()
         {
             Program.mainForm.SetBusy(true);
             IOUtils.DeleteContentsOfDir(Paths.imgInPath);
             IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
             Program.mainForm.SetProgress(3f, "Preprocessing...");
-            if (!CopyImage())  // Try to copy/move image to input folder, return if failed
+            string inImg = CopyImage();
+            if (inImg == null)  // Try to copy/move image to input folder, return if failed
             {
                 Cancel("I/O Error");
                 return;
             }
-            await ImageProcessing.ConvertImages(Paths.imgInPath, ImageProcessing.Format.PngFast, !Config.GetBool("alpha"), true, true);
+            Upscale.currentMode = Upscale.UpscaleMode.Single;
+            //await ImageProcessing.ConvertImages(Paths.imgInPath, ImageProcessing.Format.PngFast, !Config.GetBool("alpha"), true, true);
+            await ImageProcessing.ConvertImage(inImg, ImageProcessing.Format.PngRaw, !Config.GetBool("alpha"), false);
             ModelData mdl = Upscale.GetModelData();
             await ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, true);
-            await Upscale.Postprocessing();
-            await Upscale.FilenamePostprocessing();
+            string outImg = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories)[0];
+            await Upscale.PostprocessingSingle(outImg, false);
+            string outFilename = Upscale.FilenamePostprocessingSingle(lastOutfile);
             await Upscale.CopyImagesTo(Path.GetDirectoryName(Program.lastFilename));
             Program.mainForm.SetProgress(0, "Done.");
             Program.mainForm.SetBusy(false);
@@ -87,21 +93,22 @@ namespace Cupscale.UI
             return valid;
         }
 
-        static bool CopyImage()
+        static string CopyImage()
         {
+            string outpath = Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastFilename));
             try
             {
                 //if (overwrite.SelectedIndex == 1)
                 //    File.Move(Program.lastFilename, Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastFilename)));
                 //else
-                File.Copy(Program.lastFilename, Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastFilename)));
+                File.Copy(Program.lastFilename, outpath);
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error trying to copy/move file: \n\n" + e.Message, "Error");
-                return false;
+                return null;
             }
-            return true;
+            return outpath;
         }
 
 
@@ -112,6 +119,7 @@ namespace Cupscale.UI
                 MessageBox.Show("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
                 return;
             }
+            Upscale.currentMode = Upscale.UpscaleMode.Preview;
             Program.mainForm.SetBusy(true);
             Program.mainForm.SetProgress(3f, "Preparing...");
             Program.mainForm.resetState = new Cupscale.PreviewState(previewImg.Image, previewImg.Zoom, previewImg.AutoScrollPosition);

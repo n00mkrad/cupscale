@@ -34,6 +34,9 @@
             this.settingsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.esrganVersion = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.useNcnn = new System.Windows.Forms.CheckBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -45,6 +48,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.jpegExtension = new System.Windows.Forms.TextBox();
             this.modelPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -75,8 +79,10 @@
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.formatsPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -123,6 +129,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.pictureBox2);
+            this.panel7.Controls.Add(this.label16);
+            this.panel7.Controls.Add(this.esrganVersion);
             this.panel7.Controls.Add(this.pictureBox1);
             this.panel7.Controls.Add(this.useNcnn);
             this.panel7.Controls.Add(this.label15);
@@ -138,11 +147,50 @@
             this.panel7.Size = new System.Drawing.Size(407, 463);
             this.panel7.TabIndex = 4;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox2.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox2.Location = new System.Drawing.Point(102, 76);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 13;
+            this.pictureBox2.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox2, "Use esrgan-launcher for on-the-fly interpolation and model chaining.\r\nTry Joey\'s " +
+        "ESRGAN if there are visible tiling seams.");
+            this.pictureBox2.Visible = false;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 80);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(90, 13);
+            this.label16.TabIndex = 12;
+            this.label16.Text = "ESRGAN Version";
+            // 
+            // esrganVersion
+            // 
+            this.esrganVersion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.esrganVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.esrganVersion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.esrganVersion.ForeColor = System.Drawing.Color.White;
+            this.esrganVersion.FormattingEnabled = true;
+            this.esrganVersion.Items.AddRange(new object[] {
+            "esrgan-launcher",
+            "(Coming Soon?)"});
+            this.esrganVersion.Location = new System.Drawing.Point(180, 77);
+            this.esrganVersion.Margin = new System.Windows.Forms.Padding(8);
+            this.esrganVersion.Name = "esrganVersion";
+            this.esrganVersion.Size = new System.Drawing.Size(217, 21);
+            this.esrganVersion.TabIndex = 11;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox1.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox1.Location = new System.Drawing.Point(114, 166);
+            this.pictureBox1.Location = new System.Drawing.Point(114, 196);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(22, 22);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -155,7 +203,7 @@
             // useNcnn
             // 
             this.useNcnn.AutoSize = true;
-            this.useNcnn.Location = new System.Drawing.Point(180, 170);
+            this.useNcnn.Location = new System.Drawing.Point(180, 200);
             this.useNcnn.Name = "useNcnn";
             this.useNcnn.Size = new System.Drawing.Size(15, 14);
             this.useNcnn.TabIndex = 9;
@@ -165,7 +213,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 170);
+            this.label15.Location = new System.Drawing.Point(6, 200);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(102, 13);
             this.label15.TabIndex = 8;
@@ -174,7 +222,7 @@
             // useCpu
             // 
             this.useCpu.AutoSize = true;
-            this.useCpu.Location = new System.Drawing.Point(180, 140);
+            this.useCpu.Location = new System.Drawing.Point(180, 170);
             this.useCpu.Name = "useCpu";
             this.useCpu.Size = new System.Drawing.Size(15, 14);
             this.useCpu.TabIndex = 7;
@@ -183,7 +231,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 140);
+            this.label2.Location = new System.Drawing.Point(6, 170);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(133, 13);
             this.label2.TabIndex = 6;
@@ -192,7 +240,7 @@
             // alpha
             // 
             this.alpha.AutoSize = true;
-            this.alpha.Location = new System.Drawing.Point(180, 110);
+            this.alpha.Location = new System.Drawing.Point(180, 140);
             this.alpha.Name = "alpha";
             this.alpha.Size = new System.Drawing.Size(15, 14);
             this.alpha.TabIndex = 5;
@@ -201,7 +249,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 110);
+            this.label7.Location = new System.Drawing.Point(6, 140);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(70, 13);
             this.label7.TabIndex = 4;
@@ -223,7 +271,7 @@
             "256",
             "192",
             "128"});
-            this.tilesize.Location = new System.Drawing.Point(180, 77);
+            this.tilesize.Location = new System.Drawing.Point(180, 107);
             this.tilesize.Margin = new System.Windows.Forms.Padding(8);
             this.tilesize.Name = "tilesize";
             this.tilesize.Size = new System.Drawing.Size(100, 21);
@@ -232,7 +280,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 80);
+            this.label6.Location = new System.Drawing.Point(6, 110);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 13);
             this.label6.TabIndex = 2;
@@ -254,6 +302,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.pictureBox3);
             this.panel6.Controls.Add(this.jpegExtension);
             this.panel6.Controls.Add(this.modelPath);
             this.panel6.Controls.Add(this.label1);
@@ -266,6 +315,18 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(407, 463);
             this.panel6.TabIndex = 3;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox3.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox3.Location = new System.Drawing.Point(104, 105);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 13;
+            this.pictureBox3.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox3, "When Alpha is disabled, the background will be filled with this color.");
             // 
             // jpegExtension
             // 
@@ -529,9 +590,11 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.formatsPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -585,5 +648,9 @@
         private System.Windows.Forms.CheckBox useNcnn;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox esrganVersion;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Cupscale.IO;
+﻿using Cupscale.Cupscale;
+using Cupscale.IO;
 using Cupscale.Main;
 using Cupscale.OS;
 using System;
@@ -57,7 +58,7 @@ namespace Cupscale.UI
             IOUtils.DeleteContentsOfDir(Paths.imgInPath);
             foreach (string img in imgs)
             {
-                if(IOUtils.compatibleExtensions.Contains(Path.GetExtension(img)))
+                if(IOUtils.compatibleExtensions.Contains(Path.GetExtension(img)) && File.Exists(img))
                     File.Copy(img, Path.Combine(Paths.imgInPath, Path.GetFileName(img)));
                 await Task.Delay(1);
             }
@@ -91,35 +92,47 @@ namespace Cupscale.UI
                 MessageBox.Show("No directory loaded.", "Error");
                 return;
             }
+            Upscale.currentMode = Upscale.UpscaleMode.Batch;
             Program.mainForm.SetBusy(true);
+            Directory.CreateDirectory(outDir.Text.Trim());
             await CopyCompatibleImagesToTemp();
             Program.mainForm.SetProgress(0f, "Pre-Processing...");
             await Upscale.Preprocessing(Paths.imgInPath);
             ModelData mdl = Upscale.GetModelData();
             GetProgress(Paths.imgOutPath, IOUtils.GetAmountOfFiles(Paths.imgInPath, true));
-            await ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, true);
-            Program.mainForm.SetProgress(100f, "Post-Processing...");
-            await Upscale.Postprocessing();
-            await Upscale.FilenamePostprocessing();
-            await Upscale.CopyImagesTo(outDir.Text.Trim());
+
+            PostProcessingQueue.Start(outDir.Text.Trim());
+
+            List<Task> tasks = new List<Task>();
+            tasks.Add(ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, true, false));
+            tasks.Add(PostProcessingQueue.Update());
+            tasks.Add(PostProcessingQueue.ProcessQueue());
+
+            await Task.WhenAll(tasks);
+
+            IOUtils.DeleteContentsOfDir(Paths.imgInPath);
             IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
+
             Program.mainForm.SetProgress(0f, "Done.");
             Program.mainForm.SetBusy(false);
         }
 
+        public static int upscaledImages = 0;
+
         public static async void GetProgress (string outdir, int target)
         {
+            upscaledImages = 0;
             while (Program.busy)
             {
                 if (Directory.Exists(outdir))
                 {
-                    int count = IOUtils.GetAmountOfFiles(outdir, true);
-                    float percentage = (float)count / target;
+                    //int count = PostProcessingQueue.processedFiles.Count;
+                    float percentage = (float)upscaledImages / target;
                     percentage = percentage * 100f;
                     if (percentage >= 100f)
                         break;
-                    if(count > 0)
-                        Program.mainForm.SetProgress((int)Math.Round(percentage), "Upscaled " + count + "/" + target + " images");
+                    if(upscaledImages > 0)
+                        Program.mainForm.SetProgress((int)Math.Round(percentage), "Upscaled " + upscaledImages + "/" + target + " images");
                 }
                 await Task.Delay(500);
             }
@@ -136,7 +149,7 @@ namespace Cupscale.UI
             }
             else
             {
-                IOUtils.Copy(currentInDir, Paths.imgInPath, move, true);
+                IOUtils.Copy(currentInDir, Paths.imgInPath, "*", move, true);
             }
         }
     }

@@ -1,5 +1,8 @@
+using Cupscale.Cupscale;
+using Cupscale.Forms;
 using Cupscale.ImageUtils;
 using Cupscale.IO;
+using Cupscale.Main;
 using Cupscale.UI;
 using System;
 using System.Diagnostics;
@@ -25,6 +28,7 @@ namespace Cupscale.OS
                 if (allowNcnn && Config.GetBool("useNcnn"))
                 {
 					Program.mainForm.SetProgress(1f, "Loading ESRGAN-NCNN...");
+					DialogForm dialogForm = new DialogForm("Loading ESRGAN-NCNN...\nThis should take 10-20 seconds.", 10);
 					Program.lastModelName = mdl.model1Name;
 					await RunNcnn(inpath, outpath, mdl.model1Path);
 				}
@@ -47,7 +51,7 @@ namespace Cupscale.OS
 				{
 					Program.mainForm.SetProgress(100f, "Merging into preview...");
 					await Program.PutTaskDelay();
-					Image outImg = IOUtils.GetImage(Path.Combine(Paths.previewOutPath, "preview.png"));
+					Image outImg = IOUtils.GetImage(Path.Combine(Paths.previewOutPath, "preview.png.tmp"));
 					Image inputImg = IOUtils.GetImage(Paths.tempImgPath);
 					MainUIHelper.previewImg.Image = outImg;
 					MainUIHelper.currentOriginal = inputImg;
@@ -61,7 +65,8 @@ namespace Cupscale.OS
             {
 				MessageBox.Show("An error occured during upscaling: \n\n" + e.Message, "Error");
 				Logger.Log("Upscaling Error: " + e.Message + "\n" + e.StackTrace);
-            }
+				Program.mainForm.SetProgress(0f, "Cancelled.");
+			}
 			
 		}
 
@@ -122,6 +127,12 @@ namespace Cupscale.OS
 					await UpdateProgressFromFile();
 				await Task.Delay(100);
 			}
+			if(Upscale.currentMode == Upscale.UpscaleMode.Batch)
+            {
+				await Task.Delay(1000);
+				Program.mainForm.SetProgress(100f, "Post-Processing...");
+				PostProcessingQueue.Stop();
+			}
 			File.Delete(Paths.progressLogfile);
 		}
 
@@ -142,9 +153,16 @@ namespace Cupscale.OS
 				MessageBox.Show("Error occurred: \n\n" + data + "\n\nThe ESRGAN process was killed to avoid lock-ups.", "Error");
 			}
 			if (data.Contains("out of memory"))
-			{
 				MessageBox.Show("ESRGAN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
-			}
+
+			if (data.Contains("Python was not found"))
+				MessageBox.Show("Python was not found. Make sure you have a working Python 3 installation.", "Error");
+
+			if (data.Contains("ModuleNotFoundError"))
+				MessageBox.Show("You are missing ESRGAN Python dependencies. Make sure Pytorch, cv2 (opencv-python) and tensorboardx are installed.", "Error");
+
+			if (data.Contains("RRDBNet"))
+				MessageBox.Show("This model appears to be incompatible!", "Error");
 		}
 
 		static string lastProgressString = "";
@@ -200,6 +218,21 @@ namespace Cupscale.OS
 			{
 				await Task.Delay(100);
 			}
+			if (Upscale.currentMode == Upscale.UpscaleMode.Batch)
+			{
+				await Task.Delay(1000);
+				Program.mainForm.SetProgress(100f, "Post-Processing...");
+				PostProcessingQueue.Stop();
+			}
+            else
+            {
+				//if(Upscale.currentMode == Upscale.UpscaleMode.Preview)
+					//IOUtils.TrimFilenames(Paths.previewOutPath, 4, true, "*.tmp");
+
+				//if (Upscale.currentMode == Upscale.UpscaleMode.Single)
+					//IOUtils.TrimFilenames(Paths.imgOutPath, 4, true, "*.tmp");
+			}
+			File.Delete(Paths.progressLogfile);
 		}
 
 		private static void NcnnOutputHandler(object sendingProcess, DataReceivedEventArgs output)

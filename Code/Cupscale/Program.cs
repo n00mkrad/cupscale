@@ -43,6 +43,8 @@ namespace Cupscale
 			IOUtils.DeleteContentsOfDir(Paths.previewPath);
 			IOUtils.DeleteContentsOfDir(Paths.previewPath);
 			IOUtils.DeleteContentsOfDir(Paths.clipboardFolderPath);
+			IOUtils.DeleteContentsOfDir(Paths.imgInPath);
+			IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
 		}
 
 		public static void CloseTempForms ()

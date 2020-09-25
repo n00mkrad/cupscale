@@ -563,12 +563,14 @@ namespace Cupscale
             this.prevClipboardTypeCombox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.prevClipboardTypeCombox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.prevClipboardTypeCombox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.prevClipboardTypeCombox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.prevClipboardTypeCombox.ForeColor = System.Drawing.Color.White;
             this.prevClipboardTypeCombox.FormattingEnabled = true;
             this.prevClipboardTypeCombox.Items.AddRange(new object[] {
-            "Upscaled Cutout - Side By Side",
-            "Upscaled Cutout - 50/50 View"});
+            "Side By Side",
+            "50/50 View",
+            "Before/After GIF"});
             this.prevClipboardTypeCombox.Location = new System.Drawing.Point(117, 24);
             this.prevClipboardTypeCombox.Margin = new System.Windows.Forms.Padding(8);
             this.prevClipboardTypeCombox.Name = "prevClipboardTypeCombox";

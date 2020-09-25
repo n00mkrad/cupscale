@@ -1,11 +1,15 @@
-﻿using ImageMagick;
+﻿using Cupscale.Forms;
+using Cupscale.UI;
+using ImageMagick;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,8 +23,6 @@ namespace Cupscale
 
         public static async void CopyToClipboardSideBySide(bool saveToFile, bool fullImage = false)
         {
-            //if (resultPreview == null)
-            //return;
             int footerHeight = 45;
 
             try
@@ -33,7 +35,7 @@ namespace Cupscale
                 else
                 {
                     originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png")));
-                    resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png")));
+                    resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp")));
                 }
             }
             catch
@@ -42,7 +44,6 @@ namespace Cupscale
             }
 
             int comparisonMod = 1;
-            //int.TryParse(comparisonMod_comboBox.SelectedValue.ToString(), out comparisonMod);
             int newWidth = comparisonMod * resultPreview.Width, newHeight = comparisonMod * resultPreview.Height;
 
             Bitmap outputImage = new Bitmap(2 * newWidth, newHeight + footerHeight);
@@ -120,10 +121,8 @@ namespace Cupscale
             }
         }
 
-        public static void CopyToClipboardSlider(bool fullImage = false)
+        public static async void CopyToClipboardSlider(bool saveToFile, bool fullImage = false)
         {
-            //if (resultPreview == null)
-            //return;
             int footerHeight = 45;
 
             try
@@ -136,7 +135,7 @@ namespace Cupscale
                 else
                 {
                     originalPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png")));
-                    resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png")));
+                    resultPreview = new Bitmap(IOUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp")));
                 }
             }
             catch
@@ -207,13 +206,24 @@ namespace Cupscale
                     textBrush,
                     new Rectangle(0, newHeight, newWidth, footerHeight - 0),
                     stringFormat);
-
-                try
+            }
+            try
+            {
+                if (saveToFile)
+                {
+                    string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison.png";
+                    outputImage.Save(comparisonSavePath);
+                    await ImageProcessing.ConvertImage(comparisonSavePath, ImageProcessing.Format.PngFast, false, false);
+                    MessageBox.Show("Saved current comparison to:\n\n" + comparisonSavePath, "Message");
+                }
+                else
                 {
                     Clipboard.SetDataObject(outputImage);
                 }
-                catch
-                { }
+            }
+            catch
+            {
+                MessageBox.Show("Failed to save comparison.", "Error");
             }
         }
 
@@ -236,6 +246,55 @@ namespace Cupscale
             else
                 return (L2 + 0.05) / (L1 + 0.05);
 
+        }
+
+        public static async void BeforeAfterGif (bool save)
+        {
+            DialogForm dialogForm = new DialogForm("Creating animated GIF...");
+
+            string tempPath = Path.Combine(IOUtils.GetAppDataDir(), "giftemp");
+            string framesPath = Path.Combine(tempPath, "frames");
+            Directory.CreateDirectory(framesPath);
+            IOUtils.DeleteContentsOfDir(framesPath);
+
+            string img1 = Path.Combine(IO.Paths.previewPath, "preview.png");
+            string img2 = Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp");
+
+            Image image1 = IOUtils.GetImage(img1);
+            Image image2 = IOUtils.GetImage(img2);
+            int scale = (int)Math.Round((float)image2.Height / (float)image1.Width);
+            Logger.Log("Scale for GIF: " + scale);
+            string outpath = Path.Combine(framesPath, "comparison.gif");
+
+            if (image2.Width <= 2048 && image2.Height <= 2048)
+            {
+                IOUtils.GetImage(img1).Scale(scale, InterpolationMode.NearestNeighbor).Save(Path.Combine(framesPath, "0.png"));
+                File.Copy(img2, Path.Combine(framesPath, "1.png"), true);
+                await FFmpegCommands.FramesToGif(framesPath, false, 1, "", false);
+                File.Move(Path.Combine(tempPath, "frames.gif"), outpath);
+
+                if (save)
+                {
+                    string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison.gif";
+                    File.Copy(outpath, comparisonSavePath, true);
+                    MessageBox.Show("Saved current comparison to:\n\n" + comparisonSavePath, "Message");
+                }
+                else
+                {
+                    StringCollection paths = new StringCollection();
+                    paths.Add(outpath);
+                    Clipboard.SetFileDropList(paths);
+                    MessageBox.Show("The GIF file has been copied. You can paste it into any folder.\n" +
+                        "Please note that pasting it into Discord or other programs won't work as the clipboard can't hold animated images.", "Message");
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("The preview is too large for making a GIF. Please create a smaller cutout or choose a different comparison type.", "Error");
+            }
+
+            dialogForm.Close();
         }
     }
 }

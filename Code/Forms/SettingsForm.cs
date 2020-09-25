@@ -31,13 +31,13 @@ namespace Cupscale.Forms
         {
             Program.mainForm.Enabled = false;
             Logger.textbox = logTbox;
-            //ConfigTabHelper.LoadSettings(tilesize, alpha, modelPath, alphaBgColor, jpegExtension, useCpu);
             LoadSettings();
             initialized = true;
         }
 
         void LoadSettings()
         {
+            Config.LoadComboxIndex(esrganVersion);
             Config.LoadGuiElement(tilesize);
             Config.LoadGuiElement(alpha);
             Config.LoadGuiElement(modelPath);
@@ -60,6 +60,7 @@ namespace Cupscale.Forms
 
         void SaveSettings()
         {
+            Config.SaveComboxIndex(esrganVersion);
             Config.SaveGuiElement(tilesize);
             Config.SaveGuiElement(alpha);
             Config.SaveGuiElement(modelPath);

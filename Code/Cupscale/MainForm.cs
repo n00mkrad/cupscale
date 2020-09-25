@@ -70,7 +70,7 @@ namespace Cupscale
 				htProgBar.Visible = true;
 				lastProg = prog;
 			}
-			if (!string.IsNullOrWhiteSpace(statusText) && lastStatus != statusText) ;
+			if (!string.IsNullOrWhiteSpace(statusText) && lastStatus != statusText)
             {
 				statusLabel.Text = statusText;
 				Logger.Log("Status changed: " + statusText);
@@ -305,6 +305,7 @@ namespace Cupscale
         {
 			if (prevClipboardTypeCombox.SelectedIndex == 0) ClipboardPreview.CopyToClipboardSideBySide(false);
 			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardPreview.CopyToClipboardSlider(false);
+			if (prevClipboardTypeCombox.SelectedIndex == 2) ClipboardPreview.BeforeAfterGif(false);
 		}
 
         private void model1TreeBtn_Click(object sender, EventArgs e)
@@ -321,6 +322,7 @@ namespace Cupscale
         {
 			if (prevClipboardTypeCombox.SelectedIndex == 0) ClipboardPreview.CopyToClipboardSideBySide(true);
 			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardPreview.CopyToClipboardSlider(true);
+			if (prevClipboardTypeCombox.SelectedIndex == 2) ClipboardPreview.BeforeAfterGif(true);
 		}
 
 		public void ResetToLastState ()
@@ -349,10 +351,17 @@ namespace Cupscale
         {
 			if (e.KeyData == (Keys.Control | Keys.V))
 			{
-				Image clipboardImg = Clipboard.GetImage();
-				string savePath = Path.Combine(Paths.clipboardFolderPath, "Clipboard.png");
-				clipboardImg.Save(savePath);
-				await DragNDrop(new string[] { savePath });
+                try
+                {
+					Image clipboardImg = Clipboard.GetImage();
+					string savePath = Path.Combine(Paths.clipboardFolderPath, "Clipboard.png");
+					clipboardImg.Save(savePath);
+					await DragNDrop(new string[] { savePath });
+				}
+				catch
+                {
+					MessageBox.Show("Failed to paste image from clipboard. Make sure you have a raw image (not a file) copied.", "Error");
+                }
 			}
 		}
 

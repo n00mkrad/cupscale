@@ -18,18 +18,6 @@ namespace Cupscale
 			}
 
 			sessionLog = sessionLog + s + Environment.NewLine;
-
-			s = s.Replace("\n", Environment.NewLine);
-			/*
-			if (textbox != null)
-			{
-				textbox.AppendText(Environment.NewLine + s);
-			}
-            else
-            {
-				Console.WriteLine("logTbox is null!");
-            }
-			*/
 		}
 
 		public static string GetSessionLog ()

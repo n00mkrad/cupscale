@@ -1,0 +1,65 @@
+﻿using Cupscale.IO;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Cupscale
+{
+    class FFmpeg
+    {
+        public static async Task Run(string args)
+        {
+            Process ffmpeg = new Process();
+            ffmpeg.StartInfo.UseShellExecute = false;
+            ffmpeg.StartInfo.RedirectStandardOutput = true;
+            ffmpeg.StartInfo.RedirectStandardError = true;
+            ffmpeg.StartInfo.CreateNoWindow = true;
+            ffmpeg.StartInfo.FileName = "cmd.exe";
+            ffmpeg.StartInfo.Arguments = "/C cd /D \"" + Paths.esrganPath + "\" & ffmpeg.exe -hide_banner -loglevel warning -y -stats " + args;
+            Logger.Log("Running ffmpeg...");
+            Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
+            ffmpeg.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
+            ffmpeg.ErrorDataReceived += new DataReceivedEventHandler(OutputHandler);
+            ffmpeg.Start();
+            ffmpeg.BeginOutputReadLine();
+            ffmpeg.BeginErrorReadLine();
+            while (!ffmpeg.HasExited)
+                await Task.Delay(100);
+            Logger.Log("Done running ffmpeg.");
+        }
+
+        static void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
+        {
+            Logger.Log(outLine.Data);
+        }
+
+        /*
+        public static string RunAndGetOutput (string args)
+        {
+            string ffmpegPath = Paths.GetFfmpegExePath();
+            string ffmpegDir = Paths.GetShippedDataPath();
+            Process ffmpeg = new Process();
+            ffmpeg.StartInfo.UseShellExecute = false;
+            ffmpeg.StartInfo.RedirectStandardOutput = true;
+            ffmpeg.StartInfo.RedirectStandardError = true;
+            ffmpeg.StartInfo.CreateNoWindow = true;
+            ffmpeg.StartInfo.FileName = "cmd.exe";
+            ffmpeg.StartInfo.Arguments = "/C cd /D \"" + ffmpegDir + "\" & ffmpeg.exe -hide_banner -y -stats " + args;
+            //Logger.Log("Running ffmpeg...");
+            //Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
+            ffmpeg.Start();
+            //Logger.Log("Done running ffmpeg.");
+            ffmpeg.WaitForExit();
+            string output = ffmpeg.StandardOutput.ReadToEnd();
+            //Logger.Log(output);
+            string err = ffmpeg.StandardError.ReadToEnd();
+            //Logger.Log("ERR: " + err);
+            return output + "\n" + err;
+        }
+        */
+    }
+}

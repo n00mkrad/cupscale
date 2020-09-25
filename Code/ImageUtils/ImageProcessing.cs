@@ -3,8 +3,10 @@ using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Cupscale.Cupscale;
 using Cupscale.IO;
 using Cupscale.Main;
+using Cupscale.UI;
 using ImageMagick;
 using ImageMagick.Formats.Bmp;
 using ImageMagick.Formats.Dds;
@@ -28,16 +30,20 @@ namespace Cupscale
 			FileInfo[] files = d.GetFiles("*", SearchOption.AllDirectories);
 			foreach (FileInfo file in files)
 			{
-				file.MoveTo(file.FullName.Substring(0, file.FullName.Length - 4));
+				string targetPath = file.FullName.Substring(0, file.FullName.Length - 4);
+				if (File.Exists(targetPath)) File.Delete(targetPath);
+				file.MoveTo(targetPath);
 			}
 			files = d.GetFiles("*", SearchOption.AllDirectories);
 			foreach (FileInfo file2 in files)
 			{
-				file2.MoveTo(Path.ChangeExtension(file2.FullName, newExtension));
+				string targetPath = Path.ChangeExtension(file2.FullName, newExtension);
+				if (File.Exists(targetPath)) File.Delete(targetPath);
+				file2.MoveTo(targetPath);
 			}
 		}
 
-		public static async Task ConvertImagesToOriginalFormat(bool postprocess)
+		public static async Task ConvertImagesToOriginalFormat(bool postprocess, bool setProgress = true)
 		{
 			string path = Paths.imgOutPath;
 			DirectoryInfo d = new DirectoryInfo(path);
@@ -69,10 +75,11 @@ namespace Cupscale
 				if (GetTrimmedExtension(file2) == "dds")
 					format = Format.DDS;
 
-				Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Processing " + file2.Name);
+				if(setProgress)
+					Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Processing " + file2.Name);
 
 				if (postprocess)
-					await PostProcessImage(file2.FullName, format);
+					await PostProcessImage(file2.FullName, format, false);
 				else
 					await ConvertImage(file2.FullName, format, false, false, true);
 
@@ -80,31 +87,62 @@ namespace Cupscale
 			}
 		}
 
+		public static async Task ConvertImageToOriginalFormat(string path, bool postprocess, bool batchProcessing, bool setProgress = true)
+		{
+			FileInfo file2 = new FileInfo(path);
+			//string newPath = file.FullName.Substring(0, file.FullName.Length - 4);
+			//file.MoveTo(newPath);
+			//FileInfo file2 = new FileInfo(newPath);
+
+			//if (GetTrimmedExtension(file2) == "png")
+			//break;
+
+			Format format = Format.PngFast;
+
+			if (GetTrimmedExtension(file2) == "jpg" || GetTrimmedExtension(file2) == "jpeg")
+				format = Format.Jpeg;
+
+			if (GetTrimmedExtension(file2) == "webp")
+				format = Format.Weppy;
+
+			if (GetTrimmedExtension(file2) == "bmp")
+				format = Format.BMP;
+
+			if (GetTrimmedExtension(file2) == "tga")
+				format = Format.TGA;
+
+			if (GetTrimmedExtension(file2) == "dds")
+				format = Format.DDS;
+
+			if (postprocess)
+				await PostProcessImage(file2.FullName, format, batchProcessing);
+			else
+				await ConvertImage(file2.FullName, format, false, false, true);
+		}
+
 		private static string GetTrimmedExtension(FileInfo file)
 		{
 			return file.Extension.ToLower().Replace(".", "");
 		}
 
-		public static async Task ConvertImages(string path, Format format, bool removeAlpha = false, bool preprocess = false, bool appendExtension = false, bool delSource = true)
+		public static async Task ConvertImages(string path, Format format, bool removeAlpha = false, bool keepExtension = false, bool delSource = true)
 		{
 			DirectoryInfo d = new DirectoryInfo(path);
 			FileInfo[] files = d.GetFiles("*", SearchOption.AllDirectories);
 			int i = 1;
 			foreach (FileInfo file in files)
 			{
-				Logger.Log("Converting " + file.Name + " to " + format.ToString() + ", appendExtension = " + appendExtension);
 				Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Processing " + file.Name);
-				await ConvertImage(file.FullName, format, removeAlpha, appendExtension, delSource);
+				await ConvertImage(file.FullName, format, removeAlpha, keepExtension, delSource);
 				i++;
 			}
 			Logger.Log("Done converting images");
 		}
 
-		public static async Task ConvertImage(string path, Format format, bool fillAlpha, bool appendExtension, bool deleteSource = true, string overrideOutPath = "")
+		public static async Task ConvertImage(string path, Format format, bool fillAlpha, bool keepExtension, bool deleteSource = true, string overrideOutPath = "")
 		{
-			Logger.Log("ConvertImage: Loading MagickImage from " + path);
 			MagickImage img = IOUtils.GetMagickImage(path);
-			Logger.Log("Converting: " + img.ToString() + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource + " - FillAlpha: " + fillAlpha);
+			Logger.Log("Converting " + path + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource + " - FillAlpha: " + fillAlpha + " - KeepExt: " + keepExtension);
 			string ext = "png";
 			if (format == Format.PngOpti)
 			{
@@ -150,11 +188,14 @@ namespace Cupscale
 			}
             if (fillAlpha)
             {
-				//MagickImage colorImg = new MagickImage(new MagickColor("#" + Config.Get("alphaBgColor")), img.Width, img.Height);
-				//colorImg.Composite(img, Gravity.Center, CompositeOperator.Overlay);
-				img.ColorAlpha(new MagickColor("#" + Config.Get("alphaBgColor")));	// Might not work correctly for DDS n stuff?
+				img.Settings.BackgroundColor = new MagickColor("#" + Config.Get("alphaBgColor"));
+				img.Alpha(AlphaOption.Remove);
 			}
-			if (string.IsNullOrWhiteSpace(overrideOutPath) && appendExtension)
+			if (keepExtension)
+				ext = Path.GetExtension(path).Replace(".", "");
+
+			/*
+			if (string.IsNullOrWhiteSpace(overrideOutPath) && keepExtension)
 			{
 				string extension = Path.GetExtension(path);
 				string outPath = Path.ChangeExtension(path, null) + extension + "." + ext;
@@ -168,6 +209,7 @@ namespace Cupscale
 			}
 			else
 			{
+			*/
 				string outPath = Path.ChangeExtension(path, ext);
 				if (!string.IsNullOrWhiteSpace(overrideOutPath))
 					outPath = overrideOutPath;
@@ -178,7 +220,7 @@ namespace Cupscale
 					Logger.Log("Deleting source file: " + path);
 					File.Delete(path);
 				}
-			}
+			//}
 			await Task.Delay(1);
 		}
 
@@ -191,13 +233,13 @@ namespace Cupscale
 			{
 				Logger.Log("Post-Processing " + file.Name);
 				Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Processing " + file.Name);
-				await PostProcessImage(file.FullName, format);
+				await PostProcessImage(file.FullName, format, false);
 				i++;
 			}
 			Logger.Log("Done post-processing.");
 		}
 
-		public static async Task PostProcessImage (string path, Format format)
+		public static async Task PostProcessImage (string path, Format format, bool batchProcessing = false)
 		{
 			Logger.Log("PostProcess: Loading MagickImage from " + path);
 			MagickImage img = IOUtils.GetMagickImage(path);
@@ -251,6 +293,13 @@ namespace Cupscale
 
 			await Task.Delay(1);
 			string outPath = Path.ChangeExtension(img.FileName, ext);
+
+			if(Upscale.currentMode == Upscale.UpscaleMode.Batch)
+				PostProcessingQueue.lastOutfile = outPath;
+
+			if (Upscale.currentMode == Upscale.UpscaleMode.Single)
+				MainUIHelper.lastOutfile = outPath;
+
 			img.Write(outPath);
 
 			if (outPath != path)

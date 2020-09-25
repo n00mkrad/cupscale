@@ -81,6 +81,36 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] esrgan {
+            get {
+                object obj = ResourceManager.GetObject("esrgan", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] esrgan_ncnn {
+            get {
+                object obj = ResourceManager.GetObject("esrgan_ncnn", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ffmpeg {
+            get {
+                object obj = ResourceManager.GetObject("ffmpeg", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap questmark {
@@ -91,22 +121,11 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to 1	# added ffmpeg.
         /// </summary>
-        public static byte[] ShippedEsrgan {
+        public static string shipped_files_version {
             get {
-                object obj = ResourceManager.GetObject("ShippedEsrgan", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] ShippedNCNN {
-            get {
-                object obj = ResourceManager.GetObject("ShippedNCNN", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("shipped_files_version", resourceCulture);
             }
         }
         

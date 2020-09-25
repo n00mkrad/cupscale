@@ -15,7 +15,9 @@ namespace Cupscale.Main
 {
     class Upscale
     {
-        public enum ExportFormats { PNG, SameAsSource, JPEG, WEBP, BMP, TGA, DDS}
+        public enum UpscaleMode { Preview, Single, Batch }
+        public static UpscaleMode currentMode = UpscaleMode.Preview;
+        public enum ExportFormats { PNG, SameAsSource, JPEG, WEBP, BMP, TGA, DDS }
         public enum Filter { Mitchell, Bicubic, NearestNeighbor }
         public enum ScaleMode { Percent, PixelsHeight, PixelsWidth, PixelsShorterSide, PixelsLongerSide }
         public enum Overwrite { No, Yes, }
@@ -57,20 +59,20 @@ namespace Cupscale.Main
         {
             ModelData mdl = new ModelData();
 
-            if (currentMode == Mode.Single)
+            if (MainUIHelper.currentMode == Mode.Single)
             {
                 string mdl1 = Program.currentModel1;
                 if (string.IsNullOrWhiteSpace(mdl1)) return mdl;
                 mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
             }
-            if (currentMode == Mode.Interp)
+            if (MainUIHelper.currentMode == Mode.Interp)
             {
                 string mdl1 = Program.currentModel1;
                 string mdl2 = Program.currentModel2;
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return mdl;
                 mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
             }
-            if (currentMode == Mode.Chain)
+            if (MainUIHelper.currentMode == Mode.Chain)
             {
                 string mdl1 = Program.currentModel1;
                 string mdl2 = Program.currentModel2;
@@ -81,17 +83,16 @@ namespace Cupscale.Main
             return mdl;
         }
 
-        public static async Task Preprocessing (string path, bool appendExt = false)
+        public static async Task Preprocessing (string path)
         {
             Logger.Log("Preprocessing: " + path);
             bool fillAlpha = !bool.Parse(Config.Get("alpha"));
-            await ImageProcessing.ConvertImages(path, ImageProcessing.Format.PngFast, fillAlpha);
+            await ImageProcessing.ConvertImages(path, ImageProcessing.Format.PngFast, fillAlpha, true, true);
         }
 
         public static async Task Postprocessing()
         {
             Program.mainForm.SetProgress(100f, "Postprocessing...");
-            await Program.PutTaskDelay();
             if (outputFormat.Text == ExportFormats.PNG.ToStringTitleCase())
             {
                 ImageProcessing.ChangeOutputExtensions("png");
@@ -111,12 +112,65 @@ namespace Cupscale.Main
                 await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.DDS);
         }
 
+        public static async Task PostprocessingSingle (string path, bool batchProcessing)
+        {
+            Logger.Log("PostprocessingSingle: " + path);
+            string newPath = path.Substring(0, path.Length - 4);
+            File.Move(path, newPath);
+            path = newPath;
+            Logger.Log("PostprocessingSingle New Path: " + path);
+
+            if (outputFormat.Text == ExportFormats.PNG.ToStringTitleCase())
+            {
+                path = Path.ChangeExtension(path, "png");
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Source, batchProcessing);
+            }
+            if (outputFormat.Text == ExportFormats.SameAsSource.ToStringTitleCase())
+                await ImageProcessing.ConvertImageToOriginalFormat(path, true, false, batchProcessing);
+            if (outputFormat.Text == ExportFormats.JPEG.ToStringTitleCase())
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Jpeg, batchProcessing);
+            if (outputFormat.Text == ExportFormats.WEBP.ToStringTitleCase())
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Weppy, batchProcessing);
+            if (outputFormat.Text == ExportFormats.BMP.ToStringTitleCase())
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.BMP, batchProcessing);
+            if (outputFormat.Text == ExportFormats.TGA.ToStringTitleCase())
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.TGA, batchProcessing);
+            if (outputFormat.Text == ExportFormats.DDS.ToStringTitleCase())
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.DDS, batchProcessing);
+        }
+
         public static async Task FilenamePostprocessing ()
         {
             await AddModelSuffix(Paths.imgOutPath);
             IOUtils.DeleteFilesWithoutExt(Paths.imgOutPath, true);
             IOUtils.RenameExtensions(Paths.imgOutPath, "jpg", Config.Get("jpegExtension"));
             await Program.PutTaskDelay();
+        }
+
+        public static string FilenamePostprocessingSingle(string file)
+        {
+            string newFilename = file;
+
+            string pathNoExt = Path.ChangeExtension(file, null);
+            string ext = Path.GetExtension(file);
+
+            newFilename = pathNoExt + "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+") + ext;
+            File.Move(file, newFilename);
+            newFilename = IOUtils.RenameExtension(newFilename, "jpg", Config.Get("jpegExtension"));
+
+            /*
+            if (overwriteMode == Overwrite.Yes)
+            {
+                Logger.Log("Overwrite mode - removing suffix from filenames");
+                newFilename = IOUtils.ReplaceInFilename(newFilename, "-" + Program.lastModelName, "");
+            }
+            else
+            {
+                Logger.Log("Overwrite is off - keeping suffix.");
+            }
+            */
+
+            return newFilename;
         }
     }
 }

@@ -72,8 +72,9 @@ namespace Cupscale
 		{
 			return key switch
 			{
-				"esrganPath" => WriteDefault("esrganPath", ShippedEsrgan.path), 
-				"tilesize" => WriteDefault("tilesize", "512"), 
+				"esrganPath" => WriteDefault("esrganPath", ShippedEsrgan.path),
+				"esrganVersion" => WriteDefault("esrganVersion", "0"), 
+				"tilesize" => WriteDefault("tilesize", "512"),
 				"alpha" => WriteDefault("alpha", "False"),
 				"alphaBgColor" => WriteDefault("alphaBgColor", "000000FF"),
 				"jpegExtension" => WriteDefault("jpegExtension", "jpg"),
@@ -113,6 +114,11 @@ namespace Cupscale
 			Set(checkbox.Name, checkbox.Checked.ToString());
 		}
 
+		public static void SaveComboxIndex(ComboBox comboBox)
+		{
+			Set(comboBox.Name, comboBox.SelectedIndex.ToString());
+		}
+
 		public static void LoadGuiElement(ComboBox comboBox)
 		{
 			comboBox.Text = Get(comboBox.Name);
@@ -126,6 +132,11 @@ namespace Cupscale
 		public static void LoadGuiElement (CheckBox checkbox)
 		{
 			checkbox.Checked = bool.Parse(Get(checkbox.Name));
+		}
+
+		public static void LoadComboxIndex (ComboBox comboBox)
+		{
+			comboBox.SelectedIndex = GetInt(comboBox.Name);
 		}
 	}
 }

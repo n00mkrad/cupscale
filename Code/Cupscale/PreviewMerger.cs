@@ -25,7 +25,7 @@ namespace Cupscale
 		{
 			Program.mainForm.SetProgress(100f);
 			inputCutoutPath = Path.Combine(Paths.previewPath, "preview.png");
-			outputCutoutPath = Path.Combine(Paths.previewOutPath, "preview.png");
+			outputCutoutPath = Path.Combine(Paths.previewOutPath, "preview.png.tmp");
 
 			//MagickImage sourceImg = IOUtils.GetMagickImage(Paths.tempImgPath);
 			Image sourceImg = IOUtils.GetImage(Paths.tempImgPath);
