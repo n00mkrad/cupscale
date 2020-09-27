@@ -107,9 +107,7 @@ namespace Cupscale.Cupscale
                         string suffixToRemove = "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+");
                         if (copyMode == CopyMode.KeepStructure)
                         {
-                            string relPath = outFilename.Replace(Paths.imgOutPath, "");
-                            string combinedPath = currentOutPath + relPath;
-                            Logger.Log("combinedPath = " + combinedPath);
+                            string combinedPath = currentOutPath + outFilename.Replace(Paths.imgOutPath, "");
                             Directory.CreateDirectory(combinedPath.GetParentDir());
                             File.Copy(outFilename, combinedPath.ReplaceInFilename(suffixToRemove, "", true));
                         }
@@ -123,9 +121,7 @@ namespace Cupscale.Cupscale
                     {
                         if (copyMode == CopyMode.KeepStructure)
                         {
-                            string relPath = outFilename.Replace(Paths.imgOutPath, "");
-                            string combinedPath = currentOutPath + relPath;
-                            Logger.Log("combinedPath = " + combinedPath);
+                            string combinedPath = currentOutPath + outFilename.Replace(Paths.imgOutPath, "");
                             Directory.CreateDirectory(combinedPath.GetParentDir());
                             File.Copy(outFilename, combinedPath, true);
                         }
