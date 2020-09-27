@@ -22,6 +22,9 @@ namespace Cupscale.Cupscale
 
         public static bool ncnn;
 
+        public enum CopyMode { KeepStructure, CopyToRoot }
+        public static CopyMode copyMode;
+
         public static void Start (string outpath)
         {
             currentOutPath = outpath;
@@ -102,14 +105,34 @@ namespace Cupscale.Cupscale
                     if(Upscale.overwriteMode == Upscale.Overwrite.Yes)
                     {
                         string suffixToRemove = "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+");
-                        Logger.Log("[Remove Suffix] Copying " + outFilename + " to " + Path.Combine(currentOutPath, Path.GetFileName(outFilename).Replace(suffixToRemove, "")));
-                        File.Copy(outFilename, Path.Combine(currentOutPath, Path.GetFileName(outFilename).Replace(suffixToRemove, "")), true);
+                        if (copyMode == CopyMode.KeepStructure)
+                        {
+                            string relPath = outFilename.Replace(Paths.imgOutPath, "");
+                            string combinedPath = currentOutPath + relPath;
+                            Logger.Log("combinedPath = " + combinedPath);
+                            Directory.CreateDirectory(combinedPath.GetParentDir());
+                            File.Copy(outFilename, combinedPath.ReplaceInFilename(suffixToRemove, "", true));
+                        }
+                        if (copyMode == CopyMode.CopyToRoot)
+                        {
+                            File.Copy(outFilename, Path.Combine(currentOutPath, Path.GetFileName(outFilename).Replace(suffixToRemove, "")), true);
+                        }
                         File.Delete(outFilename);
                     }
                     else
                     {
-                        Logger.Log("[Keep Suffix] Copying " + outFilename + " to " + Path.GetFileName(outFilename));
-                        File.Copy(outFilename, Path.Combine(currentOutPath, Path.GetFileName(outFilename)), true);
+                        if (copyMode == CopyMode.KeepStructure)
+                        {
+                            string relPath = outFilename.Replace(Paths.imgOutPath, "");
+                            string combinedPath = currentOutPath + relPath;
+                            Logger.Log("combinedPath = " + combinedPath);
+                            Directory.CreateDirectory(combinedPath.GetParentDir());
+                            File.Copy(outFilename, combinedPath, true);
+                        }
+                        if (copyMode == CopyMode.CopyToRoot)
+                        {
+                            File.Copy(outFilename, Path.Combine(currentOutPath, Path.GetFileName(outFilename)), true);
+                        }
                         File.Delete(outFilename);
                     }
                     BatchUpscaleUI.upscaledImages++;

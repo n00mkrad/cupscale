@@ -82,5 +82,12 @@ namespace Cupscale.UI
         {
 			return ImageOperations.Scale(img, scale, filtering);
         }
+
+		public static string ReplaceInFilename(string path, string find, string replaceWith)
+		{
+			string parentDir = path.GetParentDir();
+			string filename = Path.GetFileName(path);
+			return Path.Combine(parentDir, filename.Replace(find, replaceWith));
+		}
 	}
 }

@@ -17,7 +17,7 @@ namespace Cupscale
 {
     internal class ImageProcessing
     {
-        public enum Format { Source, PngOpti, PngFast, PngRaw, Jpeg, Weppy, BMP, TGA, DDS }
+        public enum Format { Source, Png50, PngFast, PngRaw, Jpeg, Weppy, BMP, TGA, DDS }
 
         public static Upscale.Filter currentFilter = Upscale.Filter.Mitchell;
         public static Upscale.ScaleMode currentScaleMode = Upscale.ScaleMode.Percent;
@@ -59,7 +59,7 @@ namespace Cupscale
             {
                 if (GetTrimmedExtension(file2) == "png")
                     break;
-                Format format = Format.PngOpti;
+                Format format = Format.Png50;
 
                 if (GetTrimmedExtension(file2) == "jpg" || GetTrimmedExtension(file2) == "jpeg")
                     format = Format.Jpeg;
@@ -98,7 +98,7 @@ namespace Cupscale
             //if (GetTrimmedExtension(file2) == "png")
             //break;
 
-            Format format = Format.PngFast;
+            Format format = Format.Png50;
 
             if (GetTrimmedExtension(file2) == "jpg" || GetTrimmedExtension(file2) == "jpeg")
                 format = Format.Jpeg;
@@ -151,10 +151,10 @@ namespace Cupscale
                 img.Format = MagickFormat.Png;
                 img.Quality = 0;
             }
-            if (format == Format.PngOpti)
+            if (format == Format.Png50)
             {
                 img.Format = MagickFormat.Png;
-                img.Quality = 70;
+                img.Quality = 50;
             }
             if (format == Format.PngFast)
             {
@@ -248,7 +248,7 @@ namespace Cupscale
             string ext = "png";
             if (format == Format.Source)
                 ext = Path.GetExtension(path).Replace(".", "");
-            if (format == Format.PngOpti)
+            if (format == Format.Png50)
             {
                 img.Format = MagickFormat.Png;
                 img.Quality = 70;

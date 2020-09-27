@@ -46,6 +46,8 @@ namespace Cupscale
 			UIHelpers.InitCombox(postResizeScale, 1);
 			UIHelpers.InitCombox(postResizeMode, 0);
 			UIHelpers.FillEnumComboBox(postResizeFilter, typeof(Upscale.Filter), 0);
+			// Batch Upscale
+			UIHelpers.InitCombox(batchOutMode, 0);
 			await CheckInstallation();
 		}
 
@@ -399,6 +401,14 @@ namespace Cupscale
 			string outFilename = Upscale.FilenamePostprocessingSingle(MainUIHelper.lastOutfile);
 			string finalPath = IOUtils.ReplaceInFilename(outFilename, "[temp]", "");
 			MessageBox.Show("Saved to " + finalPath + ".", "Message");
+		}
+
+        private void batchOutMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			if (batchOutMode.SelectedIndex == 0)
+				PostProcessingQueue.copyMode = PostProcessingQueue.CopyMode.KeepStructure;
+			if (batchOutMode.SelectedIndex == 1)
+				PostProcessingQueue.copyMode = PostProcessingQueue.CopyMode.CopyToRoot;
 		}
     }
 }

@@ -123,7 +123,7 @@ namespace Cupscale.Main
             if (outputFormat.Text == ExportFormats.PNG.ToStringTitleCase())
             {
                 //path = Path.ChangeExtension(path, "png");
-                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.PngFast, batchProcessing);
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Png50, batchProcessing);
             }
             if (outputFormat.Text == ExportFormats.SameAsSource.ToStringTitleCase())
                 await ImageProcessing.ConvertImageToOriginalFormat(path, true, false, batchProcessing);
