@@ -15,6 +15,7 @@ using Cupscale.IO;
 using Cupscale.Cupscale;
 using Win32Interop.Structs;
 using Cupscale.ImageUtils;
+using System.Diagnostics;
 
 namespace Cupscale
 {
@@ -63,9 +64,8 @@ namespace Cupscale
 				int percent = (int)Math.Round(prog);
 				if (percent < 0) percent = 0;
 				if (percent > 100) percent = 100;
-				htProgBar.Visible = false;
 				htProgBar.Value = percent;
-				htProgBar.Visible = true;
+				htProgBar.Refresh();
 				lastProg = prog;
 			}
 			if (!string.IsNullOrWhiteSpace(statusText) && lastStatus != statusText)
@@ -253,13 +253,13 @@ namespace Cupscale
 			}
 			File.Copy(path, Paths.tempImgPath, true);
 			bool fillAlpha = !bool.Parse(Config.Get("alpha"));
-			await ImageProcessing.ConvertImage(path, ImageProcessing.Format.PngRaw, fillAlpha, false, false, Paths.tempImgPath);
-			Logger.Log("Done Preprocessing");
+			await ImageProcessing.ConvertImage(path, ImageProcessing.Format.PngRaw, fillAlpha, ImageProcessing.ExtensionMode.UseNew, false, Paths.tempImgPath);
 			previewImg.Image = ImgUtils.GetImage(Paths.tempImgPath);
 			Program.lastFilename = path;
 			MainUIHelper.currentScale = 1;
 			previewImg.ZoomToFit();
 			lastZoom = previewImg.Zoom;
+			SetHasPreview(false);
 			loadingDialogForm.Close();
 			SetProgress(0f, "Ready.");
 		}
@@ -376,16 +376,29 @@ namespace Cupscale
 			openOutFolderBtn.Enabled = true;
 		}
 
-		public void AfterFirstPreview ()
-		{
-			copyCompToClipboardBtn.Enabled = true;
-			savePreviewToFileBtn.Enabled = true;
-		}
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try { Program.Cleanup(); }
 			catch { }                       // This is fine if it fails due to locks, runs on startup anyway.
+		}
+
+		public void SetHasPreview (bool state)
+        {
+			copyCompToClipboardBtn.Enabled = state;
+			savePreviewToFileBtn.Enabled = state;
+			saveMergedPreviewBtn.Enabled = state;
+		}
+
+        private async void saveMergedPreviewBtn_Click(object sender, EventArgs e)
+        {
+			Upscale.currentMode = Upscale.UpscaleMode.Single;
+			string ext = Path.GetExtension(Program.lastFilename);
+			string outPath = Path.ChangeExtension(Program.lastFilename, null) + "[temp]" + ext + ".tmp";
+			previewImg.Image.Save(outPath);
+			await Upscale.PostprocessingSingle(outPath, false);
+			string outFilename = Upscale.FilenamePostprocessingSingle(MainUIHelper.lastOutfile);
+			string finalPath = IOUtils.ReplaceInFilename(outFilename, "[temp]", "");
+			MessageBox.Show("Saved to " + finalPath + ".", "Message");
 		}
     }
 }

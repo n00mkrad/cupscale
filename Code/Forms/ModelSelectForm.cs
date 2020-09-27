@@ -101,5 +101,20 @@ namespace Cupscale.Forms
         {
             confirmBtn.Enabled = (Path.GetExtension(modelTree.SelectedNode.Name) == ".pth");
         }
+
+        private void ModelSelectForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                if(confirmBtn.Enabled)
+                    confirmBtn_Click(null, null);
+            }
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                e.Handled = true;
+                Close();
+            }
+        }
     }
 }

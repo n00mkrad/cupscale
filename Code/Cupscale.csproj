@@ -31,12 +31,12 @@
     <PackageReference Include="CyotekImageBox" Version="1.2.1" />
     <PackageReference Include="CyotekTabList" Version="2.0.0" />
     <PackageReference Include="DdsFileTypePlusHack" Version="1.0.4" />
-    <PackageReference Include="Fody" Version="6.2.5">
+    <PackageReference Include="Fody" Version="6.2.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="HTAlt.WinForms" Version="0.1.6" />
-    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.21.1" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.22.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Magick.NET-Q16-AnyCPU" />

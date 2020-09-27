@@ -87,7 +87,7 @@ namespace Cupscale.Main
         {
             Logger.Log("Preprocessing: " + path);
             bool fillAlpha = !bool.Parse(Config.Get("alpha"));
-            await ImageProcessing.ConvertImages(path, ImageProcessing.Format.PngFast, fillAlpha, true, true);
+            await ImageProcessing.ConvertImages(path, ImageProcessing.Format.PngFast, fillAlpha, ImageProcessing.ExtensionMode.KeepOld, true);
         }
 
         public static async Task Postprocessing()
@@ -122,8 +122,8 @@ namespace Cupscale.Main
 
             if (outputFormat.Text == ExportFormats.PNG.ToStringTitleCase())
             {
-                path = Path.ChangeExtension(path, "png");
-                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Source, batchProcessing);
+                //path = Path.ChangeExtension(path, "png");
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.PngFast, batchProcessing);
             }
             if (outputFormat.Text == ExportFormats.SameAsSource.ToStringTitleCase())
                 await ImageProcessing.ConvertImageToOriginalFormat(path, true, false, batchProcessing);

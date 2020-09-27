@@ -48,6 +48,7 @@ namespace Cupscale.OS
 					Program.mainForm.SetProgress(100f, "Merging into preview...");
 					await Program.PutTaskDelay();
 					PreviewMerger.Merge();
+					Program.mainForm.SetHasPreview(true);
 				}
 				if (mode == PreviewMode.FullImage)
 				{
@@ -60,11 +61,14 @@ namespace Cupscale.OS
 					MainUIHelper.currentOutput = outImg;
 					MainUIHelper.currentScale = ImgUtils.GetScale(inputImg, outImg);
 					MainUIHelper.previewImg.ZoomToFit();
+					Program.mainForm.SetHasPreview(true);
 					Program.mainForm.SetProgress(0f, "Done.");
 				}
 			}
 			catch(Exception e)
             {
+				if(e.Message.Contains("No such file"))
+					MessageBox.Show("The upscale process seems to have exited before completion!", "Error");
 				MessageBox.Show("An error occured during upscaling: \n\n" + e.Message, "Error");
 				Logger.Log("Upscaling Error: " + e.Message + "\n" + e.StackTrace);
 				Program.mainForm.SetProgress(0f, "Cancelled.");

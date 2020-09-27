@@ -65,29 +65,20 @@ namespace Cupscale
             Logger.Log("[gifski] " + outLine.Data);
         }
 
-        /*
         public static string RunAndGetOutput (string args)
         {
-            string ffmpegPath = Paths.GetFfmpegExePath();
-            string ffmpegDir = Paths.GetShippedDataPath();
             Process ffmpeg = new Process();
             ffmpeg.StartInfo.UseShellExecute = false;
             ffmpeg.StartInfo.RedirectStandardOutput = true;
             ffmpeg.StartInfo.RedirectStandardError = true;
             ffmpeg.StartInfo.CreateNoWindow = true;
             ffmpeg.StartInfo.FileName = "cmd.exe";
-            ffmpeg.StartInfo.Arguments = "/C cd /D \"" + ffmpegDir + "\" & ffmpeg.exe -hide_banner -y -stats " + args;
-            //Logger.Log("Running ffmpeg...");
-            //Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
+            ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.WrapPath() + " & ffmpeg.exe -hide_banner -y -stats " + args;
             ffmpeg.Start();
-            //Logger.Log("Done running ffmpeg.");
             ffmpeg.WaitForExit();
             string output = ffmpeg.StandardOutput.ReadToEnd();
-            //Logger.Log(output);
             string err = ffmpeg.StandardError.ReadToEnd();
-            //Logger.Log("ERR: " + err);
             return output + "\n" + err;
         }
-        */
     }
 }

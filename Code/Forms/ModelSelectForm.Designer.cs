@@ -117,9 +117,11 @@
             this.ClientSize = new System.Drawing.Size(720, 720);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Name = "ModelSelectForm";
             this.Text = "ModelSelectForm";
             this.Load += new System.EventHandler(this.ModelSelectForm_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ModelSelectForm_KeyPress);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

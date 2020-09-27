@@ -150,7 +150,6 @@ namespace Cupscale
                 DeleteSource(inputFile);
         }
 
-        /*
         public static float GetFramerate (string inputFile)
         {
             string args = " -i \"INPATH\"";
@@ -169,7 +168,6 @@ namespace Cupscale
             }
             return 0f;
         }
-        */
 
         static void DeleteSource (string path)
         {

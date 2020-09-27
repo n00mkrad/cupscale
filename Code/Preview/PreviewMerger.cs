@@ -30,10 +30,10 @@ namespace Cupscale
 			//MagickImage sourceImg = IOUtils.GetMagickImage(Paths.tempImgPath);
 			Image sourceImg = ImgUtils.GetImage(Paths.tempImgPath);
 			int scale = GetScale();
-			if (sourceImg.Width * scale > 6000 || sourceImg.Height * scale > 6000)
+			if (sourceImg.Width * scale > 16000 || sourceImg.Height * scale > 16000)
             {
 				MergeOnlyCutout();
-				MessageBox.Show("The output image is very large (>6000px), so only the cutout will be shown.", "Warning");
+				MessageBox.Show("The scaled output image is very large (>16000px), so only the cutout will be shown.", "Warning");
 				return;
 			}
 			MergeScrollable();

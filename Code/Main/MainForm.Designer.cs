@@ -101,6 +101,7 @@ namespace Cupscale
             this.label6 = new System.Windows.Forms.Label();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.saveMergedPreviewBtn = new HTAlt.WinForms.HTButton();
             this.openOutFolderBtn = new HTAlt.WinForms.HTButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.postResizeOnlyDownscale = new System.Windows.Forms.CheckBox();
@@ -908,6 +909,7 @@ namespace Cupscale
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.saveMergedPreviewBtn);
             this.panel4.Controls.Add(this.openOutFolderBtn);
             this.panel4.Controls.Add(this.groupBox3);
             this.panel4.Controls.Add(this.groupBox2);
@@ -919,6 +921,23 @@ namespace Cupscale
             this.panel4.Size = new System.Drawing.Size(288, 629);
             this.panel4.TabIndex = 3;
             // 
+            // saveMergedPreviewBtn
+            // 
+            this.saveMergedPreviewBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveMergedPreviewBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.saveMergedPreviewBtn.Enabled = false;
+            this.saveMergedPreviewBtn.FlatAppearance.BorderSize = 0;
+            this.saveMergedPreviewBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveMergedPreviewBtn.ForeColor = System.Drawing.Color.White;
+            this.saveMergedPreviewBtn.Location = new System.Drawing.Point(3, 556);
+            this.saveMergedPreviewBtn.Name = "saveMergedPreviewBtn";
+            this.saveMergedPreviewBtn.Size = new System.Drawing.Size(280, 30);
+            this.saveMergedPreviewBtn.TabIndex = 12;
+            this.saveMergedPreviewBtn.Text = "Save Current Merged Preview";
+            this.saveMergedPreviewBtn.UseVisualStyleBackColor = false;
+            this.saveMergedPreviewBtn.Click += new System.EventHandler(this.saveMergedPreviewBtn_Click);
+            // 
             // openOutFolderBtn
             // 
             this.openOutFolderBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -928,7 +947,7 @@ namespace Cupscale
             this.openOutFolderBtn.FlatAppearance.BorderSize = 0;
             this.openOutFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openOutFolderBtn.ForeColor = System.Drawing.Color.White;
-            this.openOutFolderBtn.Location = new System.Drawing.Point(3, 556);
+            this.openOutFolderBtn.Location = new System.Drawing.Point(3, 520);
             this.openOutFolderBtn.Name = "openOutFolderBtn";
             this.openOutFolderBtn.Size = new System.Drawing.Size(280, 30);
             this.openOutFolderBtn.TabIndex = 11;
@@ -947,7 +966,7 @@ namespace Cupscale
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.postResizeFilter);
             this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(3, 285);
+            this.groupBox3.Location = new System.Drawing.Point(3, 239);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(280, 143);
             this.groupBox3.TabIndex = 10;
@@ -1062,7 +1081,7 @@ namespace Cupscale
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.prevOutputFormatCombox);
             this.groupBox2.ForeColor = System.Drawing.Color.White;
-            this.groupBox2.Location = new System.Drawing.Point(3, 433);
+            this.groupBox2.Location = new System.Drawing.Point(3, 387);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(280, 117);
             this.groupBox2.TabIndex = 9;
@@ -1307,5 +1326,6 @@ namespace Cupscale
         private CheckBox postResizeOnlyDownscale;
         private Panel panel11;
         private HTAlt.WinForms.HTButton openOutFolderBtn;
+        private HTAlt.WinForms.HTButton saveMergedPreviewBtn;
     }
 }

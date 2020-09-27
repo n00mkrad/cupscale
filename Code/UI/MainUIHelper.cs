@@ -3,8 +3,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
-using System.Numerics;
-using System.Security.AccessControl;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cupscale.ImageUtils;
@@ -61,14 +59,25 @@ namespace Cupscale.UI
                 return;
             }
             Upscale.currentMode = Upscale.UpscaleMode.Single;
-            //await ImageProcessing.ConvertImages(Paths.imgInPath, ImageProcessing.Format.PngFast, !Config.GetBool("alpha"), true, true);
-            await ImageProcessing.ConvertImage(inImg, ImageProcessing.Format.PngRaw, !Config.GetBool("alpha"), false);
+            await ImageProcessing.ConvertImage(inImg, ImageProcessing.Format.PngRaw, !Config.GetBool("alpha"), ImageProcessing.ExtensionMode.KeepOld);
             ModelData mdl = Upscale.GetModelData();
-            await ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, true);
-            string outImg = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories)[0];
-            await Upscale.PostprocessingSingle(outImg, false);
-            string outFilename = Upscale.FilenamePostprocessingSingle(lastOutfile);
-            await Upscale.CopyImagesTo(Path.GetDirectoryName(Program.lastFilename));
+            string outImg = null;
+            try
+            {
+                await ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), Config.GetBool("alpha"), ESRGAN.PreviewMode.None, true);
+                outImg = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories)[0];
+                await Upscale.PostprocessingSingle(outImg, false);
+                string outFilename = Upscale.FilenamePostprocessingSingle(lastOutfile);
+                await Upscale.CopyImagesTo(Path.GetDirectoryName(Program.lastFilename));
+            }
+            catch (Exception e)
+            {
+                if (e.StackTrace.Contains("Index"))
+                    MessageBox.Show("The upscale process seems to have exited before completion!", "Error");
+                MessageBox.Show("An error occured during upscaling: \n\n" + e.Message, "Error");
+                Logger.Log("Upscaling Error: " + e.Message + "\n" + e.StackTrace);
+                Program.mainForm.SetProgress(0f, "Cancelled.");
+            }
             Program.mainForm.SetProgress(0, "Done.");
             Program.mainForm.SetBusy(false);
         }
@@ -163,7 +172,6 @@ namespace Cupscale.UI
                 ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
                 await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), prevMode, false);
             }
-            Program.mainForm.AfterFirstPreview();
             Program.mainForm.SetBusy(false);
         }
 
