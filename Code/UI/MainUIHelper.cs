@@ -33,7 +33,7 @@ namespace Cupscale.UI
         public static Image currentOriginal;
         public static Image currentOutput;
 
-        public static int currentScale = 1;
+        public static float currentScale = 1;
 
         public static void Init(ImageBox imgBox, Button model1Btn, Button model2Btn, ComboBox formatBox, ComboBox overwriteBox)
         {
@@ -59,15 +59,15 @@ namespace Cupscale.UI
                 return;
             }
             Upscale.currentMode = Upscale.UpscaleMode.Single;
-            await ImageProcessing.ConvertImage(inImg, ImageProcessing.Format.PngRaw, !Config.GetBool("alpha"), ImageProcessing.ExtensionMode.KeepOld);
+            await ImageProcessing.PreProcessImage(inImg, !Config.GetBool("alpha"));
             ModelData mdl = Upscale.GetModelData();
             string outImg = null;
             try
             {
-                await ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), Config.GetBool("alpha"), ESRGAN.PreviewMode.None, true);
+                await ESRGAN.Upscale(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), Config.GetBool("alpha"), ESRGAN.PreviewMode.None, true);
                 outImg = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories)[0];
                 await Upscale.PostprocessingSingle(outImg, false);
-                string outFilename = Upscale.FilenamePostprocessingSingle(lastOutfile);
+                string outFilename = Upscale.FilenamePostprocess(lastOutfile);
                 await Upscale.CopyImagesTo(Path.GetDirectoryName(Program.lastFilename));
             }
             catch (Exception e)
@@ -93,7 +93,7 @@ namespace Cupscale.UI
                 File.Move(inputImgPath, Program.lastFilename);
         }
 
-        public static bool HasValidModelSelection ()
+        public static bool HasValidModelSelection()
         {
             bool valid = true;
             if (model1.Enabled && !File.Exists(Program.currentModel1))
@@ -142,19 +142,20 @@ namespace Cupscale.UI
             {
                 prevMode = ESRGAN.PreviewMode.FullImage;
                 if (!IOUtils.TryCopy(Paths.tempImgPath, Path.Combine(Paths.previewPath, "preview.png"), true)) return;
-                //currentOriginal.Save(Path.Combine(Paths.previewPath, "preview.png"));
             }
             else
             {
                 SaveCurrentCutout();
             }
-            await Upscale.Preprocessing(Paths.previewPath);
+            await ImageProcessing.PreProcessImages(Paths.previewPath, !bool.Parse(Config.Get("alpha")));
+            string tilesize = Config.Get("tilesize");
+            bool alpha = bool.Parse(Config.Get("alpha"));
             if (currentMode == Mode.Single)
             {
                 string mdl1 = Program.currentModel1;
                 if (string.IsNullOrWhiteSpace(mdl1)) return;
                 ModelData mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
-                await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), prevMode, false);
+                await ESRGAN.Upscale(Paths.previewPath, Paths.previewOutPath, mdl, tilesize, alpha, prevMode, false);
             }
             if (currentMode == Mode.Interp)
             {
@@ -162,7 +163,7 @@ namespace Cupscale.UI
                 string mdl2 = Program.currentModel2;
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
                 ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
-                await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), prevMode, false);
+                await ESRGAN.Upscale(Paths.previewPath, Paths.previewOutPath, mdl, tilesize, alpha, prevMode, false);
             }
             if (currentMode == Mode.Chain)
             {
@@ -170,11 +171,10 @@ namespace Cupscale.UI
                 string mdl2 = Program.currentModel2;
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
                 ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
-                await ESRGAN.UpscaleBasic(Paths.previewPath, Paths.previewOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), prevMode, false);
+                await ESRGAN.Upscale(Paths.previewPath, Paths.previewOutPath, mdl, tilesize, alpha, prevMode, false);
             }
             Program.mainForm.SetBusy(false);
         }
-
 
         public static void SaveCurrentCutout()
         {
@@ -236,12 +236,13 @@ namespace Cupscale.UI
 
         public static void UpdatePreviewLabels(Label zoom, Label size, Label cutout)
         {
-            int currScale = currentScale;
+            float scale = currentScale;
             int cutoutW = (int)GetCutoutSize().Width;
             int cutoutH = (int)GetCutoutSize().Height;
-            zoom.Text = "Zoom: " + previewImg.Zoom + "% (Original: " + previewImg.Zoom * currScale + "%)";
-            size.Text = "Size: " + previewImg.Image.Width + "x" + previewImg.Image.Height + " (Original: " + previewImg.Image.Width / currScale + "x" + previewImg.Image.Height / currScale + ")";
-            cutout.Text = "Cutout: " + cutoutW + "x" + cutoutH + " (Original: " + cutoutW / currScale + "x" + cutoutH / currScale + ")";// + "% - Unscaled Size: " + previewImg.Image.Size * currScale + "%";
+
+            zoom.Text = "Zoom: " + previewImg.Zoom + "% (Original: " + (previewImg.Zoom * scale).RoundToInt() + "%)";
+            size.Text = "Size: " + previewImg.Image.Width + "x" + previewImg.Image.Height + " (Original: " + (previewImg.Image.Width / scale).RoundToInt() + "x" + (previewImg.Image.Height / scale).RoundToInt() + ")";
+            cutout.Text = "Cutout: " + cutoutW + "x" + cutoutH + " (Original: " + (cutoutW / scale).RoundToInt() + "x" + (cutoutH / scale).RoundToInt() + ")";
         }
 
         public static bool DroppedImageIsValid(string path)
@@ -263,9 +264,9 @@ namespace Cupscale.UI
             return true;
         }
 
-        public static void OpenLastOutputFolder ()
+        public static void OpenLastOutputFolder()
         {
-            if(!string.IsNullOrWhiteSpace(Program.lastOutputDir))
+            if (!string.IsNullOrWhiteSpace(Program.lastOutputDir))
                 Process.Start("explorer.exe", Program.lastOutputDir);
         }
     }

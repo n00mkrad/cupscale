@@ -83,35 +83,6 @@ namespace Cupscale.Main
             return mdl;
         }
 
-        public static async Task Preprocessing (string path)
-        {
-            Logger.Log("Preprocessing: " + path);
-            bool fillAlpha = !bool.Parse(Config.Get("alpha"));
-            await ImageProcessing.ConvertImages(path, ImageProcessing.Format.PngFast, fillAlpha, ImageProcessing.ExtensionMode.KeepOld, true);
-        }
-
-        public static async Task Postprocessing()
-        {
-            Program.mainForm.SetProgress(100f, "Postprocessing...");
-            if (outputFormat.Text == ExportFormats.PNG.ToStringTitleCase())
-            {
-                ImageProcessing.ChangeOutputExtensions("png");
-                await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.Source);
-            }
-            if (outputFormat.Text == ExportFormats.SameAsSource.ToStringTitleCase())
-                await ImageProcessing.ConvertImagesToOriginalFormat(true);
-            if (outputFormat.Text == ExportFormats.JPEG.ToStringTitleCase())
-                await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.Jpeg);
-            if (outputFormat.Text == ExportFormats.WEBP.ToStringTitleCase())
-                await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.Weppy);
-            if (outputFormat.Text == ExportFormats.BMP.ToStringTitleCase())
-                await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.BMP);
-            if (outputFormat.Text == ExportFormats.TGA.ToStringTitleCase())
-                await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.TGA);
-            if (outputFormat.Text == ExportFormats.DDS.ToStringTitleCase())
-                await ImageProcessing.PostProcess(Paths.imgOutPath, ImageProcessing.Format.DDS);
-        }
-
         public static async Task PostprocessingSingle (string path, bool batchProcessing)
         {
             Logger.Log("PostprocessingSingle: " + path);
@@ -139,15 +110,7 @@ namespace Cupscale.Main
                 await ImageProcessing.PostProcessDDS(path);
         }
 
-        public static async Task FilenamePostprocessing ()
-        {
-            await AddModelSuffix(Paths.imgOutPath);
-            IOUtils.DeleteFilesWithoutExt(Paths.imgOutPath, true);
-            IOUtils.RenameExtensions(Paths.imgOutPath, "jpg", Config.Get("jpegExtension"));
-            await Program.PutTaskDelay();
-        }
-
-        public static string FilenamePostprocessingSingle(string file)
+        public static string FilenamePostprocess(string file)
         {
             string newFilename = file;
 
@@ -157,18 +120,6 @@ namespace Cupscale.Main
             newFilename = pathNoExt + "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+") + ext;
             File.Move(file, newFilename);
             newFilename = IOUtils.RenameExtension(newFilename, "jpg", Config.Get("jpegExtension"));
-
-            /*
-            if (overwriteMode == Overwrite.Yes)
-            {
-                Logger.Log("Overwrite mode - removing suffix from filenames");
-                newFilename = IOUtils.ReplaceInFilename(newFilename, "-" + Program.lastModelName, "");
-            }
-            else
-            {
-                Logger.Log("Overwrite is off - keeping suffix.");
-            }
-            */
 
             return newFilename;
         }

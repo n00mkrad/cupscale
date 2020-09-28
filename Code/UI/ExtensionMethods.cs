@@ -89,5 +89,10 @@ namespace Cupscale.UI
 			string filename = Path.GetFileName(path);
 			return Path.Combine(parentDir, filename.Replace(find, replaceWith));
 		}
+
+		public static int RoundToInt (this float f)
+        {
+			return (int)Math.Round(f);
+        }
 	}
 }

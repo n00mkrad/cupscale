@@ -19,106 +19,41 @@ namespace Cupscale
     {
         public enum Format { Source, Png50, PngFast, PngRaw, Jpeg, Weppy, BMP, TGA, DDS }
 
-        public static Upscale.Filter currentFilter = Upscale.Filter.Mitchell;
-        public static Upscale.ScaleMode currentScaleMode = Upscale.ScaleMode.Percent;
-        public static int currentScaleValue = 100;
-        public static bool onlyDownscale = true;
+        public static Upscale.Filter postFilter = Upscale.Filter.Mitchell;
+        public static Upscale.ScaleMode postScaleMode = Upscale.ScaleMode.Percent;
+        public static int postScaleValue = 100;
+        public static bool postOnlyDownscale = true;
 
-        public static void ChangeOutputExtensions(string newExtension)
-        {
-            string path = Paths.imgOutPath;
-            DirectoryInfo d = new DirectoryInfo(path);
-            FileInfo[] files = d.GetFiles("*", SearchOption.AllDirectories);
-            foreach (FileInfo file in files)
-            {
-                string targetPath = file.FullName.Substring(0, file.FullName.Length - 4);
-                if (File.Exists(targetPath)) File.Delete(targetPath);
-                file.MoveTo(targetPath);
-            }
-            files = d.GetFiles("*", SearchOption.AllDirectories);
-            foreach (FileInfo file2 in files)
-            {
-                string targetPath = Path.ChangeExtension(file2.FullName, newExtension);
-                if (File.Exists(targetPath)) File.Delete(targetPath);
-                file2.MoveTo(targetPath);
-            }
-        }
-
-        public static async Task ConvertImagesToOriginalFormat(bool postprocess, bool setProgress = true)
-        {
-            string path = Paths.imgOutPath;
-            DirectoryInfo d = new DirectoryInfo(path);
-            FileInfo[] files = d.GetFiles("*", SearchOption.AllDirectories);
-            foreach (FileInfo file in files)
-            {
-                file.MoveTo(file.FullName.Substring(0, file.FullName.Length - 4));
-            }
-            files = d.GetFiles("*", SearchOption.AllDirectories);
-            int i = 1;
-            foreach (FileInfo file2 in files)
-            {
-                if (GetTrimmedExtension(file2) == "png")
-                    break;
-                Format format = Format.Png50;
-
-                if (GetTrimmedExtension(file2) == "jpg" || GetTrimmedExtension(file2) == "jpeg")
-                    format = Format.Jpeg;
-
-                if (GetTrimmedExtension(file2) == "webp")
-                    format = Format.Weppy;
-
-                if (GetTrimmedExtension(file2) == "bmp")
-                    format = Format.BMP;
-
-                if (GetTrimmedExtension(file2) == "tga")
-                    format = Format.TGA;
-
-                if (GetTrimmedExtension(file2) == "dds")
-                    format = Format.DDS;
-
-                if (setProgress)
-                    Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Processing " + file2.Name);
-
-                if (postprocess)
-                    await PostProcessImage(file2.FullName, format, false);
-                else
-                    await ConvertImage(file2.FullName, format, false, ExtensionMode.UseNew, true);
-
-                i++;
-            }
-        }
+        public static Upscale.Filter preFilter = Upscale.Filter.Mitchell;
+        public static Upscale.ScaleMode preScaleMode = Upscale.ScaleMode.Percent;
+        public static int preScaleValue = 100;
+        public static bool preOnlyDownscale = true;
 
         public static async Task ConvertImageToOriginalFormat(string path, bool postprocess, bool batchProcessing, bool setProgress = true)
         {
-            FileInfo file2 = new FileInfo(path);
-            //string newPath = file.FullName.Substring(0, file.FullName.Length - 4);
-            //file.MoveTo(newPath);
-            //FileInfo file2 = new FileInfo(newPath);
-
-            //if (GetTrimmedExtension(file2) == "png")
-            //break;
+            FileInfo file = new FileInfo(path);
 
             Format format = Format.Png50;
 
-            if (GetTrimmedExtension(file2) == "jpg" || GetTrimmedExtension(file2) == "jpeg")
+            if (GetTrimmedExtension(file) == "jpg" || GetTrimmedExtension(file) == "jpeg")
                 format = Format.Jpeg;
 
-            if (GetTrimmedExtension(file2) == "webp")
+            if (GetTrimmedExtension(file) == "webp")
                 format = Format.Weppy;
 
-            if (GetTrimmedExtension(file2) == "bmp")
+            if (GetTrimmedExtension(file) == "bmp")
                 format = Format.BMP;
 
-            if (GetTrimmedExtension(file2) == "tga")
+            if (GetTrimmedExtension(file) == "tga")
                 format = Format.TGA;
 
-            if (GetTrimmedExtension(file2) == "dds")
+            if (GetTrimmedExtension(file) == "dds")
                 format = Format.DDS;
 
             if (postprocess)
-                await PostProcessImage(file2.FullName, format, batchProcessing);
+                await PostProcessImage(file.FullName, format, batchProcessing);
             else
-                await ConvertImage(file2.FullName, format, false, ExtensionMode.UseNew, true);
+                await ConvertImage(file.FullName, format, false, ExtensionMode.UseNew, true);
         }
 
         private static string GetTrimmedExtension(FileInfo file)
@@ -126,7 +61,7 @@ namespace Cupscale
             return file.Extension.ToLower().Replace(".", "");
         }
 
-        public static async Task ConvertImages(string path, Format format, bool removeAlpha, ExtensionMode extMode, bool delSource = true)
+        public static async Task PreProcessImages(string path, bool fillAlpha)
         {
             DirectoryInfo d = new DirectoryInfo(path);
             FileInfo[] files = d.GetFiles("*", SearchOption.AllDirectories);
@@ -134,10 +69,36 @@ namespace Cupscale
             foreach (FileInfo file in files)
             {
                 Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Processing " + file.Name);
-                await ConvertImage(file.FullName, format, removeAlpha, extMode, delSource);
+                await PreProcessImage(file.FullName, fillAlpha);
                 i++;
             }
-            Logger.Log("Done converting images");
+            Logger.Log("Done pre-processing images");
+        }
+
+        public static async Task PreProcessImage(string path, bool fillAlpha)
+        {
+            MagickImage img = ImgUtils.GetMagickImage(path);
+            img.Format = MagickFormat.Png;
+            img.Quality = 20;
+
+            if (fillAlpha)
+            {
+                img.Settings.BackgroundColor = new MagickColor("#" + Config.Get("alphaBgColor"));
+                img.Alpha(AlphaOption.Remove);
+            }
+
+            img = ResizeImagePre(img);
+
+            await Task.Delay(1);
+            string outPath = Path.ChangeExtension(img.FileName, "png");
+
+            img.Write(outPath);
+
+            if (outPath != path)
+            {
+                Logger.Log("Deleting source file: " + path);
+                File.Delete(path);
+            }
         }
 
         public enum ExtensionMode { UseNew, KeepOld, AppendNew }
@@ -199,9 +160,6 @@ namespace Cupscale
                 img.Alpha(AlphaOption.Remove);
             }
 
-            //if (extMode == ExtensionMode.KeepOld || extMode == ExtensionMode.AppendNew)
-                //newExt = Path.GetExtension(path).Replace(".", "");
-
             string outPath = null;
 
             if (extMode == ExtensionMode.UseNew)
@@ -226,24 +184,8 @@ namespace Cupscale
             await Task.Delay(1);
         }
 
-        public static async Task PostProcess(string path, Format format)
-        {
-            DirectoryInfo d = new DirectoryInfo(path);
-            FileInfo[] files = d.GetFiles("*", SearchOption.AllDirectories);
-            int i = 1;
-            foreach (FileInfo file in files)
-            {
-                Logger.Log("Post-Processing " + file.Name);
-                Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Processing " + file.Name);
-                await PostProcessImage(file.FullName, format, false);
-                i++;
-            }
-            Logger.Log("Done post-processing.");
-        }
-
         public static async Task PostProcessImage(string path, Format format, bool batchProcessing = false)
         {
-            Logger.Log("PostProcess: Loading MagickImage from " + path);
             MagickImage img = ImgUtils.GetMagickImage(path);
             string ext = "png";
             if (format == Format.Source)
@@ -280,8 +222,8 @@ namespace Cupscale
                 img.Format = MagickFormat.Tga;
                 ext = "tga";
             }
-            if (!(currentScaleMode == Upscale.ScaleMode.Percent && currentScaleValue == 100))   // Skip if target scale is 100%
-                img = ResizeImage(img, currentScaleValue, currentScaleMode, currentFilter, onlyDownscale);
+
+            img = ResizeImagePost(img);
 
             await Task.Delay(1);
             string outPath = Path.ChangeExtension(img.FileName, ext);
@@ -307,8 +249,7 @@ namespace Cupscale
             MagickImage img = ImgUtils.GetMagickImage(path);
             string ext = "dds";
 
-            if (!(currentScaleMode == Upscale.ScaleMode.Percent && currentScaleValue == 100))   // Skip if target scale is 100%
-                img = ResizeImage(img, currentScaleValue, currentScaleMode, currentFilter, onlyDownscale);
+            img = ResizeImagePost(img);
 
             img.Format = MagickFormat.Png00;
             img.Write(path);
@@ -328,6 +269,21 @@ namespace Cupscale
                 Logger.Log("Deleting source file: " + path);
                 File.Delete(path);
             }
+        }
+
+        public static MagickImage ResizeImagePre(MagickImage img)
+        {
+            if (!(preScaleMode == Upscale.ScaleMode.Percent && preScaleValue == 100))   // Skip if target scale is 100%
+                img = ResizeImage(img, preScaleValue, preScaleMode, preFilter, preOnlyDownscale);
+            return img;
+        }
+
+        public static MagickImage ResizeImagePost(MagickImage img)
+        {
+            if (!(postScaleMode == Upscale.ScaleMode.Percent && postScaleValue == 100))   // Skip if target scale is 100%
+                img = ResizeImage(img, postScaleValue, postScaleMode, postFilter, postOnlyDownscale);
+            Logger.Log("ResizeImagePost: Resized to " + img.Width + "x" + img.Height);
+            return img;
         }
 
         public static MagickImage ResizeImage(MagickImage img, int scaleValue, Upscale.ScaleMode scaleMode, Upscale.Filter filter, bool onlyDownscale)

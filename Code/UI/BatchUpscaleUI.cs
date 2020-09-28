@@ -97,14 +97,14 @@ namespace Cupscale.UI
             Directory.CreateDirectory(outDir.Text.Trim());
             await CopyCompatibleImagesToTemp();
             Program.mainForm.SetProgress(0f, "Pre-Processing...");
-            await Upscale.Preprocessing(Paths.imgInPath);
+            await ImageProcessing.PreProcessImages(Paths.imgInPath, !bool.Parse(Config.Get("alpha")));
             ModelData mdl = Upscale.GetModelData();
             GetProgress(Paths.imgOutPath, IOUtils.GetAmountOfFiles(Paths.imgInPath, true));
 
             PostProcessingQueue.Start(outDir.Text.Trim());
 
             List<Task> tasks = new List<Task>();
-            tasks.Add(ESRGAN.UpscaleBasic(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, true, false));
+            tasks.Add(ESRGAN.Upscale(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, true, false));
             tasks.Add(PostProcessingQueue.Update());
             tasks.Add(PostProcessingQueue.ProcessQueue());
 

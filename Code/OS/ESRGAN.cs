@@ -4,6 +4,7 @@ using Cupscale.ImageUtils;
 using Cupscale.IO;
 using Cupscale.Main;
 using Cupscale.UI;
+using ImageMagick;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -11,6 +12,7 @@ using System.IO;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Paths = Cupscale.IO.Paths;
 
 namespace Cupscale.OS
 {
@@ -21,7 +23,7 @@ namespace Cupscale.OS
 		public enum PreviewMode { None, Cutout, FullImage }
 		
 
-		public static async Task UpscaleBasic(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, bool allowNcnn, bool showTileProgress = true)
+		public static async Task Upscale(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, bool allowNcnn, bool showTileProgress = true)
 		{
             try
             {
@@ -45,6 +47,7 @@ namespace Cupscale.OS
 				
 				if (mode == PreviewMode.Cutout)
 				{
+					await ScalePreviewOutput();
 					Program.mainForm.SetProgress(100f, "Merging into preview...");
 					await Program.PutTaskDelay();
 					PreviewMerger.Merge();
@@ -52,6 +55,7 @@ namespace Cupscale.OS
 				}
 				if (mode == PreviewMode.FullImage)
 				{
+					await ScalePreviewOutput();
 					Program.mainForm.SetProgress(100f, "Merging into preview...");
 					await Program.PutTaskDelay();
 					Image outImg = ImgUtils.GetImage(Path.Combine(Paths.previewOutPath, "preview.png.tmp"));
@@ -59,7 +63,7 @@ namespace Cupscale.OS
 					MainUIHelper.previewImg.Image = outImg;
 					MainUIHelper.currentOriginal = inputImg;
 					MainUIHelper.currentOutput = outImg;
-					MainUIHelper.currentScale = ImgUtils.GetScale(inputImg, outImg);
+					MainUIHelper.currentScale = ImgUtils.GetScaleFloat(inputImg, outImg);
 					MainUIHelper.previewImg.ZoomToFit();
 					Program.mainForm.SetHasPreview(true);
 					Program.mainForm.SetProgress(0f, "Done.");
@@ -75,6 +79,15 @@ namespace Cupscale.OS
 			}
 			
 		}
+
+		public static async Task ScalePreviewOutput ()
+        {
+			Program.mainForm.SetProgress(1f, "Resizing preview output...");
+			await Task.Delay(1);
+			MagickImage img = ImgUtils.GetMagickImage(Path.Combine(Paths.previewOutPath, "preview.png.tmp"));
+			img = ImageProcessing.ResizeImagePost(img);
+			img.Write(img.FileName);
+        }
 
 		public static string GetModelArg (ModelData mdl)
         {
@@ -133,11 +146,11 @@ namespace Cupscale.OS
 					await UpdateProgressFromFile();
 				await Task.Delay(100);
 			}
-			if(Upscale.currentMode == Upscale.UpscaleMode.Batch)
+			if(Main.Upscale.currentMode == Main.Upscale.UpscaleMode.Batch)
             {
 				await Task.Delay(1000);
-				Program.mainForm.SetProgress(100f, "Post-Processing...");
-				PostProcessingQueue.Stop();
+                Program.mainForm.SetProgress(100f, "Post-Processing...");
+                PostProcessingQueue.Stop();
 			}
 			File.Delete(Paths.progressLogfile);
 		}
@@ -224,11 +237,11 @@ namespace Cupscale.OS
 			{
 				await Task.Delay(100);
 			}
-			if (Upscale.currentMode == Upscale.UpscaleMode.Batch)
+			if (Main.Upscale.currentMode == Main.Upscale.UpscaleMode.Batch)
 			{
 				await Task.Delay(1000);
-				Program.mainForm.SetProgress(100f, "Post-Processing...");
-				PostProcessingQueue.Stop();
+                Program.mainForm.SetProgress(100f, "Post-Processing...");
+                PostProcessingQueue.Stop();
 			}
 			File.Delete(Paths.progressLogfile);
 		}

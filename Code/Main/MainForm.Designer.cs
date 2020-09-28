@@ -126,6 +126,16 @@ namespace Cupscale
             this.panel7 = new System.Windows.Forms.Panel();
             this.settingsBtn = new HTAlt.WinForms.HTButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.label21 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.preResizeOnlyDownscale = new System.Windows.Forms.CheckBox();
+            this.preResizeMode = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.preResizeScale = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.preResizeFilter = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -152,6 +162,9 @@ namespace Cupscale
             this.groupBox2.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.panel13.SuspendLayout();
+            this.panel14.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // leftPanel
@@ -216,7 +229,7 @@ namespace Cupscale
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1264, 681);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1264, 921);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -224,14 +237,17 @@ namespace Cupscale
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.panel5, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.panel13, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 43);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 635);
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 875);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
             // panel5
@@ -250,7 +266,7 @@ namespace Cupscale
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(338, 311);
+            this.panel5.Size = new System.Drawing.Size(338, 285);
             this.panel5.TabIndex = 1;
             // 
             // model2TreeBtn
@@ -261,7 +277,7 @@ namespace Cupscale
             this.model2TreeBtn.Enabled = false;
             this.model2TreeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.model2TreeBtn.ForeColor = System.Drawing.Color.White;
-            this.model2TreeBtn.Location = new System.Drawing.Point(6, 278);
+            this.model2TreeBtn.Location = new System.Drawing.Point(6, 252);
             this.model2TreeBtn.Margin = new System.Windows.Forms.Padding(8);
             this.model2TreeBtn.Name = "model2TreeBtn";
             this.model2TreeBtn.Size = new System.Drawing.Size(322, 23);
@@ -278,7 +294,7 @@ namespace Cupscale
             this.model1TreeBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.model1TreeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.model1TreeBtn.ForeColor = System.Drawing.Color.White;
-            this.model1TreeBtn.Location = new System.Drawing.Point(6, 228);
+            this.model1TreeBtn.Location = new System.Drawing.Point(6, 202);
             this.model1TreeBtn.Margin = new System.Windows.Forms.Padding(8);
             this.model1TreeBtn.Name = "model1TreeBtn";
             this.model1TreeBtn.Size = new System.Drawing.Size(322, 23);
@@ -295,7 +311,7 @@ namespace Cupscale
             this.interpConfigureBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.interpConfigureBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.interpConfigureBtn.ForeColor = System.Drawing.Color.White;
-            this.interpConfigureBtn.Location = new System.Drawing.Point(199, 125);
+            this.interpConfigureBtn.Location = new System.Drawing.Point(199, 99);
             this.interpConfigureBtn.Name = "interpConfigureBtn";
             this.interpConfigureBtn.Size = new System.Drawing.Size(129, 23);
             this.interpConfigureBtn.TabIndex = 16;
@@ -311,7 +327,7 @@ namespace Cupscale
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(5, 86);
+            this.label4.Location = new System.Drawing.Point(5, 60);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 15;
@@ -323,7 +339,7 @@ namespace Cupscale
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chainRbtn.AutoSize = true;
             this.chainRbtn.ForeColor = System.Drawing.Color.White;
-            this.chainRbtn.Location = new System.Drawing.Point(12, 151);
+            this.chainRbtn.Location = new System.Drawing.Point(12, 125);
             this.chainRbtn.Name = "chainRbtn";
             this.chainRbtn.Size = new System.Drawing.Size(113, 17);
             this.chainRbtn.TabIndex = 14;
@@ -337,7 +353,7 @@ namespace Cupscale
             | System.Windows.Forms.AnchorStyles.Right)));
             this.interpRbtn.AutoSize = true;
             this.interpRbtn.ForeColor = System.Drawing.Color.White;
-            this.interpRbtn.Location = new System.Drawing.Point(12, 128);
+            this.interpRbtn.Location = new System.Drawing.Point(12, 102);
             this.interpRbtn.Name = "interpRbtn";
             this.interpRbtn.Size = new System.Drawing.Size(181, 17);
             this.interpRbtn.TabIndex = 13;
@@ -352,7 +368,7 @@ namespace Cupscale
             this.singleModelRbtn.AutoSize = true;
             this.singleModelRbtn.Checked = true;
             this.singleModelRbtn.ForeColor = System.Drawing.Color.White;
-            this.singleModelRbtn.Location = new System.Drawing.Point(12, 105);
+            this.singleModelRbtn.Location = new System.Drawing.Point(12, 79);
             this.singleModelRbtn.Name = "singleModelRbtn";
             this.singleModelRbtn.Size = new System.Drawing.Size(108, 17);
             this.singleModelRbtn.TabIndex = 12;
@@ -367,7 +383,7 @@ namespace Cupscale
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
             this.label16.ForeColor = System.Drawing.Color.White;
-            this.label16.Location = new System.Drawing.Point(6, 259);
+            this.label16.Location = new System.Drawing.Point(6, 233);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(48, 13);
             this.label16.TabIndex = 9;
@@ -379,7 +395,7 @@ namespace Cupscale
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
             this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(6, 207);
+            this.label14.Location = new System.Drawing.Point(6, 181);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(48, 13);
             this.label14.TabIndex = 8;
@@ -406,9 +422,9 @@ namespace Cupscale
             this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 320);
+            this.panel3.Location = new System.Drawing.Point(3, 585);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(338, 312);
+            this.panel3.Size = new System.Drawing.Size(338, 287);
             this.panel3.TabIndex = 0;
             // 
             // refreshPreviewCutoutBtn
@@ -419,7 +435,7 @@ namespace Cupscale
             this.refreshPreviewCutoutBtn.FlatAppearance.BorderSize = 0;
             this.refreshPreviewCutoutBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refreshPreviewCutoutBtn.ForeColor = System.Drawing.Color.White;
-            this.refreshPreviewCutoutBtn.Location = new System.Drawing.Point(171, 275);
+            this.refreshPreviewCutoutBtn.Location = new System.Drawing.Point(171, 250);
             this.refreshPreviewCutoutBtn.Name = "refreshPreviewCutoutBtn";
             this.refreshPreviewCutoutBtn.Size = new System.Drawing.Size(162, 30);
             this.refreshPreviewCutoutBtn.TabIndex = 11;
@@ -435,7 +451,7 @@ namespace Cupscale
             this.refreshPreviewFullBtn.FlatAppearance.BorderSize = 0;
             this.refreshPreviewFullBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refreshPreviewFullBtn.ForeColor = System.Drawing.Color.White;
-            this.refreshPreviewFullBtn.Location = new System.Drawing.Point(3, 275);
+            this.refreshPreviewFullBtn.Location = new System.Drawing.Point(3, 250);
             this.refreshPreviewFullBtn.Name = "refreshPreviewFullBtn";
             this.refreshPreviewFullBtn.Size = new System.Drawing.Size(162, 30);
             this.refreshPreviewFullBtn.TabIndex = 10;
@@ -451,7 +467,7 @@ namespace Cupscale
             this.prevToggleFilterBtn.FlatAppearance.BorderSize = 0;
             this.prevToggleFilterBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.prevToggleFilterBtn.ForeColor = System.Drawing.Color.White;
-            this.prevToggleFilterBtn.Location = new System.Drawing.Point(3, 241);
+            this.prevToggleFilterBtn.Location = new System.Drawing.Point(3, 216);
             this.prevToggleFilterBtn.Name = "prevToggleFilterBtn";
             this.prevToggleFilterBtn.Size = new System.Drawing.Size(330, 30);
             this.prevToggleFilterBtn.TabIndex = 9;
@@ -467,7 +483,7 @@ namespace Cupscale
             this.groupBox1.Controls.Add(this.prevSizeLabel);
             this.groupBox1.Controls.Add(this.prevZoomLabel);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(3, 67);
+            this.groupBox1.Location = new System.Drawing.Point(3, 42);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(330, 69);
             this.groupBox1.TabIndex = 6;
@@ -510,7 +526,7 @@ namespace Cupscale
             this.previewGroupbox.Controls.Add(this.label12);
             this.previewGroupbox.Controls.Add(this.prevClipboardTypeCombox);
             this.previewGroupbox.ForeColor = System.Drawing.Color.White;
-            this.previewGroupbox.Location = new System.Drawing.Point(3, 142);
+            this.previewGroupbox.Location = new System.Drawing.Point(3, 117);
             this.previewGroupbox.Name = "previewGroupbox";
             this.previewGroupbox.Size = new System.Drawing.Size(330, 93);
             this.previewGroupbox.TabIndex = 5;
@@ -587,7 +603,7 @@ namespace Cupscale
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(3, 387);
+            this.button1.Location = new System.Drawing.Point(3, 362);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(397, 30);
             this.button1.TabIndex = 1;
@@ -616,7 +632,7 @@ namespace Cupscale
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(608, 635);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(608, 875);
             this.tableLayoutPanel4.TabIndex = 5;
             // 
             // tableLayoutPanel5
@@ -627,7 +643,7 @@ namespace Cupscale
             this.tableLayoutPanel5.Controls.Add(this.htProgBar, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.panel11, 0, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 613);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 853);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -687,7 +703,7 @@ namespace Cupscale
             this.htTabControl.SelectedIndex = 0;
             this.htTabControl.SelectedTabButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(151)))), ((int)(((byte)(234)))));
             this.htTabControl.SelectedTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.htTabControl.Size = new System.Drawing.Size(602, 604);
+            this.htTabControl.Size = new System.Drawing.Size(602, 844);
             this.htTabControl.TabIndex = 2;
             this.htTabControl.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.htTabControl.UnderBorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
@@ -703,7 +719,7 @@ namespace Cupscale
             this.previewTab.Location = new System.Drawing.Point(4, 27);
             this.previewTab.Name = "previewTab";
             this.previewTab.Padding = new System.Windows.Forms.Padding(3);
-            this.previewTab.Size = new System.Drawing.Size(594, 573);
+            this.previewTab.Size = new System.Drawing.Size(594, 813);
             this.previewTab.TabIndex = 0;
             this.previewTab.Text = "Preview Image";
             // 
@@ -719,7 +735,7 @@ namespace Cupscale
             this.previewImg.GridScale = Cyotek.Windows.Forms.ImageBoxGridScale.Medium;
             this.previewImg.Location = new System.Drawing.Point(3, 3);
             this.previewImg.Name = "previewImg";
-            this.previewImg.Size = new System.Drawing.Size(588, 567);
+            this.previewImg.Size = new System.Drawing.Size(588, 807);
             this.previewImg.TabIndex = 0;
             this.previewImg.TabStop = false;
             this.previewImg.Text = "Drag And Drop An Image Or A Folder Into This Area";
@@ -963,7 +979,7 @@ namespace Cupscale
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(294, 635);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(294, 875);
             this.tableLayoutPanel6.TabIndex = 6;
             // 
             // panel4
@@ -978,7 +994,7 @@ namespace Cupscale
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(288, 629);
+            this.panel4.Size = new System.Drawing.Size(288, 869);
             this.panel4.TabIndex = 3;
             // 
             // saveMergedPreviewBtn
@@ -990,7 +1006,7 @@ namespace Cupscale
             this.saveMergedPreviewBtn.FlatAppearance.BorderSize = 0;
             this.saveMergedPreviewBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveMergedPreviewBtn.ForeColor = System.Drawing.Color.White;
-            this.saveMergedPreviewBtn.Location = new System.Drawing.Point(3, 556);
+            this.saveMergedPreviewBtn.Location = new System.Drawing.Point(3, 796);
             this.saveMergedPreviewBtn.Name = "saveMergedPreviewBtn";
             this.saveMergedPreviewBtn.Size = new System.Drawing.Size(280, 30);
             this.saveMergedPreviewBtn.TabIndex = 12;
@@ -1007,7 +1023,7 @@ namespace Cupscale
             this.openOutFolderBtn.FlatAppearance.BorderSize = 0;
             this.openOutFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openOutFolderBtn.ForeColor = System.Drawing.Color.White;
-            this.openOutFolderBtn.Location = new System.Drawing.Point(3, 520);
+            this.openOutFolderBtn.Location = new System.Drawing.Point(3, 760);
             this.openOutFolderBtn.Name = "openOutFolderBtn";
             this.openOutFolderBtn.Size = new System.Drawing.Size(280, 30);
             this.openOutFolderBtn.TabIndex = 11;
@@ -1026,7 +1042,7 @@ namespace Cupscale
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.postResizeFilter);
             this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(3, 239);
+            this.groupBox3.Location = new System.Drawing.Point(3, 479);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(280, 143);
             this.groupBox3.TabIndex = 10;
@@ -1141,7 +1157,7 @@ namespace Cupscale
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.prevOutputFormatCombox);
             this.groupBox2.ForeColor = System.Drawing.Color.White;
-            this.groupBox2.Location = new System.Drawing.Point(3, 387);
+            this.groupBox2.Location = new System.Drawing.Point(3, 627);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(280, 117);
             this.groupBox2.TabIndex = 9;
@@ -1221,7 +1237,7 @@ namespace Cupscale
             this.upscaleBtn.FlatAppearance.BorderSize = 0;
             this.upscaleBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.upscaleBtn.ForeColor = System.Drawing.Color.White;
-            this.upscaleBtn.Location = new System.Drawing.Point(3, 592);
+            this.upscaleBtn.Location = new System.Drawing.Point(3, 832);
             this.upscaleBtn.Name = "upscaleBtn";
             this.upscaleBtn.Size = new System.Drawing.Size(280, 30);
             this.upscaleBtn.TabIndex = 8;
@@ -1290,12 +1306,158 @@ namespace Cupscale
             this.settingsBtn.UseVisualStyleBackColor = false;
             this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
             // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.panel14);
+            this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel13.Location = new System.Drawing.Point(3, 294);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(338, 285);
+            this.panel13.TabIndex = 2;
+            // 
+            // panel14
+            // 
+            this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel14.Controls.Add(this.groupBox4);
+            this.panel14.Controls.Add(this.label21);
+            this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel14.Location = new System.Drawing.Point(0, 0);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(338, 285);
+            this.panel14.TabIndex = 1;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.ForeColor = System.Drawing.Color.White;
+            this.label21.Location = new System.Drawing.Point(3, 4);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(113, 13);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "Preprocessing Options";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.preResizeOnlyDownscale);
+            this.groupBox4.Controls.Add(this.preResizeMode);
+            this.groupBox4.Controls.Add(this.label17);
+            this.groupBox4.Controls.Add(this.preResizeScale);
+            this.groupBox4.Controls.Add(this.label18);
+            this.groupBox4.Controls.Add(this.preResizeFilter);
+            this.groupBox4.ForeColor = System.Drawing.Color.White;
+            this.groupBox4.Location = new System.Drawing.Point(3, 137);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(330, 143);
+            this.groupBox4.TabIndex = 11;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Resize Before Upscaling";
+            // 
+            // preResizeOnlyDownscale
+            // 
+            this.preResizeOnlyDownscale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.preResizeOnlyDownscale.AutoSize = true;
+            this.preResizeOnlyDownscale.Checked = true;
+            this.preResizeOnlyDownscale.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.preResizeOnlyDownscale.Enabled = false;
+            this.preResizeOnlyDownscale.Location = new System.Drawing.Point(6, 120);
+            this.preResizeOnlyDownscale.Name = "preResizeOnlyDownscale";
+            this.preResizeOnlyDownscale.Size = new System.Drawing.Size(239, 17);
+            this.preResizeOnlyDownscale.TabIndex = 7;
+            this.preResizeOnlyDownscale.Text = "Only Downscale (Ignore if smaller than target)";
+            this.preResizeOnlyDownscale.UseVisualStyleBackColor = true;
+            // 
+            // preResizeMode
+            // 
+            this.preResizeMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.preResizeMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.preResizeMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.preResizeMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.preResizeMode.ForeColor = System.Drawing.Color.White;
+            this.preResizeMode.FormattingEnabled = true;
+            this.preResizeMode.Items.AddRange(new object[] {
+            "Percent",
+            "Pixels Height",
+            "Pixels Width",
+            "Pixels Longer Side",
+            "Pixels Shorter Side"});
+            this.preResizeMode.Location = new System.Drawing.Point(121, 38);
+            this.preResizeMode.Margin = new System.Windows.Forms.Padding(8);
+            this.preResizeMode.Name = "preResizeMode";
+            this.preResizeMode.Size = new System.Drawing.Size(201, 21);
+            this.preResizeMode.TabIndex = 6;
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label17.AutoSize = true;
+            this.label17.ForeColor = System.Drawing.Color.White;
+            this.label17.Location = new System.Drawing.Point(5, 17);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(52, 13);
+            this.label17.TabIndex = 3;
+            this.label17.Text = "New Size";
+            // 
+            // preResizeScale
+            // 
+            this.preResizeScale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.preResizeScale.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.preResizeScale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.preResizeScale.ForeColor = System.Drawing.Color.White;
+            this.preResizeScale.FormattingEnabled = true;
+            this.preResizeScale.Items.AddRange(new object[] {
+            "200",
+            "100",
+            "50",
+            "25"});
+            this.preResizeScale.Location = new System.Drawing.Point(5, 38);
+            this.preResizeScale.Margin = new System.Windows.Forms.Padding(8);
+            this.preResizeScale.Name = "preResizeScale";
+            this.preResizeScale.Size = new System.Drawing.Size(100, 21);
+            this.preResizeScale.TabIndex = 2;
+            // 
+            // label18
+            // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.AutoSize = true;
+            this.label18.ForeColor = System.Drawing.Color.White;
+            this.label18.Location = new System.Drawing.Point(5, 67);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(67, 13);
+            this.label18.TabIndex = 5;
+            this.label18.Text = "Scaling Filter";
+            // 
+            // preResizeFilter
+            // 
+            this.preResizeFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.preResizeFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.preResizeFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.preResizeFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.preResizeFilter.ForeColor = System.Drawing.Color.White;
+            this.preResizeFilter.FormattingEnabled = true;
+            this.preResizeFilter.Items.AddRange(new object[] {
+            "Mitchell",
+            "Nearest Neighbor",
+            "Bicubic"});
+            this.preResizeFilter.Location = new System.Drawing.Point(5, 88);
+            this.preResizeFilter.Margin = new System.Windows.Forms.Padding(8);
+            this.preResizeFilter.Name = "preResizeFilter";
+            this.preResizeFilter.Size = new System.Drawing.Size(318, 21);
+            this.preResizeFilter.TabIndex = 4;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.ClientSize = new System.Drawing.Size(1264, 921);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = global::Cupscale.Properties.Resources.CupscaleLogo1;
             this.Name = "MainForm";
@@ -1338,6 +1500,11 @@ namespace Cupscale
             this.groupBox2.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            this.panel13.ResumeLayout(false);
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1393,5 +1560,15 @@ namespace Cupscale
         private TextBox batchOutDir;
         private Label label15;
         private ComboBox batchOutMode;
+        private Panel panel13;
+        private Panel panel14;
+        private GroupBox groupBox4;
+        private CheckBox preResizeOnlyDownscale;
+        private ComboBox preResizeMode;
+        private Label label17;
+        private ComboBox preResizeScale;
+        private Label label18;
+        private ComboBox preResizeFilter;
+        private Label label21;
     }
 }

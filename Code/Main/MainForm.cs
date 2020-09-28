@@ -39,6 +39,9 @@ namespace Cupscale
 		{
 			// Left Panel
             UIHelpers.InitCombox(prevClipboardTypeCombox, 0);
+			UIHelpers.InitCombox(preResizeScale, 1);
+			UIHelpers.InitCombox(preResizeMode, 0);
+			UIHelpers.FillEnumComboBox(preResizeFilter, typeof(Upscale.Filter), 0);
 			// Right Panel
 			UIHelpers.InitCombox(prevOverwriteCombox, 0);
 			UIHelpers.InitCombox(prevOutputFormatCombox, 0);
@@ -286,19 +289,26 @@ namespace Cupscale
 
 		public void UpdateResizeMode ()
         {
-			ImageProcessing.currentFilter = (Upscale.Filter)Enum.Parse(typeof(Upscale.Filter), postResizeFilter.Text.RemoveSpaces());
-			ImageProcessing.currentScaleMode = (Upscale.ScaleMode)Enum.Parse(typeof(Upscale.ScaleMode), postResizeMode.Text.RemoveSpaces());
-			ImageProcessing.currentScaleValue = postResizeScale.GetInt();
-			ImageProcessing.onlyDownscale = postResizeOnlyDownscale.Checked;
+			ImageProcessing.postFilter = (Upscale.Filter)Enum.Parse(typeof(Upscale.Filter), postResizeFilter.Text.RemoveSpaces());
+			ImageProcessing.postScaleMode = (Upscale.ScaleMode)Enum.Parse(typeof(Upscale.ScaleMode), postResizeMode.Text.RemoveSpaces());
+			ImageProcessing.postScaleValue = postResizeScale.GetInt();
+			ImageProcessing.postOnlyDownscale = postResizeOnlyDownscale.Checked;
+
+			ImageProcessing.preFilter = (Upscale.Filter)Enum.Parse(typeof(Upscale.Filter), preResizeFilter.Text.RemoveSpaces());
+			ImageProcessing.preScaleMode = (Upscale.ScaleMode)Enum.Parse(typeof(Upscale.ScaleMode), preResizeMode.Text.RemoveSpaces());
+			ImageProcessing.preScaleValue = preResizeScale.GetInt();
+			ImageProcessing.preOnlyDownscale = preResizeOnlyDownscale.Checked;
 		}
 
         private void refreshPreviewFullBtn_Click(object sender, EventArgs e)
         {
+			UpdateResizeMode();
 			MainUIHelper.UpscalePreview(true);
 		}
 
         private void refreshPreviewCutoutBtn_Click(object sender, EventArgs e)
         {
+			UpdateResizeMode();
 			MainUIHelper.UpscalePreview();
 		}
 
@@ -398,7 +408,7 @@ namespace Cupscale
 			string outPath = Path.ChangeExtension(Program.lastFilename, null) + "[temp]" + ext + ".tmp";
 			previewImg.Image.Save(outPath);
 			await Upscale.PostprocessingSingle(outPath, false);
-			string outFilename = Upscale.FilenamePostprocessingSingle(MainUIHelper.lastOutfile);
+			string outFilename = Upscale.FilenamePostprocess(MainUIHelper.lastOutfile);
 			string finalPath = IOUtils.ReplaceInFilename(outFilename, "[temp]", "");
 			MessageBox.Show("Saved to " + finalPath + ".", "Message");
 		}

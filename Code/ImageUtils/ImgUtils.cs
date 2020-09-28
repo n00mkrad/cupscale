@@ -70,7 +70,7 @@ namespace Cupscale.ImageUtils
 			return result;
 		}
 
-		public static int GetScale (Image imgFrom, Image imgTo)
+		public static float GetScale (Image imgFrom, Image imgTo)
         {
             return (int)Math.Round(GetScaleFloat(imgFrom, imgTo));
         }

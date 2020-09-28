@@ -98,7 +98,7 @@ namespace Cupscale.Cupscale
                     Logger.Log("[Queue] Post-Processing " + Path.GetFileName(file));
                     sw.Restart();
                     await Upscale.PostprocessingSingle(file, true);
-                    string outFilename = Upscale.FilenamePostprocessingSingle(lastOutfile);
+                    string outFilename = Upscale.FilenamePostprocess(lastOutfile);
                     outputFiles.Add(outFilename);
                     Logger.Log("[Queue] Done Post-Processing " + Path.GetFileName(file) + " in " + sw.ElapsedMilliseconds + "ms");
 
