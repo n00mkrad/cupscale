@@ -104,7 +104,7 @@ namespace Cupscale
 			FileInfo[] files = source.GetFiles(wildcard);
 			foreach (FileInfo fileInfo in files)
 			{
-				if (onlyCompatibles && !compatibleExtensions.Contains(fileInfo.Extension))
+				if (onlyCompatibles && !compatibleExtensions.Contains(fileInfo.Extension.ToLower()))
 					continue;
 
 				string targetPath = Path.Combine(target.FullName, fileInfo.Name);
@@ -273,7 +273,7 @@ namespace Cupscale
 			int num = 0;
 			foreach (string file in files)
 			{
-				if (compatibleExtensions.Contains(Path.GetExtension(file)))
+				if (compatibleExtensions.Contains(Path.GetExtension(file).ToLower()))
 					num++;
 			}
 			return num;

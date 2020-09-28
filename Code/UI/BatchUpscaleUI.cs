@@ -58,7 +58,7 @@ namespace Cupscale.UI
             IOUtils.DeleteContentsOfDir(Paths.imgInPath);
             foreach (string img in imgs)
             {
-                if(IOUtils.compatibleExtensions.Contains(Path.GetExtension(img)) && File.Exists(img))
+                if(IOUtils.compatibleExtensions.Contains(Path.GetExtension(img).ToLower()) && File.Exists(img))
                     File.Copy(img, Path.Combine(Paths.imgInPath, Path.GetFileName(img)));
                 await Task.Delay(1);
             }
