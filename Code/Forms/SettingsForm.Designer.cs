@@ -672,7 +672,7 @@
             this.logPage.Controls.Add(this.logTbox);
             this.logPage.Name = "logPage";
             this.logPage.Size = new System.Drawing.Size(922, 469);
-            this.logPage.Text = "View Log";
+            this.logPage.Text = "View Session Log";
             // 
             // logTbox
             // 

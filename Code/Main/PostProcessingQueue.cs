@@ -46,7 +46,6 @@ namespace Cupscale.Cupscale
             while (run || AnyFilesLeft())
             {
                 if (ncnn) CheckNcnnOutput();
-                //IOUtils.RenameExtensions(Paths.imgOutPath, "png", "tmp", true, "*.*.png");
                 string[] outFiles = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories);
                 Logger.Log("Queue Update() - " + outFiles.Length + " files in out folder");
                 foreach (string file in outFiles)
