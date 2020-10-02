@@ -76,21 +76,23 @@
             this.label12 = new System.Windows.Forms.Label();
             this.logPage = new Cyotek.Windows.Forms.TabListPage();
             this.logTbox = new System.Windows.Forms.TextBox();
-            this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.modelsPathDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.resourceFilesPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.uninstallFullBtn = new HTAlt.WinForms.HTButton();
+            this.label18 = new System.Windows.Forms.Label();
+            this.uninstallResBtn = new HTAlt.WinForms.HTButton();
+            this.label17 = new System.Windows.Forms.Label();
+            this.reinstallCleanBtn = new HTAlt.WinForms.HTButton();
+            this.reinstallOverwriteBtn = new HTAlt.WinForms.HTButton();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.reinstallOverwriteBtn = new HTAlt.WinForms.HTButton();
-            this.reinstallCleanBtn = new HTAlt.WinForms.HTButton();
-            this.label17 = new System.Windows.Forms.Label();
-            this.uninstallResBtn = new HTAlt.WinForms.HTButton();
-            this.label18 = new System.Windows.Forms.Label();
-            this.uninstallFullBtn = new HTAlt.WinForms.HTButton();
+            this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.modelsPathDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.label22 = new System.Windows.Forms.Label();
+            this.seamless = new System.Windows.Forms.CheckBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -151,6 +153,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.seamless);
+            this.panel7.Controls.Add(this.label22);
             this.panel7.Controls.Add(this.pictureBox2);
             this.panel7.Controls.Add(this.label16);
             this.panel7.Controls.Add(this.esrganVersion);
@@ -200,8 +204,8 @@
             this.esrganVersion.ForeColor = System.Drawing.Color.White;
             this.esrganVersion.FormattingEnabled = true;
             this.esrganVersion.Items.AddRange(new object[] {
-            "esrgan-launcher",
-            "(Coming Soon?)"});
+            "Joey\'s ESRGAN",
+            "esrgan-launcher"});
             this.esrganVersion.Location = new System.Drawing.Point(180, 77);
             this.esrganVersion.Margin = new System.Windows.Forms.Padding(8);
             this.esrganVersion.Name = "esrganVersion";
@@ -212,7 +216,7 @@
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox1.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox1.Location = new System.Drawing.Point(114, 196);
+            this.pictureBox1.Location = new System.Drawing.Point(112, 226);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(22, 22);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -225,7 +229,7 @@
             // useNcnn
             // 
             this.useNcnn.AutoSize = true;
-            this.useNcnn.Location = new System.Drawing.Point(180, 200);
+            this.useNcnn.Location = new System.Drawing.Point(178, 230);
             this.useNcnn.Name = "useNcnn";
             this.useNcnn.Size = new System.Drawing.Size(15, 14);
             this.useNcnn.TabIndex = 9;
@@ -235,7 +239,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 200);
+            this.label15.Location = new System.Drawing.Point(4, 230);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(102, 13);
             this.label15.TabIndex = 8;
@@ -244,7 +248,7 @@
             // useCpu
             // 
             this.useCpu.AutoSize = true;
-            this.useCpu.Location = new System.Drawing.Point(180, 170);
+            this.useCpu.Location = new System.Drawing.Point(178, 200);
             this.useCpu.Name = "useCpu";
             this.useCpu.Size = new System.Drawing.Size(15, 14);
             this.useCpu.TabIndex = 7;
@@ -253,7 +257,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 170);
+            this.label2.Location = new System.Drawing.Point(4, 200);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(133, 13);
             this.label2.TabIndex = 6;
@@ -705,6 +709,88 @@
             this.panel2.Size = new System.Drawing.Size(455, 463);
             this.panel2.TabIndex = 4;
             // 
+            // uninstallFullBtn
+            // 
+            this.uninstallFullBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uninstallFullBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.uninstallFullBtn.FlatAppearance.BorderSize = 0;
+            this.uninstallFullBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.uninstallFullBtn.ForeColor = System.Drawing.Color.White;
+            this.uninstallFullBtn.Location = new System.Drawing.Point(260, 165);
+            this.uninstallFullBtn.Name = "uninstallFullBtn";
+            this.uninstallFullBtn.Size = new System.Drawing.Size(156, 22);
+            this.uninstallFullBtn.TabIndex = 19;
+            this.uninstallFullBtn.Text = "Uninstall All Files";
+            this.uninstallFullBtn.UseVisualStyleBackColor = false;
+            this.uninstallFullBtn.Click += new System.EventHandler(this.uninstallFullBtn_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 170);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(153, 13);
+            this.label18.TabIndex = 18;
+            this.label18.Text = "Uninstall Including Settings File";
+            // 
+            // uninstallResBtn
+            // 
+            this.uninstallResBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uninstallResBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.uninstallResBtn.FlatAppearance.BorderSize = 0;
+            this.uninstallResBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.uninstallResBtn.ForeColor = System.Drawing.Color.White;
+            this.uninstallResBtn.Location = new System.Drawing.Point(260, 135);
+            this.uninstallResBtn.Name = "uninstallResBtn";
+            this.uninstallResBtn.Size = new System.Drawing.Size(156, 22);
+            this.uninstallResBtn.TabIndex = 17;
+            this.uninstallResBtn.Text = "Uninstall Resources";
+            this.uninstallResBtn.UseVisualStyleBackColor = false;
+            this.uninstallResBtn.Click += new System.EventHandler(this.uninstallResBtn_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 140);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(188, 13);
+            this.label17.TabIndex = 16;
+            this.label17.Text = "Uninstall (Cupscale will exit afterwards)";
+            // 
+            // reinstallCleanBtn
+            // 
+            this.reinstallCleanBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.reinstallCleanBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.reinstallCleanBtn.FlatAppearance.BorderSize = 0;
+            this.reinstallCleanBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.reinstallCleanBtn.ForeColor = System.Drawing.Color.White;
+            this.reinstallCleanBtn.Location = new System.Drawing.Point(260, 105);
+            this.reinstallCleanBtn.Name = "reinstallCleanBtn";
+            this.reinstallCleanBtn.Size = new System.Drawing.Size(156, 22);
+            this.reinstallCleanBtn.TabIndex = 15;
+            this.reinstallCleanBtn.Text = "Clean Reinstall";
+            this.reinstallCleanBtn.UseVisualStyleBackColor = false;
+            this.reinstallCleanBtn.Click += new System.EventHandler(this.reinstallCleanBtn_Click);
+            // 
+            // reinstallOverwriteBtn
+            // 
+            this.reinstallOverwriteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.reinstallOverwriteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.reinstallOverwriteBtn.FlatAppearance.BorderSize = 0;
+            this.reinstallOverwriteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.reinstallOverwriteBtn.ForeColor = System.Drawing.Color.White;
+            this.reinstallOverwriteBtn.Location = new System.Drawing.Point(260, 75);
+            this.reinstallOverwriteBtn.Name = "reinstallOverwriteBtn";
+            this.reinstallOverwriteBtn.Size = new System.Drawing.Size(156, 22);
+            this.reinstallOverwriteBtn.TabIndex = 14;
+            this.reinstallOverwriteBtn.Text = "Reinstall";
+            this.reinstallOverwriteBtn.UseVisualStyleBackColor = false;
+            this.reinstallOverwriteBtn.Click += new System.EventHandler(this.reinstallOverwriteBtn_Click);
+            // 
             // label19
             // 
             this.label19.AutoSize = true;
@@ -733,87 +819,23 @@
             this.label21.TabIndex = 1;
             this.label21.Text = "Resource Files";
             // 
-            // reinstallOverwriteBtn
+            // label22
             // 
-            this.reinstallOverwriteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.reinstallOverwriteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.reinstallOverwriteBtn.FlatAppearance.BorderSize = 0;
-            this.reinstallOverwriteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reinstallOverwriteBtn.ForeColor = System.Drawing.Color.White;
-            this.reinstallOverwriteBtn.Location = new System.Drawing.Point(260, 75);
-            this.reinstallOverwriteBtn.Name = "reinstallOverwriteBtn";
-            this.reinstallOverwriteBtn.Size = new System.Drawing.Size(156, 22);
-            this.reinstallOverwriteBtn.TabIndex = 14;
-            this.reinstallOverwriteBtn.Text = "Reinstall";
-            this.reinstallOverwriteBtn.UseVisualStyleBackColor = false;
-            this.reinstallOverwriteBtn.Click += new System.EventHandler(this.reinstallOverwriteBtn_Click);
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 170);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(82, 13);
+            this.label22.TabIndex = 14;
+            this.label22.Text = "Seamless Mode";
             // 
-            // reinstallCleanBtn
+            // seamless
             // 
-            this.reinstallCleanBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.reinstallCleanBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.reinstallCleanBtn.FlatAppearance.BorderSize = 0;
-            this.reinstallCleanBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reinstallCleanBtn.ForeColor = System.Drawing.Color.White;
-            this.reinstallCleanBtn.Location = new System.Drawing.Point(260, 105);
-            this.reinstallCleanBtn.Name = "reinstallCleanBtn";
-            this.reinstallCleanBtn.Size = new System.Drawing.Size(156, 22);
-            this.reinstallCleanBtn.TabIndex = 15;
-            this.reinstallCleanBtn.Text = "Clean Reinstall";
-            this.reinstallCleanBtn.UseVisualStyleBackColor = false;
-            this.reinstallCleanBtn.Click += new System.EventHandler(this.reinstallCleanBtn_Click);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 140);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(188, 13);
-            this.label17.TabIndex = 16;
-            this.label17.Text = "Uninstall (Cupscale will exit afterwards)";
-            // 
-            // uninstallResBtn
-            // 
-            this.uninstallResBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.uninstallResBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.uninstallResBtn.FlatAppearance.BorderSize = 0;
-            this.uninstallResBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.uninstallResBtn.ForeColor = System.Drawing.Color.White;
-            this.uninstallResBtn.Location = new System.Drawing.Point(260, 135);
-            this.uninstallResBtn.Name = "uninstallResBtn";
-            this.uninstallResBtn.Size = new System.Drawing.Size(156, 22);
-            this.uninstallResBtn.TabIndex = 17;
-            this.uninstallResBtn.Text = "Uninstall Resources";
-            this.uninstallResBtn.UseVisualStyleBackColor = false;
-            this.uninstallResBtn.Click += new System.EventHandler(this.uninstallResBtn_Click);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 170);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(153, 13);
-            this.label18.TabIndex = 18;
-            this.label18.Text = "Uninstall Including Settings File";
-            // 
-            // uninstallFullBtn
-            // 
-            this.uninstallFullBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.uninstallFullBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.uninstallFullBtn.FlatAppearance.BorderSize = 0;
-            this.uninstallFullBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.uninstallFullBtn.ForeColor = System.Drawing.Color.White;
-            this.uninstallFullBtn.Location = new System.Drawing.Point(260, 165);
-            this.uninstallFullBtn.Name = "uninstallFullBtn";
-            this.uninstallFullBtn.Size = new System.Drawing.Size(156, 22);
-            this.uninstallFullBtn.TabIndex = 19;
-            this.uninstallFullBtn.Text = "Uninstall All Files";
-            this.uninstallFullBtn.UseVisualStyleBackColor = false;
-            this.uninstallFullBtn.Click += new System.EventHandler(this.uninstallFullBtn_Click);
+            this.seamless.AutoSize = true;
+            this.seamless.Location = new System.Drawing.Point(178, 170);
+            this.seamless.Name = "seamless";
+            this.seamless.Size = new System.Drawing.Size(15, 14);
+            this.seamless.TabIndex = 15;
+            this.seamless.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -917,5 +939,7 @@
         private System.Windows.Forms.Label label17;
         private HTAlt.WinForms.HTButton reinstallCleanBtn;
         private HTAlt.WinForms.HTButton reinstallOverwriteBtn;
+        private System.Windows.Forms.CheckBox seamless;
+        private System.Windows.Forms.Label label22;
     }
 }

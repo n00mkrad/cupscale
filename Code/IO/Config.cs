@@ -77,6 +77,7 @@ namespace Cupscale
 				"esrganVersion" => WriteDefault("esrganVersion", "0"), 
 				"tilesize" => WriteDefault("tilesize", "512"),
 				"alpha" => WriteDefault("alpha", "False"),
+				"seamless" => WriteDefault("seamless", "False"),
 				"alphaBgColor" => WriteDefault("alphaBgColor", "000000FF"),
 				"jpegExtension" => WriteDefault("jpegExtension", "jpg"),
 				"useCpu" => WriteDefault("useCpu", "False"),

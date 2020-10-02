@@ -38,6 +38,7 @@ namespace Cupscale.Forms
             Config.LoadComboxIndex(esrganVersion);
             Config.LoadGuiElement(tilesize);
             Config.LoadGuiElement(alpha);
+            Config.LoadGuiElement(seamless);
             Config.LoadGuiElement(modelPath);
             Config.LoadGuiElement(alphaBgColor);
             Config.LoadGuiElement(jpegExtension);
@@ -63,6 +64,7 @@ namespace Cupscale.Forms
             Config.SaveComboxIndex(esrganVersion);
             Config.SaveGuiElement(tilesize, true);
             Config.SaveGuiElement(alpha);
+            Config.SaveGuiElement(seamless);
             Config.SaveGuiElement(modelPath);
             Config.SaveGuiElement(alphaBgColor);
             Config.SaveGuiElement(jpegExtension);

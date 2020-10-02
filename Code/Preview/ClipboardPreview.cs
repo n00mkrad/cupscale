@@ -35,7 +35,7 @@ namespace Cupscale
                 }
                 else
                 {
-                    originalPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png")));
+                    originalPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png.png")));
                     resultPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp")));
                 }
             }
@@ -128,7 +128,7 @@ namespace Cupscale
                 }
                 else
                 {
-                    originalPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png")));
+                    originalPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png.png")));
                     resultPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp")));
                 }
             }
@@ -256,7 +256,7 @@ namespace Cupscale
             IOUtils.DeleteContentsOfDir(tempPath);
             Directory.CreateDirectory(framesPath);
 
-            string img1 = Path.Combine(IO.Paths.previewPath, "preview.png");
+            string img1 = Path.Combine(IO.Paths.previewPath, "preview.png.png");
             string img2 = Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp");
 
             Image image1 = ImgUtils.GetImage(img1);
@@ -304,6 +304,22 @@ namespace Cupscale
             }
 
             dialogForm.Close();
+        }
+
+        public static async void OnlyResult (bool saveToFile)
+        {
+            Image outputImage = ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp"));
+            try
+            {
+                if (saveToFile)
+                    await SaveComparisonToFile(outputImage);
+                else
+                    Clipboard.SetDataObject(outputImage);
+            }
+            catch
+            {
+                MessageBox.Show("Failed to save comparison.", "Error");
+            }
         }
 
         static ImageProcessing.Format GetSaveFormat ()

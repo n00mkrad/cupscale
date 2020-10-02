@@ -81,17 +81,31 @@ namespace Cupscale
             img.Format = MagickFormat.Png;
             img.Quality = 20;
 
+            Logger.Log("Preprocessing " + path + " - Fill Alpha: " + fillAlpha + " - Depth: " + img.Depth * 3 + " bpp");
+
             if (fillAlpha)
             {
-                img.Settings.BackgroundColor = new MagickColor("#" + Config.Get("alphaBgColor"));
-                img.Alpha(AlphaOption.Remove);
+                //img.Settings.BackgroundColor = new MagickColor("#" + Config.Get("alphaBgColor"));
+                //img.Alpha(AlphaOption.Remove);
+
+                MagickImage bg = new MagickImage(new MagickColor("#" + Config.Get("alphaBgColor")), img.Width, img.Height);
+                bg.BackgroundColor = new MagickColor("#" + Config.Get("alphaBgColor"));
+
+                bg.Composite(img, CompositeOperator.Over);
+
+                img = bg;
+
+                //img.ColorAlpha(new MagickColor("#" + Config.Get("alphaBgColor")));
+                //Logger.Log("Filled alpha with " + Config.Get("alphaBgColor"));
             }
 
             img = ResizeImagePre(img);
 
             await Task.Delay(1);
-            string outPath = Path.ChangeExtension(img.FileName, "png");
+            //string outPath = Path.ChangeExtension(img.FileName, "png");
+            string outPath = path + ".png";
 
+            img.Depth = 8;
             img.Write(outPath);
 
             if (outPath != path)

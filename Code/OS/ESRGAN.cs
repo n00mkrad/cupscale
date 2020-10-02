@@ -3,6 +3,7 @@ using Cupscale.Forms;
 using Cupscale.ImageUtils;
 using Cupscale.IO;
 using Cupscale.Main;
+using Upscale = Cupscale.Main.Upscale;
 using Cupscale.UI;
 using ImageMagick;
 using System;
@@ -23,8 +24,9 @@ namespace Cupscale.OS
 		public enum PreviewMode { None, Cutout, FullImage }
 		
 
-		public static async Task Upscale(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, bool allowNcnn, bool showTileProgress = true)
+		public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, bool allowNcnn, bool showTileProgress = true)
 		{
+			bool useJoey = Config.GetInt("esrganVersion") == 0;
             try
             {
                 if (allowNcnn && Config.GetBool("useNcnn"))
@@ -39,10 +41,13 @@ namespace Cupscale.OS
                 {
 					Program.mainForm.SetProgress(5f, "Starting ESRGAN...");
 					File.Delete(Paths.progressLogfile);
-					string modelArg = GetModelArg(mdl);
+					string modelArg = GetModelArg(mdl, useJoey);
 					Logger.Log("Model Arg: " + modelArg);
 					PostProcessingQueue.ncnn = false;
-					await Run(inpath, outpath, modelArg, tilesize, alpha, showTileProgress);
+					if(useJoey)
+						await RunJoey(inpath, outpath, modelArg, tilesize, alpha, Config.GetBool("seamless"), showTileProgress);
+					else
+						await Run(inpath, outpath, modelArg, tilesize, alpha, showTileProgress);
 				}
 				
 				if (mode == PreviewMode.Cutout)
@@ -82,14 +87,17 @@ namespace Cupscale.OS
 
 		public static async Task ScalePreviewOutput ()
         {
+			if (ImageProcessing.preScaleMode == Upscale.ScaleMode.Percent && ImageProcessing.preScaleValue == 100)   // Skip if target scale is 100%)
+				return;
 			Program.mainForm.SetProgress(1f, "Resizing preview output...");
 			await Task.Delay(1);
 			MagickImage img = ImgUtils.GetMagickImage(Path.Combine(Paths.previewOutPath, "preview.png.tmp"));
-			img = ImageProcessing.ResizeImagePost(img);
+            MagickImage magickImage = ImageProcessing.ResizeImagePost(img);
+            img = magickImage;
 			img.Write(img.FileName);
         }
 
-		public static string GetModelArg (ModelData mdl)
+		public static string GetModelArg (ModelData mdl, bool joey)
         {
 			string mdl1 = mdl.model1Path;
 			string mdl2 = mdl.model2Path;
@@ -97,7 +105,10 @@ namespace Cupscale.OS
 			if(mdlMode == ModelData.ModelMode.Single)
             {
 				Program.lastModelName = mdl.model1Name;
-				return " --model \"" + mdl1 + "\"";
+				if(joey)
+					return mdl1.WrapPath(true, false);
+				else
+					return " --model \"" + mdl1 + "\"";
 			}
 			if (mdlMode == ModelData.ModelMode.Interp)
 			{
@@ -151,6 +162,51 @@ namespace Cupscale.OS
 				await Task.Delay(1000);
                 Program.mainForm.SetProgress(100f, "Post-Processing...");
                 PostProcessingQueue.Stop();
+			}
+			File.Delete(Paths.progressLogfile);
+		}
+
+		public static async Task RunJoey (string inpath, string outpath, string modelArg, string tilesize, bool alpha, bool seamless, bool showTileProgress)
+		{
+			inpath = inpath.WrapPath(true, true);
+			outpath = outpath.WrapPath(true, true);
+
+			string alphaStr = "";	// TODO
+			if (alpha) alphaStr = "";
+
+			string deviceStr = "";
+			if (Config.GetBool("useCpu")) deviceStr = " --cpu ";
+
+			string seamStr = "";
+			if (seamless) seamStr = " --seamless ";
+
+			string cmd = "/C cd /D " + Config.Get("esrganPath").WrapPath() + " & python upscale.py --input" + inpath + "--output" + outpath
+				+ deviceStr + seamStr + " --tile_size " + tilesize + alphaStr + modelArg;
+			Logger.Log("CMD: " + cmd);
+			Process esrganProcess = new Process();
+			esrganProcess.StartInfo.UseShellExecute = false;
+			esrganProcess.StartInfo.RedirectStandardOutput = true;
+			esrganProcess.StartInfo.RedirectStandardError = true;
+			esrganProcess.StartInfo.CreateNoWindow = true;
+			esrganProcess.StartInfo.FileName = "cmd.exe";
+			esrganProcess.StartInfo.Arguments = cmd;
+			esrganProcess.OutputDataReceived += OutputHandler;
+			esrganProcess.ErrorDataReceived += OutputHandler;
+			currentProcess = esrganProcess;
+			esrganProcess.Start();
+			esrganProcess.BeginOutputReadLine();
+			esrganProcess.BeginErrorReadLine();
+			while (!esrganProcess.HasExited)
+			{
+				if (showTileProgress)
+					await UpdateProgressFromFile();
+				await Task.Delay(100);
+			}
+			if (Main.Upscale.currentMode == Main.Upscale.UpscaleMode.Batch)
+			{
+				await Task.Delay(1000);
+				Program.mainForm.SetProgress(100f, "Post-Processing...");
+				PostProcessingQueue.Stop();
 			}
 			File.Delete(Paths.progressLogfile);
 		}

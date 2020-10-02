@@ -318,6 +318,7 @@ namespace Cupscale
 			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardPreview.CopyToClipboardSlider(false);
 			if (prevClipboardTypeCombox.SelectedIndex == 2) ClipboardPreview.BeforeAfterAnim(false, false);
 			if (prevClipboardTypeCombox.SelectedIndex == 3) ClipboardPreview.BeforeAfterAnim(false, true);
+			if (prevClipboardTypeCombox.SelectedIndex == 4) ClipboardPreview.OnlyResult(false);
 		}
 
         private void model1TreeBtn_Click(object sender, EventArgs e)
@@ -336,6 +337,7 @@ namespace Cupscale
 			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardPreview.CopyToClipboardSlider(true);
 			if (prevClipboardTypeCombox.SelectedIndex == 2) ClipboardPreview.BeforeAfterAnim(true, false);
 			if (prevClipboardTypeCombox.SelectedIndex == 3) ClipboardPreview.BeforeAfterAnim(true, true);
+			if (prevClipboardTypeCombox.SelectedIndex == 4) ClipboardPreview.OnlyResult(true);
 		}
 
 		public void ResetToLastState ()

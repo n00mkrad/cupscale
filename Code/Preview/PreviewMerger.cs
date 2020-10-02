@@ -24,7 +24,7 @@ namespace Cupscale
         public static void Merge()
         {
             Program.mainForm.SetProgress(100f);
-            inputCutoutPath = Path.Combine(Paths.previewPath, "preview.png");
+            inputCutoutPath = Path.Combine(Paths.previewPath, "preview.png.png");
             outputCutoutPath = Path.Combine(Paths.previewOutPath, "preview.png.tmp");
 
             Image sourceImg = ImgUtils.GetImage(Paths.tempImgPath);
@@ -68,7 +68,7 @@ namespace Cupscale
             scaledSourceMagickImg.Write(tempScaledSourceImagePath);
             Image scaledSourceImg = ImgUtils.GetImage(tempScaledSourceImagePath);
 
-            int preScale = (int)Math.Round((float)oldWidth / (float)newWidth);
+            float preScale = (float)oldWidth / (float)newWidth;
             Logger.Log("Pre Scale: " + preScale + "x");
 
             Image cutout = ImgUtils.GetImage(outputCutoutPath);
@@ -92,7 +92,7 @@ namespace Cupscale
                 graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
                 graphics.DrawImage(scaledSourceImg, 0, 0, destImage.Width, destImage.Height);       // Scale up
-                graphics.DrawImage(cutout, offsetX / preScale, offsetY / preScale);     // Overlay cutout
+                graphics.DrawImage(cutout, (offsetX / preScale).RoundToInt(), (offsetY / preScale).RoundToInt());     // Overlay cutout
             }
 
             return destImage;

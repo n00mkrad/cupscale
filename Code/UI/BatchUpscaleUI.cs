@@ -104,7 +104,7 @@ namespace Cupscale.UI
             PostProcessingQueue.Start(outDir.Text.Trim());
 
             List<Task> tasks = new List<Task>();
-            tasks.Add(ESRGAN.Upscale(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, true, false));
+            tasks.Add(ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, true, false));
             tasks.Add(PostProcessingQueue.Update());
             tasks.Add(PostProcessingQueue.ProcessQueue());
 
