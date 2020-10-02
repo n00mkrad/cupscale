@@ -136,5 +136,11 @@ namespace Cupscale.Forms
             MessageBox.Show("Uninstalled all files.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.", "Message");
             Program.Quit();
         }
+
+        private void esrganVersion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            seamless.Enabled = esrganVersion.SelectedIndex == 1;
+            seamlessJoeyWarn.Visible = esrganVersion.SelectedIndex == 0;
+        }
     }
 }

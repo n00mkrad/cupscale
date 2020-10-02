@@ -108,7 +108,7 @@ namespace Cupscale
             img.Depth = 8;
             img.Write(outPath);
 
-            if (outPath != path)
+            if (outPath.ToLower() != path.ToLower())
             {
                 Logger.Log("Deleting source file: " + path);
                 File.Delete(path);
@@ -190,7 +190,7 @@ namespace Cupscale
 
             img.Write(outPath);
             Logger.Log("Writing image to " + outPath);
-            if (deleteSource && outPath != path)
+            if (deleteSource && outPath.ToLower() != path.ToLower())
             {
                 Logger.Log("Deleting source file: " + path);
                 File.Delete(path);
@@ -248,9 +248,10 @@ namespace Cupscale
             if (Upscale.currentMode == Upscale.UpscaleMode.Single)
                 MainUIHelper.lastOutfile = outPath;
 
+            Logger.Log("Writing image to " + outPath);
             img.Write(outPath);
 
-            if (outPath != path)
+            if (outPath.ToLower() != path.ToLower())
             {
                 Logger.Log("Deleting source file: " + path);
                 File.Delete(path);
@@ -278,7 +279,7 @@ namespace Cupscale
             if (Upscale.currentMode == Upscale.UpscaleMode.Single)
                 MainUIHelper.lastOutfile = outPath;
 
-            if (outPath != path)
+            if (outPath.ToLower() != path.ToLower())
             {
                 Logger.Log("Deleting source file: " + path);
                 File.Delete(path);

@@ -90,6 +90,7 @@ namespace Cupscale.Cupscale
         public static async Task ProcessQueue ()
         {
             Stopwatch sw = new Stopwatch();
+            Logger.Log("ProcessQueue()");
             while (run || AnyFilesLeft())
             {
                 if (outputFileQueue.Count > 0)

@@ -34,6 +34,8 @@
             this.settingsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.seamless = new System.Windows.Forms.CheckBox();
+            this.label22 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
             this.esrganVersion = new System.Windows.Forms.ComboBox();
@@ -91,8 +93,8 @@
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.modelsPathDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.label22 = new System.Windows.Forms.Label();
-            this.seamless = new System.Windows.Forms.CheckBox();
+            this.seamlessJoeyWarn = new System.Windows.Forms.Label();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -110,6 +112,7 @@
             this.resourceFilesPage.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.SuspendLayout();
             // 
             // tabList1
@@ -153,6 +156,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.pictureBox6);
+            this.panel7.Controls.Add(this.seamlessJoeyWarn);
             this.panel7.Controls.Add(this.seamless);
             this.panel7.Controls.Add(this.label22);
             this.panel7.Controls.Add(this.pictureBox2);
@@ -173,6 +178,24 @@
             this.panel7.Size = new System.Drawing.Size(455, 463);
             this.panel7.TabIndex = 4;
             // 
+            // seamless
+            // 
+            this.seamless.AutoSize = true;
+            this.seamless.Location = new System.Drawing.Point(178, 170);
+            this.seamless.Name = "seamless";
+            this.seamless.Size = new System.Drawing.Size(15, 14);
+            this.seamless.TabIndex = 15;
+            this.seamless.UseVisualStyleBackColor = true;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 170);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(82, 13);
+            this.label22.TabIndex = 14;
+            this.label22.Text = "Seamless Mode";
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -183,9 +206,7 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 13;
             this.pictureBox2.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox2, "Use esrgan-launcher for on-the-fly interpolation and model chaining.\r\nTry Joey\'s " +
-        "ESRGAN if there are visible tiling seams.");
-            this.pictureBox2.Visible = false;
+            this.toolTip.SetToolTip(this.pictureBox2, resources.GetString("pictureBox2.ToolTip"));
             // 
             // label16
             // 
@@ -204,13 +225,14 @@
             this.esrganVersion.ForeColor = System.Drawing.Color.White;
             this.esrganVersion.FormattingEnabled = true;
             this.esrganVersion.Items.AddRange(new object[] {
-            "Joey\'s ESRGAN",
-            "esrgan-launcher"});
+            "esrgan-launcher",
+            "Joey\'s ESRGAN"});
             this.esrganVersion.Location = new System.Drawing.Point(180, 77);
             this.esrganVersion.Margin = new System.Windows.Forms.Padding(8);
             this.esrganVersion.Name = "esrganVersion";
             this.esrganVersion.Size = new System.Drawing.Size(200, 21);
             this.esrganVersion.TabIndex = 11;
+            this.esrganVersion.SelectedIndexChanged += new System.EventHandler(this.esrganVersion_SelectedIndexChanged);
             // 
             // pictureBox1
             // 
@@ -819,23 +841,28 @@
             this.label21.TabIndex = 1;
             this.label21.Text = "Resource Files";
             // 
-            // label22
+            // seamlessJoeyWarn
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(6, 170);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(82, 13);
-            this.label22.TabIndex = 14;
-            this.label22.Text = "Seamless Mode";
+            this.seamlessJoeyWarn.AutoSize = true;
+            this.seamlessJoeyWarn.ForeColor = System.Drawing.Color.Silver;
+            this.seamlessJoeyWarn.Location = new System.Drawing.Point(199, 170);
+            this.seamlessJoeyWarn.Name = "seamlessJoeyWarn";
+            this.seamlessJoeyWarn.Size = new System.Drawing.Size(182, 13);
+            this.seamlessJoeyWarn.TabIndex = 16;
+            this.seamlessJoeyWarn.Text = "Only Available With Joey\'s ESRGAN.";
             // 
-            // seamless
+            // pictureBox6
             // 
-            this.seamless.AutoSize = true;
-            this.seamless.Location = new System.Drawing.Point(178, 170);
-            this.seamless.Name = "seamless";
-            this.seamless.Size = new System.Drawing.Size(15, 14);
-            this.seamless.TabIndex = 15;
-            this.seamless.UseVisualStyleBackColor = true;
+            this.pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox6.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox6.Location = new System.Drawing.Point(94, 166);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.TabIndex = 17;
+            this.pictureBox6.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox6, "Use this if you want to upscale seamless/tiled textures.\r\nIt tried to preserve th" +
+        "e tiling.");
             // 
             // SettingsForm
             // 
@@ -872,6 +899,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -941,5 +969,7 @@
         private HTAlt.WinForms.HTButton reinstallOverwriteBtn;
         private System.Windows.Forms.CheckBox seamless;
         private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label seamlessJoeyWarn;
+        private System.Windows.Forms.PictureBox pictureBox6;
     }
 }

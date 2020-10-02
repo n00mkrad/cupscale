@@ -26,7 +26,7 @@ namespace Cupscale.OS
 
 		public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, bool allowNcnn, bool showTileProgress = true)
 		{
-			bool useJoey = Config.GetInt("esrganVersion") == 0;
+			bool useJoey = Config.GetInt("esrganVersion") == 1;
             try
             {
                 if (allowNcnn && Config.GetBool("useNcnn"))
@@ -77,8 +77,9 @@ namespace Cupscale.OS
 			catch(Exception e)
             {
 				if(e.Message.Contains("No such file"))
-					MessageBox.Show("The upscale process seems to have exited before completion!", "Error");
-				MessageBox.Show("An error occured during upscaling: \n\n" + e.Message, "Error");
+					MessageBox.Show("An error occured during upscaling.\nThe upscale process seems to have exited before completion!", "Error");
+				else
+					MessageBox.Show("An error occured during upscaling.", "Error");
 				Logger.Log("Upscaling Error: " + e.Message + "\n" + e.StackTrace);
 				Program.mainForm.SetProgress(0f, "Cancelled.");
 			}
@@ -115,12 +116,18 @@ namespace Cupscale.OS
 				int interpLeft = 100 - mdl.interp;
 				int interpRight = mdl.interp;
 				Program.lastModelName = mdl.model1Name + ":" + interpLeft + ":" + mdl.model2Name + ":" + interpRight;
-				return " --model \"" + mdl1 + "\";" + interpLeft + ";" + "\"" + mdl2 + "\";" + interpRight;
+				if(joey)
+					return (mdl1 + ";" + interpLeft + "&" + mdl2 + ";" + interpRight).WrapPath(true);
+				else
+					return " --model " + mdl1.WrapPath() + ";" + interpLeft + ";" + mdl2.WrapPath() + ";" + interpRight;
 			}
 			if (mdlMode == ModelData.ModelMode.Chain)
 			{
 				Program.lastModelName = mdl.model1Name + ">>" + mdl.model2Name;
-				return " --prefilter  \"" + mdl1 + "\" --model \"" + mdl2 + "\"";
+				if(joey)
+					return (mdl1 + ">" + mdl2).WrapPath(true);
+				else
+					return " --prefilter  " + mdl1.WrapPath() + " --model " + mdl2.WrapPath();
 			}
 			return null;
 		}
@@ -227,6 +234,7 @@ namespace Cupscale.OS
 				}
 				MessageBox.Show("Error occurred: \n\n" + data + "\n\nThe ESRGAN process was killed to avoid lock-ups.", "Error");
 			}
+
 			if (data.Contains("out of memory"))
 				MessageBox.Show("ESRGAN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
 
@@ -237,7 +245,10 @@ namespace Cupscale.OS
 				MessageBox.Show("You are missing ESRGAN Python dependencies. Make sure Pytorch, cv2 (opencv-python) and tensorboardx are installed.", "Error");
 
 			if (data.Contains("RRDBNet"))
-				MessageBox.Show("This model appears to be incompatible!", "Error");
+				MessageBox.Show("Model appears to be incompatible!", "Error");
+
+			if (data.Contains("UnpicklingError"))
+				MessageBox.Show("Failed to load model!", "Error");
 		}
 
 		static string lastProgressString = "";

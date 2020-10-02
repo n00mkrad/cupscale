@@ -11,7 +11,7 @@ namespace Cupscale
 
 		public static string sessionLog;
 
-		public static string logFile;
+		public static string file;
 
 		public static void Log(string s, bool logToFile = true, bool noLineBreak = false, bool replaceLastLine = false)
 		{
@@ -34,16 +34,16 @@ namespace Cupscale
 
 		public static void LogToFile(string s, bool noLineBreak)
         {
-			if (string.IsNullOrWhiteSpace(logFile))
-				logFile = Path.Combine(IOUtils.GetAppDataDir(), "sessionlog.txt");
+			if (string.IsNullOrWhiteSpace(file))
+				file = Path.Combine(IOUtils.GetAppDataDir(), "sessionlog.txt");
 			string time = DT.Now.Month + "-" + DT.Now.Day + "-" + DT.Now.Year + " " + DT.Now.Hour + ":" + DT.Now.Minute + ":" + DT.Now.Second;
 
             try
             {
 				if (!noLineBreak)
-					File.AppendAllText(logFile, Environment.NewLine + time + ": " + s);
+					File.AppendAllText(file, Environment.NewLine + time + ": " + s);
 				else
-					File.AppendAllText(logFile, " " + s);
+					File.AppendAllText(file, " " + s);
 			}
             catch
             {
@@ -54,6 +54,12 @@ namespace Cupscale
 		public static string GetSessionLog ()
         {
 			return sessionLog;
+        }
+
+		public static void LogErrorWithMessage (string msg)
+        {
+			MessageBox.Show(msg, "Error");
+			Log("Error: " + msg);
         }
 	}
 }

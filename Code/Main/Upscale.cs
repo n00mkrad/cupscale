@@ -92,10 +92,7 @@ namespace Cupscale.Main
             Logger.Log("PostprocessingSingle New Path: " + path);
 
             if (outputFormat.Text == ExportFormats.PNG.ToStringTitleCase())
-            {
-                //path = Path.ChangeExtension(path, "png");
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Png50, batchProcessing);
-            }
             if (outputFormat.Text == ExportFormats.SameAsSource.ToStringTitleCase())
                 await ImageProcessing.ConvertImageToOriginalFormat(path, true, false, batchProcessing);
             if (outputFormat.Text == ExportFormats.JPEG.ToStringTitleCase())
@@ -112,16 +109,25 @@ namespace Cupscale.Main
 
         public static string FilenamePostprocess(string file)
         {
-            string newFilename = file;
+            try
+            {
+                string newFilename = file;
 
-            string pathNoExt = Path.ChangeExtension(file, null);
-            string ext = Path.GetExtension(file);
+                string pathNoExt = Path.ChangeExtension(file, null);
+                string ext = Path.GetExtension(file);
 
-            newFilename = pathNoExt + "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+") + ext;
-            File.Move(file, newFilename);
-            newFilename = IOUtils.RenameExtension(newFilename, "jpg", Config.Get("jpegExtension"));
+                newFilename = pathNoExt + "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+") + ext;
 
-            return newFilename;
+                File.Move(file, newFilename);
+                newFilename = IOUtils.RenameExtension(newFilename, "jpg", Config.Get("jpegExtension"));
+
+                return newFilename;
+            }
+            catch (Exception e)
+            {
+                Logger.LogErrorWithMessage("Error during FilenamePostprocess(): " + e.Message);
+                return null;
+            }
         }
     }
 }
