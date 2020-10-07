@@ -61,7 +61,7 @@ namespace Cupscale.IO
 				}
 			}
 
-			int exeVersion = Resources.shipped_files_version.GetInt();
+			int exeVersion = new StringReader(Resources.shipped_files_version).ReadLine().GetInt();
 			int diskVersion = IOUtils.ReadLines(Path.Combine(IOUtils.GetAppDataDir(), "shipped_files_version"))[0].GetInt();
 			if (exeVersion != diskVersion)
             {
@@ -77,7 +77,8 @@ namespace Cupscale.IO
 		public static async Task Install ()
 		{
 			Program.mainForm.Enabled = false;
-			DialogForm dialog1 = new DialogForm("Installing resources...\nThis only needs to be done once.");
+			DialogForm dialog = new DialogForm("Installing resources...\nThis only needs to be done once.");
+			await Task.Delay(20);
 			Directory.CreateDirectory(path);
 
 			path7za = Path.Combine(path, "7za.exe");
@@ -88,16 +89,16 @@ namespace Cupscale.IO
 			File.WriteAllBytes(Path.Combine(IOUtils.GetAppDataDir(), "ncnn.7z"), Resources.esrgan_ncnn);
 			File.WriteAllBytes(Path.Combine(IOUtils.GetAppDataDir(), "ffmpeg.7z"), Resources.ffmpeg);
 
-			dialog1.Close(); DialogForm dialog2 = new DialogForm("Installing ESRGAN resources...");
+			dialog.ChangeText("Installing ESRGAN resources...");
 			await UnSevenzip(Path.Combine(IOUtils.GetAppDataDir(), "esrgan.7z"));
-			dialog2.Close(); DialogForm dialog3 = new DialogForm("Installing ESRGAN-NCNN resources...");
+			dialog.ChangeText("Installing ESRGAN-NCNN resources...");
 			await UnSevenzip(Path.Combine(IOUtils.GetAppDataDir(), "ncnn.7z"));
-			dialog3.Close(); DialogForm dialog4 = new DialogForm("Installing FFmpeg resources...");
+			dialog.ChangeText("Installing FFmpeg resources...");
 			await UnSevenzip(Path.Combine(IOUtils.GetAppDataDir(), "ffmpeg.7z"));
 
 			File.WriteAllText(Path.Combine(IOUtils.GetAppDataDir(), "shipped_files_version"), Resources.shipped_files_version);
 
-			dialog4.Close();
+			dialog.Close();
 			Program.mainForm.Enabled = true;
 			Program.mainForm.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			Program.mainForm.BringToFront();
@@ -106,11 +107,12 @@ namespace Cupscale.IO
 		static async Task UnSevenzip (string path)
         {
 			Logger.Log("Extracting " + path);
+			await Task.Delay(20);
 			SevenZipNET.SevenZipExtractor.Path7za = path7za;
 			SevenZipNET.SevenZipExtractor extractor = new SevenZipNET.SevenZipExtractor(path);
 			extractor.ExtractAll(IOUtils.GetAppDataDir(), true, true);
 			File.Delete(path);
-			await Task.Delay(1);
+			await Task.Delay(10);
 		}
 
 		public static bool Exists()

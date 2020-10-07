@@ -37,6 +37,7 @@
     </PackageReference>
     <PackageReference Include="HTAlt.WinForms" Version="0.1.6" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.22.0" />
+    <PackageReference Include="NvAPIWrapper.Net" Version="0.8.0.98" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Magick.NET-Q16-AnyCPU" />

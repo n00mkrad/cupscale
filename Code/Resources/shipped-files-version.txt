@@ -1,1 +1,2 @@
+2	# added joey's esrgan
 1	# added ffmpeg

@@ -80,6 +80,18 @@ namespace Cupscale.ImageUtils
             return (float)imgTo.Width / (float)imgFrom.Width;
         }
 
+		public static MagickImage FillAlphaWithBgColor (MagickImage img)
+        {
+			return FillAlphaWithColor(img, new MagickColor("#" + Config.Get("alphaBgColor")));
+		}
 
-    }
+		public static MagickImage FillAlphaWithColor(MagickImage img, MagickColor color)
+		{
+			MagickImage bg = new MagickImage(color, img.Width, img.Height);
+			bg.BackgroundColor = color;
+			bg.Composite(img, CompositeOperator.Over);
+
+			return bg;
+		}
+	}
 }

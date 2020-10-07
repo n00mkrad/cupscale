@@ -16,6 +16,7 @@ using Cupscale.Cupscale;
 using Win32Interop.Structs;
 using Cupscale.ImageUtils;
 using System.Diagnostics;
+using Cupscale.OS;
 
 namespace Cupscale
 {
@@ -52,6 +53,8 @@ namespace Cupscale
 			// Batch Upscale
 			UIHelpers.InitCombox(batchOutMode, 0);
 			await CheckInstallation();
+
+			NvApi.Init();
 		}
 
 		public async Task CheckInstallation ()
@@ -80,6 +83,11 @@ namespace Cupscale
 				lastStatus = statusText;
 			}
 		}
+
+		public void SetVramLabel (string text)
+        {
+			vramLabel.Text = text;
+        }
 
 		public void SetBusy (bool state)
         {
@@ -201,7 +209,7 @@ namespace Cupscale
 				return;
             }
 
-			InterpForm interpForm = new InterpForm(model1TreeBtn.Text.Trim(), model2TreeBtn.Text.Trim());
+			AdvancedModelsForm interpForm = new AdvancedModelsForm(model1TreeBtn.Text.Trim(), model2TreeBtn.Text.Trim());
         }
 
         private void batchTab_DragEnter(object sender, DragEventArgs e)
@@ -247,7 +255,7 @@ namespace Cupscale
 			previewImg.Text = "";
 			SetProgress(0f, "Loading image...");
 			loadingDialogForm = new DialogForm("Loading " + Path.GetFileName(path) +"...");
-			await Task.Delay(1);
+			await Task.Delay(20);
 			MainUIHelper.ResetCachedImages();
 			if (!MainUIHelper.DroppedImageIsValid(path))
             {
@@ -421,6 +429,11 @@ namespace Cupscale
 				PostProcessingQueue.copyMode = PostProcessingQueue.CopyMode.KeepStructure;
 			if (batchOutMode.SelectedIndex == 1)
 				PostProcessingQueue.copyMode = PostProcessingQueue.CopyMode.CopyToRoot;
+		}
+
+        private void advancedModelsBtn_Click(object sender, EventArgs e)
+        {
+			
 		}
     }
 }

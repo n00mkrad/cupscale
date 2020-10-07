@@ -7,10 +7,12 @@ using Cupscale.Cupscale;
 using Cupscale.ImageUtils;
 using Cupscale.IO;
 using Cupscale.Main;
+using Cupscale.Properties;
 using Cupscale.UI;
 using ImageMagick;
 using ImageMagick.Formats.Bmp;
 using ImageMagick.Formats.Dds;
+using ImageMagick.Formats.Png;
 using Paths = Cupscale.IO.Paths;
 
 namespace Cupscale
@@ -78,34 +80,18 @@ namespace Cupscale
         public static async Task PreProcessImage(string path, bool fillAlpha)
         {
             MagickImage img = ImgUtils.GetMagickImage(path);
-            img.Format = MagickFormat.Png;
+            img.Format = MagickFormat.Png24;
             img.Quality = 20;
 
-            Logger.Log("Preprocessing " + path + " - Fill Alpha: " + fillAlpha + " - Depth: " + img.Depth * 3 + " bpp");
+            Logger.Log("Preprocessing " + path + " - Fill Alpha: " + fillAlpha);
 
             if (fillAlpha)
-            {
-                //img.Settings.BackgroundColor = new MagickColor("#" + Config.Get("alphaBgColor"));
-                //img.Alpha(AlphaOption.Remove);
-
-                MagickImage bg = new MagickImage(new MagickColor("#" + Config.Get("alphaBgColor")), img.Width, img.Height);
-                bg.BackgroundColor = new MagickColor("#" + Config.Get("alphaBgColor"));
-
-                bg.Composite(img, CompositeOperator.Over);
-
-                img = bg;
-
-                //img.ColorAlpha(new MagickColor("#" + Config.Get("alphaBgColor")));
-                //Logger.Log("Filled alpha with " + Config.Get("alphaBgColor"));
-            }
+                img = ImgUtils.FillAlphaWithBgColor(img);
 
             img = ResizeImagePre(img);
 
-            await Task.Delay(1);
-            //string outPath = Path.ChangeExtension(img.FileName, "png");
             string outPath = path + ".png";
-
-            img.Depth = 8;
+            await Task.Delay(1);
             img.Write(outPath);
 
             if (outPath.ToLower() != path.ToLower())
@@ -168,11 +154,9 @@ namespace Cupscale
                 DdsWriteDefines ddsDefines = new DdsWriteDefines { Compression = comp, Mipmaps = Config.GetInt("ddsMipsAmount") };
                 img.Settings.SetDefines(ddsDefines);
             }
+
             if (fillAlpha)
-            {
-                img.Settings.BackgroundColor = new MagickColor("#" + Config.Get("alphaBgColor"));
-                img.Alpha(AlphaOption.Remove);
-            }
+                img = ImgUtils.FillAlphaWithBgColor(img);
 
             string outPath = null;
 
@@ -207,7 +191,7 @@ namespace Cupscale
             if (format == Format.Png50)
             {
                 img.Format = MagickFormat.Png;
-                img.Quality = 70;
+                img.Quality = 50;
             }
             if (format == Format.PngFast)
             {
@@ -248,7 +232,7 @@ namespace Cupscale
             if (Upscale.currentMode == Upscale.UpscaleMode.Single)
                 MainUIHelper.lastOutfile = outPath;
 
-            Logger.Log("Writing image to " + outPath);
+            Logger.Log("Writing image as " + img.Format + " to " + outPath);
             img.Write(outPath);
 
             if (outPath.ToLower() != path.ToLower())

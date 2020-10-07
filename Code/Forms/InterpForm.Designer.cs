@@ -1,6 +1,6 @@
 ﻿namespace Cupscale.Forms
 {
-    partial class InterpForm
+    partial class AdvancedModelsForm
     {
         /// <summary>
         /// Required designer variable.

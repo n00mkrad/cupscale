@@ -136,6 +136,8 @@ namespace Cupscale
             this.panel7 = new System.Windows.Forms.Panel();
             this.settingsBtn = new HTAlt.WinForms.HTButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.vramLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -165,6 +167,7 @@ namespace Cupscale
             this.groupBox2.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.panel15.SuspendLayout();
             this.SuspendLayout();
             // 
             // leftPanel
@@ -222,6 +225,7 @@ namespace Cupscale
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel6, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel6, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel7, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel15, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -1453,6 +1457,28 @@ namespace Cupscale
             this.settingsBtn.UseVisualStyleBackColor = false;
             this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
             // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.vramLabel);
+            this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel15.Location = new System.Drawing.Point(350, 0);
+            this.panel15.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(614, 40);
+            this.panel15.TabIndex = 9;
+            // 
+            // vramLabel
+            // 
+            this.vramLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vramLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.vramLabel.ForeColor = System.Drawing.Color.White;
+            this.vramLabel.Location = new System.Drawing.Point(0, 0);
+            this.vramLabel.Name = "vramLabel";
+            this.vramLabel.Size = new System.Drawing.Size(614, 40);
+            this.vramLabel.TabIndex = 2;
+            this.vramLabel.Text = "No Nvidia GPU detected!";
+            this.vramLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1506,6 +1532,7 @@ namespace Cupscale
             this.groupBox2.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            this.panel15.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1571,5 +1598,7 @@ namespace Cupscale
         private Label label18;
         private ComboBox preResizeFilter;
         private Label label21;
+        private Panel panel15;
+        private Label vramLabel;
     }
 }

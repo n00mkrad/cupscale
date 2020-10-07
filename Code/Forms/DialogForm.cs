@@ -22,6 +22,11 @@ namespace Cupscale.Forms
             SelfDestruct(selfDestructTime);
         }
 
+        public void ChangeText (string s)
+        {
+            mainLabel.Text = s;
+        }
+
         private async Task SelfDestruct (int time)
         {
             await Task.Delay(time * 1000);

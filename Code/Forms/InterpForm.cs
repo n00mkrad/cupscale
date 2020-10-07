@@ -11,12 +11,12 @@ using System.Windows.Forms;
 
 namespace Cupscale.Forms
 {
-    public partial class InterpForm : Form
+    public partial class AdvancedModelsForm : Form
     {
         string leftModelName;
         string rightModelName;
 
-        public InterpForm(string leftModel, string rightModel)
+        public AdvancedModelsForm(string leftModel, string rightModel)
         {
             leftModelName = leftModel;
             rightModelName = rightModel;

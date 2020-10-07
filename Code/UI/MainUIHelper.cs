@@ -141,7 +141,7 @@ namespace Cupscale.UI
             if (fullImage)
             {
                 prevMode = ESRGAN.PreviewMode.FullImage;
-                if (!IOUtils.TryCopy(Paths.tempImgPath, Path.Combine(Paths.previewPath, "preview.png.tmp"), true)) return;
+                if (!IOUtils.TryCopy(Paths.tempImgPath, Path.Combine(Paths.previewPath, "preview.png"), true)) return;
             }
             else
             {
