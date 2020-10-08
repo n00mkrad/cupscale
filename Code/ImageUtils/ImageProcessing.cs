@@ -80,7 +80,6 @@ namespace Cupscale
         public static async Task PreProcessImage(string path, bool fillAlpha)
         {
             MagickImage img = ImgUtils.GetMagickImage(path);
-            img.Format = MagickFormat.Png24;
             img.Quality = 20;
 
             Logger.Log("Preprocessing " + path + " - Fill Alpha: " + fillAlpha);
@@ -92,6 +91,7 @@ namespace Cupscale
 
             string outPath = path + ".png";
             await Task.Delay(1);
+            img.Format = MagickFormat.Png32;
             img.Write(outPath);
 
             if (outPath.ToLower() != path.ToLower())
@@ -182,7 +182,7 @@ namespace Cupscale
             await Task.Delay(1);
         }
 
-        public static async Task PostProcessImage(string path, Format format, bool batchProcessing = false)
+        public static async Task PostProcessImage(string path, Format format, bool dontResize)
         {
             MagickImage img = ImgUtils.GetMagickImage(path);
             string ext = "png";
@@ -221,7 +221,8 @@ namespace Cupscale
                 ext = "tga";
             }
 
-            img = ResizeImagePost(img);
+            if(!dontResize)
+                img = ResizeImagePost(img);
 
             await Task.Delay(1);
             string outPath = Path.ChangeExtension(img.FileName, ext);
@@ -273,15 +274,28 @@ namespace Cupscale
         public static MagickImage ResizeImagePre(MagickImage img)
         {
             if (!(preScaleMode == Upscale.ScaleMode.Percent && preScaleValue == 100))   // Skip if target scale is 100%
+            {
                 img = ResizeImage(img, preScaleValue, preScaleMode, preFilter, preOnlyDownscale);
+                Logger.Log("ResizeImagePre: Resized to " + img.Width + "x" + img.Height);
+            }
+            else
+            {
+                Logger.Log("ResizeImagePre: Skipped resize because it's set to 100%.");
+            }
             return img;
         }
 
         public static MagickImage ResizeImagePost(MagickImage img)
         {
             if (!(postScaleMode == Upscale.ScaleMode.Percent && postScaleValue == 100))   // Skip if target scale is 100%
+            {
                 img = ResizeImage(img, postScaleValue, postScaleMode, postFilter, postOnlyDownscale);
-            Logger.Log("ResizeImagePost: Resized to " + img.Width + "x" + img.Height);
+                Logger.Log("ResizeImagePost: Resized to " + img.Width + "x" + img.Height);
+            }
+            else
+            {
+                Logger.Log("ResizeImagePost: Skipped resize because it's set to 100%.");
+            }
             return img;
         }
 

@@ -84,10 +84,11 @@ namespace Cupscale
 			}
 		}
 
-		public void SetVramLabel (string text)
+		public void SetVramLabel (string text, Color color)
         {
 			vramLabel.Text = text;
-        }
+			vramLabel.ForeColor = color;
+		}
 
 		public void SetBusy (bool state)
         {
@@ -193,11 +194,14 @@ namespace Cupscale
 
 		public void UpdateModelMode()
 		{
+			model1TreeBtn.Enabled = !advancedBtn.Checked;
 			model2TreeBtn.Enabled = (interpRbtn.Checked || chainRbtn.Checked);
 			interpConfigureBtn.Visible = interpRbtn.Checked;
+			advancedConfigureBtn.Visible = advancedBtn.Checked;
 			if (singleModelRbtn.Checked) MainUIHelper.currentMode = MainUIHelper.Mode.Single;
 			if (interpRbtn.Checked) MainUIHelper.currentMode = MainUIHelper.Mode.Interp;
 			if (chainRbtn.Checked) MainUIHelper.currentMode = MainUIHelper.Mode.Chain;
+			if (advancedBtn.Checked) MainUIHelper.currentMode = MainUIHelper.Mode.Advanced;
 		}
 
         private void interpConfigureBtn_Click(object sender, EventArgs e)
@@ -331,12 +335,12 @@ namespace Cupscale
 
         private void model1TreeBtn_Click(object sender, EventArgs e)
         {
-			ModelSelectForm treeForm = new ModelSelectForm(model1TreeBtn, 1);
+			new ModelSelectForm(model1TreeBtn, 1).Show();
         }
 
         private void model2TreeBtn_Click(object sender, EventArgs e)
         {
-			ModelSelectForm treeForm = new ModelSelectForm(model2TreeBtn, 2);
+			new ModelSelectForm(model2TreeBtn, 2).Show();
 		}
 
         private void savePreviewToFileBtn_Click(object sender, EventArgs e)
@@ -417,7 +421,7 @@ namespace Cupscale
 			string ext = Path.GetExtension(Program.lastFilename);
 			string outPath = Path.ChangeExtension(Program.lastFilename, null) + "[temp]" + ext + ".tmp";
 			previewImg.Image.Save(outPath);
-			await Upscale.PostprocessingSingle(outPath, false);
+			await Upscale.PostprocessingSingle(outPath, true);
 			string outFilename = Upscale.FilenamePostprocess(MainUIHelper.lastOutfile);
 			string finalPath = IOUtils.ReplaceInFilename(outFilename, "[temp]", "");
 			MessageBox.Show("Saved to " + finalPath + ".", "Message");
@@ -431,9 +435,14 @@ namespace Cupscale
 				PostProcessingQueue.copyMode = PostProcessingQueue.CopyMode.CopyToRoot;
 		}
 
-        private void advancedModelsBtn_Click(object sender, EventArgs e)
+        private void advancedBtn_CheckedChanged(object sender, EventArgs e)
         {
-			
+			UpdateModelMode();
 		}
+
+        private void advancedConfigureBtn_Click(object sender, EventArgs e)
+        {
+			new AdvancedModelForm();
+        }
     }
 }

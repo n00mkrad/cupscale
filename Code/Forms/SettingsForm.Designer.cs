@@ -34,6 +34,8 @@
             this.settingsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.seamlessJoeyWarn = new System.Windows.Forms.Label();
             this.seamless = new System.Windows.Forms.CheckBox();
             this.label22 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -93,12 +95,11 @@
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.modelsPathDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.seamlessJoeyWarn = new System.Windows.Forms.Label();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel6.SuspendLayout();
@@ -112,7 +113,6 @@
             this.resourceFilesPage.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.SuspendLayout();
             // 
             // tabList1
@@ -177,6 +177,29 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(455, 463);
             this.panel7.TabIndex = 4;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox6.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox6.Location = new System.Drawing.Point(94, 166);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.TabIndex = 17;
+            this.pictureBox6.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox6, "Use this if you want to upscale seamless/tiled textures.\r\nIt tried to preserve th" +
+        "e tiling.");
+            // 
+            // seamlessJoeyWarn
+            // 
+            this.seamlessJoeyWarn.AutoSize = true;
+            this.seamlessJoeyWarn.ForeColor = System.Drawing.Color.Silver;
+            this.seamlessJoeyWarn.Location = new System.Drawing.Point(199, 170);
+            this.seamlessJoeyWarn.Name = "seamlessJoeyWarn";
+            this.seamlessJoeyWarn.Size = new System.Drawing.Size(182, 13);
+            this.seamlessJoeyWarn.TabIndex = 16;
+            this.seamlessJoeyWarn.Text = "Only Available With Joey\'s ESRGAN.";
             // 
             // seamless
             // 
@@ -841,29 +864,6 @@
             this.label21.TabIndex = 1;
             this.label21.Text = "Resource Files";
             // 
-            // seamlessJoeyWarn
-            // 
-            this.seamlessJoeyWarn.AutoSize = true;
-            this.seamlessJoeyWarn.ForeColor = System.Drawing.Color.Silver;
-            this.seamlessJoeyWarn.Location = new System.Drawing.Point(199, 170);
-            this.seamlessJoeyWarn.Name = "seamlessJoeyWarn";
-            this.seamlessJoeyWarn.Size = new System.Drawing.Size(182, 13);
-            this.seamlessJoeyWarn.TabIndex = 16;
-            this.seamlessJoeyWarn.Text = "Only Available With Joey\'s ESRGAN.";
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox6.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox6.Location = new System.Drawing.Point(94, 166);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox6.TabIndex = 17;
-            this.pictureBox6.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox6, "Use this if you want to upscale seamless/tiled textures.\r\nIt tried to preserve th" +
-        "e tiling.");
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -874,6 +874,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cupscale Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
             this.Load += new System.EventHandler(this.SettingsForm_Load);
@@ -882,6 +883,7 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel6.ResumeLayout(false);
@@ -899,7 +901,6 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.ResumeLayout(false);
 
         }

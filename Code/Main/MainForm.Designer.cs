@@ -53,6 +53,8 @@ namespace Cupscale
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.advancedBtn = new System.Windows.Forms.RadioButton();
+            this.advancedConfigureBtn = new System.Windows.Forms.Button();
             this.model2TreeBtn = new System.Windows.Forms.Button();
             this.model1TreeBtn = new System.Windows.Forms.Button();
             this.interpConfigureBtn = new System.Windows.Forms.Button();
@@ -135,9 +137,9 @@ namespace Cupscale
             this.label5 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.settingsBtn = new HTAlt.WinForms.HTButton();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel15 = new System.Windows.Forms.Panel();
             this.vramLabel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -257,6 +259,8 @@ namespace Cupscale
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.advancedBtn);
+            this.panel5.Controls.Add(this.advancedConfigureBtn);
             this.panel5.Controls.Add(this.model2TreeBtn);
             this.panel5.Controls.Add(this.model1TreeBtn);
             this.panel5.Controls.Add(this.interpConfigureBtn);
@@ -272,6 +276,37 @@ namespace Cupscale
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(338, 285);
             this.panel5.TabIndex = 1;
+            // 
+            // advancedBtn
+            // 
+            this.advancedBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.advancedBtn.AutoSize = true;
+            this.advancedBtn.ForeColor = System.Drawing.Color.White;
+            this.advancedBtn.Location = new System.Drawing.Point(12, 148);
+            this.advancedBtn.Name = "advancedBtn";
+            this.advancedBtn.Size = new System.Drawing.Size(74, 17);
+            this.advancedBtn.TabIndex = 20;
+            this.advancedBtn.Text = "Advanced";
+            this.advancedBtn.UseVisualStyleBackColor = true;
+            this.advancedBtn.CheckedChanged += new System.EventHandler(this.advancedBtn_CheckedChanged);
+            // 
+            // advancedConfigureBtn
+            // 
+            this.advancedConfigureBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.advancedConfigureBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.advancedConfigureBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.advancedConfigureBtn.ForeColor = System.Drawing.Color.White;
+            this.advancedConfigureBtn.Location = new System.Drawing.Point(199, 145);
+            this.advancedConfigureBtn.Name = "advancedConfigureBtn";
+            this.advancedConfigureBtn.Size = new System.Drawing.Size(129, 23);
+            this.advancedConfigureBtn.TabIndex = 19;
+            this.advancedConfigureBtn.Text = "Configure...";
+            this.advancedConfigureBtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.advancedConfigureBtn.UseVisualStyleBackColor = false;
+            this.advancedConfigureBtn.Visible = false;
+            this.advancedConfigureBtn.Click += new System.EventHandler(this.advancedConfigureBtn_Click);
             // 
             // model2TreeBtn
             // 
@@ -1462,7 +1497,7 @@ namespace Cupscale
             this.panel15.Controls.Add(this.vramLabel);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel15.Location = new System.Drawing.Point(350, 0);
-            this.panel15.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            this.panel15.Margin = new System.Windows.Forms.Padding(0);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(614, 40);
             this.panel15.TabIndex = 9;
@@ -1600,5 +1635,7 @@ namespace Cupscale
         private Label label21;
         private Panel panel15;
         private Label vramLabel;
+        private RadioButton advancedBtn;
+        private Button advancedConfigureBtn;
     }
 }

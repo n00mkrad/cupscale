@@ -51,6 +51,7 @@ namespace Cupscale
 			IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
 			IOUtils.DeleteContentsOfDir(Paths.tempImgPath.GetParentDir());
 			IOUtils.DeleteContentsOfDir(Path.Combine(IOUtils.GetAppDataDir(), "giftemp"));
+			IOUtils.DeleteIfExists(Path.Combine(Paths.presetsPath, "lastUsed"));
 		}
 
 		public static void CloseTempForms ()

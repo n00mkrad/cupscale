@@ -28,12 +28,14 @@ namespace Cupscale.UI
 
 		public static int GetInt(this TextBox textbox)
 		{
-			return int.Parse(textbox.Text.TrimNumbers());
+            try { return int.Parse(textbox.Text.TrimNumbers()); }
+            catch { return 0; }
 		}
 
 		public static int GetInt(this ComboBox combobox)
 		{
-			return int.Parse(combobox.Text.TrimNumbers());
+			try { return int.Parse(combobox.Text.TrimNumbers()); }
+			catch { return 0; }
 		}
 
 		public static string GetParentDir (this string path)
@@ -94,5 +96,14 @@ namespace Cupscale.UI
         {
 			return (int)Math.Round(f);
         }
+
+		public static int Clamp (this int i, int min, int max)
+        {
+			if (i < min)
+				i = min;
+			if (i > max)
+				i = max;
+			return i;
+		}
 	}
 }

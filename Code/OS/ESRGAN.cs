@@ -88,7 +88,7 @@ namespace Cupscale.OS
 
 		public static async Task ScalePreviewOutput ()
         {
-			if (ImageProcessing.preScaleMode == Upscale.ScaleMode.Percent && ImageProcessing.preScaleValue == 100)   // Skip if target scale is 100%)
+			if (ImageProcessing.postScaleMode == Upscale.ScaleMode.Percent && ImageProcessing.postScaleValue == 100)   // Skip if target scale is 100%)
 				return;
 			Program.mainForm.SetProgress(1f, "Resizing preview output...");
 			await Task.Delay(1);
@@ -127,7 +127,12 @@ namespace Cupscale.OS
 				if(joey)
 					return (mdl1 + ">" + mdl2).WrapPath(true);
 				else
-					return " --prefilter  " + mdl1.WrapPath() + " --model " + mdl2.WrapPath();
+					return " --model  " + mdl1.WrapPath() + " --postfilter " + mdl2.WrapPath();
+			}
+			if (mdlMode == ModelData.ModelMode.Advanced)
+			{
+				Program.lastModelName = "Advanced";
+				return AdvancedModelSelection.GetArg(joey);
 			}
 			return null;
 		}
@@ -265,10 +270,17 @@ namespace Cupscale.OS
 				return;
 			lastProgressString = outStr;
 			string text = outStr.Replace("Tile ", "").Trim();
-			int num = int.Parse(text.Split('/')[0]);
-			int num2 = int.Parse(text.Split('/')[1]);
-			float previewProgress = (float)num / (float)num2 * 100f;
-			Program.mainForm.SetProgress(previewProgress, "Upscaling tiles - " + previewProgress.ToString("0") + "%");
+            try
+            {
+				int num = int.Parse(text.Split('/')[0]);
+				int num2 = int.Parse(text.Split('/')[1]);
+				float previewProgress = (float)num / (float)num2 * 100f;
+				Program.mainForm.SetProgress(previewProgress, "Upscaling tiles - " + previewProgress.ToString("0") + "%");
+			}
+			catch 
+			{
+				Logger.Log("Failed to parse progress from this line: " + text);
+			}
 			await Task.Delay(1);
 		}
 

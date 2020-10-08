@@ -173,6 +173,11 @@ namespace Cupscale.UI
                 ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
                 await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, tilesize, alpha, prevMode, false);
             }
+            if (currentMode == Mode.Advanced)
+            {
+                ModelData mdl = new ModelData(null, null, ModelData.ModelMode.Advanced);
+                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, tilesize, alpha, prevMode, false);
+            }
             Program.mainForm.SetBusy(false);
         }
 

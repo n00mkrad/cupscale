@@ -2,6 +2,7 @@
 using NvAPIWrapper.GPU;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,12 @@ namespace Cupscale.OS
                 return;
             vramGb = (gpu.MemoryInformation.AvailableDedicatedVideoMemoryInkB / 1000f / 1024f);
             vramFreeGb = (gpu.MemoryInformation.CurrentAvailableDedicatedVideoMemoryInkB / 1000f / 1024f);
-            Program.mainForm.SetVramLabel($"{gpu.FullName}: {vramFreeGb.ToString("0.00")} GB VRAM available of {vramGb.ToString("0.00")} GB");
+            Color col = Color.White;
+            if (vramFreeGb < 2f)
+                col = Color.Orange;
+            if (vramFreeGb < 1f)
+                col = Color.OrangeRed;
+            Program.mainForm.SetVramLabel($"{gpu.FullName}: {vramGb.ToString("0.00")} GB VRAM - {vramFreeGb.ToString("0.00")} GB Free", col);
         }
 
         public static async void RefreshLoop ()

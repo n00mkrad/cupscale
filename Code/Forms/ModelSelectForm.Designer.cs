@@ -33,6 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.cancelBtn = new HTAlt.WinForms.HTButton();
             this.confirmBtn = new HTAlt.WinForms.HTButton();
+            this.clearBtn = new HTAlt.WinForms.HTButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -67,6 +68,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.clearBtn);
             this.panel1.Controls.Add(this.cancelBtn);
             this.panel1.Controls.Add(this.confirmBtn);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -83,8 +85,8 @@
             this.cancelBtn.FlatAppearance.BorderSize = 0;
             this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelBtn.ForeColor = System.Drawing.Color.White;
-            this.cancelBtn.Location = new System.Drawing.Point(366, 6);
-            this.cancelBtn.Margin = new System.Windows.Forms.Padding(6, 6, 180, 6);
+            this.cancelBtn.Location = new System.Drawing.Point(467, 6);
+            this.cancelBtn.Margin = new System.Windows.Forms.Padding(12, 6, 12, 6);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(162, 32);
             this.cancelBtn.TabIndex = 13;
@@ -100,14 +102,31 @@
             this.confirmBtn.FlatAppearance.BorderSize = 0;
             this.confirmBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.confirmBtn.ForeColor = System.Drawing.Color.White;
-            this.confirmBtn.Location = new System.Drawing.Point(186, 6);
-            this.confirmBtn.Margin = new System.Windows.Forms.Padding(180, 6, 6, 6);
+            this.confirmBtn.Location = new System.Drawing.Point(95, 6);
+            this.confirmBtn.Margin = new System.Windows.Forms.Padding(12, 6, 12, 6);
             this.confirmBtn.Name = "confirmBtn";
             this.confirmBtn.Size = new System.Drawing.Size(162, 32);
             this.confirmBtn.TabIndex = 12;
             this.confirmBtn.Text = "Select Model";
             this.confirmBtn.UseVisualStyleBackColor = false;
             this.confirmBtn.Click += new System.EventHandler(this.confirmBtn_Click);
+            // 
+            // clearBtn
+            // 
+            this.clearBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.clearBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.clearBtn.FlatAppearance.BorderSize = 0;
+            this.clearBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.clearBtn.ForeColor = System.Drawing.Color.White;
+            this.clearBtn.Location = new System.Drawing.Point(281, 6);
+            this.clearBtn.Margin = new System.Windows.Forms.Padding(12, 6, 12, 6);
+            this.clearBtn.Name = "clearBtn";
+            this.clearBtn.Size = new System.Drawing.Size(162, 32);
+            this.clearBtn.TabIndex = 14;
+            this.clearBtn.Text = "Clear";
+            this.clearBtn.UseVisualStyleBackColor = false;
+            this.clearBtn.Click += new System.EventHandler(this.clearBtn_Click);
             // 
             // ModelSelectForm
             // 
@@ -119,6 +138,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.Name = "ModelSelectForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ModelSelectForm";
             this.Load += new System.EventHandler(this.ModelSelectForm_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ModelSelectForm_KeyPress);
@@ -135,5 +155,6 @@
         private System.Windows.Forms.Panel panel1;
         private HTAlt.WinForms.HTButton cancelBtn;
         private HTAlt.WinForms.HTButton confirmBtn;
+        private HTAlt.WinForms.HTButton clearBtn;
     }
 }

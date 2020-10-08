@@ -13,7 +13,7 @@ namespace Cupscale
         public string model2Name;
         public string model1Path;
         public string model2Path;
-        public enum ModelMode { Single, Interp, Chain }
+        public enum ModelMode { Single, Interp, Chain, Advanced }
         public ModelMode mode;
         public int interp;
 

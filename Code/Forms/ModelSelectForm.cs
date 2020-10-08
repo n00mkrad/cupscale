@@ -14,16 +14,16 @@ namespace Cupscale.Forms
 {
     public partial class ModelSelectForm : Form
     {
-        public string selectedModel;
+        public string selectedModel { get; set; }
         public int modelNo;
         public Button modelBtn;
 
         public ModelSelectForm(Button modelButton, int modelNumber)
         {
             InitializeComponent();
-            Show();
+            //Show();
             TopMost = true;
-            CenterToScreen();
+            //CenterToScreen();
             modelBtn = modelButton;
             modelNo = modelNumber;
             SelectLastUsed();
@@ -42,10 +42,13 @@ namespace Cupscale.Forms
             modelTree.ExpandAll();
         }
 
-        private void SelectLastUsed()
+        private async void SelectLastUsed()
         {
             if (!Directory.Exists(Config.Get("modelPath")))
                 return;
+
+            while (modelTree.Nodes.Count < 1)
+                await Task.Delay(1);
 
             if (string.IsNullOrWhiteSpace(Program.currentModel1))
                 modelTree.SelectedNode = modelTree.Nodes[0];
@@ -89,6 +92,7 @@ namespace Cupscale.Forms
                 Program.currentModel1 = selectedModel;
             if (modelNo == 2)
                 Program.currentModel2 = selectedModel;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
@@ -115,6 +119,18 @@ namespace Cupscale.Forms
                 e.Handled = true;
                 Close();
             }
+        }
+
+        private void clearBtn_Click(object sender, EventArgs e)
+        {
+            selectedModel = "";
+            modelBtn.Text = "None";
+            if (modelNo == 1)   // idk if this could be less hardcoded?
+                Program.currentModel1 = null;
+            if (modelNo == 2)
+                Program.currentModel2 = null;
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }

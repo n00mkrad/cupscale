@@ -117,4 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label16.Text" xml:space="preserve">
+    <value>Select the models you want to interpolate/chain.
+You don't need to fill out all model fields - empty ones will be ignored.
+This way you can, for example, chain two interpolated models, or three single models, or even three interpolated models.
+Entry 1 will be chained with Entry 2 and then Entry 3, but you can also just chain two models by leaving Entry 3 empty.
+</value>
+  </data>
 </root>

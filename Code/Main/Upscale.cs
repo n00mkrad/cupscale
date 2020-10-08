@@ -79,11 +79,15 @@ namespace Cupscale.Main
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return mdl;
                 mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
             }
+            if (MainUIHelper.currentMode == Mode.Advanced)
+            {
+                mdl = new ModelData(null, null, ModelData.ModelMode.Advanced);
+            }
 
             return mdl;
         }
 
-        public static async Task PostprocessingSingle (string path, bool batchProcessing)
+        public static async Task PostprocessingSingle (string path, bool dontResize = false)
         {
             Logger.Log("PostprocessingSingle: " + path);
             string newPath = path.Substring(0, path.Length - 4);
@@ -92,17 +96,17 @@ namespace Cupscale.Main
             Logger.Log("PostprocessingSingle New Path: " + path);
 
             if (outputFormat.Text == ExportFormats.PNG.ToStringTitleCase())
-                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Png50, batchProcessing);
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Png50, dontResize);
             if (outputFormat.Text == ExportFormats.SameAsSource.ToStringTitleCase())
-                await ImageProcessing.ConvertImageToOriginalFormat(path, true, false, batchProcessing);
+                await ImageProcessing.ConvertImageToOriginalFormat(path, true, false, dontResize);
             if (outputFormat.Text == ExportFormats.JPEG.ToStringTitleCase())
-                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Jpeg, batchProcessing);
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Jpeg, dontResize);
             if (outputFormat.Text == ExportFormats.WEBP.ToStringTitleCase())
-                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Weppy, batchProcessing);
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Weppy, dontResize);
             if (outputFormat.Text == ExportFormats.BMP.ToStringTitleCase())
-                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.BMP, batchProcessing);
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.BMP, dontResize);
             if (outputFormat.Text == ExportFormats.TGA.ToStringTitleCase())
-                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.TGA, batchProcessing);
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.TGA, dontResize);
             if (outputFormat.Text == ExportFormats.DDS.ToStringTitleCase())
                 await ImageProcessing.PostProcessDDS(path);
         }
