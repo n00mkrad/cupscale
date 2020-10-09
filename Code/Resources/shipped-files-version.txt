@@ -1,2 +1,3 @@
+3	# updated esrlmain.py to fix chaining problem
 2	# added joey's esrgan
 1	# added ffmpeg

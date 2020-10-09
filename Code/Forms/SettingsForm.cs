@@ -44,6 +44,7 @@ namespace Cupscale.Forms
             Config.LoadGuiElement(useCpu);
             Config.LoadGuiElement(useNcnn);
             Config.LoadComboxIndex(previewFormat);
+            Config.LoadGuiElement(reloadImageBeforeUpscale);
             // Formats
             Config.LoadGuiElement(jpegQ);
             Config.LoadGuiElement(webpQ);
@@ -70,6 +71,7 @@ namespace Cupscale.Forms
             Config.SaveGuiElement(useCpu);
             Config.SaveGuiElement(useNcnn);
             Config.SaveComboxIndex(previewFormat);
+            Config.SaveGuiElement(reloadImageBeforeUpscale);
 
             // Formats
             Config.SaveGuiElement(jpegQ, true);

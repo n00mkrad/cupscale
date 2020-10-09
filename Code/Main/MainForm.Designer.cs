@@ -283,7 +283,7 @@ namespace Cupscale
             | System.Windows.Forms.AnchorStyles.Right)));
             this.advancedBtn.AutoSize = true;
             this.advancedBtn.ForeColor = System.Drawing.Color.White;
-            this.advancedBtn.Location = new System.Drawing.Point(12, 148);
+            this.advancedBtn.Location = new System.Drawing.Point(12, 140);
             this.advancedBtn.Name = "advancedBtn";
             this.advancedBtn.Size = new System.Drawing.Size(74, 17);
             this.advancedBtn.TabIndex = 20;
@@ -298,7 +298,7 @@ namespace Cupscale
             this.advancedConfigureBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.advancedConfigureBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.advancedConfigureBtn.ForeColor = System.Drawing.Color.White;
-            this.advancedConfigureBtn.Location = new System.Drawing.Point(199, 145);
+            this.advancedConfigureBtn.Location = new System.Drawing.Point(199, 137);
             this.advancedConfigureBtn.Name = "advancedConfigureBtn";
             this.advancedConfigureBtn.Size = new System.Drawing.Size(129, 23);
             this.advancedConfigureBtn.TabIndex = 19;
@@ -350,7 +350,7 @@ namespace Cupscale
             this.interpConfigureBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.interpConfigureBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.interpConfigureBtn.ForeColor = System.Drawing.Color.White;
-            this.interpConfigureBtn.Location = new System.Drawing.Point(199, 99);
+            this.interpConfigureBtn.Location = new System.Drawing.Point(199, 91);
             this.interpConfigureBtn.Name = "interpConfigureBtn";
             this.interpConfigureBtn.Size = new System.Drawing.Size(129, 23);
             this.interpConfigureBtn.TabIndex = 16;
@@ -366,7 +366,7 @@ namespace Cupscale
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(5, 60);
+            this.label4.Location = new System.Drawing.Point(5, 52);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 15;
@@ -378,7 +378,7 @@ namespace Cupscale
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chainRbtn.AutoSize = true;
             this.chainRbtn.ForeColor = System.Drawing.Color.White;
-            this.chainRbtn.Location = new System.Drawing.Point(12, 125);
+            this.chainRbtn.Location = new System.Drawing.Point(12, 117);
             this.chainRbtn.Name = "chainRbtn";
             this.chainRbtn.Size = new System.Drawing.Size(113, 17);
             this.chainRbtn.TabIndex = 14;
@@ -392,7 +392,7 @@ namespace Cupscale
             | System.Windows.Forms.AnchorStyles.Right)));
             this.interpRbtn.AutoSize = true;
             this.interpRbtn.ForeColor = System.Drawing.Color.White;
-            this.interpRbtn.Location = new System.Drawing.Point(12, 102);
+            this.interpRbtn.Location = new System.Drawing.Point(12, 94);
             this.interpRbtn.Name = "interpRbtn";
             this.interpRbtn.Size = new System.Drawing.Size(181, 17);
             this.interpRbtn.TabIndex = 13;
@@ -407,7 +407,7 @@ namespace Cupscale
             this.singleModelRbtn.AutoSize = true;
             this.singleModelRbtn.Checked = true;
             this.singleModelRbtn.ForeColor = System.Drawing.Color.White;
-            this.singleModelRbtn.Location = new System.Drawing.Point(12, 79);
+            this.singleModelRbtn.Location = new System.Drawing.Point(12, 71);
             this.singleModelRbtn.Name = "singleModelRbtn";
             this.singleModelRbtn.Size = new System.Drawing.Size(108, 17);
             this.singleModelRbtn.TabIndex = 12;
@@ -1072,7 +1072,7 @@ namespace Cupscale
             this.batchOutMode.ForeColor = System.Drawing.Color.White;
             this.batchOutMode.FormattingEnabled = true;
             this.batchOutMode.Items.AddRange(new object[] {
-            "Keep Folder Structure",
+            "Keep Folder Structure [Currently not supported with NCNN!]",
             "Place All Images In Root Directory"});
             this.batchOutMode.Location = new System.Drawing.Point(8, 76);
             this.batchOutMode.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
@@ -1459,7 +1459,7 @@ namespace Cupscale
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(344, 34);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Cupscale [Build 18 - 10/02/20]";
+            this.label5.Text = "Cupscale [Build 19h1 - 10/08/20]";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel7
@@ -1522,10 +1522,12 @@ namespace Cupscale
             this.ClientSize = new System.Drawing.Size(1264, 921);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = global::Cupscale.Properties.Resources.CupscaleLogo1;
+            this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "Cupscale GUI";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);

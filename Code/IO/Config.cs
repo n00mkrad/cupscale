@@ -87,6 +87,7 @@ namespace Cupscale
 				"dxtMode" => WriteDefault("dxtMode", "BC1 (DXT1)"),
 				"ddsEnableMips" => WriteDefault("ddsEnableMips", "True"),
 				"previewFormat" => WriteDefault("previewFormat", "0"),
+				"reloadImageBeforeUpscale" => WriteDefault("reloadImageBeforeUpscale", "True"),
 				_ => null, 
 			};
 		}

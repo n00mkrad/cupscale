@@ -48,6 +48,11 @@ namespace Cupscale.UI
 
         public static async Task UpscaleImage()
         {
+            if (previewImg.Image == null)
+            {
+                MessageBox.Show("Please load an image first!", "Error");
+                return;
+            }
             Program.mainForm.SetBusy(true);
             IOUtils.DeleteContentsOfDir(Paths.imgInPath);
             IOUtils.DeleteContentsOfDir(Paths.imgOutPath);

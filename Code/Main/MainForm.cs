@@ -194,6 +194,11 @@ namespace Cupscale
 
 		public void UpdateModelMode()
 		{
+            if (Config.GetBool("useNcnn"))
+            {
+				//MessageBox.Show("NCNN does not support interpolation or chaining.", "Error");	// How do I avoid this getting spammed?
+				singleModelRbtn.Checked = true;
+			}
 			model1TreeBtn.Enabled = !advancedBtn.Checked;
 			model2TreeBtn.Enabled = (interpRbtn.Checked || chainRbtn.Checked);
 			interpConfigureBtn.Visible = interpRbtn.Checked;
@@ -268,17 +273,30 @@ namespace Cupscale
 				Program.CloseTempForms();
 				return;
 			}
-			File.Copy(path, Paths.tempImgPath, true);
-			bool fillAlpha = !bool.Parse(Config.Get("alpha"));
-			await ImageProcessing.ConvertImage(path, ImageProcessing.Format.PngRaw, fillAlpha, ImageProcessing.ExtensionMode.UseNew, false, Paths.tempImgPath);
-			previewImg.Image = ImgUtils.GetImage(Paths.tempImgPath);
 			Program.lastFilename = path;
-			MainUIHelper.currentScale = 1;
-			previewImg.ZoomToFit();
-			lastZoom = previewImg.Zoom;
+			ReloadImage();
 			SetHasPreview(false);
 			loadingDialogForm.Close();
 			SetProgress(0f, "Ready.");
+		}
+
+		public async void ReloadImage ()
+        {
+			try
+			{
+				string path = Program.lastFilename;
+				File.Copy(path, Paths.tempImgPath, true);
+				bool fillAlpha = !bool.Parse(Config.Get("alpha"));
+				await ImageProcessing.ConvertImage(path, ImageProcessing.Format.PngRaw, fillAlpha, ImageProcessing.ExtensionMode.UseNew, false, Paths.tempImgPath);
+				previewImg.Image = ImgUtils.GetImage(Paths.tempImgPath);
+				MainUIHelper.currentScale = 1;
+				previewImg.ZoomToFit();
+				lastZoom = previewImg.Zoom;
+			}
+			catch
+			{
+				Logger.Log("Failed to reload image from source path - Maybe image is from clipboard or has been deleted.");
+			}
 		}
 
         private async void upscaleBtn_Click(object sender, EventArgs e)
@@ -292,6 +310,8 @@ namespace Cupscale
 				return;
             }
 
+			if(Config.GetBool("reloadImageBeforeUpscale"))
+				ReloadImage();
 			UpdateResizeMode();
 			if (htTabControl.SelectedIndex == 0)
 				await MainUIHelper.UpscaleImage();
@@ -312,8 +332,10 @@ namespace Cupscale
 			ImageProcessing.preOnlyDownscale = preResizeOnlyDownscale.Checked;
 		}
 
-        private void refreshPreviewFullBtn_Click(object sender, EventArgs e)
+        private async void refreshPreviewFullBtn_Click(object sender, EventArgs e)
         {
+			if (Config.GetBool("reloadImageBeforeUpscale"))
+				ReloadImage();
 			UpdateResizeMode();
 			MainUIHelper.UpscalePreview(true);
 		}
@@ -376,20 +398,7 @@ namespace Cupscale
 
         private async void previewImg_KeyUp(object sender, KeyEventArgs e)
         {
-			if (e.KeyData == (Keys.Control | Keys.V))
-			{
-                try
-                {
-					Image clipboardImg = Clipboard.GetImage();
-					string savePath = Path.Combine(Paths.clipboardFolderPath, "Clipboard.png");
-					clipboardImg.Save(savePath);
-					await DragNDrop(new string[] { savePath });
-				}
-				catch
-                {
-					MessageBox.Show("Failed to paste image from clipboard. Make sure you have a raw image (not a file) copied.", "Error");
-                }
-			}
+			// paste image...
 		}
 
         private void openOutFolderBtn_Click(object sender, EventArgs e)
@@ -444,5 +453,23 @@ namespace Cupscale
         {
 			new AdvancedModelForm();
         }
+
+        private async void MainForm_KeyUp(object sender, KeyEventArgs e)
+        {
+			if (e.KeyData == (Keys.Control | Keys.V))
+			{
+				try
+				{
+					Image clipboardImg = Clipboard.GetImage();
+					string savePath = Path.Combine(Paths.clipboardFolderPath, "Clipboard.png");
+					clipboardImg.Save(savePath);
+					await DragNDrop(new string[] { savePath });
+				}
+				catch
+				{
+					MessageBox.Show("Failed to paste image from clipboard. Make sure you have a raw image (not a file) copied.", "Error");
+				}
+			}
+		}
     }
 }

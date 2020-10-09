@@ -95,6 +95,8 @@
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.modelsPathDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.reloadImageBeforeUpscale = new System.Windows.Forms.CheckBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -373,6 +375,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.reloadImageBeforeUpscale);
+            this.panel6.Controls.Add(this.label23);
             this.panel6.Controls.Add(this.pictureBox5);
             this.panel6.Controls.Add(this.jpegExtension);
             this.panel6.Controls.Add(this.pictureBox4);
@@ -864,6 +868,24 @@
             this.label21.TabIndex = 1;
             this.label21.Text = "Resource Files";
             // 
+            // reloadImageBeforeUpscale
+            // 
+            this.reloadImageBeforeUpscale.AutoSize = true;
+            this.reloadImageBeforeUpscale.Location = new System.Drawing.Point(180, 200);
+            this.reloadImageBeforeUpscale.Name = "reloadImageBeforeUpscale";
+            this.reloadImageBeforeUpscale.Size = new System.Drawing.Size(15, 14);
+            this.reloadImageBeforeUpscale.TabIndex = 21;
+            this.reloadImageBeforeUpscale.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(6, 200);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(157, 13);
+            this.label23.TabIndex = 20;
+            this.label23.Text = "Reload Image Before Upscaling";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -972,5 +994,7 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label seamlessJoeyWarn;
         private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.CheckBox reloadImageBeforeUpscale;
+        private System.Windows.Forms.Label label23;
     }
 }

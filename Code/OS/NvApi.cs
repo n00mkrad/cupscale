@@ -18,14 +18,21 @@ namespace Cupscale.OS
 
         public static void Init ()
         {
-            NVIDIA.Initialize();
-            PhysicalGPU[] gpus = PhysicalGPU.GetPhysicalGPUs();
-            if (gpus.Length == 0)
-                return;
-            gpu = gpus[0];
+            try
+            {
+                NVIDIA.Initialize();
+                PhysicalGPU[] gpus = PhysicalGPU.GetPhysicalGPUs();
+                if (gpus.Length == 0)
+                    return;
+                gpu = gpus[0];
 
-            RefreshVram();
-            RefreshLoop();
+                RefreshVram();
+                RefreshLoop();
+            }
+            catch (Exception e)
+            {
+                Logger.Log("Failed to initialize NvApi: " + e.Message);
+            }
         }
 
         public static void RefreshVram ()
