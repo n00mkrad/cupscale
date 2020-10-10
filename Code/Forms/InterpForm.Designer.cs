@@ -48,6 +48,7 @@
             this.interpSlider.Name = "interpSlider";
             this.interpSlider.Size = new System.Drawing.Size(366, 45);
             this.interpSlider.TabIndex = 0;
+            this.interpSlider.Value = 10;
             this.interpSlider.ValueChanged += new System.EventHandler(this.interpSlider_ValueChanged);
             // 
             // label1
@@ -123,7 +124,7 @@
             this.saveBtn.UseVisualStyleBackColor = false;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
-            // InterpForm
+            // AdvancedModelsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -136,7 +137,7 @@
             this.Controls.Add(this.interpSlider);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "InterpForm";
+            this.Name = "AdvancedModelsForm";
             this.Text = "Set Interpolation Factor";
             this.Load += new System.EventHandler(this.InterpForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.interpSlider)).EndInit();

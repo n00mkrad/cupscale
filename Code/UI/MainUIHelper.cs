@@ -37,6 +37,7 @@ namespace Cupscale.UI
 
         public static void Init(ImageBox imgBox, Button model1Btn, Button model2Btn, ComboBox formatBox, ComboBox overwriteBox)
         {
+            interpValue = 50;
             previewImg = imgBox;
             model1 = model1Btn;
             model2 = model2Btn;

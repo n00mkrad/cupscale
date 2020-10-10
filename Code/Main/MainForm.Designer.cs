@@ -471,6 +471,7 @@ namespace Cupscale
             this.refreshPreviewCutoutBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.refreshPreviewCutoutBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.refreshPreviewCutoutBtn.Enabled = false;
             this.refreshPreviewCutoutBtn.FlatAppearance.BorderSize = 0;
             this.refreshPreviewCutoutBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refreshPreviewCutoutBtn.ForeColor = System.Drawing.Color.White;
@@ -487,6 +488,7 @@ namespace Cupscale
             this.refreshPreviewFullBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.refreshPreviewFullBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.refreshPreviewFullBtn.Enabled = false;
             this.refreshPreviewFullBtn.FlatAppearance.BorderSize = 0;
             this.refreshPreviewFullBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refreshPreviewFullBtn.ForeColor = System.Drawing.Color.White;

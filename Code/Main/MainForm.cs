@@ -194,11 +194,6 @@ namespace Cupscale
 
 		public void UpdateModelMode()
 		{
-            if (Config.GetBool("useNcnn"))
-            {
-				//MessageBox.Show("NCNN does not support interpolation or chaining.", "Error");	// How do I avoid this getting spammed?
-				singleModelRbtn.Checked = true;
-			}
 			model1TreeBtn.Enabled = !advancedBtn.Checked;
 			model2TreeBtn.Enabled = (interpRbtn.Checked || chainRbtn.Checked);
 			interpConfigureBtn.Visible = interpRbtn.Checked;
@@ -277,6 +272,8 @@ namespace Cupscale
 			ReloadImage();
 			SetHasPreview(false);
 			loadingDialogForm.Close();
+			refreshPreviewCutoutBtn.Enabled = true;
+			refreshPreviewFullBtn.Enabled = true;
 			SetProgress(0f, "Ready.");
 		}
 
@@ -330,6 +327,11 @@ namespace Cupscale
 			ImageProcessing.preScaleMode = (Upscale.ScaleMode)Enum.Parse(typeof(Upscale.ScaleMode), preResizeMode.Text.RemoveSpaces());
 			ImageProcessing.preScaleValue = preResizeScale.GetInt();
 			ImageProcessing.preOnlyDownscale = preResizeOnlyDownscale.Checked;
+		}
+
+		public bool HasValidNcnnModelSelection ()
+        {
+			return singleModelRbtn.Checked;
 		}
 
         private async void refreshPreviewFullBtn_Click(object sender, EventArgs e)

@@ -87,6 +87,11 @@ namespace Cupscale.UI
 
         public static async Task Run ()
         {
+            if (Config.GetBool("useNcnn") && !Program.mainForm.HasValidNcnnModelSelection())
+            {
+                MessageBox.Show("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
+                return;
+            }
             if (string.IsNullOrWhiteSpace(currentInDir))
             {
                 MessageBox.Show("No directory loaded.", "Error");
