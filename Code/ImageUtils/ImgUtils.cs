@@ -44,7 +44,7 @@ namespace Cupscale.ImageUtils
 					}
 					catch (Exception e)
 					{
-						MessageBox.Show("This DDS format is incompatible.\n\n" + e.Message);
+						Logger.ErrorMessage("This DDS format appears to be incompatible.", e);
 						return null;
 					}
 				}

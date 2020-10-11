@@ -70,7 +70,7 @@ namespace Cupscale
             int i = 1;
             foreach (FileInfo file in files)
             {
-                Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Processing " + file.Name);
+                Program.mainForm.SetProgress(Program.GetPercentage(i, files.Length), "Converting " + file.Name);
                 await PreProcessImage(file.FullName, fillAlpha);
                 i++;
             }
@@ -92,6 +92,10 @@ namespace Cupscale
             string outPath = path + ".png";
             await Task.Delay(1);
             img.Format = MagickFormat.Png32;
+
+            if (outPath.ToLower() == path.ToLower())    // Force overwrite by deleting source file before writing new file - THIS IS IMPORTANT
+                File.Delete(path);
+
             img.Write(outPath);
 
             if (outPath.ToLower() != path.ToLower())
@@ -105,21 +109,21 @@ namespace Cupscale
         public static async Task ConvertImage(string path, Format format, bool fillAlpha, ExtensionMode extMode, bool deleteSource = true, string overrideOutPath = "")
         {
             MagickImage img = ImgUtils.GetMagickImage(path);
-            Logger.Log("Converting " + path + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource + " - FillAlpha: " + fillAlpha + " - ExtMode: " + extMode.ToString());
+            Logger.Log("Converting " + path + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource + " - FillAlpha: " + fillAlpha + " - ExtMode: " + extMode.ToString() + " - outpath: " + overrideOutPath);
             string newExt = "png";
             if (format == Format.PngRaw)
             {
-                img.Format = MagickFormat.Png;
+                img.Format = MagickFormat.Png32;
                 img.Quality = 0;
             }
             if (format == Format.Png50)
             {
-                img.Format = MagickFormat.Png;
+                img.Format = MagickFormat.Png32;
                 img.Quality = 50;
             }
             if (format == Format.PngFast)
             {
-                img.Format = MagickFormat.Png;
+                img.Format = MagickFormat.Png32;
                 img.Quality = 20;
             }
             if (format == Format.Jpeg)
@@ -172,9 +176,13 @@ namespace Cupscale
             if (!string.IsNullOrWhiteSpace(overrideOutPath))
                 outPath = overrideOutPath;
 
+            bool inPathIsOutPath = outPath.ToLower() == path.ToLower();
+            if (inPathIsOutPath)    // Force overwrite by deleting source file before writing new file - THIS IS IMPORTANT
+                File.Delete(path);                
+
             img.Write(outPath);
             Logger.Log("Writing image to " + outPath);
-            if (deleteSource && outPath.ToLower() != path.ToLower())
+            if (deleteSource && !inPathIsOutPath)
             {
                 Logger.Log("Deleting source file: " + path);
                 File.Delete(path);

@@ -269,15 +269,30 @@ namespace Cupscale
 				return;
 			}
 			Program.lastFilename = path;
-			ReloadImage();
+			ReloadImage(false);
+			if (failed) { FailReset(); return; }
 			SetHasPreview(false);
 			loadingDialogForm.Close();
-			refreshPreviewCutoutBtn.Enabled = true;
-			refreshPreviewFullBtn.Enabled = true;
+			SetRefreshPreviewBtns(true);
 			SetProgress(0f, "Ready.");
 		}
 
-		public async void ReloadImage ()
+		public bool failed = false;
+		public void FailReset ()
+        {
+			SetProgress(0f, "Reset after error.");
+			Program.CloseTempForms();
+			Program.lastFilename = null;
+			failed = false;
+        }
+
+		public void SetRefreshPreviewBtns (bool state)
+        {
+			refreshPreviewCutoutBtn.Enabled = state;
+			refreshPreviewFullBtn.Enabled = state;
+		}
+
+		public async void ReloadImage (bool allowFail = true)	// Returns false on error
         {
 			try
 			{
@@ -290,9 +305,14 @@ namespace Cupscale
 				previewImg.ZoomToFit();
 				lastZoom = previewImg.Zoom;
 			}
-			catch
+			catch (Exception e)
 			{
-				Logger.Log("Failed to reload image from source path - Maybe image is from clipboard or has been deleted.");
+				Logger.Log("Failed to reload image from source path - Maybe image is from clipboard or has been deleted. " + e.Message);
+                if (!allowFail)
+                {
+					Logger.ErrorMessage("Failed to load image:", e);
+					failed = true;
+				}
 			}
 		}
 

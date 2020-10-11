@@ -47,7 +47,7 @@ namespace Cupscale
 			}
             catch
             {
-				// idk how to deal with this race condition (?)
+				// idk how to deal with this race condition (?) but just ignoring it seems to work lol
             }
 		}
 
@@ -56,10 +56,12 @@ namespace Cupscale
 			return sessionLog;
         }
 
-		public static void LogErrorWithMessage (string msg)
+		public static void ErrorMessage (string msg, Exception e)
         {
-			MessageBox.Show(msg, "Error");
-			Log("Error: " + msg);
-        }
+			string text = $"{msg}\n{e.Message}\n\nStack Trace:\n{e.StackTrace}";
+			Clipboard.SetText(text);
+			MessageBox.Show(text + "\n\nThe error message was copied to the clipboard.", "Error");
+			Log(text);
+		}
 	}
 }

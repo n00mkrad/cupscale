@@ -129,7 +129,7 @@ namespace Cupscale.Main
             }
             catch (Exception e)
             {
-                Logger.LogErrorWithMessage("Error during FilenamePostprocess(): " + e.Message);
+                Logger.ErrorMessage("Error during FilenamePostprocess(): ", e);
                 return null;
             }
         }

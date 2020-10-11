@@ -275,7 +275,7 @@ namespace Cupscale.OS
 				int num = int.Parse(text.Split('/')[0]);
 				int num2 = int.Parse(text.Split('/')[1]);
 				float previewProgress = (float)num / (float)num2 * 100f;
-				Program.mainForm.SetProgress(previewProgress, "Upscaling tiles - " + previewProgress.ToString("0") + "%");
+				Program.mainForm.SetProgress(previewProgress, "Processing Tiles - " + previewProgress.ToString("0") + "%");
 			}
 			catch 
 			{

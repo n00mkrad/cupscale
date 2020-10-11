@@ -80,8 +80,7 @@ namespace Cupscale.UI
             {
                 if (e.StackTrace.Contains("Index"))
                     MessageBox.Show("The upscale process seems to have exited before completion!", "Error");
-                MessageBox.Show("An error occured during upscaling: \n\n" + e.Message, "Error");
-                Logger.Log("Upscaling Error: " + e.Message + "\n" + e.StackTrace);
+                Logger.ErrorMessage("An error occured during upscaling:", e);
                 Program.mainForm.SetProgress(0f, "Cancelled.");
             }
             Program.mainForm.SetProgress(0, "Done.");
@@ -269,7 +268,7 @@ namespace Cupscale.UI
             }
             catch (Exception e)
             {
-                MessageBox.Show("Failed to open image:\n\n" + e.Message, "Error");
+                Logger.ErrorMessage("Failed to open image:", e);
                 return false;
             }
             return true;
