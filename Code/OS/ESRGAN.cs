@@ -263,7 +263,7 @@ namespace Cupscale.OS
 			if (!File.Exists(progressLogFile))
 				return;
 			string[] lines = IOUtils.ReadLines(progressLogFile);
-			if (lines.Length <= 1)
+			if (lines.Length < 1)
 				return;
 			string outStr = (lines[lines.Length - 1]);
 			if (outStr == lastProgressString)
