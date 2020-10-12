@@ -25,7 +25,6 @@ namespace Cupscale.IO
 			imgInPath = Path.Combine(IOUtils.GetAppDataDir(), "img-in");
 			imgOutPath = Path.Combine(IOUtils.GetAppDataDir(), "img-out");
 			imgOutNcnnPath = Path.Combine(IOUtils.GetAppDataDir(), "img-out-ncnn");
-			//convertTempPath = Path.Combine(IOUtils.GetAppDataDir(), "convert-temp");
 			tempImgPath = Path.Combine(IOUtils.GetAppDataDir(), "loaded-img", "temp.png");
 			clipboardFolderPath = Path.Combine(IOUtils.GetAppDataDir(), "clipboard");
 			presetsPath = Path.Combine(IOUtils.GetAppDataDir(), "model-presets");

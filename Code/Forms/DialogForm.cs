@@ -18,7 +18,7 @@ namespace Cupscale.Forms
             Program.currentTemporaryForms.Add(this);
             mainLabel.Text = message;
             Show();
-            TopMost = true;
+            //TopMost = true;
             SelfDestruct(selfDestructTime);
         }
 

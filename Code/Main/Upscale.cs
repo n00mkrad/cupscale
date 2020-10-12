@@ -90,7 +90,11 @@ namespace Cupscale.Main
         public static async Task PostprocessingSingle (string path, bool dontResize = false)
         {
             Logger.Log("PostprocessingSingle: " + path);
-            string newPath = path.Substring(0, path.Length - 4);
+            string newPath = "";
+            if (Path.GetExtension(path) != ".tmp")
+                newPath = path.Substring(0, path.Length - 8);
+            else
+                newPath = path.Substring(0, path.Length - 4);
             File.Move(path, newPath);
             path = newPath;
             Logger.Log("PostprocessingSingle New Path: " + path);

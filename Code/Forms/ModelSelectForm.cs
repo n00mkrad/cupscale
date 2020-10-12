@@ -21,8 +21,8 @@ namespace Cupscale.Forms
         public ModelSelectForm(Button modelButton, int modelNumber)
         {
             InitializeComponent();
-            //Show();
-            TopMost = true;
+            //Show(this);
+            //TopMost = true;
             //CenterToScreen();
             modelBtn = modelButton;
             modelNo = modelNumber;

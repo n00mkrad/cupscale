@@ -20,7 +20,7 @@ namespace Cupscale.Cupscale
         public static bool run;
         public static string currentOutPath;
 
-        public static bool ncnn;
+        //public static bool ncnn;
 
         public enum CopyMode { KeepStructure, CopyToRoot }
         public static CopyMode copyMode;
@@ -45,8 +45,7 @@ namespace Cupscale.Cupscale
         {
             while (run || AnyFilesLeft())
             {
-                if (ncnn) CheckNcnnOutput();
-                string[] outFiles = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories);
+                string[] outFiles = Directory.GetFiles(Paths.imgOutPath, "*.png.*", SearchOption.AllDirectories);
                 Logger.Log("Queue Update() - " + outFiles.Length + " files in out folder");
                 foreach (string file in outFiles)
                 {
@@ -69,19 +68,8 @@ namespace Cupscale.Cupscale
         {
             if (IOUtils.GetAmountOfFiles(Paths.imgOutPath, true) > 0)
                 return true;
-            if (ncnn && IOUtils.GetAmountOfFiles(Paths.imgOutNcnnPath, true) > 0)
-                return true;
+            Logger.Log("No files in Paths.imgOutPath");
             return false;
-        }
-
-        static void CheckNcnnOutput ()
-        {
-            try
-            {
-                IOUtils.RenameExtensions(Paths.imgOutNcnnPath, "png", "tmp", true);
-                IOUtils.Copy(Paths.imgOutNcnnPath, Paths.imgOutPath, "*", true);
-            }
-            catch { }
         }
 
         public static string lastOutfile;

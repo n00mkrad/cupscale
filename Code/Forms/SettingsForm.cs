@@ -37,12 +37,11 @@ namespace Cupscale.Forms
             Config.LoadComboxIndex(esrganVersion);
             Config.LoadGuiElement(tilesize);
             Config.LoadGuiElement(alpha);
-            Config.LoadGuiElement(seamless);
+            Config.LoadComboxIndex(seamlessMode);
             Config.LoadGuiElement(modelPath);
             Config.LoadGuiElement(alphaBgColor);
             Config.LoadGuiElement(jpegExtension);
-            Config.LoadGuiElement(useCpu);
-            Config.LoadGuiElement(useNcnn);
+            Config.LoadComboxIndex(cudaFallback);
             Config.LoadComboxIndex(previewFormat);
             Config.LoadGuiElement(reloadImageBeforeUpscale);
             // Formats
@@ -64,12 +63,11 @@ namespace Cupscale.Forms
             Config.SaveComboxIndex(esrganVersion);
             Config.SaveGuiElement(tilesize, true);
             Config.SaveGuiElement(alpha);
-            Config.SaveGuiElement(seamless);
+            Config.SaveComboxIndex(seamlessMode);
             Config.SaveGuiElement(modelPath);
             Config.SaveGuiElement(alphaBgColor);
             Config.SaveGuiElement(jpegExtension);
-            Config.SaveGuiElement(useCpu);
-            Config.SaveGuiElement(useNcnn);
+            Config.SaveComboxIndex(cudaFallback);
             Config.SaveComboxIndex(previewFormat);
             Config.SaveGuiElement(reloadImageBeforeUpscale);
 
@@ -93,15 +91,6 @@ namespace Cupscale.Forms
             if (logTbox.Visible)
                 logTbox.Text = Logger.GetSessionLog();
         }
-
-        private void useNcnn_CheckedChanged(object sender, EventArgs e)
-        {
-            if (useNcnn.Checked && initialized)
-                MessageBox.Show("This only serves as a fallback mode.\nDon't use this if you have an Nvidia GPU.\n\n" +
-                    "The following features do not work with Vulkan/NCNN:\n- Model Interpolation\n- Model Chaining\n"
-                    + "- Custom Tile Size (Uses Automatic Tile Size)", "Warning");
-        }
-
 
         private void selectModelsPathBtn_Click(object sender, EventArgs e)
         {
@@ -140,8 +129,15 @@ namespace Cupscale.Forms
 
         private void esrganVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            seamless.Enabled = esrganVersion.SelectedIndex == 1;
-            seamlessJoeyWarn.Visible = esrganVersion.SelectedIndex == 0;
+            seamlessMode.Enabled = esrganVersion.SelectedIndex == 1;
+        }
+
+        private void cudaFallback_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            //MessageBox.Show("This only serves as a fallback mode.\nDon't use this if you have an Nvidia GPU.\n\n" +
+            //"The following features do not work with Vulkan/NCNN:\n- Model Interpolation\n- Model Chaining\n"
+            //+ "- Custom Tile Size (Uses Automatic Tile Size)", "Warning");
         }
     }
 }

@@ -34,17 +34,13 @@
             this.settingsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.cudaFallback = new System.Windows.Forms.ComboBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.seamlessJoeyWarn = new System.Windows.Forms.Label();
-            this.seamless = new System.Windows.Forms.CheckBox();
             this.label22 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
             this.esrganVersion = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.useNcnn = new System.Windows.Forms.CheckBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.useCpu = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.alpha = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -52,6 +48,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.reloadImageBeforeUpscale = new System.Windows.Forms.CheckBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.jpegExtension = new System.Windows.Forms.ComboBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
@@ -95,8 +93,7 @@
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.modelsPathDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.reloadImageBeforeUpscale = new System.Windows.Forms.CheckBox();
-            this.label23 = new System.Windows.Forms.Label();
+            this.seamlessMode = new System.Windows.Forms.ComboBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -158,17 +155,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.seamlessMode);
+            this.panel7.Controls.Add(this.cudaFallback);
             this.panel7.Controls.Add(this.pictureBox6);
-            this.panel7.Controls.Add(this.seamlessJoeyWarn);
-            this.panel7.Controls.Add(this.seamless);
             this.panel7.Controls.Add(this.label22);
             this.panel7.Controls.Add(this.pictureBox2);
             this.panel7.Controls.Add(this.label16);
             this.panel7.Controls.Add(this.esrganVersion);
             this.panel7.Controls.Add(this.pictureBox1);
-            this.panel7.Controls.Add(this.useNcnn);
-            this.panel7.Controls.Add(this.label15);
-            this.panel7.Controls.Add(this.useCpu);
             this.panel7.Controls.Add(this.label2);
             this.panel7.Controls.Add(this.alpha);
             this.panel7.Controls.Add(this.label7);
@@ -180,6 +174,25 @@
             this.panel7.Size = new System.Drawing.Size(455, 463);
             this.panel7.TabIndex = 4;
             // 
+            // cudaFallback
+            // 
+            this.cudaFallback.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.cudaFallback.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cudaFallback.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cudaFallback.ForeColor = System.Drawing.Color.White;
+            this.cudaFallback.FormattingEnabled = true;
+            this.cudaFallback.Items.AddRange(new object[] {
+            "None (Use CUDA)",
+            "Always use CPU",
+            "CPU for Preview, NCNN for Batch Processing",
+            "Always use NCNN"});
+            this.cudaFallback.Location = new System.Drawing.Point(180, 197);
+            this.cudaFallback.Margin = new System.Windows.Forms.Padding(8);
+            this.cudaFallback.Name = "cudaFallback";
+            this.cudaFallback.Size = new System.Drawing.Size(225, 21);
+            this.cudaFallback.TabIndex = 18;
+            this.cudaFallback.SelectedIndexChanged += new System.EventHandler(this.cudaFallback_SelectedIndexChanged);
+            // 
             // pictureBox6
             // 
             this.pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -190,27 +203,8 @@
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox6.TabIndex = 17;
             this.pictureBox6.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox6, "Use this if you want to upscale seamless/tiled textures.\r\nIt tried to preserve th" +
-        "e tiling.");
-            // 
-            // seamlessJoeyWarn
-            // 
-            this.seamlessJoeyWarn.AutoSize = true;
-            this.seamlessJoeyWarn.ForeColor = System.Drawing.Color.Silver;
-            this.seamlessJoeyWarn.Location = new System.Drawing.Point(199, 170);
-            this.seamlessJoeyWarn.Name = "seamlessJoeyWarn";
-            this.seamlessJoeyWarn.Size = new System.Drawing.Size(182, 13);
-            this.seamlessJoeyWarn.TabIndex = 16;
-            this.seamlessJoeyWarn.Text = "Only Available With Joey\'s ESRGAN.";
-            // 
-            // seamless
-            // 
-            this.seamless.AutoSize = true;
-            this.seamless.Location = new System.Drawing.Point(178, 170);
-            this.seamless.Name = "seamless";
-            this.seamless.Size = new System.Drawing.Size(15, 14);
-            this.seamless.TabIndex = 15;
-            this.seamless.UseVisualStyleBackColor = true;
+            this.toolTip.SetToolTip(this.pictureBox6, "Only supported by Joey\'s ESRGAN.\r\nUse this if you want to upscale seamless/tiled " +
+        "textures.\r\nIt tries to preserve the tiling.");
             // 
             // label22
             // 
@@ -251,11 +245,11 @@
             this.esrganVersion.FormattingEnabled = true;
             this.esrganVersion.Items.AddRange(new object[] {
             "esrgan-launcher",
-            "Joey\'s ESRGAN"});
+            "Joey\'s ESRGAN Fork"});
             this.esrganVersion.Location = new System.Drawing.Point(180, 77);
             this.esrganVersion.Margin = new System.Windows.Forms.Padding(8);
             this.esrganVersion.Name = "esrganVersion";
-            this.esrganVersion.Size = new System.Drawing.Size(200, 21);
+            this.esrganVersion.Size = new System.Drawing.Size(225, 21);
             this.esrganVersion.TabIndex = 11;
             this.esrganVersion.SelectedIndexChanged += new System.EventHandler(this.esrganVersion_SelectedIndexChanged);
             // 
@@ -263,52 +257,22 @@
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox1.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox1.Location = new System.Drawing.Point(112, 226);
+            this.pictureBox1.Location = new System.Drawing.Point(120, 196);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(22, 22);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 10;
             this.pictureBox1.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox1, "Use this if you have an AMD GPU.\r\nOnly works in batch upscaling mode, as the load" +
-        "ing time is too long for the preview.\r\nIf you want to use the preview without an" +
-        " Nvidia GPU, enable CPU mode.");
-            // 
-            // useNcnn
-            // 
-            this.useNcnn.AutoSize = true;
-            this.useNcnn.Location = new System.Drawing.Point(178, 230);
-            this.useNcnn.Name = "useNcnn";
-            this.useNcnn.Size = new System.Drawing.Size(15, 14);
-            this.useNcnn.TabIndex = 9;
-            this.useNcnn.UseVisualStyleBackColor = true;
-            this.useNcnn.CheckedChanged += new System.EventHandler(this.useNcnn_CheckedChanged);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(4, 230);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(102, 13);
-            this.label15.TabIndex = 8;
-            this.label15.Text = "Use Vulkan (NCNN)";
-            // 
-            // useCpu
-            // 
-            this.useCpu.AutoSize = true;
-            this.useCpu.Location = new System.Drawing.Point(178, 200);
-            this.useCpu.Name = "useCpu";
-            this.useCpu.Size = new System.Drawing.Size(15, 14);
-            this.useCpu.TabIndex = 7;
-            this.useCpu.UseVisualStyleBackColor = true;
+            this.toolTip.SetToolTip(this.pictureBox1, resources.GetString("pictureBox1.ToolTip"));
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(4, 200);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(133, 13);
+            this.label2.Size = new System.Drawing.Size(110, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Use CPU instead of CUDA";
+            this.label2.Text = "CUDA Fallback Mode";
             // 
             // alpha
             // 
@@ -396,6 +360,24 @@
             this.panel6.Size = new System.Drawing.Size(455, 463);
             this.panel6.TabIndex = 3;
             // 
+            // reloadImageBeforeUpscale
+            // 
+            this.reloadImageBeforeUpscale.AutoSize = true;
+            this.reloadImageBeforeUpscale.Location = new System.Drawing.Point(180, 200);
+            this.reloadImageBeforeUpscale.Name = "reloadImageBeforeUpscale";
+            this.reloadImageBeforeUpscale.Size = new System.Drawing.Size(15, 14);
+            this.reloadImageBeforeUpscale.TabIndex = 21;
+            this.reloadImageBeforeUpscale.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(6, 200);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(157, 13);
+            this.label23.TabIndex = 20;
+            this.label23.Text = "Reload Image Before Upscaling";
+            // 
             // pictureBox5
             // 
             this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -443,7 +425,7 @@
             this.selectModelsPathBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.selectModelsPathBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.selectModelsPathBtn.ForeColor = System.Drawing.Color.White;
-            this.selectModelsPathBtn.Location = new System.Drawing.Point(386, 75);
+            this.selectModelsPathBtn.Location = new System.Drawing.Point(422, 75);
             this.selectModelsPathBtn.Name = "selectModelsPathBtn";
             this.selectModelsPathBtn.Size = new System.Drawing.Size(28, 23);
             this.selectModelsPathBtn.TabIndex = 16;
@@ -495,7 +477,7 @@
             this.modelPath.ForeColor = System.Drawing.Color.White;
             this.modelPath.Location = new System.Drawing.Point(180, 77);
             this.modelPath.Name = "modelPath";
-            this.modelPath.Size = new System.Drawing.Size(200, 20);
+            this.modelPath.Size = new System.Drawing.Size(236, 20);
             this.modelPath.TabIndex = 7;
             // 
             // label1
@@ -521,7 +503,7 @@
             this.confAlphaBgColorBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.confAlphaBgColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.confAlphaBgColorBtn.ForeColor = System.Drawing.Color.White;
-            this.confAlphaBgColorBtn.Location = new System.Drawing.Point(261, 105);
+            this.confAlphaBgColorBtn.Location = new System.Drawing.Point(252, 105);
             this.confAlphaBgColorBtn.Name = "confAlphaBgColorBtn";
             this.confAlphaBgColorBtn.Size = new System.Drawing.Size(28, 23);
             this.confAlphaBgColorBtn.TabIndex = 10;
@@ -545,7 +527,7 @@
             this.alphaBgColor.ForeColor = System.Drawing.Color.White;
             this.alphaBgColor.Location = new System.Drawing.Point(180, 107);
             this.alphaBgColor.Name = "alphaBgColor";
-            this.alphaBgColor.Size = new System.Drawing.Size(75, 20);
+            this.alphaBgColor.Size = new System.Drawing.Size(66, 20);
             this.alphaBgColor.TabIndex = 8;
             // 
             // label9
@@ -868,23 +850,22 @@
             this.label21.TabIndex = 1;
             this.label21.Text = "Resource Files";
             // 
-            // reloadImageBeforeUpscale
+            // seamlessMode
             // 
-            this.reloadImageBeforeUpscale.AutoSize = true;
-            this.reloadImageBeforeUpscale.Location = new System.Drawing.Point(180, 200);
-            this.reloadImageBeforeUpscale.Name = "reloadImageBeforeUpscale";
-            this.reloadImageBeforeUpscale.Size = new System.Drawing.Size(15, 14);
-            this.reloadImageBeforeUpscale.TabIndex = 21;
-            this.reloadImageBeforeUpscale.UseVisualStyleBackColor = true;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(6, 200);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(157, 13);
-            this.label23.TabIndex = 20;
-            this.label23.Text = "Reload Image Before Upscaling";
+            this.seamlessMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.seamlessMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.seamlessMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.seamlessMode.ForeColor = System.Drawing.Color.White;
+            this.seamlessMode.FormattingEnabled = true;
+            this.seamlessMode.Items.AddRange(new object[] {
+            "Off",
+            "Tiled Seamless",
+            "Mirrored Seamless"});
+            this.seamlessMode.Location = new System.Drawing.Point(180, 167);
+            this.seamlessMode.Margin = new System.Windows.Forms.Padding(8);
+            this.seamlessMode.Name = "seamlessMode";
+            this.seamlessMode.Size = new System.Drawing.Size(225, 21);
+            this.seamlessMode.TabIndex = 19;
             // 
             // SettingsForm
             // 
@@ -949,7 +930,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ColorDialog alphaBgColorDialog;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox useCpu;
         private System.Windows.Forms.Label label2;
         private Cyotek.Windows.Forms.TabListPage formatsPage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -963,8 +943,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.CheckBox useNcnn;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox esrganVersion;
@@ -990,11 +968,11 @@
         private System.Windows.Forms.Label label17;
         private HTAlt.WinForms.HTButton reinstallCleanBtn;
         private HTAlt.WinForms.HTButton reinstallOverwriteBtn;
-        private System.Windows.Forms.CheckBox seamless;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label seamlessJoeyWarn;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.CheckBox reloadImageBeforeUpscale;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ComboBox cudaFallback;
+        private System.Windows.Forms.ComboBox seamlessMode;
     }
 }

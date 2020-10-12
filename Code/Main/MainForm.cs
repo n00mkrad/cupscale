@@ -214,7 +214,8 @@ namespace Cupscale
             }
 
 			AdvancedModelsForm interpForm = new AdvancedModelsForm(model1TreeBtn.Text.Trim(), model2TreeBtn.Text.Trim());
-        }
+			interpForm.ShowDialog();
+		}
 
         private void batchTab_DragEnter(object sender, DragEventArgs e)
         {
@@ -379,12 +380,12 @@ namespace Cupscale
 
         private void model1TreeBtn_Click(object sender, EventArgs e)
         {
-			new ModelSelectForm(model1TreeBtn, 1).Show();
+			new ModelSelectForm(model1TreeBtn, 1).ShowDialog();
         }
 
         private void model2TreeBtn_Click(object sender, EventArgs e)
         {
-			new ModelSelectForm(model2TreeBtn, 2).Show();
+			new ModelSelectForm(model2TreeBtn, 2).ShowDialog();
 		}
 
         private void savePreviewToFileBtn_Click(object sender, EventArgs e)

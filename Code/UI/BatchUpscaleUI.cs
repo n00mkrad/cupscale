@@ -87,7 +87,9 @@ namespace Cupscale.UI
 
         public static async Task Run ()
         {
-            if (Config.GetBool("useNcnn") && !Program.mainForm.HasValidNcnnModelSelection())
+            bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
+            bool useCpu = (Config.Get("cudaFallback").GetInt() == 1);
+            if (useNcnn && !Program.mainForm.HasValidNcnnModelSelection())
             {
                 MessageBox.Show("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
                 return;
@@ -109,7 +111,10 @@ namespace Cupscale.UI
             PostProcessingQueue.Start(outDir.Text.Trim());
 
             List<Task> tasks = new List<Task>();
-            tasks.Add(ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, true, false));
+            ESRGAN.Backend backend = ESRGAN.Backend.CUDA;
+            if (useCpu) backend = ESRGAN.Backend.CPU;
+            if (useNcnn) backend = ESRGAN.Backend.NCNN;
+            tasks.Add(ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, backend, false));
             tasks.Add(PostProcessingQueue.Update());
             tasks.Add(PostProcessingQueue.ProcessQueue());
 

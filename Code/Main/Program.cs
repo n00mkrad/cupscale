@@ -49,6 +49,7 @@ namespace Cupscale
 			IOUtils.DeleteContentsOfDir(Paths.clipboardFolderPath);
 			IOUtils.DeleteContentsOfDir(Paths.imgInPath);
 			IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
+			IOUtils.DeleteContentsOfDir(Paths.imgOutNcnnPath);
 			IOUtils.DeleteContentsOfDir(Paths.tempImgPath.GetParentDir());
 			IOUtils.DeleteContentsOfDir(Path.Combine(IOUtils.GetAppDataDir(), "giftemp"));
 			IOUtils.DeleteIfExists(Path.Combine(Paths.presetsPath, "lastUsed"));

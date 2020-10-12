@@ -21,7 +21,7 @@ namespace Cupscale.Forms
             leftModelName = leftModel;
             rightModelName = rightModel;
             InitializeComponent();
-            Show();
+            //Show();
             CenterToParent();
         }
 

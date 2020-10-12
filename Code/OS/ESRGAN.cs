@@ -22,20 +22,21 @@ namespace Cupscale.OS
 		private static Process currentProcess;
 
 		public enum PreviewMode { None, Cutout, FullImage }
-		
+		public enum Backend { CUDA, CPU, NCNN }
 
-		public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, bool allowNcnn, bool showTileProgress = true)
+
+		public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, Backend backend, bool showTileProgress = true)
 		{
 			bool useJoey = Config.GetInt("esrganVersion") == 1;
             try
             {
-                if (allowNcnn && Config.GetBool("useNcnn"))
+                if (backend == Backend.NCNN)
                 {
 					Program.mainForm.SetProgress(1f, "Loading ESRGAN-NCNN...");
 					DialogForm dialogForm = new DialogForm("Loading ESRGAN-NCNN...\nThis should take 10-25 seconds.", 14);
 					Program.lastModelName = mdl.model1Name;
-					PostProcessingQueue.ncnn = true;
-					await RunNcnn(inpath, Paths.imgOutNcnnPath, mdl.model1Path);
+					//PostProcessingQueue.ncnn = true;
+					await RunNcnn(inpath, outpath, mdl.model1Path);
 				}
                 else
                 {
@@ -43,9 +44,9 @@ namespace Cupscale.OS
 					File.Delete(Paths.progressLogfile);
 					string modelArg = GetModelArg(mdl, useJoey);
 					Logger.Log("Model Arg: " + modelArg);
-					PostProcessingQueue.ncnn = false;
+					//PostProcessingQueue.ncnn = false;
 					if(useJoey)
-						await RunJoey(inpath, outpath, modelArg, tilesize, alpha, Config.GetBool("seamless"), showTileProgress);
+						await RunJoey(inpath, outpath, modelArg, tilesize, alpha, showTileProgress);
 					else
 						await Run(inpath, outpath, modelArg, tilesize, alpha, showTileProgress);
 				}
@@ -63,7 +64,7 @@ namespace Cupscale.OS
 					await ScalePreviewOutput();
 					Program.mainForm.SetProgress(100f, "Merging into preview...");
 					await Program.PutTaskDelay();
-					Image outImg = ImgUtils.GetImage(Path.Combine(Paths.previewOutPath, "preview.png.tmp"));
+					Image outImg = ImgUtils.GetImage(Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);
 					Image inputImg = ImgUtils.GetImage(Paths.tempImgPath);
 					MainUIHelper.previewImg.Image = outImg;
 					MainUIHelper.currentOriginal = inputImg;
@@ -92,8 +93,8 @@ namespace Cupscale.OS
 				return;
 			Program.mainForm.SetProgress(1f, "Resizing preview output...");
 			await Task.Delay(1);
-			MagickImage img = ImgUtils.GetMagickImage(Path.Combine(Paths.previewOutPath, "preview.png.tmp"));
-            MagickImage magickImage = ImageProcessing.ResizeImagePost(img);
+			MagickImage img = ImgUtils.GetMagickImage(Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);
+			MagickImage magickImage = ImageProcessing.ResizeImagePost(img);
             img = magickImage;
 			img.Write(img.FileName);
         }
@@ -142,11 +143,9 @@ namespace Cupscale.OS
 			inpath = inpath.WrapPath();
 			outpath = outpath.WrapPath();
 			string alphaStr = " --noalpha";
-			if (alpha)
-				alphaStr = "";
+			if (alpha) alphaStr = "";
 			string deviceStr = " --device cuda";
-			if(Config.GetBool("useCpu"))
-				deviceStr = " --device cpu";
+			if(Config.Get("cudaFallback").GetInt() == 1 || Config.Get("cudaFallback").GetInt() == 2) deviceStr = " --device cpu";
 			string cmd2 = "/C cd /D \"" + Config.Get("esrganPath") + "\" & ";
 			cmd2 = cmd2 + "python esrlmain.py " + inpath + " " + outpath + deviceStr + " --tilesize " + tilesize + alphaStr + modelArg;
 			Logger.Log("CMD: " + cmd2);
@@ -178,19 +177,20 @@ namespace Cupscale.OS
 			File.Delete(Paths.progressLogfile);
 		}
 
-		public static async Task RunJoey (string inpath, string outpath, string modelArg, string tilesize, bool alpha, bool seamless, bool showTileProgress)
+		public static async Task RunJoey (string inpath, string outpath, string modelArg, string tilesize, bool alpha, bool showTileProgress)
 		{
 			inpath = inpath.WrapPath(true, true);
 			outpath = outpath.WrapPath(true, true);
 
-			string alphaStr = "";	// TODO
-			if (alpha) alphaStr = "";
+			string alphaStr = "";
+			if (alpha) alphaStr = " --alpha_mode 2 ";
 
 			string deviceStr = "";
-			if (Config.GetBool("useCpu")) deviceStr = " --cpu ";
+			if (Config.Get("cudaFallback").GetInt() == 1 || Config.Get("cudaFallback").GetInt() == 2) deviceStr = " --cpu ";
 
 			string seamStr = "";
-			if (seamless) seamStr = " --seamless ";
+			if (Config.Get("seamlessMode").GetInt() == 1) seamStr = " --seamless";
+			if (Config.Get("seamlessMode").GetInt() == 2) seamStr = " --mirror";
 
 			string cmd = "/C cd /D " + Config.Get("esrganPath").WrapPath() + " & python upscale.py --input" + inpath + "--output" + outpath
 				+ deviceStr + seamStr + " --tile_size " + tilesize + alphaStr + modelArg;
@@ -316,7 +316,7 @@ namespace Cupscale.OS
 			{
 				await Task.Delay(100);
 			}
-			if (Main.Upscale.currentMode == Main.Upscale.UpscaleMode.Batch)
+			if (Upscale.currentMode == Upscale.UpscaleMode.Batch)
 			{
 				await Task.Delay(1000);
                 Program.mainForm.SetProgress(100f, "Post-Processing...");

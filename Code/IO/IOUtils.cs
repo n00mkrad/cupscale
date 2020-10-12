@@ -334,5 +334,15 @@ namespace Cupscale
 			if (File.Exists(path))
 				File.Delete(path);
         }
+
+		public static void PrintFilesInDir (string path, string pattern = "*.*", bool recursive = true)
+        {
+			SearchOption searchOpt = SearchOption.TopDirectoryOnly;
+			if (recursive)
+				searchOpt = SearchOption.AllDirectories;
+
+			foreach (string file in Directory.GetFiles(path, pattern, searchOpt))
+				Logger.Log($"File in {path}: {file}");
+		}
 	}
 }
