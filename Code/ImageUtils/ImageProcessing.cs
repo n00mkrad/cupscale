@@ -3,6 +3,8 @@ using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Cupscale.Cupscale;
 using Cupscale.ImageUtils;
 using Cupscale.IO;
@@ -109,21 +111,22 @@ namespace Cupscale
         public static async Task ConvertImage(string path, Format format, bool fillAlpha, ExtensionMode extMode, bool deleteSource = true, string overrideOutPath = "")
         {
             MagickImage img = ImgUtils.GetMagickImage(path);
+
             Logger.Log("Converting " + path + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource + " - FillAlpha: " + fillAlpha + " - ExtMode: " + extMode.ToString() + " - outpath: " + overrideOutPath);
             string newExt = "png";
             if (format == Format.PngRaw)
             {
-                img.Format = MagickFormat.Png32;
+                img.Format = GetPngFormat(path);
                 img.Quality = 0;
             }
             if (format == Format.Png50)
             {
-                img.Format = MagickFormat.Png32;
+                img.Format = GetPngFormat(path);
                 img.Quality = 50;
             }
             if (format == Format.PngFast)
             {
-                img.Format = MagickFormat.Png32;
+                img.Format = GetPngFormat(path);
                 img.Quality = 20;
             }
             if (format == Format.Jpeg)
@@ -188,6 +191,14 @@ namespace Cupscale
                 File.Delete(path);
             }
             await Task.Delay(1);
+        }
+
+        static MagickFormat GetPngFormat (string path)
+        {
+            if (ImgUtils.GetColorDepth(path) < 24)
+                return MagickFormat.Png24;
+            else
+                return MagickFormat.Png32;
         }
 
         public static async Task PostProcessImage(string path, Format format, bool dontResize)

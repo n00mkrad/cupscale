@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 
 namespace Cupscale.ImageUtils
 {
@@ -92,6 +93,12 @@ namespace Cupscale.ImageUtils
 			bg.Composite(img, CompositeOperator.Over);
 
 			return bg;
+		}
+
+		public static int GetColorDepth (string path)
+        {
+			var source = new BitmapImage(new Uri(path));
+			return source.Format.BitsPerPixel;
 		}
 	}
 }

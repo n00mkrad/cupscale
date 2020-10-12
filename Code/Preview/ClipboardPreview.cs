@@ -35,7 +35,7 @@ namespace Cupscale
                 }
                 else
                 {
-                    originalPreview = new Bitmap(ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]));
+                    originalPreview = new Bitmap(ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewPath, "*.png.*", SearchOption.AllDirectories)[0]));
                     resultPreview = new Bitmap(ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]));
                 }
             }
