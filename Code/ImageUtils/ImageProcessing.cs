@@ -195,10 +195,17 @@ namespace Cupscale
 
         static MagickFormat GetPngFormat (string path)
         {
-            if (ImgUtils.GetColorDepth(path) < 24)
+            int depth = ImgUtils.GetColorDepth(path);
+            if (depth < 24)
+            {
+                Logger.Log($"Color depth of {Path.GetFileName(path)} is {depth}, using Png24 format");
                 return MagickFormat.Png24;
+            }
             else
+            {
+                Logger.Log($"Color depth of {Path.GetFileName(path)} is {depth}, using Png32 format for alpha support");
                 return MagickFormat.Png32;
+            }
         }
 
         public static async Task PostProcessImage(string path, Format format, bool dontResize)
