@@ -142,6 +142,11 @@ namespace Cupscale.UI
                 MessageBox.Show("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
                 return;
             }
+            if (Config.Get("cudaFallback").GetInt() == 3 && !Program.mainForm.HasValidNcnnModelSelection())
+            {
+                MessageBox.Show("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
+                return;
+            }
             Upscale.currentMode = Upscale.UpscaleMode.Preview;
             Program.mainForm.SetBusy(true);
             Program.mainForm.SetProgress(3f, "Preparing...");

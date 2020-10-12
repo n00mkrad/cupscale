@@ -328,7 +328,14 @@ namespace Cupscale
 				return;
             }
 
-			if(Config.GetBool("reloadImageBeforeUpscale"))
+			bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
+			if (useNcnn && !Program.mainForm.HasValidNcnnModelSelection())
+			{
+				MessageBox.Show("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
+				return;
+			}
+
+			if (Config.GetBool("reloadImageBeforeUpscale"))
 				ReloadImage();
 			UpdateResizeMode();
 			if (htTabControl.SelectedIndex == 0)
