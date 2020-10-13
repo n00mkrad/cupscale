@@ -15,7 +15,7 @@ namespace Cupscale.Main
 {
     class Upscale
     {
-        public enum UpscaleMode { Preview, Single, Batch }
+        public enum UpscaleMode { Preview, Single, Batch, Composition }
         public static UpscaleMode currentMode = UpscaleMode.Preview;
         public enum ExportFormats { PNG, SameAsSource, JPEG, WEBP, BMP, TGA, DDS }
         public enum Filter { Mitchell, Bicubic, NearestNeighbor }
@@ -38,8 +38,8 @@ namespace Cupscale.Main
             }
             IOUtils.Copy(Paths.imgOutPath, path);
             await Task.Delay(1);
-            IOUtils.DeleteContentsOfDir(Paths.imgInPath);
-            IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
+            IOUtils.ClearDir(Paths.imgInPath);
+            IOUtils.ClearDir(Paths.imgOutPath);
         }
 
         public static async Task AddModelSuffix(string path)

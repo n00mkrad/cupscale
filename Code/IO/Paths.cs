@@ -14,6 +14,7 @@ namespace Cupscale.IO
 		public static string tempImgPath;
 		public static string clipboardFolderPath;
 		public static string presetsPath;
+		public static string compositionOut;
 		//public static string convertTempPath;
 		public static string progressLogfile;
 
@@ -28,6 +29,7 @@ namespace Cupscale.IO
 			tempImgPath = Path.Combine(IOUtils.GetAppDataDir(), "loaded-img", "temp.png");
 			clipboardFolderPath = Path.Combine(IOUtils.GetAppDataDir(), "clipboard");
 			presetsPath = Path.Combine(IOUtils.GetAppDataDir(), "model-presets");
+			compositionOut = Path.Combine(IOUtils.GetAppDataDir(), "composition");
 			progressLogfile = Path.Combine(esrganPath, "prog");
 			Directory.CreateDirectory(previewPath);
 			Directory.CreateDirectory(previewOutPath);
@@ -37,6 +39,7 @@ namespace Cupscale.IO
 			Directory.CreateDirectory(tempImgPath.GetParentDir());
 			Directory.CreateDirectory(clipboardFolderPath);
 			Directory.CreateDirectory(presetsPath);
+			Directory.CreateDirectory(compositionOut);
 		}
 	}
 }

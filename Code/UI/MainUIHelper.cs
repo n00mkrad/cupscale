@@ -35,6 +35,8 @@ namespace Cupscale.UI
 
         public static float currentScale = 1;
 
+        public static string lastCompositionModels;
+
         public static void Init(ImageBox imgBox, Button model1Btn, Button model2Btn, ComboBox formatBox, ComboBox overwriteBox)
         {
             interpValue = 50;
@@ -47,6 +49,8 @@ namespace Cupscale.UI
 
         public static string lastOutfile;
 
+        public static Stopwatch sw = new Stopwatch();
+
         public static async Task UpscaleImage()
         {
             if (previewImg.Image == null)
@@ -55,8 +59,8 @@ namespace Cupscale.UI
                 return;
             }
             Program.mainForm.SetBusy(true);
-            IOUtils.DeleteContentsOfDir(Paths.imgInPath);
-            IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
+            IOUtils.ClearDir(Paths.imgInPath);
+            IOUtils.ClearDir(Paths.imgOutPath);
             Program.mainForm.SetProgress(3f, "Preprocessing...");
             string inImg = CopyImage();
             if (inImg == null)  // Try to copy/move image to input folder, return if failed
@@ -68,6 +72,7 @@ namespace Cupscale.UI
             await ImageProcessing.PreProcessImage(inImg, !Config.GetBool("alpha"));
             ModelData mdl = Upscale.GetModelData();
             string outImg = null;
+            sw.Restart();
             try
             {
                 bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
@@ -91,7 +96,7 @@ namespace Cupscale.UI
                 Logger.ErrorMessage("An error occured during upscaling:", e);
                 Program.mainForm.SetProgress(0f, "Cancelled.");
             }
-            Program.mainForm.SetProgress(0, "Done.");
+            Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0.0")}s");
             Program.mainForm.SetBusy(false);
         }
 
@@ -152,9 +157,9 @@ namespace Cupscale.UI
             Program.mainForm.SetProgress(3f, "Preparing...");
             Program.mainForm.resetState = new Cupscale.PreviewState(previewImg.Image, previewImg.Zoom, previewImg.AutoScrollPosition);
             ResetCachedImages();
-            IOUtils.DeleteContentsOfDir(Paths.imgInPath);
-            IOUtils.DeleteContentsOfDir(Paths.previewPath);
-            IOUtils.DeleteContentsOfDir(Paths.previewOutPath);
+            IOUtils.ClearDir(Paths.imgInPath);
+            IOUtils.ClearDir(Paths.previewPath);
+            IOUtils.ClearDir(Paths.previewOutPath);
             ESRGAN.PreviewMode prevMode = ESRGAN.PreviewMode.Cutout;
             if (fullImage)
             {
@@ -173,6 +178,8 @@ namespace Cupscale.UI
             ESRGAN.Backend backend = ESRGAN.Backend.CUDA;
             if (Config.Get("cudaFallback").GetInt() == 1) backend = ESRGAN.Backend.CPU;
             if (Config.Get("cudaFallback").GetInt() == 3) backend = ESRGAN.Backend.NCNN;
+
+            sw.Restart();
 
             if (currentMode == Mode.Single)
             {
@@ -202,6 +209,7 @@ namespace Cupscale.UI
                 ModelData mdl = new ModelData(null, null, ModelData.ModelMode.Advanced);
                 await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, tilesize, alpha, prevMode, backend);
             }
+            Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0.0")}s");
             Program.mainForm.SetBusy(false);
         }
 

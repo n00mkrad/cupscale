@@ -95,12 +95,7 @@ namespace Cupscale
                 double contrastB = GetColorContrast(color, Color.Black);
                 Brush textBrush = contrastW < 3.0 ? Brushes.Black : Brushes.White;
 
-                graphics.DrawString(
-                    $"{barString}",
-                    font,
-                    textBrush,
-                    new Rectangle(0, newHeight, 2 * newWidth, footerHeight - 0),
-                    stringFormat);
+                graphics.DrawString($"{barString}", font, textBrush, new Rectangle(0, newHeight, 2 * newWidth, footerHeight - 0), stringFormat);
             }
             try
             {
@@ -164,7 +159,7 @@ namespace Cupscale
                 using (Graphics gfx = Graphics.FromImage(Bmp))
                 using (SolidBrush brush = new SolidBrush(color))
                 {
-                    gfx.FillRectangle(brush, 0, 0, newWidth, footerHeight); ;
+                    gfx.FillRectangle(brush, 0, 0, newWidth, footerHeight);
                 }
                 graphics.DrawImage(Bmp, 0, newHeight);
 
@@ -253,7 +248,7 @@ namespace Cupscale
 
             string tempPath = Path.Combine(IOUtils.GetAppDataDir(), "giftemp");
             string framesPath = Path.Combine(tempPath, "frames");
-            IOUtils.DeleteContentsOfDir(tempPath);
+            IOUtils.ClearDir(tempPath);
             Directory.CreateDirectory(framesPath);
 
             string img1 = Path.Combine(IO.Paths.previewPath, "preview.png.png");

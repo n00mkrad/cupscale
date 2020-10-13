@@ -23,6 +23,7 @@ namespace Cupscale
 
         public static void Merge()
         {
+            MainUIHelper.sw.Stop();
             Program.mainForm.SetProgress(100f);
             inputCutoutPath = Path.Combine(Paths.previewPath, "preview.png.png");
             outputCutoutPath = Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0];

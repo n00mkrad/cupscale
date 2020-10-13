@@ -1,3 +1,4 @@
+using Cupscale.Forms;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -13,11 +14,13 @@ namespace Cupscale
 		{
 			if (Config.Get("modelPath") == null)
 			{
-				MessageBox.Show("Please set a model path in the Settings tab.", "Notice");
+				MessageBox.Show("Please set a model path in the settings.", "Notice");
+				new SettingsForm().ShowDialog();
 			}
 			else if (!Directory.Exists(Config.Get("modelPath")))
 			{
 				MessageBox.Show("The model path you entered isn't valid!", "Notice");
+				new SettingsForm().ShowDialog();
 			}
 		}
 

@@ -116,7 +116,7 @@ namespace Cupscale
 			}
 		}
 
-		public static void DeleteContentsOfDir(string path)
+		public static void ClearDir(string path)
 		{
 			if (!Directory.Exists(path))
 				return;

@@ -31,7 +31,7 @@ namespace Cupscale.OS
             }
             catch (Exception e)
             {
-                Logger.Log("Failed to initialize NvApi: " + e.Message);
+                Logger.Log($"Failed to initialize NvApi: {e.Message}\nIgnore this if you don't have an Nvidia GPU.");
             }
         }
 

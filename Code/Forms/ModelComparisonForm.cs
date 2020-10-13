@@ -1,0 +1,230 @@
+﻿using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Cupscale.ImageUtils;
+using Cupscale.IO;
+using Cupscale.Main;
+using Cupscale.OS;
+using Cupscale.UI;
+using Cyotek.Windows.Forms;
+using HTAlt.WinForms;
+using ImageMagick;
+using Paths = Cupscale.IO.Paths;
+
+namespace Cupscale.Forms
+{
+    public partial class ModelComparisonForm : Form
+    {
+        public string currentSourcePath;
+        public bool cutoutMode;
+
+        public ModelComparisonForm()
+        {
+            InitializeComponent();
+        }
+
+        private void ModelComparisonForm_Load(object sender, EventArgs e)
+        {
+            UIHelpers.InitCombox(compositionMode, 0);
+            UIHelpers.InitCombox(comparisonMode, 0);
+            UIHelpers.InitCombox(scaleFactor, 2);
+            UIHelpers.InitCombox(cropMode, 0);
+
+            if(!string.IsNullOrWhiteSpace(MainUIHelper.lastCompositionModels))
+                modelPathsBox.Text = MainUIHelper.lastCompositionModels;
+        }
+
+        private void addModelBtn_Click(object sender, EventArgs e)
+        {
+            using (var modelForm = new ModelSelectForm(null, 0))
+            {
+                if (modelForm.ShowDialog() == DialogResult.OK)
+                    modelPathsBox.AppendText(modelForm.selectedModel + Environment.NewLine);
+            }
+        }
+
+        private async void runBtn_Click(object sender, EventArgs e)
+        {
+            Enabled = false;
+            cutoutMode = cropMode.SelectedIndex == 1;
+            if (cutoutMode)
+            {
+                MainUIHelper.SaveCurrentCutout();
+                currentSourcePath = Path.Combine(Paths.previewPath, "preview.png");
+            }
+            else
+            {
+                currentSourcePath = Paths.tempImgPath;
+            }
+            string[] lines = Regex.Split(modelPathsBox.Text, "\r\n|\r|\n");
+            if(comparisonMode.SelectedIndex == 0)
+            {
+                string outpath = Path.Combine(Paths.imgOutPath, "!Original.png");
+                await ImageProcessing.ConvertImage(currentSourcePath, GetSaveFormat(), false, ImageProcessing.ExtensionMode.UseNew, false, outpath);
+                await ProcessImage(outpath, "Original");
+            }
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (!File.Exists(lines[i]))
+                    continue;
+                ModelData mdl = new ModelData(lines[i], null, ModelData.ModelMode.Single);
+                await DoUpscale(i, mdl, !cutoutMode);
+            }
+            bool vert = comparisonMode.SelectedIndex == 1;
+            MagickImage merged = ImgUtils.MergeImages(Directory.GetFiles(Paths.imgOutPath, "*.png", SearchOption.AllDirectories), vert, true);
+            string mergedPath = Path.Combine(Paths.imgOutPath, Path.GetFileNameWithoutExtension(Program.lastFilename) + "-composition");
+            mergedPath = Path.ChangeExtension(mergedPath, GetSaveExt());
+            merged.Write(mergedPath);
+            //if(!cutoutMode)
+                //await ImageProcessing.ConvertImage(mergedPath, GetSaveFormat(), false, ImageProcessing.ExtensionMode.UseNew);
+            await Upscale.CopyImagesTo(Program.lastFilename.GetParentDir());
+            IOUtils.ClearDir(Paths.previewPath);
+            Enabled = true;
+            MessageBox.Show("Saved model composition to " + Program.lastFilename.GetParentDir() + "\\" + Path.GetFileName(mergedPath), "Message");
+        }
+
+        static ImageProcessing.Format GetSaveFormat()
+        {
+            ImageProcessing.Format saveFormat = ImageProcessing.Format.PngFast;
+            if (Config.GetInt("previewFormat") == 1)
+                saveFormat = ImageProcessing.Format.Jpeg;
+            if (Config.GetInt("previewFormat") == 2)
+                saveFormat = ImageProcessing.Format.Weppy;
+            return saveFormat;
+        }
+
+        static string GetSaveExt ()
+        {
+            string ext = "png";
+            if (Config.GetInt("previewFormat") == 1)
+                ext = "jpg";
+            if (Config.GetInt("previewFormat") == 2)
+                ext = "webp";
+            return ext;
+        }
+
+        async Task DoUpscale (int index, ModelData mdl, bool fullImage)
+        {
+            if (MainUIHelper.previewImg.Image == null)
+            {
+                MessageBox.Show("Please load an image first!", "Error");
+                return;
+            }
+            Program.mainForm.SetBusy(true);
+
+            Upscale.currentMode = Upscale.UpscaleMode.Composition;
+            //await ImageProcessing.PreProcessImages(Paths.previewPath, !bool.Parse(Config.Get("alpha")));
+            //if (cutoutMode)
+                //currentSourcePath += ".png";
+            string outImg = null;
+            try
+            {
+                bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
+                bool useCpu = (Config.Get("cudaFallback").GetInt() == 1);
+                ESRGAN.Backend backend = ESRGAN.Backend.CUDA;
+                if (useCpu) backend = ESRGAN.Backend.CPU;
+                if (useNcnn) backend = ESRGAN.Backend.NCNN;
+                await ESRGAN.DoUpscale(Paths.previewPath, Paths.compositionOut, mdl, Config.Get("tilesize"), Config.GetBool("alpha"), ESRGAN.PreviewMode.None, backend);
+                if (backend == ESRGAN.Backend.NCNN)
+                    outImg = Directory.GetFiles(Paths.compositionOut, "*.png*", SearchOption.AllDirectories)[0];
+                else
+                    outImg = Directory.GetFiles(Paths.compositionOut, "*.tmp", SearchOption.AllDirectories)[0];
+                await Upscale.PostprocessingSingle(outImg, false);
+                await ProcessImage(MainUIHelper.lastOutfile, mdl.model1Name);
+                IOUtils.TryCopy(MainUIHelper.lastOutfile, Path.Combine(Paths.imgOutPath, $"{index}-{mdl.model1Name}.png"), true);
+            }
+            catch (Exception e)
+            {
+                if (e.StackTrace.Contains("Index"))
+                    MessageBox.Show("The upscale process seems to have exited before completion!", "Error");
+                Logger.ErrorMessage("An error occured during upscaling:", e);
+                Program.mainForm.SetProgress(0f, "Cancelled.");
+            }
+            Program.mainForm.SetProgress(0, "Done.");
+            Program.mainForm.SetBusy(false);
+        }
+
+        async Task ProcessImage (string path, string text)
+        {
+            int scale = scaleFactor.GetInt();
+            Image source = ImgUtils.GetImage(currentSourcePath);
+            MagickImage img = new MagickImage(path);
+            int newWidth = source.Width * scale;
+            Logger.Log($"int newWidth ({newWidth}) = source.Width({source.Width}) * scale({scale});");
+            Upscale.Filter filter = Upscale.Filter.Bicubic;
+            if(Program.currentFilter == FilterType.Point)
+                filter = Upscale.Filter.NearestNeighbor;
+            Logger.Log("Scaling image for composition...");
+            await Task.Delay(1);
+            img = ImageProcessing.ResizeImage(img, newWidth, Upscale.ScaleMode.PixelsWidth, filter, false);
+            img.Write(path);
+            AddText(path, text);
+        }
+
+        void AddText(string path, string text)
+        {
+            Logger.Log("Adding text: " + text);
+            int footerHeight = 45;
+            Image baseImg = ImgUtils.GetImage(path);
+            Logger.Log($"baseImg: {baseImg.Width}x{baseImg.Height}");
+            int heightWithFooter = baseImg.Height + footerHeight;
+            Bitmap img = new Bitmap(baseImg.Width, heightWithFooter);
+            Logger.Log($"img: {img.Width}x{img.Height}");
+            //Logger.Log("sourceImg.Width: " + sourceImg.Width);
+            //Logger.Log("Size for new bitmap: " + targetWidth + "x" + targetHeight);
+            using (Graphics graphics = Graphics.FromImage(img))
+            {
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+
+                graphics.FillRectangle(new SolidBrush(Color.FromArgb(22, 22, 22)), 0, 0, baseImg.Width, heightWithFooter);
+                graphics.DrawImage(baseImg, 0, 0, baseImg.Width, baseImg.Height);
+
+                GraphicsPath p = new GraphicsPath();
+                int fontSize = 19;
+                SizeF s = new Size(999999999, 99999999);
+
+                Font font = new Font("Times New Roman", graphics.DpiY * fontSize / 72);
+
+                int cf = 0, lf = 0;
+                while (s.Width >= img.Width)
+                {
+                    fontSize--;
+                    font = new Font(FontFamily.GenericSansSerif, graphics.DpiY * fontSize / 72, FontStyle.Regular);
+                    s = graphics.MeasureString(text, font, new SizeF(), new StringFormat(), out cf, out lf);
+                }
+                StringFormat stringFormat = new StringFormat();
+                //stringFormat.Alignment = StringAlignment.Center;
+
+                double a = graphics.DpiY * fontSize / 72;
+                //stringFormat.LineAlignment = StringAlignment.Center;
+
+                //Brush textBrush = Brushes.White;
+                //graphics.DrawString(text, font, textBrush, new Rectangle(0, img.Height, img.Width, footerHeight - 0), stringFormat);
+
+                graphics.DrawString(text, font, Brushes.White, new PointF(0, img.Height - footerHeight));
+            }
+            Logger.Log("Saving img with size " + img.Width + "x" + img.Height);
+            img.Save(path);
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            MainUIHelper.lastCompositionModels = modelPathsBox.Text;
+            Close();
+        }
+
+        private void ModelComparisonForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MainUIHelper.lastCompositionModels = modelPathsBox.Text;
+        }
+    }
+}

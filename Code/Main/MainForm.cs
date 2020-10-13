@@ -174,7 +174,7 @@ namespace Cupscale
 
         private void settingsBtn_Click(object sender, EventArgs e)
         {
-			SettingsForm settingsForm = new SettingsForm();
+			new SettingsForm().ShowDialog();
         }
 
         private void singleModelRbtn_CheckedChanged(object sender, EventArgs e)
@@ -234,7 +234,7 @@ namespace Cupscale
 		async Task DragNDrop (string [] files)
         {
 			Logger.Log("Dropped " + files.Length + " file(s), files[0] = " + files[0]);
-			IOUtils.DeleteContentsOfDir(Paths.tempImgPath.GetParentDir());
+			IOUtils.ClearDir(Paths.tempImgPath.GetParentDir());
 			string path = files[0];
 			DialogForm loadingDialogForm = null;
 			if (IOUtils.IsPathDirectory(path))
@@ -426,11 +426,6 @@ namespace Cupscale
 			postResizeOnlyDownscale.Enabled = postResizeMode.SelectedIndex != 0;
         }
 
-        private async void previewImg_KeyUp(object sender, KeyEventArgs e)
-        {
-			// paste image...
-		}
-
         private void openOutFolderBtn_Click(object sender, EventArgs e)
         {
 			MainUIHelper.OpenLastOutputFolder();
@@ -488,6 +483,8 @@ namespace Cupscale
         {
 			if (e.KeyData == (Keys.Control | Keys.V))
 			{
+				if (htTabControl.SelectedIndex != 0 || !Enabled)
+					return;
 				try
 				{
 					Image clipboardImg = Clipboard.GetImage();
@@ -500,6 +497,16 @@ namespace Cupscale
 					MessageBox.Show("Failed to paste image from clipboard. Make sure you have a raw image (not a file) copied.", "Error");
 				}
 			}
+		}
+
+        private void comparisonToolBtn_Click(object sender, EventArgs e)
+        {
+			new ModelComparisonForm().ShowDialog();
+        }
+
+        private void openModelFolderBtn_Click(object sender, EventArgs e)
+        {
+			Process.Start("explorer.exe", Config.Get("modelPath"));
 		}
     }
 }

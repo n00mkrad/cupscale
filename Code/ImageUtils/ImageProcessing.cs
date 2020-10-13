@@ -190,6 +190,7 @@ namespace Cupscale
                 Logger.Log("Deleting source file: " + path);
                 File.Delete(path);
             }
+            img.Dispose();
             await Task.Delay(1);
         }
 
@@ -256,7 +257,7 @@ namespace Cupscale
             if (Upscale.currentMode == Upscale.UpscaleMode.Batch)
                 PostProcessingQueue.lastOutfile = outPath;
 
-            if (Upscale.currentMode == Upscale.UpscaleMode.Single)
+            if (Upscale.currentMode == Upscale.UpscaleMode.Single || Upscale.currentMode == Upscale.UpscaleMode.Composition)
                 MainUIHelper.lastOutfile = outPath;
 
             Logger.Log("Writing image as " + img.Format + " to " + outPath);
@@ -287,7 +288,7 @@ namespace Cupscale
             if (Upscale.currentMode == Upscale.UpscaleMode.Batch)
                 PostProcessingQueue.lastOutfile = outPath;
 
-            if (Upscale.currentMode == Upscale.UpscaleMode.Single)
+            if (Upscale.currentMode == Upscale.UpscaleMode.Single || Upscale.currentMode == Upscale.UpscaleMode.Composition)
                 MainUIHelper.lastOutfile = outPath;
 
             if (outPath.ToLower() != path.ToLower())

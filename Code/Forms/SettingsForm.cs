@@ -20,12 +20,13 @@ namespace Cupscale.Forms
         public SettingsForm()
         {
             InitializeComponent();
-            Show();
+            //Show();
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            Program.mainForm.Enabled = false;
+            //if(Program.mainForm != null)
+                //Program.mainForm.Enabled = false;
             Logger.textbox = logTbox;
             LoadSettings();
             initialized = true;
@@ -54,7 +55,7 @@ namespace Cupscale.Forms
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveSettings();
-            Program.mainForm.Enabled = true;
+            //Program.mainForm.Enabled = true;
         }
 
         void SaveSettings()
@@ -116,6 +117,8 @@ namespace Cupscale.Forms
             ShippedEsrgan.Uninstall(false);
             MessageBox.Show("Uninstalled resources.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.\n" +
                 "However, your settings file was not deleted.", "Message");
+            Logger.disable = true;
+            Config.disable = true;
             Program.Quit();
         }
 
@@ -124,6 +127,8 @@ namespace Cupscale.Forms
             Close();
             ShippedEsrgan.Uninstall(true);
             MessageBox.Show("Uninstalled all files.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.", "Message");
+            Logger.disable = true;
+            Config.disable = true;
             Program.Quit();
         }
 

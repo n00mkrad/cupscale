@@ -402,7 +402,7 @@
             this.cancelBtn.FlatAppearance.BorderSize = 0;
             this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelBtn.ForeColor = System.Drawing.Color.White;
-            this.cancelBtn.Location = new System.Drawing.Point(367, 403);
+            this.cancelBtn.Location = new System.Drawing.Point(367, 404);
             this.cancelBtn.Margin = new System.Windows.Forms.Padding(6, 6, 180, 6);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(158, 32);
@@ -419,7 +419,7 @@
             this.confirmBtn.FlatAppearance.BorderSize = 0;
             this.confirmBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.confirmBtn.ForeColor = System.Drawing.Color.White;
-            this.confirmBtn.Location = new System.Drawing.Point(189, 403);
+            this.confirmBtn.Location = new System.Drawing.Point(189, 404);
             this.confirmBtn.Margin = new System.Windows.Forms.Padding(180, 6, 6, 6);
             this.confirmBtn.Name = "confirmBtn";
             this.confirmBtn.Size = new System.Drawing.Size(158, 32);
@@ -445,7 +445,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(714, 450);
+            this.ClientSize = new System.Drawing.Size(714, 451);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.confirmBtn);

@@ -13,8 +13,12 @@ namespace Cupscale
 
 		public static string file;
 
+		public static bool disable;
+
 		public static void Log(string s, bool logToFile = true, bool noLineBreak = false, bool replaceLastLine = false)
 		{
+			if (disable) return;
+
 			Console.WriteLine(s);
 
 			if (replaceLastLine)

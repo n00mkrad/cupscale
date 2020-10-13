@@ -44,15 +44,16 @@ namespace Cupscale
 
 		public static void Cleanup ()
         {
-			IOUtils.DeleteContentsOfDir(Paths.previewPath);
-			IOUtils.DeleteContentsOfDir(Paths.previewPath);
-			IOUtils.DeleteContentsOfDir(Paths.clipboardFolderPath);
-			IOUtils.DeleteContentsOfDir(Paths.imgInPath);
-			IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
-			IOUtils.DeleteContentsOfDir(Paths.imgOutNcnnPath);
-			IOUtils.DeleteContentsOfDir(Paths.tempImgPath.GetParentDir());
-			IOUtils.DeleteContentsOfDir(Path.Combine(IOUtils.GetAppDataDir(), "giftemp"));
+			IOUtils.ClearDir(Paths.previewPath);
+			IOUtils.ClearDir(Paths.previewOutPath);
+			IOUtils.ClearDir(Paths.clipboardFolderPath);
+			IOUtils.ClearDir(Paths.imgInPath);
+			IOUtils.ClearDir(Paths.imgOutPath);
+			IOUtils.ClearDir(Paths.imgOutNcnnPath);
+			IOUtils.ClearDir(Paths.tempImgPath.GetParentDir());
+			IOUtils.ClearDir(Path.Combine(IOUtils.GetAppDataDir(), "giftemp"));
 			IOUtils.DeleteIfExists(Path.Combine(Paths.presetsPath, "lastUsed"));
+			IOUtils.ClearDir(Paths.compositionOut);
 		}
 
 		public static void CloseTempForms ()

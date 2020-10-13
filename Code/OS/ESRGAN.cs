@@ -72,7 +72,7 @@ namespace Cupscale.OS
 					MainUIHelper.currentScale = ImgUtils.GetScaleFloat(inputImg, outImg);
 					MainUIHelper.previewImg.ZoomToFit();
 					Program.mainForm.SetHasPreview(true);
-					Program.mainForm.SetProgress(0f, "Done.");
+					//Program.mainForm.SetProgress(0f, "Done.");
 				}
 			}
 			catch(Exception e)

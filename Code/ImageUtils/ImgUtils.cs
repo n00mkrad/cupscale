@@ -100,5 +100,22 @@ namespace Cupscale.ImageUtils
 			var source = new BitmapImage(new Uri(path));
 			return source.Format.BitsPerPixel;
 		}
+
+		public static MagickImage MergeImages (string[] imgs, bool vertically, bool deleteSourceImgs)
+        {
+			MagickImageCollection collection = new MagickImageCollection();
+
+			foreach (string img in imgs)
+            {
+				collection.Add(img);
+				if (deleteSourceImgs)
+					File.Delete(img);
+			}
+
+			if (!vertically)
+				return (MagickImage)collection.AppendHorizontally();
+			else
+				return(MagickImage)collection.AppendVertically();
+        }
 	}
 }

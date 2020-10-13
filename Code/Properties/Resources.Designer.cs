@@ -63,6 +63,26 @@ namespace Cupscale.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap baseline_folder_open_white_48dp {
+            get {
+                object obj = ResourceManager.GetObject("baseline_folder_open_white_48dp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap baseline_photo_library_white_48dp {
+            get {
+                object obj = ResourceManager.GetObject("baseline_photo_library_white_48dp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap baseline_refresh_white_48dp {
             get {
                 object obj = ResourceManager.GetObject("baseline_refresh_white_48dp", resourceCulture);
@@ -151,7 +171,8 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 3	# updated esrlmain.py to fix chaining problem
+        ///   Looks up a localized string similar to 4	# updated esrgan scripts
+        ///3	# updated esrlmain.py to fix chaining problem
         ///2	# added joey&apos;s esrgan
         ///1	# added ffmpeg.
         /// </summary>

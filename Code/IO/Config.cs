@@ -13,6 +13,8 @@ namespace Cupscale
 
 		private static string[] cachedLines;
 
+		public static bool disable;
+
 		public static void Init()
 		{
 			configPath = Path.Combine(IOUtils.GetAppDataDir(), "config.ini");
@@ -25,6 +27,8 @@ namespace Cupscale
 
 		public static void Set(string key, string value)
 		{
+			if (disable) return;
+
 			string[] lines = File.ReadAllLines(configPath);
 			for (int i = 0; i < lines.Length; i++)
 			{

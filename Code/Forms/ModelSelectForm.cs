@@ -58,7 +58,7 @@ namespace Cupscale.Forms
 
         private void CheckNodesRecursive(TreeNode parentNode)
         {
-            if (parentNode.Text.Trim() == modelBtn.Text.Trim())
+            if (modelBtn != null && parentNode.Text.Trim() == modelBtn.Text.Trim())
                 modelTree.SelectedNode = parentNode;
 
             foreach (TreeNode subNode in parentNode.Nodes)
@@ -86,8 +86,10 @@ namespace Cupscale.Forms
         private void confirmBtn_Click(object sender, EventArgs e)
         {
             selectedModel = modelTree.SelectedNode.Name;
-            modelBtn.Text = Path.GetFileNameWithoutExtension(selectedModel);
-            Logger.Log("Selected model " + modelBtn.Text + " - Full path: " + selectedModel);
+            string modelName = Path.GetFileNameWithoutExtension(selectedModel);
+            if (modelBtn != null)
+                modelBtn.Text = modelName;
+            Logger.Log("Selected model " + modelName + " - Full path: " + selectedModel);
             if (modelNo == 1)   // idk if this could be less hardcoded?
                 Program.currentModel1 = selectedModel;
             if (modelNo == 2)

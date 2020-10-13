@@ -136,6 +136,8 @@ namespace Cupscale
             this.panel6 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.openModelFolderBtn = new HTAlt.WinForms.HTButton();
+            this.comparisonToolBtn = new HTAlt.WinForms.HTButton();
             this.settingsBtn = new HTAlt.WinForms.HTButton();
             this.panel15 = new System.Windows.Forms.Panel();
             this.vramLabel = new System.Windows.Forms.Label();
@@ -905,8 +907,8 @@ namespace Cupscale
             this.previewTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
             this.previewTab.Controls.Add(this.previewImg);
             this.previewTab.Location = new System.Drawing.Point(4, 27);
+            this.previewTab.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.previewTab.Name = "previewTab";
-            this.previewTab.Padding = new System.Windows.Forms.Padding(3);
             this.previewTab.Size = new System.Drawing.Size(594, 813);
             this.previewTab.TabIndex = 0;
             this.previewTab.Text = "Preview Image";
@@ -921,16 +923,16 @@ namespace Cupscale
             this.previewImg.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
             this.previewImg.GridColorAlternate = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.previewImg.GridScale = Cyotek.Windows.Forms.ImageBoxGridScale.Medium;
-            this.previewImg.Location = new System.Drawing.Point(3, 3);
+            this.previewImg.Location = new System.Drawing.Point(0, 0);
+            this.previewImg.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.previewImg.Name = "previewImg";
-            this.previewImg.Size = new System.Drawing.Size(588, 807);
+            this.previewImg.Size = new System.Drawing.Size(594, 813);
             this.previewImg.TabIndex = 0;
             this.previewImg.TabStop = false;
             this.previewImg.Text = "Drag And Drop An Image Or A Folder Into This Area";
             this.previewImg.Zoomed += new System.EventHandler<Cyotek.Windows.Forms.ImageBoxZoomEventArgs>(this.previewImg_Zoomed);
             this.previewImg.DragDrop += new System.Windows.Forms.DragEventHandler(this.previewImg_DragDrop);
             this.previewImg.DragEnter += new System.Windows.Forms.DragEventHandler(this.previewImg_DragEnter);
-            this.previewImg.KeyUp += new System.Windows.Forms.KeyEventHandler(this.previewImg_KeyUp);
             this.previewImg.MouseDown += new System.Windows.Forms.MouseEventHandler(this.previewImg_MouseDown);
             this.previewImg.MouseUp += new System.Windows.Forms.MouseEventHandler(this.previewImg_MouseUp);
             // 
@@ -1375,7 +1377,7 @@ namespace Cupscale
             this.prevOverwriteCombox.FormattingEnabled = true;
             this.prevOverwriteCombox.Items.AddRange(new object[] {
             "No - Add Suffix To Upscaled Images",
-            "Yes - Only works when using the same format!"});
+            "Yes - Don\'t Add Suffix, Overwrite If Extension Matches"});
             this.prevOverwriteCombox.Location = new System.Drawing.Point(6, 37);
             this.prevOverwriteCombox.Margin = new System.Windows.Forms.Padding(8);
             this.prevOverwriteCombox.Name = "prevOverwriteCombox";
@@ -1461,11 +1463,13 @@ namespace Cupscale
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(344, 34);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Cupscale [Build 20 - 10/12/20]";
+            this.label5.Text = "Cupscale [Build 21 - 10/13/20]";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.openModelFolderBtn);
+            this.panel7.Controls.Add(this.comparisonToolBtn);
             this.panel7.Controls.Add(this.settingsBtn);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(964, 0);
@@ -1473,6 +1477,48 @@ namespace Cupscale
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(300, 40);
             this.panel7.TabIndex = 8;
+            // 
+            // openModelFolderBtn
+            // 
+            this.openModelFolderBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.openModelFolderBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.openModelFolderBtn.ButtonImage = global::Cupscale.Properties.Resources.baseline_folder_open_white_48dp;
+            this.openModelFolderBtn.DrawImage = true;
+            this.openModelFolderBtn.FlatAppearance.BorderSize = 0;
+            this.openModelFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.openModelFolderBtn.ForeColor = System.Drawing.Color.White;
+            this.openModelFolderBtn.ImageIndex = 0;
+            this.openModelFolderBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
+            this.openModelFolderBtn.Location = new System.Drawing.Point(220, 6);
+            this.openModelFolderBtn.Name = "openModelFolderBtn";
+            this.openModelFolderBtn.Size = new System.Drawing.Size(34, 34);
+            this.openModelFolderBtn.TabIndex = 11;
+            this.openModelFolderBtn.Text = " ";
+            this.toolTip1.SetToolTip(this.openModelFolderBtn, "Open Models Folder");
+            this.openModelFolderBtn.UseVisualStyleBackColor = false;
+            this.openModelFolderBtn.Click += new System.EventHandler(this.openModelFolderBtn_Click);
+            // 
+            // comparisonToolBtn
+            // 
+            this.comparisonToolBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comparisonToolBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.comparisonToolBtn.ButtonImage = global::Cupscale.Properties.Resources.baseline_photo_library_white_48dp;
+            this.comparisonToolBtn.DrawImage = true;
+            this.comparisonToolBtn.FlatAppearance.BorderSize = 0;
+            this.comparisonToolBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comparisonToolBtn.ForeColor = System.Drawing.Color.White;
+            this.comparisonToolBtn.ImageIndex = 0;
+            this.comparisonToolBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
+            this.comparisonToolBtn.Location = new System.Drawing.Point(180, 6);
+            this.comparisonToolBtn.Name = "comparisonToolBtn";
+            this.comparisonToolBtn.Size = new System.Drawing.Size(34, 34);
+            this.comparisonToolBtn.TabIndex = 10;
+            this.comparisonToolBtn.Text = " ";
+            this.toolTip1.SetToolTip(this.comparisonToolBtn, "Model Comparison Tool");
+            this.comparisonToolBtn.UseVisualStyleBackColor = false;
+            this.comparisonToolBtn.Click += new System.EventHandler(this.comparisonToolBtn_Click);
             // 
             // settingsBtn
             // 
@@ -1491,6 +1537,7 @@ namespace Cupscale
             this.settingsBtn.Size = new System.Drawing.Size(34, 34);
             this.settingsBtn.TabIndex = 9;
             this.settingsBtn.Text = " ";
+            this.toolTip1.SetToolTip(this.settingsBtn, "Settings");
             this.settingsBtn.UseVisualStyleBackColor = false;
             this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
             // 
@@ -1641,5 +1688,7 @@ namespace Cupscale
         private Label vramLabel;
         private RadioButton advancedBtn;
         private Button advancedConfigureBtn;
+        private HTAlt.WinForms.HTButton comparisonToolBtn;
+        private HTAlt.WinForms.HTButton openModelFolderBtn;
     }
 }

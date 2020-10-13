@@ -31,7 +31,7 @@ namespace Cupscale.Cupscale
             outputFileQueue.Clear();
             processedFiles.Clear();
             outputFiles.Clear();
-            IOUtils.DeleteContentsOfDir(Paths.imgOutNcnnPath);
+            IOUtils.ClearDir(Paths.imgOutNcnnPath);
             run = true;
         }
 

@@ -4,6 +4,7 @@ using Cupscale.Main;
 using Cupscale.OS;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace Cupscale.UI
         static string[] currentInFiles;
 
         static bool multiImgMode = false;
+
+        public static Stopwatch sw = new Stopwatch();
 
         public static void Init (TextBox outDirBox, TextBox fileListBox)
         {
@@ -55,7 +58,7 @@ namespace Cupscale.UI
 
         public static async Task CopyDroppedImages (string[] imgs)
         {
-            IOUtils.DeleteContentsOfDir(Paths.imgInPath);
+            IOUtils.ClearDir(Paths.imgInPath);
             foreach (string img in imgs)
             {
                 if(IOUtils.compatibleExtensions.Contains(Path.GetExtension(img).ToLower()) && File.Exists(img))
@@ -118,12 +121,13 @@ namespace Cupscale.UI
             tasks.Add(PostProcessingQueue.Update());
             tasks.Add(PostProcessingQueue.ProcessQueue());
 
+            sw.Restart();
             await Task.WhenAll(tasks);
 
-            IOUtils.DeleteContentsOfDir(Paths.imgInPath);
-            IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
+            IOUtils.ClearDir(Paths.imgInPath);
+            IOUtils.ClearDir(Paths.imgOutPath);
 
-            Program.mainForm.SetProgress(0f, "Done.");
+            Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0")}s");
             Program.mainForm.SetBusy(false);
         }
 
@@ -151,8 +155,8 @@ namespace Cupscale.UI
 
         static async Task CopyCompatibleImagesToTemp(bool move = false)
         {
-            IOUtils.DeleteContentsOfDir(Paths.imgOutPath);
-            IOUtils.DeleteContentsOfDir(Paths.imgInPath);
+            IOUtils.ClearDir(Paths.imgOutPath);
+            IOUtils.ClearDir(Paths.imgInPath);
             if (multiImgMode)
             {
                 await CopyDroppedImages(currentInFiles);
