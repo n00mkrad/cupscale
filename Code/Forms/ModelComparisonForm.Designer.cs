@@ -85,13 +85,13 @@
             // modelPathsBox
             // 
             this.modelPathsBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.modelPathsBox.ForeColor = System.Drawing.Color.Silver;
-            this.modelPathsBox.Location = new System.Drawing.Point(258, 136);
+            this.modelPathsBox.ForeColor = System.Drawing.Color.White;
+            this.modelPathsBox.Location = new System.Drawing.Point(222, 136);
             this.modelPathsBox.Margin = new System.Windows.Forms.Padding(8);
             this.modelPathsBox.Multiline = true;
             this.modelPathsBox.Name = "modelPathsBox";
             this.modelPathsBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.modelPathsBox.Size = new System.Drawing.Size(439, 254);
+            this.modelPathsBox.Size = new System.Drawing.Size(475, 254);
             this.modelPathsBox.TabIndex = 50;
             // 
             // label16
@@ -137,7 +137,7 @@
             this.compositionMode.Location = new System.Drawing.Point(11, 24);
             this.compositionMode.Margin = new System.Windows.Forms.Padding(8);
             this.compositionMode.Name = "compositionMode";
-            this.compositionMode.Size = new System.Drawing.Size(210, 21);
+            this.compositionMode.Size = new System.Drawing.Size(175, 21);
             this.compositionMode.TabIndex = 53;
             // 
             // groupBox1
@@ -146,7 +146,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(15, 201);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(232, 59);
+            this.groupBox1.Size = new System.Drawing.Size(196, 59);
             this.groupBox1.TabIndex = 55;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Image Composition Mode";
@@ -157,7 +157,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.White;
             this.groupBox2.Location = new System.Drawing.Point(15, 266);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(232, 59);
+            this.groupBox2.Size = new System.Drawing.Size(196, 59);
             this.groupBox2.TabIndex = 56;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Comparison Mode";
@@ -175,7 +175,7 @@
             this.comparisonMode.Location = new System.Drawing.Point(11, 24);
             this.comparisonMode.Margin = new System.Windows.Forms.Padding(8);
             this.comparisonMode.Name = "comparisonMode";
-            this.comparisonMode.Size = new System.Drawing.Size(210, 21);
+            this.comparisonMode.Size = new System.Drawing.Size(175, 21);
             this.comparisonMode.TabIndex = 53;
             // 
             // groupBox3
@@ -184,7 +184,7 @@
             this.groupBox3.ForeColor = System.Drawing.Color.White;
             this.groupBox3.Location = new System.Drawing.Point(15, 331);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(232, 59);
+            this.groupBox3.Size = new System.Drawing.Size(196, 59);
             this.groupBox3.TabIndex = 57;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Scale (Relative To Original)";
@@ -204,7 +204,7 @@
             this.scaleFactor.Location = new System.Drawing.Point(11, 24);
             this.scaleFactor.Margin = new System.Windows.Forms.Padding(8);
             this.scaleFactor.Name = "scaleFactor";
-            this.scaleFactor.Size = new System.Drawing.Size(210, 21);
+            this.scaleFactor.Size = new System.Drawing.Size(175, 21);
             this.scaleFactor.TabIndex = 53;
             // 
             // groupBox4
@@ -213,7 +213,7 @@
             this.groupBox4.ForeColor = System.Drawing.Color.White;
             this.groupBox4.Location = new System.Drawing.Point(15, 136);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(232, 59);
+            this.groupBox4.Size = new System.Drawing.Size(196, 59);
             this.groupBox4.TabIndex = 56;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Image Crop Mode";
@@ -231,14 +231,14 @@
             this.cropMode.Location = new System.Drawing.Point(11, 24);
             this.cropMode.Margin = new System.Windows.Forms.Padding(8);
             this.cropMode.Name = "cropMode";
-            this.cropMode.Size = new System.Drawing.Size(210, 21);
+            this.cropMode.Size = new System.Drawing.Size(175, 21);
             this.cropMode.TabIndex = 53;
             // 
             // label21
             // 
             this.label21.AutoSize = true;
             this.label21.ForeColor = System.Drawing.Color.White;
-            this.label21.Location = new System.Drawing.Point(255, 96);
+            this.label21.Location = new System.Drawing.Point(226, 96);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(231, 26);
             this.label21.TabIndex = 58;

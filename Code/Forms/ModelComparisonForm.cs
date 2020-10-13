@@ -36,8 +36,20 @@ namespace Cupscale.Forms
             UIHelpers.InitCombox(scaleFactor, 2);
             UIHelpers.InitCombox(cropMode, 0);
 
-            if(!string.IsNullOrWhiteSpace(MainUIHelper.lastCompositionModels))
-                modelPathsBox.Text = MainUIHelper.lastCompositionModels;
+            if (ModelComparisonTool.compositionModeComboxIndex >= 0)
+                compositionMode.SelectedIndex = ModelComparisonTool.compositionModeComboxIndex;
+
+            if (ModelComparisonTool.comparisonModeComboxIndex >= 0)
+                comparisonMode.SelectedIndex = ModelComparisonTool.comparisonModeComboxIndex;
+
+            if (ModelComparisonTool.scaleComboxIndex >= 0)
+                scaleFactor.SelectedIndex = ModelComparisonTool.scaleComboxIndex;
+
+            if (ModelComparisonTool.cropModeComboxIndex >= 0)
+                cropMode.SelectedIndex = ModelComparisonTool.cropModeComboxIndex;
+
+            if (!string.IsNullOrWhiteSpace(ModelComparisonTool.lastCompositionModels))
+                modelPathsBox.Text = ModelComparisonTool.lastCompositionModels;
         }
 
         private void addModelBtn_Click(object sender, EventArgs e)
@@ -51,6 +63,11 @@ namespace Cupscale.Forms
 
         private async void runBtn_Click(object sender, EventArgs e)
         {
+            if(MainUIHelper.previewImg.Image == null || !File.Exists(Paths.tempImgPath))
+            {
+                MessageBox.Show("No image loaded!", "Error");
+                return;
+            }
             Enabled = false;
             cutoutMode = cropMode.SelectedIndex == 1;
             if (cutoutMode)
@@ -218,13 +235,17 @@ namespace Cupscale.Forms
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            MainUIHelper.lastCompositionModels = modelPathsBox.Text;
+            ModelComparisonTool.lastCompositionModels = modelPathsBox.Text;
             Close();
         }
 
         private void ModelComparisonForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MainUIHelper.lastCompositionModels = modelPathsBox.Text;
+            ModelComparisonTool.lastCompositionModels = modelPathsBox.Text;
+            ModelComparisonTool.comparisonModeComboxIndex = comparisonMode.SelectedIndex;
+            ModelComparisonTool.compositionModeComboxIndex = compositionMode.SelectedIndex;
+            ModelComparisonTool.scaleComboxIndex = scaleFactor.SelectedIndex;
+            ModelComparisonTool.cropModeComboxIndex = cropMode.SelectedIndex;
         }
     }
 }

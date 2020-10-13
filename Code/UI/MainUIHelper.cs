@@ -35,8 +35,6 @@ namespace Cupscale.UI
 
         public static float currentScale = 1;
 
-        public static string lastCompositionModels;
-
         public static void Init(ImageBox imgBox, Button model1Btn, Button model2Btn, ComboBox formatBox, ComboBox overwriteBox)
         {
             interpValue = 50;
