@@ -147,7 +147,9 @@ namespace Cupscale.Forms
                 ESRGAN.Backend backend = ESRGAN.Backend.CUDA;
                 if (useCpu) backend = ESRGAN.Backend.CPU;
                 if (useNcnn) backend = ESRGAN.Backend.NCNN;
-                await ESRGAN.DoUpscale(Paths.previewPath, Paths.compositionOut, mdl, Config.Get("tilesize"), Config.GetBool("alpha"), ESRGAN.PreviewMode.None, backend);
+                string inpath = Paths.previewPath;
+                if (fullImage) inpath = Paths.tempImgPath.GetParentDir();
+                await ESRGAN.DoUpscale(inpath, Paths.compositionOut, mdl, Config.Get("tilesize"), Config.GetBool("alpha"), ESRGAN.PreviewMode.None, backend);
                 if (backend == ESRGAN.Backend.NCNN)
                     outImg = Directory.GetFiles(Paths.compositionOut, "*.png*", SearchOption.AllDirectories)[0];
                 else
