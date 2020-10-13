@@ -45,7 +45,21 @@ namespace Cupscale.Cupscale
         {
             while (run || AnyFilesLeft())
             {
-                string[] outFiles = Directory.GetFiles(Paths.imgOutPath, "*.png.*", SearchOption.AllDirectories);
+                CheckNcnnOutput();
+                Logger.Log("Update() Loop runs, run: " + run + ", AnyFilesLeft(): " + AnyFilesLeft());
+                /*
+                foreach (string file in Directory.GetFiles(Paths.imgOutPath, "*.png.png", SearchOption.AllDirectories))   // Rename to tmp
+                {
+                    try
+                    {
+                        string newPath = file.Substring(0, file.Length - 8) + ".tmp";
+                        Logger.Log("renaming " + file + " -> " + newPath);
+                        File.Move(file, newPath);
+                    }
+                    catch { }
+                }
+                */
+                string[] outFiles = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories);
                 Logger.Log("Queue Update() - " + outFiles.Length + " files in out folder");
                 foreach (string file in outFiles)
                 {
@@ -62,11 +76,14 @@ namespace Cupscale.Cupscale
                 }
                 await Task.Delay(1000);
             }
+            Logger.Log("Exited Update()");
         }
 
         static bool AnyFilesLeft ()
         {
             if (IOUtils.GetAmountOfFiles(Paths.imgOutPath, true) > 0)
+                return true;
+            if (IOUtils.GetAmountOfFiles(Paths.imgOutNcnnPath, true) > 0)
                 return true;
             Logger.Log("No files in Paths.imgOutPath");
             return false;
@@ -123,6 +140,30 @@ namespace Cupscale.Cupscale
                 }
                 await Task.Delay(250);
             }
+        }
+
+        static void CheckNcnnOutput()
+        {
+            foreach (string file in Directory.GetFiles(Paths.imgOutPath, "*.png.png", SearchOption.AllDirectories))   // Rename to tmp
+            {
+                try
+                {
+                    string newPath = file.Substring(0, file.Length - 8) + ".tmp";
+                    Logger.Log("renaming " + file + " -> " + newPath);
+                    string movePath = Path.Combine(Paths.imgOutPath, Path.GetFileName(newPath));
+                    Logger.Log("moving " + file + " -> " + movePath);
+                    File.Move(file, movePath);
+                }
+                catch { }
+            }
+            /*
+            try
+            {
+                IOUtils.RenameExtensions(Paths.imgOutNcnnPath, "png", "tmp", true);
+                IOUtils.Copy(Paths.imgOutNcnnPath, Paths.imgOutPath, "*", true);
+            }
+            catch { }
+            */
         }
     }
 }

@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows;
 using Cupscale.ImageUtils;
 using Cupscale.IO;
+using Cupscale.Main;
 using Cupscale.UI;
 using ImageMagick;
 using Paths = Cupscale.IO.Paths;
@@ -59,16 +60,25 @@ namespace Cupscale
 
         public static Image MergeInMemory(int scale)
         {
-            string tempScaledSourceImagePath = Path.Combine(Paths.tempImgPath.GetParentDir(), "scaled-source.png");
-            MagickImage scaledSourceMagickImg = new MagickImage(Paths.tempImgPath);
-            int oldWidth = scaledSourceMagickImg.Width;
-            Logger.Log("oldWidth: " + oldWidth);
-            scaledSourceMagickImg = ImageProcessing.ResizeImagePre(scaledSourceMagickImg);
-            int newWidth = scaledSourceMagickImg.Width;
-            Logger.Log("newWidth: " + newWidth);
-            scaledSourceMagickImg.Write(tempScaledSourceImagePath);
-            Image scaledSourceImg = ImgUtils.GetImage(tempScaledSourceImagePath);
-
+            Image scaledSourceImg;
+            int oldWidth;
+            int newWidth;
+            if (!(ImageProcessing.preScaleMode == Upscale.ScaleMode.Percent && ImageProcessing.preScaleValue == 100))
+            {
+                string tempScaledSourceImagePath = Path.Combine(Paths.tempImgPath.GetParentDir(), "scaled-source.png");
+                MagickImage scaledSourceMagickImg = new MagickImage(Paths.tempImgPath);
+                oldWidth = scaledSourceMagickImg.Width;
+                scaledSourceMagickImg = ImageProcessing.ResizeImagePre(scaledSourceMagickImg);
+                newWidth = scaledSourceMagickImg.Width;
+                scaledSourceMagickImg.Write(tempScaledSourceImagePath);
+               scaledSourceImg = ImgUtils.GetImage(tempScaledSourceImagePath);
+            }
+            else
+            {
+                scaledSourceImg = ImgUtils.GetImage(Paths.tempImgPath);
+                oldWidth = scaledSourceImg.Width;
+                newWidth = scaledSourceImg.Width;
+            }
             float preScale = (float)oldWidth / (float)newWidth;
             Logger.Log("Pre Scale: " + preScale + "x");
 

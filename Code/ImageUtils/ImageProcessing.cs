@@ -93,7 +93,7 @@ namespace Cupscale
 
             string outPath = path + ".png";
             await Task.Delay(1);
-            img.Format = MagickFormat.Png32;
+            img.Format = img.Format = GetPngFormat(path);
 
             if (outPath.ToLower() == path.ToLower())    // Force overwrite by deleting source file before writing new file - THIS IS IMPORTANT
                 File.Delete(path);

@@ -93,13 +93,11 @@ namespace Cupscale.Forms
                 ModelData mdl = new ModelData(lines[i], null, ModelData.ModelMode.Single);
                 await DoUpscale(i, mdl, !cutoutMode);
             }
-            bool vert = comparisonMode.SelectedIndex == 1;
+            bool vert = compositionMode.SelectedIndex == 1;
             MagickImage merged = ImgUtils.MergeImages(Directory.GetFiles(Paths.imgOutPath, "*.png", SearchOption.AllDirectories), vert, true);
             string mergedPath = Path.Combine(Paths.imgOutPath, Path.GetFileNameWithoutExtension(Program.lastFilename) + "-composition");
             mergedPath = Path.ChangeExtension(mergedPath, GetSaveExt());
             merged.Write(mergedPath);
-            //if(!cutoutMode)
-                //await ImageProcessing.ConvertImage(mergedPath, GetSaveFormat(), false, ImageProcessing.ExtensionMode.UseNew);
             await Upscale.CopyImagesTo(Program.lastFilename.GetParentDir());
             IOUtils.ClearDir(Paths.previewPath);
             Enabled = true;

@@ -97,8 +97,11 @@ namespace Cupscale.ImageUtils
 
 		public static int GetColorDepth (string path)
         {
-			var source = new BitmapImage(new Uri(path));
-			return source.Format.BitsPerPixel;
+			using (var stream = new MemoryStream(File.ReadAllBytes(path)))
+			{
+				var source = BitmapFrame.Create(stream, BitmapCreateOptions.IgnoreImageCache, BitmapCacheOption.OnLoad);
+				return source.Format.BitsPerPixel;
+			}
 		}
 
 		public static MagickImage MergeImages (string[] imgs, bool vertically, bool deleteSourceImgs)
