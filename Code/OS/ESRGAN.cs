@@ -140,6 +140,8 @@ namespace Cupscale.OS
 
 		public static async Task Run(string inpath, string outpath, string modelArg, string tilesize, bool alpha, bool showTileProgress)
 		{
+			bool debug = Config.GetBool("cmdDebug");
+
 			inpath = inpath.WrapPath();
 			outpath = outpath.WrapPath();
 			string alphaStr = " --noalpha";
@@ -150,18 +152,24 @@ namespace Cupscale.OS
 			cmd2 = cmd2 + "python esrlmain.py " + inpath + " " + outpath + deviceStr + " --tilesize " + tilesize + alphaStr + modelArg;
 			Logger.Log("CMD: " + cmd2);
 			Process esrganProcess = new Process();
-			esrganProcess.StartInfo.UseShellExecute = false;
-			esrganProcess.StartInfo.RedirectStandardOutput = true;
-			esrganProcess.StartInfo.RedirectStandardError = true;
-			esrganProcess.StartInfo.CreateNoWindow = true;
+			esrganProcess.StartInfo.UseShellExecute = debug;
+			esrganProcess.StartInfo.RedirectStandardOutput = !debug;
+			esrganProcess.StartInfo.RedirectStandardError = !debug;
+			esrganProcess.StartInfo.CreateNoWindow = !debug;
 			esrganProcess.StartInfo.FileName = "cmd.exe";
 			esrganProcess.StartInfo.Arguments = cmd2;
-			esrganProcess.OutputDataReceived += OutputHandler;
-			esrganProcess.ErrorDataReceived += OutputHandler;
+			if (!debug)
+			{
+				esrganProcess.OutputDataReceived += OutputHandler;
+				esrganProcess.ErrorDataReceived += OutputHandler;
+			}
 			currentProcess = esrganProcess;
 			esrganProcess.Start();
-			esrganProcess.BeginOutputReadLine();
-			esrganProcess.BeginErrorReadLine();
+			if (!debug)
+            {
+				esrganProcess.BeginOutputReadLine();
+				esrganProcess.BeginErrorReadLine();
+			}
 			while (!esrganProcess.HasExited)
 			{
 				if(showTileProgress)
@@ -179,6 +187,8 @@ namespace Cupscale.OS
 
 		public static async Task RunJoey (string inpath, string outpath, string modelArg, string tilesize, bool alpha, bool showTileProgress)
 		{
+			bool debug = Config.GetBool("cmdDebug");
+
 			inpath = inpath.WrapPath(true, true);
 			outpath = outpath.WrapPath(true, true);
 
@@ -196,18 +206,24 @@ namespace Cupscale.OS
 				+ deviceStr + seamStr + " --tile_size " + tilesize + alphaStr + modelArg;
 			Logger.Log("CMD: " + cmd);
 			Process esrganProcess = new Process();
-			esrganProcess.StartInfo.UseShellExecute = false;
-			esrganProcess.StartInfo.RedirectStandardOutput = true;
-			esrganProcess.StartInfo.RedirectStandardError = true;
-			esrganProcess.StartInfo.CreateNoWindow = true;
+			esrganProcess.StartInfo.UseShellExecute = debug;
+			esrganProcess.StartInfo.RedirectStandardOutput = !debug;
+			esrganProcess.StartInfo.RedirectStandardError = !debug;
+			esrganProcess.StartInfo.CreateNoWindow = !debug;
 			esrganProcess.StartInfo.FileName = "cmd.exe";
 			esrganProcess.StartInfo.Arguments = cmd;
-			esrganProcess.OutputDataReceived += OutputHandler;
-			esrganProcess.ErrorDataReceived += OutputHandler;
+            if (!debug)
+            {
+				esrganProcess.OutputDataReceived += OutputHandler;
+				esrganProcess.ErrorDataReceived += OutputHandler;
+			}
 			currentProcess = esrganProcess;
 			esrganProcess.Start();
-			esrganProcess.BeginOutputReadLine();
-			esrganProcess.BeginErrorReadLine();
+            if (!debug)
+            {
+				esrganProcess.BeginOutputReadLine();
+				esrganProcess.BeginErrorReadLine();
+			}
 			while (!esrganProcess.HasExited)
 			{
 				if (showTileProgress)

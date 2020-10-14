@@ -90,6 +90,8 @@ namespace Cupscale.UI
 
         public static async Task Run ()
         {
+            IOUtils.ClearDir(Paths.imgInPath);
+            IOUtils.ClearDir(Paths.imgOutPath);
             bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
             bool useCpu = (Config.Get("cudaFallback").GetInt() == 1);
             if (useNcnn && !Program.mainForm.HasValidNcnnModelSelection())
@@ -123,9 +125,6 @@ namespace Cupscale.UI
 
             sw.Restart();
             await Task.WhenAll(tasks);
-
-            IOUtils.ClearDir(Paths.imgInPath);
-            IOUtils.ClearDir(Paths.imgOutPath);
 
             Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0")}s");
             Program.mainForm.SetBusy(false);

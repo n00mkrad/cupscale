@@ -91,6 +91,7 @@ namespace Cupscale
 				"previewFormat" => WriteDefault("previewFormat", "0"),
 				"cudaFallback" => WriteDefault("cudaFallback", "0"),
 				"reloadImageBeforeUpscale" => WriteDefault("reloadImageBeforeUpscale", "True"),
+				"cmdDebug" => WriteDefault("cmdDebug", "False"),
 				_ => null, 
 			};
 		}

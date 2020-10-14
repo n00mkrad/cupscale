@@ -95,7 +95,15 @@ namespace Cupscale.Main
                 newPath = path.Substring(0, path.Length - 8);
             else
                 newPath = path.Substring(0, path.Length - 4);
-            File.Move(path, newPath);
+            Logger.Log("Now trying to move " + path + " -> " + newPath);
+            try
+            {
+                File.Move(path, newPath);
+            }
+            catch (Exception e)
+            {
+                Logger.Log("Failed to move/rename! " + e.Message + "\n" + e.StackTrace);
+            }
             path = newPath;
             Logger.Log("PostprocessingSingle New Path: " + path);
 
