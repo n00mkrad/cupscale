@@ -213,7 +213,7 @@ namespace Cupscale
         {
             string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison.png";
             outputImage.Save(comparisonSavePath);
-            await ImageProcessing.ConvertImage(comparisonSavePath, GetSaveFormat(), false, ImageProcessing.ExtensionMode.UseNew);
+            await ImageProcessing.ConvertImage(comparisonSavePath, GetSaveFormat(), false, ImageProcessing.ExtMode.UseNew);
             MessageBox.Show("Saved current comparison to:\n\n" + Path.ChangeExtension(comparisonSavePath, null), "Message");
         }
 

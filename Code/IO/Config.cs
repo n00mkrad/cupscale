@@ -90,7 +90,7 @@ namespace Cupscale
 				"ddsEnableMips" => WriteDefault("ddsEnableMips", "True"),
 				"previewFormat" => WriteDefault("previewFormat", "0"),
 				"cudaFallback" => WriteDefault("cudaFallback", "0"),
-				"reloadImageBeforeUpscale" => WriteDefault("reloadImageBeforeUpscale", "True"),
+				"reloadImageBeforeUpscale" => WriteDefault("reloadImageBeforeUpscale", "False"),
 				"cmdDebug" => WriteDefault("cmdDebug", "False"),
 				"flipTga" => WriteDefault("flipTga", "True"),
 				_ => null, 

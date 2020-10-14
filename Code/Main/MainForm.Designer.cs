@@ -107,6 +107,9 @@ namespace Cupscale
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.label7 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.selectOutPathBtn = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.preprocessMode = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.batchOutMode = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -142,6 +145,7 @@ namespace Cupscale
             this.panel15 = new System.Windows.Forms.Panel();
             this.vramLabel = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -172,6 +176,7 @@ namespace Cupscale
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel15.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // leftPanel
@@ -907,7 +912,7 @@ namespace Cupscale
             this.previewTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
             this.previewTab.Controls.Add(this.previewImg);
             this.previewTab.Location = new System.Drawing.Point(4, 27);
-            this.previewTab.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            this.previewTab.Margin = new System.Windows.Forms.Padding(0);
             this.previewTab.Name = "previewTab";
             this.previewTab.Size = new System.Drawing.Size(594, 813);
             this.previewTab.TabIndex = 0;
@@ -924,7 +929,7 @@ namespace Cupscale
             this.previewImg.GridColorAlternate = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.previewImg.GridScale = Cyotek.Windows.Forms.ImageBoxGridScale.Medium;
             this.previewImg.Location = new System.Drawing.Point(0, 0);
-            this.previewImg.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            this.previewImg.Margin = new System.Windows.Forms.Padding(0);
             this.previewImg.Name = "previewImg";
             this.previewImg.Size = new System.Drawing.Size(594, 813);
             this.previewImg.TabIndex = 0;
@@ -976,7 +981,7 @@ namespace Cupscale
             this.batchDirLabel.Name = "batchDirLabel";
             this.batchDirLabel.Size = new System.Drawing.Size(582, 55);
             this.batchDirLabel.TabIndex = 11;
-            this.batchDirLabel.Text = "Drag And Drop An Image Or A Folder Into This Area";
+            this.batchDirLabel.Text = "Drag And Drop Multiple Images Or A Folder Into This Area";
             this.batchDirLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel8
@@ -1044,10 +1049,12 @@ namespace Cupscale
             // 
             // panel12
             // 
+            this.panel12.Controls.Add(this.tableLayoutPanel10);
+            this.panel12.Controls.Add(this.label19);
+            this.panel12.Controls.Add(this.preprocessMode);
             this.panel12.Controls.Add(this.label15);
             this.panel12.Controls.Add(this.batchOutMode);
             this.panel12.Controls.Add(this.label13);
-            this.panel12.Controls.Add(this.batchOutDir);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel12.Location = new System.Drawing.Point(0, 30);
             this.panel12.Margin = new System.Windows.Forms.Padding(0);
@@ -1055,16 +1062,61 @@ namespace Cupscale
             this.panel12.Size = new System.Drawing.Size(291, 691);
             this.panel12.TabIndex = 11;
             // 
+            // selectOutPathBtn
+            // 
+            this.selectOutPathBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectOutPathBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.selectOutPathBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.selectOutPathBtn.ForeColor = System.Drawing.Color.White;
+            this.selectOutPathBtn.Location = new System.Drawing.Point(249, 0);
+            this.selectOutPathBtn.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.selectOutPathBtn.Name = "selectOutPathBtn";
+            this.selectOutPathBtn.Size = new System.Drawing.Size(26, 23);
+            this.selectOutPathBtn.TabIndex = 18;
+            this.selectOutPathBtn.Text = "...";
+            this.selectOutPathBtn.UseVisualStyleBackColor = false;
+            this.selectOutPathBtn.Click += new System.EventHandler(this.selectOutPathBtn_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.ForeColor = System.Drawing.Color.White;
+            this.label19.Location = new System.Drawing.Point(8, 115);
+            this.label19.Margin = new System.Windows.Forms.Padding(8, 8, 8, 2);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(89, 15);
+            this.label19.TabIndex = 17;
+            this.label19.Text = "Pre-Processing:";
+            // 
+            // preprocessMode
+            // 
+            this.preprocessMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.preprocessMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.preprocessMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.preprocessMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.preprocessMode.ForeColor = System.Drawing.Color.White;
+            this.preprocessMode.FormattingEnabled = true;
+            this.preprocessMode.Items.AddRange(new object[] {
+            "Enabled - Convert, Fill Alpha If Needed, Resize If Enabled",
+            "Disabled - Skips The Conversion Process. Make Sure Images Are Compatible!"});
+            this.preprocessMode.Location = new System.Drawing.Point(8, 134);
+            this.preprocessMode.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.preprocessMode.Name = "preprocessMode";
+            this.preprocessMode.Size = new System.Drawing.Size(275, 23);
+            this.preprocessMode.TabIndex = 16;
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.ForeColor = System.Drawing.Color.White;
-            this.label15.Location = new System.Drawing.Point(8, 57);
-            this.label15.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.label15.Location = new System.Drawing.Point(8, 63);
+            this.label15.Margin = new System.Windows.Forms.Padding(8, 8, 8, 2);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(79, 15);
+            this.label15.Size = new System.Drawing.Size(82, 15);
             this.label15.TabIndex = 15;
-            this.label15.Text = "Output Mode";
+            this.label15.Text = "Output Mode:";
             // 
             // batchOutMode
             // 
@@ -1078,7 +1130,7 @@ namespace Cupscale
             this.batchOutMode.Items.AddRange(new object[] {
             "Keep Folder Structure [Currently not supported with NCNN!]",
             "Place All Images In Root Directory"});
-            this.batchOutMode.Location = new System.Drawing.Point(8, 76);
+            this.batchOutMode.Location = new System.Drawing.Point(8, 82);
             this.batchOutMode.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
             this.batchOutMode.Name = "batchOutMode";
             this.batchOutMode.Size = new System.Drawing.Size(275, 23);
@@ -1092,9 +1144,9 @@ namespace Cupscale
             this.label13.Location = new System.Drawing.Point(8, 7);
             this.label13.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(96, 15);
+            this.label13.Size = new System.Drawing.Size(99, 15);
             this.label13.TabIndex = 13;
-            this.label13.Text = "Output Directory";
+            this.label13.Text = "Output Directory:";
             // 
             // batchOutDir
             // 
@@ -1102,11 +1154,12 @@ namespace Cupscale
             | System.Windows.Forms.AnchorStyles.Right)));
             this.batchOutDir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.batchOutDir.ForeColor = System.Drawing.Color.White;
-            this.batchOutDir.Location = new System.Drawing.Point(8, 28);
-            this.batchOutDir.Margin = new System.Windows.Forms.Padding(8, 4, 8, 4);
+            this.batchOutDir.Location = new System.Drawing.Point(0, 0);
+            this.batchOutDir.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.batchOutDir.Name = "batchOutDir";
-            this.batchOutDir.Size = new System.Drawing.Size(275, 23);
+            this.batchOutDir.Size = new System.Drawing.Size(245, 23);
             this.batchOutDir.TabIndex = 10;
+            this.batchOutDir.Text = "Will get auto-filled once you load a directory.";
             // 
             // panel10
             // 
@@ -1563,6 +1616,23 @@ namespace Cupscale
             this.vramLabel.Text = "No Nvidia GPU detected!";
             this.vramLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel10.ColumnCount = 2;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel10.Controls.Add(this.selectOutPathBtn, 1, 0);
+            this.tableLayoutPanel10.Controls.Add(this.batchOutDir, 0, 0);
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(8, 32);
+            this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 1;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(275, 23);
+            this.tableLayoutPanel10.TabIndex = 19;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1619,6 +1689,8 @@ namespace Cupscale
             this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel15.ResumeLayout(false);
+            this.tableLayoutPanel10.ResumeLayout(false);
+            this.tableLayoutPanel10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1690,5 +1762,9 @@ namespace Cupscale
         private Button advancedConfigureBtn;
         private HTAlt.WinForms.HTButton comparisonToolBtn;
         private HTAlt.WinForms.HTButton openModelFolderBtn;
+        private Label label19;
+        private ComboBox preprocessMode;
+        private Button selectOutPathBtn;
+        private TableLayoutPanel tableLayoutPanel10;
     }
 }

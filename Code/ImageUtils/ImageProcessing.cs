@@ -57,7 +57,7 @@ namespace Cupscale
             if (postprocess)
                 await PostProcessImage(file.FullName, format, batchProcessing);
             else
-                await ConvertImage(file.FullName, format, false, ExtensionMode.UseNew, true);
+                await ConvertImage(file.FullName, format, false, ExtMode.UseNew, true);
         }
 
         private static string GetTrimmedExtension(FileInfo file)
@@ -81,7 +81,7 @@ namespace Cupscale
 
         public static async Task PreProcessImage(string path, bool fillAlpha)
         {
-            MagickImage img = ImgUtils.GetMagickImage(path);
+            MagickImage img = ImgUtils.GetMagickImage(path, true);
             img.Quality = 20;
 
             Logger.Log("Preprocessing " + path + " - Fill Alpha: " + fillAlpha);
@@ -107,10 +107,10 @@ namespace Cupscale
             }
         }
 
-        public enum ExtensionMode { UseNew, KeepOld, AppendNew }
-        public static async Task ConvertImage(string path, Format format, bool fillAlpha, ExtensionMode extMode, bool deleteSource = true, string overrideOutPath = "")
+        public enum ExtMode { UseNew, KeepOld, AppendNew }
+        public static async Task ConvertImage(string path, Format format, bool fillAlpha, ExtMode extMode, bool deleteSource = true, string overrideOutPath = "", bool allowTgaFlip = false)
         {
-            MagickImage img = ImgUtils.GetMagickImage(path);
+            MagickImage img = ImgUtils.GetMagickImage(path, allowTgaFlip);
 
             Logger.Log("Converting " + path + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource + " - FillAlpha: " + fillAlpha + " - ExtMode: " + extMode.ToString() + " - outpath: " + overrideOutPath);
             string newExt = "png";
@@ -150,8 +150,6 @@ namespace Cupscale
             {
                 img.Format = MagickFormat.Tga;
                 newExt = "tga";
-                if (Config.GetBool("flipTga"))
-                    img.Flip();
             }
             if (format == Format.DDS)
             {
@@ -169,13 +167,13 @@ namespace Cupscale
 
             string outPath = null;
 
-            if (extMode == ExtensionMode.UseNew)
+            if (extMode == ExtMode.UseNew)
                 outPath = Path.ChangeExtension(path, newExt);
 
-            if (extMode == ExtensionMode.KeepOld)
+            if (extMode == ExtMode.KeepOld)
                 outPath = path;
 
-            if (extMode == ExtensionMode.AppendNew)
+            if (extMode == ExtMode.AppendNew)
                 outPath = path + "." + newExt;
 
             if (!string.IsNullOrWhiteSpace(overrideOutPath))

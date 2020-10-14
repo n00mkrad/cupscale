@@ -1,10 +1,12 @@
 ﻿using Cupscale.IO;
 using Cupscale.UI;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,8 +99,12 @@ namespace Cupscale.Forms
 
         private void selectModelsPathBtn_Click(object sender, EventArgs e)
         {
-            modelsPathDialog.ShowDialog();
-            modelPath.Text = modelsPathDialog.SelectedPath;
+            CommonOpenFileDialog folderDialog = new CommonOpenFileDialog();
+            if (Directory.Exists(modelPath.Text.Trim()))
+                folderDialog.InitialDirectory = modelPath.Text;
+            folderDialog.IsFolderPicker = true;
+            if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+                modelPath.Text = folderDialog.FileName;
         }
 
         private async void reinstallOverwriteBtn_Click(object sender, EventArgs e)
@@ -136,7 +142,7 @@ namespace Cupscale.Forms
 
         private void esrganVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            seamlessMode.Enabled = esrganVer.SelectedIndex == 1;
+            seamlessMode.Enabled = esrganVer.SelectedIndex == 0;
         }
 
         private void cudaFallback_SelectedIndexChanged(object sender, EventArgs e)

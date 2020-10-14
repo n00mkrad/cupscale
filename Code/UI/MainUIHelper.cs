@@ -152,8 +152,9 @@ namespace Cupscale.UI
             }
             Upscale.currentMode = Upscale.UpscaleMode.Preview;
             Program.mainForm.SetBusy(true);
-            Program.mainForm.SetProgress(3f, "Preparing...");
+            Program.mainForm.SetProgress(2f, "Preparing...");
             Program.mainForm.resetState = new Cupscale.PreviewState(previewImg.Image, previewImg.Zoom, previewImg.AutoScrollPosition);
+            await Task.Delay(20);
             ResetCachedImages();
             IOUtils.ClearDir(Paths.imgInPath);
             IOUtils.ClearDir(Paths.previewPath);

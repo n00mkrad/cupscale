@@ -83,7 +83,7 @@ namespace Cupscale.Forms
             if(comparisonMode.SelectedIndex == 0)
             {
                 string outpath = Path.Combine(Paths.imgOutPath, "!Original.png");
-                await ImageProcessing.ConvertImage(currentSourcePath, GetSaveFormat(), false, ImageProcessing.ExtensionMode.UseNew, false, outpath);
+                await ImageProcessing.ConvertImage(currentSourcePath, GetSaveFormat(), false, ImageProcessing.ExtMode.UseNew, false, outpath);
                 await ProcessImage(outpath, "Original");
             }
             for (int i = 0; i < lines.Length; i++)

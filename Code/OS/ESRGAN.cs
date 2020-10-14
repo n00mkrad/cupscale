@@ -40,7 +40,7 @@ namespace Cupscale.OS
 				}
                 else
                 {
-					Program.mainForm.SetProgress(5f, "Starting ESRGAN...");
+					Program.mainForm.SetProgress(4f, "Starting ESRGAN...");
 					File.Delete(Paths.progressLogfile);
 					string modelArg = GetModelArg(mdl, useJoey);
 					Logger.Log("Model Arg: " + modelArg);
@@ -310,7 +310,7 @@ namespace Cupscale.OS
 			Program.mainForm.SetProgress(3f, "Converting NCNN model...");
 			await NcnnUtils.ConvertNcnnModel(modelPath);
 			Logger.Log("NCNN Model is ready: " + currentNcnnModel);
-			Program.mainForm.SetProgress(5f, "Loading ESRGAN-NCNN...");
+			Program.mainForm.SetProgress(4f, "Loading ESRGAN-NCNN...");
 			int scale = NcnnUtils.GetNcnnModelScale(currentNcnnModel);
 			string cmd2 = "/C cd /D \"" + Config.Get("esrganPath") + "\" & "
 				+ "esrgan-ncnn-vulkan.exe -i " + inpath + " -o " + outpath + " -m " + currentNcnnModel.WrapPath() + " -s " + scale;

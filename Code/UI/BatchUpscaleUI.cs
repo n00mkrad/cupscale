@@ -88,7 +88,7 @@ namespace Cupscale.UI
             fileList.AppendText(text);
         }
 
-        public static async Task Run ()
+        public static async Task Run (bool preprocess)
         {
             IOUtils.ClearDir(Paths.imgInPath);
             IOUtils.ClearDir(Paths.imgOutPath);
@@ -106,10 +106,13 @@ namespace Cupscale.UI
             }
             Upscale.currentMode = Upscale.UpscaleMode.Batch;
             Program.mainForm.SetBusy(true);
+            Program.mainForm.SetProgress(2f, "Loading images...");
+            await Task.Delay(20);
             Directory.CreateDirectory(outDir.Text.Trim());
             await CopyCompatibleImagesToTemp();
-            Program.mainForm.SetProgress(0f, "Pre-Processing...");
-            await ImageProcessing.PreProcessImages(Paths.imgInPath, !bool.Parse(Config.Get("alpha")));
+            Program.mainForm.SetProgress(3f, "Pre-Processing...");
+            if(preprocess)
+                await ImageProcessing.PreProcessImages(Paths.imgInPath, !bool.Parse(Config.Get("alpha")));
             ModelData mdl = Upscale.GetModelData();
             GetProgress(Paths.imgOutPath, IOUtils.GetAmountOfFiles(Paths.imgInPath, true));
 

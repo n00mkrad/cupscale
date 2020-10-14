@@ -67,6 +67,10 @@
             this.label9 = new System.Windows.Forms.Label();
             this.formatsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.flipTga = new System.Windows.Forms.CheckBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dxtMode = new System.Windows.Forms.ComboBox();
             this.ddsEnableMips = new System.Windows.Forms.CheckBox();
@@ -93,11 +97,6 @@
             this.label21 = new System.Windows.Forms.Label();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.modelsPathDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.flipTga = new System.Windows.Forms.CheckBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -111,12 +110,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.formatsPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.logPage.SuspendLayout();
             this.resourceFilesPage.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabList1
@@ -584,6 +583,48 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(922, 469);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
+            // panel3
+            // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.flipTga);
+            this.panel3.Controls.Add(this.label15);
+            this.panel3.Controls.Add(this.label27);
+            this.panel3.Location = new System.Drawing.Point(464, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(455, 463);
+            this.panel3.TabIndex = 5;
+            // 
+            // flipTga
+            // 
+            this.flipTga.AutoSize = true;
+            this.flipTga.Location = new System.Drawing.Point(180, 80);
+            this.flipTga.Name = "flipTga";
+            this.flipTga.Size = new System.Drawing.Size(15, 14);
+            this.flipTga.TabIndex = 17;
+            this.flipTga.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 80);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(116, 13);
+            this.label15.TabIndex = 15;
+            this.label15.Text = "TGA: Fix Rotation (Flip)";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(3, 4);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(167, 20);
+            this.label27.TabIndex = 1;
+            this.label27.Text = "Image Import Settings";
+            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -873,48 +914,6 @@
             this.label21.TabIndex = 1;
             this.label21.Text = "Resource Files";
             // 
-            // panel3
-            // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.flipTga);
-            this.panel3.Controls.Add(this.label15);
-            this.panel3.Controls.Add(this.label27);
-            this.panel3.Location = new System.Drawing.Point(464, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(455, 463);
-            this.panel3.TabIndex = 5;
-            // 
-            // flipTga
-            // 
-            this.flipTga.AutoSize = true;
-            this.flipTga.Location = new System.Drawing.Point(180, 80);
-            this.flipTga.Name = "flipTga";
-            this.flipTga.Size = new System.Drawing.Size(15, 14);
-            this.flipTga.TabIndex = 17;
-            this.flipTga.UseVisualStyleBackColor = true;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 80);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(116, 13);
-            this.label15.TabIndex = 15;
-            this.label15.Text = "TGA: Fix Rotation (Flip)";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(3, 4);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(167, 20);
-            this.label27.TabIndex = 1;
-            this.label27.Text = "Image Import Settings";
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -944,6 +943,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.formatsPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.logPage.ResumeLayout(false);
@@ -952,8 +953,6 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1004,7 +1003,6 @@
         private System.Windows.Forms.Button selectModelsPathBtn;
         private System.Windows.Forms.ComboBox previewFormat;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.FolderBrowserDialog modelsPathDialog;
         private System.Windows.Forms.PictureBox pictureBox5;
         private Cyotek.Windows.Forms.TabListPage resourceFilesPage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;

@@ -17,6 +17,7 @@ using Win32Interop.Structs;
 using Cupscale.ImageUtils;
 using System.Diagnostics;
 using Cupscale.OS;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Cupscale
 {
@@ -52,6 +53,7 @@ namespace Cupscale
 			UIHelpers.FillEnumComboBox(postResizeFilter, typeof(Upscale.Filter), 0);
 			// Batch Upscale
 			UIHelpers.InitCombox(batchOutMode, 0);
+			UIHelpers.InitCombox(preprocessMode, 0);
 			await CheckInstallation();
 
 			NvApi.Init();
@@ -300,7 +302,7 @@ namespace Cupscale
 				string path = Program.lastFilename;
 				File.Copy(path, Paths.tempImgPath, true);
 				bool fillAlpha = !bool.Parse(Config.Get("alpha"));
-				await ImageProcessing.ConvertImage(path, ImageProcessing.Format.PngRaw, fillAlpha, ImageProcessing.ExtensionMode.UseNew, false, Paths.tempImgPath);
+				await ImageProcessing.ConvertImage(path, ImageProcessing.Format.PngRaw, fillAlpha, ImageProcessing.ExtMode.UseNew, false, Paths.tempImgPath, true);
 				previewImg.Image = ImgUtils.GetImage(Paths.tempImgPath);
 				MainUIHelper.currentScale = 1;
 				previewImg.ZoomToFit();
@@ -341,7 +343,7 @@ namespace Cupscale
 			if (htTabControl.SelectedIndex == 0)
 				await MainUIHelper.UpscaleImage();
 			if (htTabControl.SelectedIndex == 1)
-				await BatchUpscaleUI.Run();
+				await BatchUpscaleUI.Run(preprocessMode.SelectedIndex == 0);
 		}
 
 		public void UpdateResizeMode ()
@@ -507,6 +509,16 @@ namespace Cupscale
         private void openModelFolderBtn_Click(object sender, EventArgs e)
         {
 			Process.Start("explorer.exe", Config.Get("modelPath"));
+		}
+
+        private void selectOutPathBtn_Click(object sender, EventArgs e)
+        {
+			CommonOpenFileDialog folderDialog = new CommonOpenFileDialog();
+			if(Directory.Exists(batchOutDir.Text.Trim()))
+				folderDialog.InitialDirectory = batchOutDir.Text;
+			folderDialog.IsFolderPicker = true;
+			if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+				batchOutDir.Text = folderDialog.FileName;
 		}
     }
 }
