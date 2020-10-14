@@ -611,9 +611,9 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(6, 80);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(116, 13);
+            this.label15.Size = new System.Drawing.Size(145, 13);
             this.label15.TabIndex = 15;
-            this.label15.Text = "TGA: Fix Rotation (Flip)";
+            this.label15.Text = "TGA: Apply Rotation Fix (Flip)";
             // 
             // label27
             // 

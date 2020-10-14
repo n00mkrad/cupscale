@@ -111,8 +111,10 @@ namespace Cupscale.UI
             Directory.CreateDirectory(outDir.Text.Trim());
             await CopyCompatibleImagesToTemp();
             Program.mainForm.SetProgress(3f, "Pre-Processing...");
-            if(preprocess)
+            if (preprocess)
                 await ImageProcessing.PreProcessImages(Paths.imgInPath, !bool.Parse(Config.Get("alpha")));
+            else
+                IOUtils.AppendToFilenames(Paths.imgInPath, ".png");
             ModelData mdl = Upscale.GetModelData();
             GetProgress(Paths.imgOutPath, IOUtils.GetAmountOfFiles(Paths.imgInPath, true));
 

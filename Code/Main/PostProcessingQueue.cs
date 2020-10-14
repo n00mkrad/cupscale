@@ -107,35 +107,43 @@ namespace Cupscale.Cupscale
                     outputFiles.Add(outFilename);
                     Logger.Log("[Queue] Done Post-Processing " + Path.GetFileName(file) + " in " + sw.ElapsedMilliseconds + "ms");
 
-                    if(Upscale.overwriteMode == Upscale.Overwrite.Yes)
+                    try
                     {
-                        string suffixToRemove = "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+");
-                        if (copyMode == CopyMode.KeepStructure)
+                        if (Upscale.overwriteMode == Upscale.Overwrite.Yes)
                         {
-                            string combinedPath = currentOutPath + outFilename.Replace(Paths.imgOutPath, "");
-                            Directory.CreateDirectory(combinedPath.GetParentDir());
-                            File.Copy(outFilename, combinedPath.ReplaceInFilename(suffixToRemove, "", true));
+                            string suffixToRemove = "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+");
+                            if (copyMode == CopyMode.KeepStructure)
+                            {
+                                string combinedPath = currentOutPath + outFilename.Replace(Paths.imgOutPath, "");
+                                Directory.CreateDirectory(combinedPath.GetParentDir());
+                                File.Copy(outFilename, combinedPath.ReplaceInFilename(suffixToRemove, "", true), true);
+                            }
+                            if (copyMode == CopyMode.CopyToRoot)
+                            {
+                                File.Copy(outFilename, Path.Combine(currentOutPath, Path.GetFileName(outFilename).Replace(suffixToRemove, "")), true);
+                            }
+                            File.Delete(outFilename);
                         }
-                        if (copyMode == CopyMode.CopyToRoot)
+                        else
                         {
-                            File.Copy(outFilename, Path.Combine(currentOutPath, Path.GetFileName(outFilename).Replace(suffixToRemove, "")), true);
+                            if (copyMode == CopyMode.KeepStructure)
+                            {
+                                string combinedPath = currentOutPath + outFilename.Replace(Paths.imgOutPath, "");
+                                Directory.CreateDirectory(combinedPath.GetParentDir());
+                                File.Copy(outFilename, combinedPath, true);
+                            }
+                            if (copyMode == CopyMode.CopyToRoot)
+                            {
+                                File.Copy(outFilename, Path.Combine(currentOutPath, Path.GetFileName(outFilename)), true);
+                            }
+                            File.Delete(outFilename);
                         }
-                        File.Delete(outFilename);
                     }
-                    else
+                    catch (Exception e)
                     {
-                        if (copyMode == CopyMode.KeepStructure)
-                        {
-                            string combinedPath = currentOutPath + outFilename.Replace(Paths.imgOutPath, "");
-                            Directory.CreateDirectory(combinedPath.GetParentDir());
-                            File.Copy(outFilename, combinedPath, true);
-                        }
-                        if (copyMode == CopyMode.CopyToRoot)
-                        {
-                            File.Copy(outFilename, Path.Combine(currentOutPath, Path.GetFileName(outFilename)), true);
-                        }
-                        File.Delete(outFilename);
+                        Logger.Log("Error trying to copy post-processed file back: " + e.Message + "\n" + e.StackTrace);
                     }
+                    
                     BatchUpscaleUI.upscaledImages++;
                 }
                 await Task.Delay(250);

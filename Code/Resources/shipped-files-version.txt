@@ -1,3 +1,4 @@
+6	# fixed esrgan-launcher buffer writing
 5	# updated esrgan scripts to write image buffer to tmp file
 4	# updated esrgan scripts
 3	# updated esrlmain.py to fix chaining problem
