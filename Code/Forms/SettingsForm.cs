@@ -35,7 +35,7 @@ namespace Cupscale.Forms
         void LoadSettings()
         {
             // ESRGAN/Cupscale
-            Config.LoadComboxIndex(esrganVersion);
+            Config.LoadComboxIndex(esrganVer);
             Config.LoadGuiElement(tilesize);
             Config.LoadGuiElement(alpha);
             Config.LoadComboxIndex(seamlessMode);
@@ -50,6 +50,7 @@ namespace Cupscale.Forms
             Config.LoadGuiElement(webpQ);
             Config.LoadGuiElement(dxtMode);
             Config.LoadGuiElement(ddsEnableMips);
+            Config.LoadGuiElement(flipTga);
         }
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -61,7 +62,7 @@ namespace Cupscale.Forms
         void SaveSettings()
         {
             // ESRGAN/Cupscale
-            Config.SaveComboxIndex(esrganVersion);
+            Config.SaveComboxIndex(esrganVer);
             Config.SaveGuiElement(tilesize, true);
             Config.SaveGuiElement(alpha);
             Config.SaveComboxIndex(seamlessMode);
@@ -77,6 +78,7 @@ namespace Cupscale.Forms
             Config.SaveGuiElement(webpQ, true);
             Config.SaveGuiElement(dxtMode);
             Config.SaveGuiElement(ddsEnableMips);
+            Config.SaveGuiElement(flipTga);
         }
 
         private void confAlphaBgColorBtn_Click(object sender, EventArgs e)
@@ -134,7 +136,7 @@ namespace Cupscale.Forms
 
         private void esrganVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            seamlessMode.Enabled = esrganVersion.SelectedIndex == 1;
+            seamlessMode.Enabled = esrganVer.SelectedIndex == 1;
         }
 
         private void cudaFallback_SelectedIndexChanged(object sender, EventArgs e)

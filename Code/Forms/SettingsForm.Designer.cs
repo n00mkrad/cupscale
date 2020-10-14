@@ -34,12 +34,13 @@
             this.settingsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.seamlessMode = new System.Windows.Forms.ComboBox();
             this.cudaFallback = new System.Windows.Forms.ComboBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.label22 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.esrganVersion = new System.Windows.Forms.ComboBox();
+            this.esrganVer = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.alpha = new System.Windows.Forms.CheckBox();
@@ -93,7 +94,10 @@
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.modelsPathDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.seamlessMode = new System.Windows.Forms.ComboBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.flipTga = new System.Windows.Forms.CheckBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -112,6 +116,7 @@
             this.resourceFilesPage.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabList1
@@ -131,7 +136,7 @@
             this.settingsPage.Controls.Add(this.tableLayoutPanel3);
             this.settingsPage.Name = "settingsPage";
             this.settingsPage.Size = new System.Drawing.Size(922, 469);
-            this.settingsPage.Text = "Settings";
+            this.settingsPage.Text = "General Settings";
             // 
             // tableLayoutPanel3
             // 
@@ -161,7 +166,7 @@
             this.panel7.Controls.Add(this.label22);
             this.panel7.Controls.Add(this.pictureBox2);
             this.panel7.Controls.Add(this.label16);
-            this.panel7.Controls.Add(this.esrganVersion);
+            this.panel7.Controls.Add(this.esrganVer);
             this.panel7.Controls.Add(this.pictureBox1);
             this.panel7.Controls.Add(this.label2);
             this.panel7.Controls.Add(this.alpha);
@@ -173,6 +178,23 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(455, 463);
             this.panel7.TabIndex = 4;
+            // 
+            // seamlessMode
+            // 
+            this.seamlessMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.seamlessMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.seamlessMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.seamlessMode.ForeColor = System.Drawing.Color.White;
+            this.seamlessMode.FormattingEnabled = true;
+            this.seamlessMode.Items.AddRange(new object[] {
+            "Off",
+            "Tiled Seamless",
+            "Mirrored Seamless"});
+            this.seamlessMode.Location = new System.Drawing.Point(180, 167);
+            this.seamlessMode.Margin = new System.Windows.Forms.Padding(8);
+            this.seamlessMode.Name = "seamlessMode";
+            this.seamlessMode.Size = new System.Drawing.Size(225, 21);
+            this.seamlessMode.TabIndex = 19;
             // 
             // cudaFallback
             // 
@@ -236,22 +258,22 @@
             this.label16.TabIndex = 12;
             this.label16.Text = "ESRGAN Version";
             // 
-            // esrganVersion
+            // esrganVer
             // 
-            this.esrganVersion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.esrganVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.esrganVersion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.esrganVersion.ForeColor = System.Drawing.Color.White;
-            this.esrganVersion.FormattingEnabled = true;
-            this.esrganVersion.Items.AddRange(new object[] {
-            "esrgan-launcher",
-            "Joey\'s ESRGAN Fork"});
-            this.esrganVersion.Location = new System.Drawing.Point(180, 77);
-            this.esrganVersion.Margin = new System.Windows.Forms.Padding(8);
-            this.esrganVersion.Name = "esrganVersion";
-            this.esrganVersion.Size = new System.Drawing.Size(225, 21);
-            this.esrganVersion.TabIndex = 11;
-            this.esrganVersion.SelectedIndexChanged += new System.EventHandler(this.esrganVersion_SelectedIndexChanged);
+            this.esrganVer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.esrganVer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.esrganVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.esrganVer.ForeColor = System.Drawing.Color.White;
+            this.esrganVer.FormattingEnabled = true;
+            this.esrganVer.Items.AddRange(new object[] {
+            "Joey\'s ESRGAN Fork",
+            "esrgan-launcher"});
+            this.esrganVer.Location = new System.Drawing.Point(180, 77);
+            this.esrganVer.Margin = new System.Windows.Forms.Padding(8);
+            this.esrganVer.Name = "esrganVer";
+            this.esrganVer.Size = new System.Drawing.Size(225, 21);
+            this.esrganVer.TabIndex = 11;
+            this.esrganVer.SelectedIndexChanged += new System.EventHandler(this.esrganVersion_SelectedIndexChanged);
             // 
             // pictureBox1
             // 
@@ -544,7 +566,7 @@
             this.formatsPage.Controls.Add(this.tableLayoutPanel1);
             this.formatsPage.Name = "formatsPage";
             this.formatsPage.Size = new System.Drawing.Size(922, 469);
-            this.formatsPage.Text = "Output Formats";
+            this.formatsPage.Text = "Image Format Settings";
             // 
             // tableLayoutPanel1
             // 
@@ -552,6 +574,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -672,9 +695,9 @@
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(3, 4);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(172, 20);
+            this.label12.Size = new System.Drawing.Size(167, 20);
             this.label12.TabIndex = 1;
-            this.label12.Text = "Image Format Settings";
+            this.label12.Text = "Image Export Settings";
             // 
             // logPage
             // 
@@ -850,22 +873,47 @@
             this.label21.TabIndex = 1;
             this.label21.Text = "Resource Files";
             // 
-            // seamlessMode
+            // panel3
             // 
-            this.seamlessMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.seamlessMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.seamlessMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.seamlessMode.ForeColor = System.Drawing.Color.White;
-            this.seamlessMode.FormattingEnabled = true;
-            this.seamlessMode.Items.AddRange(new object[] {
-            "Off",
-            "Tiled Seamless",
-            "Mirrored Seamless"});
-            this.seamlessMode.Location = new System.Drawing.Point(180, 167);
-            this.seamlessMode.Margin = new System.Windows.Forms.Padding(8);
-            this.seamlessMode.Name = "seamlessMode";
-            this.seamlessMode.Size = new System.Drawing.Size(225, 21);
-            this.seamlessMode.TabIndex = 19;
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.flipTga);
+            this.panel3.Controls.Add(this.label15);
+            this.panel3.Controls.Add(this.label27);
+            this.panel3.Location = new System.Drawing.Point(464, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(455, 463);
+            this.panel3.TabIndex = 5;
+            // 
+            // flipTga
+            // 
+            this.flipTga.AutoSize = true;
+            this.flipTga.Location = new System.Drawing.Point(180, 80);
+            this.flipTga.Name = "flipTga";
+            this.flipTga.Size = new System.Drawing.Size(15, 14);
+            this.flipTga.TabIndex = 17;
+            this.flipTga.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 80);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(116, 13);
+            this.label15.TabIndex = 15;
+            this.label15.Text = "TGA: Fix Rotation (Flip)";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(3, 4);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(167, 20);
+            this.label27.TabIndex = 1;
+            this.label27.Text = "Image Import Settings";
             // 
             // SettingsForm
             // 
@@ -904,6 +952,8 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -945,7 +995,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ComboBox esrganVersion;
+        private System.Windows.Forms.ComboBox esrganVer;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.ComboBox dxtMode;
@@ -974,5 +1024,9 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.ComboBox cudaFallback;
         private System.Windows.Forms.ComboBox seamlessMode;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.CheckBox flipTga;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label27;
     }
 }

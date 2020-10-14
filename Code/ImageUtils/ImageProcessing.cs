@@ -150,6 +150,8 @@ namespace Cupscale
             {
                 img.Format = MagickFormat.Tga;
                 newExt = "tga";
+                if (Config.GetBool("flipTga"))
+                    img.Flip();
             }
             if (format == Format.DDS)
             {
@@ -196,6 +198,9 @@ namespace Cupscale
 
         static MagickFormat GetPngFormat (string path)
         {
+            bool isPng = Path.GetExtension(path).ToLower() == ".png";
+            if(!isPng)
+                return MagickFormat.Png32;
             int depth = ImgUtils.GetColorDepth(path);
             if (depth < 24)
             {

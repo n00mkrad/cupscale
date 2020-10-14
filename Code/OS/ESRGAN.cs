@@ -27,7 +27,7 @@ namespace Cupscale.OS
 
 		public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, Backend backend, bool showTileProgress = true)
 		{
-			bool useJoey = Config.GetInt("esrganVersion") == 1;
+			bool useJoey = Config.GetInt("esrganVer") == 0;
             try
             {
                 if (backend == Backend.NCNN)
