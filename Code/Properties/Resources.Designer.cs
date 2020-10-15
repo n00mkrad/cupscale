@@ -61,6 +61,16 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] av {
+            get {
+                object obj = ResourceManager.GetObject("av", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap baseline_folder_open_white_48dp {
@@ -131,36 +141,6 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] ffmpeg {
-            get {
-                object obj = ResourceManager.GetObject("ffmpeg", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] nvcompress {
-            get {
-                object obj = ResourceManager.GetObject("nvcompress", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] nvtt {
-            get {
-                object obj = ResourceManager.GetObject("nvtt", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap questmark {
@@ -171,7 +151,11 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 4	# updated esrgan scripts
+        ///   Looks up a localized string similar to 8	# updated scripts to not log filename for error handling
+        ///7	# updated joey&apos;s esrgan code to commit 6b58c546938e3563e5c0419e4d6468e78e3736d7
+        ///6	# fixed esrgan-launcher buffer writing
+        ///5	# updated esrgan scripts to write image buffer to tmp file
+        ///4	# updated esrgan scripts
         ///3	# updated esrlmain.py to fix chaining problem
         ///2	# added joey&apos;s esrgan
         ///1	# added ffmpeg.

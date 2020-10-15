@@ -83,18 +83,18 @@ namespace Cupscale.IO
 
 			path7za = Path.Combine(path, "7za.exe");
 			File.WriteAllBytes(path7za, Resources.x64_7za);
-			File.WriteAllBytes(Path.Combine(path, "nvcompress.exe"), Resources.nvcompress);
-			File.WriteAllBytes(Path.Combine(path, "nvtt.dll"), Resources.nvtt);
+			// File.WriteAllBytes(Path.Combine(path, "nvcompress.exe"), Resources.nvcompress);
+			// File.WriteAllBytes(Path.Combine(path, "nvtt.dll"), Resources.nvtt);
 			File.WriteAllBytes(Path.Combine(IOUtils.GetAppDataDir(), "esrgan.7z"), Resources.esrgan);
 			File.WriteAllBytes(Path.Combine(IOUtils.GetAppDataDir(), "ncnn.7z"), Resources.esrgan_ncnn);
-			File.WriteAllBytes(Path.Combine(IOUtils.GetAppDataDir(), "ffmpeg.7z"), Resources.ffmpeg);
+			File.WriteAllBytes(Path.Combine(IOUtils.GetAppDataDir(), "av.7z"), Resources.av);
 
 			dialog.ChangeText("Installing ESRGAN resources...");
 			await UnSevenzip(Path.Combine(IOUtils.GetAppDataDir(), "esrgan.7z"));
 			dialog.ChangeText("Installing ESRGAN-NCNN resources...");
 			await UnSevenzip(Path.Combine(IOUtils.GetAppDataDir(), "ncnn.7z"));
 			dialog.ChangeText("Installing FFmpeg resources...");
-			await UnSevenzip(Path.Combine(IOUtils.GetAppDataDir(), "ffmpeg.7z"));
+			await UnSevenzip(Path.Combine(IOUtils.GetAppDataDir(), "av.7z"));
 
 			File.WriteAllText(Path.Combine(IOUtils.GetAppDataDir(), "shipped_files_version"), Resources.shipped_files_version);
 

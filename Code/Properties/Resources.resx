@@ -133,9 +133,6 @@
   <data name="baseline_settings_white_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\baseline_settings_white_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="nvcompress" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\nvcompress.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="esrgan_ncnn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\esrgan-ncnn.7z;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -2485,13 +2482,10 @@
   <data name="esrgan" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\esrgan.7z;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="nvtt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\nvtt.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ffmpeg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ffmpeg.7z;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="baseline_folder_open_white_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\baseline_folder_open_white_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="av" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\av.7z;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
