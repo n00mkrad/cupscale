@@ -526,5 +526,10 @@ namespace Cupscale
 			if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
 				batchOutDir.Text = folderDialog.FileName;
 		}
+
+        private void paypalBtn_Click(object sender, EventArgs e)
+        {
+			Process.Start("https://www.paypal.com/paypalme/nmkd/10");
+		}
     }
 }

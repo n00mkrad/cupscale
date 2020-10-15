@@ -84,6 +84,11 @@ namespace Cupscale.Cupscale
                     Logger.Log("[Queue] Post-Processing " + Path.GetFileName(file));
                     sw.Restart();
                     await Upscale.PostprocessingSingle(file, false);
+                    while (IOUtils.IsFileLocked(lastOutfile))
+                    {
+                        Logger.Log($"{file} appears to be locked - waiting 500ms...");
+                        await Task.Delay(500);
+                    }
                     string outFilename = Upscale.FilenamePostprocess(lastOutfile);
                     outputFiles.Add(outFilename);
                     Logger.Log("[Queue] Done Post-Processing " + Path.GetFileName(file) + " in " + sw.ElapsedMilliseconds + "ms");
@@ -138,21 +143,12 @@ namespace Cupscale.Cupscale
                 try
                 {
                     string newPath = file.Substring(0, file.Length - 8) + ".tmp";
-                    Logger.Log("renaming " + file + " -> " + newPath);
                     string movePath = Path.Combine(Paths.imgOutPath, Path.GetFileName(newPath));
-                    Logger.Log("moving " + file + " -> " + movePath);
+                    Logger.Log("[Queue] Renaming & moving " + file + " => " + movePath);
                     File.Move(file, movePath);
                 }
                 catch { }
             }
-            /*
-            try
-            {
-                IOUtils.RenameExtensions(Paths.imgOutNcnnPath, "png", "tmp", true);
-                IOUtils.Copy(Paths.imgOutNcnnPath, Paths.imgOutPath, "*", true);
-            }
-            catch { }
-            */
         }
     }
 }

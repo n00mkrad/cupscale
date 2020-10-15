@@ -140,6 +140,7 @@ namespace Cupscale
             this.panel6 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.paypalBtn = new HTAlt.WinForms.HTButton();
             this.openModelFolderBtn = new HTAlt.WinForms.HTButton();
             this.comparisonToolBtn = new HTAlt.WinForms.HTButton();
             this.settingsBtn = new HTAlt.WinForms.HTButton();
@@ -1540,6 +1541,7 @@ namespace Cupscale
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.paypalBtn);
             this.panel7.Controls.Add(this.openModelFolderBtn);
             this.panel7.Controls.Add(this.comparisonToolBtn);
             this.panel7.Controls.Add(this.settingsBtn);
@@ -1549,6 +1551,27 @@ namespace Cupscale
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(300, 40);
             this.panel7.TabIndex = 8;
+            // 
+            // paypalBtn
+            // 
+            this.paypalBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.paypalBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.paypalBtn.ButtonImage = global::Cupscale.Properties.Resources.paypal256px;
+            this.paypalBtn.DrawImage = true;
+            this.paypalBtn.FlatAppearance.BorderSize = 0;
+            this.paypalBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.paypalBtn.ForeColor = System.Drawing.Color.White;
+            this.paypalBtn.ImageIndex = 0;
+            this.paypalBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
+            this.paypalBtn.Location = new System.Drawing.Point(140, 6);
+            this.paypalBtn.Name = "paypalBtn";
+            this.paypalBtn.Size = new System.Drawing.Size(34, 34);
+            this.paypalBtn.TabIndex = 12;
+            this.paypalBtn.Text = " ";
+            this.toolTip1.SetToolTip(this.paypalBtn, "Donate :)");
+            this.paypalBtn.UseVisualStyleBackColor = false;
+            this.paypalBtn.Click += new System.EventHandler(this.paypalBtn_Click);
             // 
             // openModelFolderBtn
             // 
@@ -1768,5 +1791,6 @@ namespace Cupscale
         private ComboBox preprocessMode;
         private Button selectOutPathBtn;
         private TableLayoutPanel tableLayoutPanel10;
+        private HTAlt.WinForms.HTButton paypalBtn;
     }
 }

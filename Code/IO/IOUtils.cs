@@ -361,5 +361,20 @@ namespace Cupscale
             foreach (string file in Directory.GetFiles(path, pattern, searchOpt))
                 Logger.Log($"[IOUtils] File in {path}: {file}");
         }
+
+        public static bool IsFileLocked(string path)
+        {
+            try
+            {
+                string newPath = path + ".locktest.tmp";
+                File.Move(path, newPath);
+                File.Move(newPath, path);
+                return false;
+            }
+            catch (Exception e)
+            {
+                return true;
+            }
+        }
     }
 }
