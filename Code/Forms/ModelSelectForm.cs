@@ -34,7 +34,7 @@ namespace Cupscale.Forms
             string modelDir = Config.Get("modelPath");
             if (!Directory.Exists(modelDir))
             {
-                MessageBox.Show("The saved model directory does not exist - Make sure you've set a models folder!");
+                Program.ShowMessage("The saved model directory does not exist - Make sure you've set a models folder!");
                 return;
             }
             DirectoryInfo modelsDir = new DirectoryInfo(modelDir);

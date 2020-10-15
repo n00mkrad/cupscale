@@ -65,7 +65,7 @@ namespace Cupscale.Forms
         {
             if(MainUIHelper.previewImg.Image == null || !File.Exists(Paths.tempImgPath))
             {
-                MessageBox.Show("No image loaded!", "Error");
+                Program.ShowMessage("No image loaded!", "Error");
                 return;
             }
             Enabled = false;
@@ -101,7 +101,7 @@ namespace Cupscale.Forms
             await Upscale.CopyImagesTo(Program.lastFilename.GetParentDir());
             IOUtils.ClearDir(Paths.previewPath);
             Enabled = true;
-            MessageBox.Show("Saved model composition to " + Program.lastFilename.GetParentDir() + "\\" + Path.GetFileName(mergedPath), "Message");
+            Program.ShowMessage("Saved model composition to " + Program.lastFilename.GetParentDir() + "\\" + Path.GetFileName(mergedPath), "Message");
         }
 
         static ImageProcessing.Format GetSaveFormat()
@@ -128,7 +128,7 @@ namespace Cupscale.Forms
         {
             if (MainUIHelper.previewImg.Image == null)
             {
-                MessageBox.Show("Please load an image first!", "Error");
+                Program.ShowMessage("Please load an image first!", "Error");
                 return;
             }
             Program.mainForm.SetBusy(true);
@@ -159,7 +159,7 @@ namespace Cupscale.Forms
             catch (Exception e)
             {
                 if (e.StackTrace.Contains("Index"))
-                    MessageBox.Show("The upscale process seems to have exited before completion!", "Error");
+                    Program.ShowMessage("The upscale process seems to have exited before completion!", "Error");
                 Logger.ErrorMessage("An error occured during upscaling:", e);
                 Program.mainForm.SetProgress(0f, "Cancelled.");
             }

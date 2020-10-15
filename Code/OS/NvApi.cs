@@ -55,5 +55,22 @@ namespace Cupscale.OS
             await Task.Delay(1000);
             RefreshLoop();
         }
+
+        public static string GetGpuName ()
+        {
+            try
+            {
+                NVIDIA.Initialize();
+                PhysicalGPU[] gpus = PhysicalGPU.GetPhysicalGPUs();
+                if (gpus.Length == 0)
+                    return "";
+
+                return gpus[0].FullName;
+            }
+            catch
+            {
+                return "";
+            }
+        }
     }
 }

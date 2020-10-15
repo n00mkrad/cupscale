@@ -42,6 +42,11 @@ namespace Cupscale
 			Application.Run(new MainForm());
 		}
 
+		public static void ShowMessage (string msg, string title = "Message")
+        {
+			MessageBox.Show(msg, title, MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);
+        }
+
 		public static void Cleanup ()
         {
 			IOUtils.ClearDir(Paths.previewPath);

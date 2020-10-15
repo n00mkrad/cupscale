@@ -1,4 +1,5 @@
 ﻿using Cupscale.IO;
+using Cupscale.OS;
 using Cupscale.UI;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
@@ -47,6 +48,7 @@ namespace Cupscale.Forms
             Config.LoadComboxIndex(cudaFallback);
             Config.LoadComboxIndex(previewFormat);
             Config.LoadGuiElement(reloadImageBeforeUpscale);
+            Config.LoadComboxIndex(pythonRuntime);
             // Formats
             Config.LoadGuiElement(jpegQ);
             Config.LoadGuiElement(webpQ);
@@ -59,10 +61,17 @@ namespace Cupscale.Forms
             Config.LoadComboxIndex(cmdDebugMode);
         }
 
-        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        private async void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            await Task.Delay(100);
             SaveSettings();
-            //Program.mainForm.Enabled = true;
+            EmbeddedPython.Init();
+            if(Config.GetInt("pythonRuntime") == 1 && !File.Exists(EmbeddedPython.GetPyPath()))
+            {
+                Program.ShowMessage("You enabled the embedded Python runtime but haven't downloaded and installed it.\n" +
+                    "You can download it in the Dependency Checker window.");
+                new DependencyCheckerForm(true).ShowDialog();
+            }
         }
 
         void SaveSettings()
@@ -78,6 +87,7 @@ namespace Cupscale.Forms
             Config.SaveComboxIndex(cudaFallback);
             Config.SaveComboxIndex(previewFormat);
             Config.SaveGuiElement(reloadImageBeforeUpscale);
+            Config.SaveComboxIndex(pythonRuntime);
             // Formats
             Config.SaveGuiElement(jpegQ, true);
             Config.SaveGuiElement(webpQ, true);
@@ -132,7 +142,7 @@ namespace Cupscale.Forms
         private void uninstallResBtn_Click(object sender, EventArgs e)
         {
             ShippedFiles.Uninstall(false);
-            MessageBox.Show("Uninstalled resources.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.\n" +
+            Program.ShowMessage("Uninstalled resources.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.\n" +
                 "However, your settings file was not deleted.", "Message");
             Logger.disable = true;
             Config.disable = true;
@@ -143,7 +153,7 @@ namespace Cupscale.Forms
         {
             Close();
             ShippedFiles.Uninstall(true);
-            MessageBox.Show("Uninstalled all files.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.", "Message");
+            Program.ShowMessage("Uninstalled all files.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.", "Message");
             Logger.disable = true;
             Config.disable = true;
             Program.Quit();
@@ -157,9 +167,34 @@ namespace Cupscale.Forms
         private void cudaFallback_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            //MessageBox.Show("This only serves as a fallback mode.\nDon't use this if you have an Nvidia GPU.\n\n" +
+            //Program.ShowMessage("This only serves as a fallback mode.\nDon't use this if you have an Nvidia GPU.\n\n" +
             //"The following features do not work with Vulkan/NCNN:\n- Model Interpolation\n- Model Chaining\n"
             //+ "- Custom Tile Size (Uses Automatic Tile Size)", "Warning");
+        }
+
+        private void installPyBtn_Click(object sender, EventArgs e)
+        {
+            new DependencyCheckerForm().ShowDialog();
+            uninstallPyBtn_VisibleChanged(null, null);
+        }
+
+        private void uninstallPyBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Directory.Delete(EmbeddedPython.GetPyPath().GetParentDir(), true);
+                uninstallPyBtn.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorMessage("Can't uninstall embedded Python runtime: ", ex);
+            }
+        }
+
+        private void uninstallPyBtn_VisibleChanged(object sender, EventArgs e)
+        {
+            if (uninstallPyBtn.Visible)
+                uninstallPyBtn.Enabled = File.Exists(EmbeddedPython.GetPyPath());
         }
     }
 }

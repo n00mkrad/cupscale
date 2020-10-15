@@ -73,7 +73,7 @@ namespace Cupscale
         {
 			string text = $"{msg}\n{e.Message}\n\nStack Trace:\n{e.StackTrace}";
 			Clipboard.SetText(text);
-			MessageBox.Show(text + "\n\nThe error message was copied to the clipboard.", "Error");
+			Program.ShowMessage(text + "\n\nThe error message was copied to the clipboard.", "Error");
 			Log(text);
 		}
 	}

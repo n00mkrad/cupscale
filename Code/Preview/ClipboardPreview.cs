@@ -41,7 +41,7 @@ namespace Cupscale
             }
             catch
             {
-                MessageBox.Show("Error creating clipboard preview!", "Error");
+                Program.ShowMessage("Error creating clipboard preview!", "Error");
             }
 
             int comparisonMod = 1;
@@ -106,7 +106,7 @@ namespace Cupscale
             }
             catch
             {
-                MessageBox.Show("Failed to save comparison.", "Error");
+                Program.ShowMessage("Failed to save comparison.", "Error");
             }
         }
 
@@ -129,7 +129,7 @@ namespace Cupscale
             }
             catch
             {
-                MessageBox.Show("Error creating clipboard preview!", "Error");
+                Program.ShowMessage("Error creating clipboard preview!", "Error");
             }
             
 
@@ -205,7 +205,7 @@ namespace Cupscale
             }
             catch
             {
-                MessageBox.Show("Failed to save comparison.", "Error");
+                Program.ShowMessage("Failed to save comparison.", "Error");
             }
         }
 
@@ -214,7 +214,7 @@ namespace Cupscale
             string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison.png";
             outputImage.Save(comparisonSavePath);
             await ImageProcessing.ConvertImage(comparisonSavePath, GetSaveFormat(), false, ImageProcessing.ExtMode.UseNew);
-            MessageBox.Show("Saved current comparison to:\n\n" + Path.ChangeExtension(comparisonSavePath, null), "Message");
+            Program.ShowMessage("Saved current comparison to:\n\n" + Path.ChangeExtension(comparisonSavePath, null), "Message");
         }
 
         static Bitmap CropImage(Bitmap source, Rectangle section)
@@ -280,7 +280,7 @@ namespace Cupscale
                     string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison." + ext;
                     File.Copy(outpath, comparisonSavePath, true);
                     dialogForm.Close();
-                    MessageBox.Show("Saved current comparison to:\n\n" + comparisonSavePath, "Message");
+                    Program.ShowMessage("Saved current comparison to:\n\n" + comparisonSavePath, "Message");
                 }
                 else
                 {
@@ -288,14 +288,14 @@ namespace Cupscale
                     paths.Add(outpath);
                     Clipboard.SetFileDropList(paths);
                     dialogForm.Close();
-                    MessageBox.Show("The " + ext.ToUpper() + " file has been copied. You can paste it into any folder.\n" +
+                    Program.ShowMessage("The " + ext.ToUpper() + " file has been copied. You can paste it into any folder.\n" +
                         "Please note that pasting it into Discord or other programs won't work as the clipboard can't hold animated images.", "Message");
                 }
                 
             }
             else
             {
-                MessageBox.Show("The preview is too large for making an animation. Please create a smaller cutout or choose a different comparison type.", "Error");
+                Program.ShowMessage("The preview is too large for making an animation. Please create a smaller cutout or choose a different comparison type.", "Error");
             }
 
             dialogForm.Close();
@@ -313,7 +313,7 @@ namespace Cupscale
             }
             catch
             {
-                MessageBox.Show("Failed to save comparison.", "Error");
+                Program.ShowMessage("Failed to save comparison.", "Error");
             }
         }
 

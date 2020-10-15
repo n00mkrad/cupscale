@@ -140,6 +140,7 @@ namespace Cupscale
             this.panel6 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.htButton1 = new HTAlt.WinForms.HTButton();
             this.paypalBtn = new HTAlt.WinForms.HTButton();
             this.openModelFolderBtn = new HTAlt.WinForms.HTButton();
             this.comparisonToolBtn = new HTAlt.WinForms.HTButton();
@@ -1541,6 +1542,7 @@ namespace Cupscale
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.htButton1);
             this.panel7.Controls.Add(this.paypalBtn);
             this.panel7.Controls.Add(this.openModelFolderBtn);
             this.panel7.Controls.Add(this.comparisonToolBtn);
@@ -1551,6 +1553,27 @@ namespace Cupscale
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(300, 40);
             this.panel7.TabIndex = 8;
+            // 
+            // htButton1
+            // 
+            this.htButton1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.htButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.htButton1.ButtonImage = global::Cupscale.Properties.Resources.baseline_fact_check_white_48dp;
+            this.htButton1.DrawImage = true;
+            this.htButton1.FlatAppearance.BorderSize = 0;
+            this.htButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.htButton1.ForeColor = System.Drawing.Color.White;
+            this.htButton1.ImageIndex = 0;
+            this.htButton1.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
+            this.htButton1.Location = new System.Drawing.Point(220, 6);
+            this.htButton1.Name = "htButton1";
+            this.htButton1.Size = new System.Drawing.Size(34, 34);
+            this.htButton1.TabIndex = 13;
+            this.htButton1.Text = " ";
+            this.toolTip1.SetToolTip(this.htButton1, "Dependency Checker");
+            this.htButton1.UseVisualStyleBackColor = false;
+            this.htButton1.Click += new System.EventHandler(this.htButton1_Click);
             // 
             // paypalBtn
             // 
@@ -1564,7 +1587,7 @@ namespace Cupscale
             this.paypalBtn.ForeColor = System.Drawing.Color.White;
             this.paypalBtn.ImageIndex = 0;
             this.paypalBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
-            this.paypalBtn.Location = new System.Drawing.Point(140, 6);
+            this.paypalBtn.Location = new System.Drawing.Point(100, 6);
             this.paypalBtn.Name = "paypalBtn";
             this.paypalBtn.Size = new System.Drawing.Size(34, 34);
             this.paypalBtn.TabIndex = 12;
@@ -1585,7 +1608,7 @@ namespace Cupscale
             this.openModelFolderBtn.ForeColor = System.Drawing.Color.White;
             this.openModelFolderBtn.ImageIndex = 0;
             this.openModelFolderBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
-            this.openModelFolderBtn.Location = new System.Drawing.Point(220, 6);
+            this.openModelFolderBtn.Location = new System.Drawing.Point(180, 6);
             this.openModelFolderBtn.Name = "openModelFolderBtn";
             this.openModelFolderBtn.Size = new System.Drawing.Size(34, 34);
             this.openModelFolderBtn.TabIndex = 11;
@@ -1606,7 +1629,7 @@ namespace Cupscale
             this.comparisonToolBtn.ForeColor = System.Drawing.Color.White;
             this.comparisonToolBtn.ImageIndex = 0;
             this.comparisonToolBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
-            this.comparisonToolBtn.Location = new System.Drawing.Point(180, 6);
+            this.comparisonToolBtn.Location = new System.Drawing.Point(140, 6);
             this.comparisonToolBtn.Name = "comparisonToolBtn";
             this.comparisonToolBtn.Size = new System.Drawing.Size(34, 34);
             this.comparisonToolBtn.TabIndex = 10;
@@ -1792,5 +1815,6 @@ namespace Cupscale
         private Button selectOutPathBtn;
         private TableLayoutPanel tableLayoutPanel10;
         private HTAlt.WinForms.HTButton paypalBtn;
+        private HTAlt.WinForms.HTButton htButton1;
     }
 }

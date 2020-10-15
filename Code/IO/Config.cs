@@ -96,6 +96,7 @@ namespace Cupscale
 				"logIo" => WriteDefault("logIo", "False"),
 				"logStatus" => WriteDefault("logStatus", "False"),
 				"cmdDebugMode" => WriteDefault("cmdDebugMode", "0"),
+				"pythonRuntime" => WriteDefault("pythonRuntime", "0"),
 				_ => null, 
 			};
 		}

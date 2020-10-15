@@ -73,6 +73,16 @@ namespace Cupscale.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap baseline_fact_check_white_48dp {
+            get {
+                object obj = ResourceManager.GetObject("baseline_fact_check_white_48dp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap baseline_folder_open_white_48dp {
             get {
                 object obj = ResourceManager.GetObject("baseline_folder_open_white_48dp", resourceCulture);
@@ -161,7 +171,8 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 8	# updated scripts to not log filename for error handling
+        ///   Looks up a localized string similar to 9	# fixed esrl output path
+        ///8	# updated scripts to not log filename for error handling
         ///7	# updated joey&apos;s esrgan code to commit 6b58c546938e3563e5c0419e4d6468e78e3736d7
         ///6	# fixed esrgan-launcher buffer writing
         ///5	# updated esrgan scripts to write image buffer to tmp file

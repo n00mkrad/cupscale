@@ -24,7 +24,6 @@ namespace Cupscale.OS
         public enum PreviewMode { None, Cutout, FullImage }
         public enum Backend { CUDA, CPU, NCNN }
 
-
         public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, Backend backend, bool showTileProgress = true)
         {
             bool useJoey = Config.GetInt("esrganVer") == 0;
@@ -77,9 +76,9 @@ namespace Cupscale.OS
             catch (Exception e)
             {
                 if (e.Message.Contains("No such file"))
-                    MessageBox.Show("An error occured during upscaling.\nThe upscale process seems to have exited before completion!", "Error");
+                    Program.ShowMessage("An error occured during upscaling.\nThe upscale process seems to have exited before completion!", "Error");
                 else
-                    MessageBox.Show("An error occured during upscaling.", "Error");
+                    Program.ShowMessage("An error occured during upscaling.", "Error");
                 Logger.Log("[ESRGAN] Upscaling Error: " + e.Message + "\n" + e.StackTrace);
                 Program.mainForm.SetProgress(0f, "Cancelled.");
             }
@@ -154,8 +153,11 @@ namespace Cupscale.OS
             string opt = "/C";
             if (stayOpen) opt = "/K";
 
+            string py = "python ";
+            if (EmbeddedPython.enabled) py = EmbeddedPython.GetPyPath().Wrap();
+
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
-            cmd += $"python esrlmain.py {inpath}{outpath}{deviceStr} --tilesize {tilesize}{alphaStr}{modelArg}";
+            cmd += $"{py} esrlmain.py {inpath}{outpath}{deviceStr} --tilesize {tilesize}{alphaStr}{modelArg}";
             Logger.Log("[CMD] " + cmd);
             Process esrganProcess = new Process();
             esrganProcess.StartInfo.UseShellExecute = showWindow;
@@ -212,8 +214,11 @@ namespace Cupscale.OS
             string opt = "/C";
             if (stayOpen) opt = "/K";
 
+            string py = "python";
+            if (EmbeddedPython.enabled) py = EmbeddedPython.GetPyPath().Wrap();
+
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
-            cmd += $"python upscale.py --input{inpath}--output{outpath}{deviceStr}{seamStr} --tile_size {tilesize}{alphaStr}{modelArg}";
+            cmd += $"{py} upscale.py --input{inpath}--output{outpath}{deviceStr}{seamStr} --tile_size {tilesize}{alphaStr}{modelArg}";
 
             Logger.Log("[CMD] " + cmd);
             Process esrganProcess = new Process();
@@ -264,23 +269,23 @@ namespace Cupscale.OS
                 if (currentProcess != null && !currentProcess.HasExited)
                     currentProcess.Kill();
 
-                MessageBox.Show("Error occurred: \n\n" + data + "\n\nThe ESRGAN process was killed to avoid lock-ups.", "Error");
+                Program.ShowMessage("Error occurred: \n\n" + data + "\n\nThe ESRGAN process was killed to avoid lock-ups.", "Error");
             }
 
             if (data.Contains("out of memory"))
-                MessageBox.Show("ESRGAN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
+                Program.ShowMessage("ESRGAN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
 
             if (data.Contains("Python was not found"))
-                MessageBox.Show("Python was not found. Make sure you have a working Python 3 installation.", "Error");
+                Program.ShowMessage("Python was not found. Make sure you have a working Python 3 installation.", "Error");
 
             if (data.Contains("ModuleNotFoundError"))
-                MessageBox.Show("You are missing ESRGAN Python dependencies. Make sure Pytorch, cv2 (opencv-python) and tensorboardx are installed.", "Error");
+                Program.ShowMessage("You are missing ESRGAN Python dependencies. Make sure Pytorch, cv2 (opencv-python) and tensorboardx are installed.", "Error");
 
             if (data.Contains("RRDBNet"))
-                MessageBox.Show("Model appears to be incompatible!", "Error");
+                Program.ShowMessage("Model appears to be incompatible!", "Error");
 
             if (data.Contains("UnpicklingError"))
-                MessageBox.Show("Failed to load model!", "Error");
+                Program.ShowMessage("Failed to load model!", "Error");
         }
 
         static string lastProgressString = "";
@@ -377,11 +382,11 @@ namespace Cupscale.OS
                 if (currentProcess != null && !currentProcess.HasExited)
                     currentProcess.Kill();
 
-                MessageBox.Show("Error occurred: \n\n" + data + "\n\nThe ESRGAN-NCNN process was killed to avoid lock-ups.", "Error");
+                Program.ShowMessage("Error occurred: \n\n" + data + "\n\nThe ESRGAN-NCNN process was killed to avoid lock-ups.", "Error");
             }
 
             if (data.Contains("vkAllocateMemory"))
-                MessageBox.Show("ESRGAN-NCNN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
+                Program.ShowMessage("ESRGAN-NCNN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
         }
     }
 }

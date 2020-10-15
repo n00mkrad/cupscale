@@ -34,7 +34,7 @@ namespace Cupscale
             if (sourceImg.Width * scale > 16000 || sourceImg.Height * scale > 16000)
             {
                 MergeOnlyCutout();
-                MessageBox.Show("The scaled output image is very large (>16000px), so only the cutout will be shown.", "Warning");
+                Program.ShowMessage("The scaled output image is very large (>16000px), so only the cutout will be shown.", "Warning");
                 return;
             }
             MergeScrollable();

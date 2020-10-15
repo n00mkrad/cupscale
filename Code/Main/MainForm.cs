@@ -55,6 +55,7 @@ namespace Cupscale
 			UIHelpers.InitCombox(batchOutMode, 0);
 			UIHelpers.InitCombox(preprocessMode, 0);
 			await CheckInstallation();
+			EmbeddedPython.Init();
 
 			NvApi.Init();
 		}
@@ -211,7 +212,7 @@ namespace Cupscale
 			
 			if (!MainUIHelper.HasValidModelSelection())
             {
-				MessageBox.Show("Please select two models for interpolation.", "Message");
+				Program.ShowMessage("Please select two models for interpolation.", "Message");
 				return;
             }
 
@@ -332,14 +333,14 @@ namespace Cupscale
 
             if (!MainUIHelper.HasValidModelSelection())
             {
-				MessageBox.Show("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
+				Program.ShowMessage("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
 				return;
             }
 
 			bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
 			if (useNcnn && !Program.mainForm.HasValidNcnnModelSelection())
 			{
-				MessageBox.Show("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
+				Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
 				return;
 			}
 
@@ -466,7 +467,7 @@ namespace Cupscale
 			await Upscale.PostprocessingSingle(outPath, true);
 			string outFilename = Upscale.FilenamePostprocess(MainUIHelper.lastOutfile);
 			string finalPath = IOUtils.ReplaceInFilename(outFilename, "[temp]", "");
-			MessageBox.Show("Saved to " + finalPath + ".", "Message");
+			Program.ShowMessage("Saved to " + finalPath + ".", "Message");
 		}
 
         private void batchOutMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -502,7 +503,7 @@ namespace Cupscale
 				}
 				catch
 				{
-					MessageBox.Show("Failed to paste image from clipboard. Make sure you have a raw image (not a file) copied.", "Error");
+					Program.ShowMessage("Failed to paste image from clipboard. Make sure you have a raw image (not a file) copied.", "Error");
 				}
 			}
 		}
@@ -531,5 +532,10 @@ namespace Cupscale
         {
 			Process.Start("https://www.paypal.com/paypalme/nmkd/10");
 		}
+
+        private void htButton1_Click(object sender, EventArgs e)
+        {
+			new DependencyCheckerForm().ShowDialog();
+        }
     }
 }

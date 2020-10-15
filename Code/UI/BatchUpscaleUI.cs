@@ -96,12 +96,12 @@ namespace Cupscale.UI
             bool useCpu = (Config.Get("cudaFallback").GetInt() == 1);
             if (useNcnn && !Program.mainForm.HasValidNcnnModelSelection())
             {
-                MessageBox.Show("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
+                Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
                 return;
             }
             if (string.IsNullOrWhiteSpace(currentInDir))
             {
-                MessageBox.Show("No directory loaded.", "Error");
+                Program.ShowMessage("No directory loaded.", "Error");
                 return;
             }
             Upscale.currentMode = Upscale.UpscaleMode.Batch;

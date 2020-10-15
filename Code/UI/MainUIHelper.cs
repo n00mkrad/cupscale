@@ -53,7 +53,7 @@ namespace Cupscale.UI
         {
             if (previewImg.Image == null)
             {
-                MessageBox.Show("Please load an image first!", "Error");
+                Program.ShowMessage("Please load an image first!", "Error");
                 return;
             }
             Program.mainForm.SetBusy(true);
@@ -90,7 +90,7 @@ namespace Cupscale.UI
             catch (Exception e)
             {
                 if (e.StackTrace.Contains("Index"))
-                    MessageBox.Show("The upscale process seems to have exited before completion!", "Error");
+                    Program.ShowMessage("The upscale process seems to have exited before completion!", "Error");
                 Logger.ErrorMessage("An error occured during upscaling:", e);
                 Program.mainForm.SetProgress(0f, "Cancelled.");
             }
@@ -131,7 +131,7 @@ namespace Cupscale.UI
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error trying to copy file: \n\n" + e.Message, "Error");
+                Program.ShowMessage("Error trying to copy file: \n\n" + e.Message, "Error");
                 return null;
             }
             return outpath;
@@ -142,12 +142,12 @@ namespace Cupscale.UI
         {
             if (!HasValidModelSelection())
             {
-                MessageBox.Show("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
+                Program.ShowMessage("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
                 return;
             }
             if (Config.Get("cudaFallback").GetInt() == 3 && !Program.mainForm.HasValidNcnnModelSelection())
             {
-                MessageBox.Show("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
+                Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
                 return;
             }
             Upscale.currentMode = Upscale.UpscaleMode.Preview;
@@ -288,7 +288,7 @@ namespace Cupscale.UI
                 MagickImage img = ImgUtils.GetMagickImage(path);
                 if (img.Width > 4096 || img.Height > 4096)
                 {
-                    MessageBox.Show("Image is too big for the preview!\nPlease use images with less than 4096 pixels on either side.", "Error");
+                    Program.ShowMessage("Image is too big for the preview!\nPlease use images with less than 4096 pixels on either side.", "Error");
                     return false;
                 }
             }

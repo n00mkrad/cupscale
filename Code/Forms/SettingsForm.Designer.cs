@@ -72,6 +72,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.dxtMode = new System.Windows.Forms.ComboBox();
             this.ddsEnableMips = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -107,7 +108,14 @@
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.pythonRuntime = new System.Windows.Forms.ComboBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.uninstallPyBtn = new HTAlt.WinForms.HTButton();
+            this.installPyBtn = new HTAlt.WinForms.HTButton();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -123,6 +131,7 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             this.resourceFilesPage.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -130,7 +139,7 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.panel4.SuspendLayout();
             this.logPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabList1
@@ -175,6 +184,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.pythonRuntime);
+            this.panel7.Controls.Add(this.label24);
             this.panel7.Controls.Add(this.seamlessMode);
             this.panel7.Controls.Add(this.cudaFallback);
             this.panel7.Controls.Add(this.pictureBox6);
@@ -205,7 +216,7 @@
             "Off",
             "Tiled Seamless",
             "Mirrored Seamless"});
-            this.seamlessMode.Location = new System.Drawing.Point(220, 167);
+            this.seamlessMode.Location = new System.Drawing.Point(220, 197);
             this.seamlessMode.Margin = new System.Windows.Forms.Padding(8);
             this.seamlessMode.Name = "seamlessMode";
             this.seamlessMode.Size = new System.Drawing.Size(225, 21);
@@ -223,7 +234,7 @@
             "Always use CPU",
             "CPU for Preview, NCNN for Batch Processing",
             "Always use NCNN"});
-            this.cudaFallback.Location = new System.Drawing.Point(220, 197);
+            this.cudaFallback.Location = new System.Drawing.Point(220, 227);
             this.cudaFallback.Margin = new System.Windows.Forms.Padding(8);
             this.cudaFallback.Name = "cudaFallback";
             this.cudaFallback.Size = new System.Drawing.Size(225, 21);
@@ -234,7 +245,7 @@
             // 
             this.pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox6.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox6.Location = new System.Drawing.Point(94, 166);
+            this.pictureBox6.Location = new System.Drawing.Point(94, 196);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(22, 22);
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -246,7 +257,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(6, 170);
+            this.label22.Location = new System.Drawing.Point(6, 200);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(82, 13);
             this.label22.TabIndex = 14;
@@ -294,7 +305,7 @@
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox1.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox1.Location = new System.Drawing.Point(122, 196);
+            this.pictureBox1.Location = new System.Drawing.Point(122, 226);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(22, 22);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -305,7 +316,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 200);
+            this.label2.Location = new System.Drawing.Point(6, 230);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 13);
             this.label2.TabIndex = 6;
@@ -314,7 +325,7 @@
             // alpha
             // 
             this.alpha.AutoSize = true;
-            this.alpha.Location = new System.Drawing.Point(220, 140);
+            this.alpha.Location = new System.Drawing.Point(220, 170);
             this.alpha.Name = "alpha";
             this.alpha.Size = new System.Drawing.Size(15, 14);
             this.alpha.TabIndex = 5;
@@ -323,7 +334,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 140);
+            this.label7.Location = new System.Drawing.Point(6, 170);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(70, 13);
             this.label7.TabIndex = 4;
@@ -345,7 +356,7 @@
             "256",
             "192",
             "128"});
-            this.tilesize.Location = new System.Drawing.Point(220, 107);
+            this.tilesize.Location = new System.Drawing.Point(220, 137);
             this.tilesize.Margin = new System.Windows.Forms.Padding(8);
             this.tilesize.Name = "tilesize";
             this.tilesize.Size = new System.Drawing.Size(100, 21);
@@ -354,7 +365,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 110);
+            this.label6.Location = new System.Drawing.Point(6, 140);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 13);
             this.label6.TabIndex = 2;
@@ -662,6 +673,18 @@
             this.panel1.Size = new System.Drawing.Size(455, 463);
             this.panel1.TabIndex = 4;
             // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox7.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox7.Location = new System.Drawing.Point(118, 106);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox7.TabIndex = 19;
+            this.pictureBox7.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox7, "Use 100 for lossless mode.");
+            // 
             // dxtMode
             // 
             this.dxtMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -770,6 +793,7 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.panel5, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel2, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
@@ -1047,17 +1071,109 @@
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
             // 
-            // pictureBox7
+            // label24
             // 
-            this.pictureBox7.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox7.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox7.Location = new System.Drawing.Point(118, 106);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox7.TabIndex = 19;
-            this.pictureBox7.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox7, "Use 100 for lossless mode.");
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(6, 110);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(82, 13);
+            this.label24.TabIndex = 20;
+            this.label24.Text = "Python Runtime";
+            // 
+            // pythonRuntime
+            // 
+            this.pythonRuntime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.pythonRuntime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.pythonRuntime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.pythonRuntime.ForeColor = System.Drawing.Color.White;
+            this.pythonRuntime.FormattingEnabled = true;
+            this.pythonRuntime.Items.AddRange(new object[] {
+            "Use System Python",
+            "Use Embedded Python If Available"});
+            this.pythonRuntime.Location = new System.Drawing.Point(220, 107);
+            this.pythonRuntime.Margin = new System.Windows.Forms.Padding(8);
+            this.pythonRuntime.Name = "pythonRuntime";
+            this.pythonRuntime.Size = new System.Drawing.Size(225, 21);
+            this.pythonRuntime.TabIndex = 21;
+            // 
+            // panel5
+            // 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.uninstallPyBtn);
+            this.panel5.Controls.Add(this.installPyBtn);
+            this.panel5.Controls.Add(this.label32);
+            this.panel5.Controls.Add(this.label33);
+            this.panel5.Controls.Add(this.label34);
+            this.panel5.Location = new System.Drawing.Point(464, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(455, 463);
+            this.panel5.TabIndex = 5;
+            // 
+            // uninstallPyBtn
+            // 
+            this.uninstallPyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uninstallPyBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.uninstallPyBtn.FlatAppearance.BorderSize = 0;
+            this.uninstallPyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.uninstallPyBtn.ForeColor = System.Drawing.Color.White;
+            this.uninstallPyBtn.Location = new System.Drawing.Point(245, 105);
+            this.uninstallPyBtn.Margin = new System.Windows.Forms.Padding(8);
+            this.uninstallPyBtn.Name = "uninstallPyBtn";
+            this.uninstallPyBtn.Size = new System.Drawing.Size(200, 22);
+            this.uninstallPyBtn.TabIndex = 15;
+            this.uninstallPyBtn.Text = "Uninstall";
+            this.uninstallPyBtn.UseVisualStyleBackColor = false;
+            this.uninstallPyBtn.VisibleChanged += new System.EventHandler(this.uninstallPyBtn_VisibleChanged);
+            this.uninstallPyBtn.Click += new System.EventHandler(this.uninstallPyBtn_Click);
+            // 
+            // installPyBtn
+            // 
+            this.installPyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.installPyBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.installPyBtn.FlatAppearance.BorderSize = 0;
+            this.installPyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.installPyBtn.ForeColor = System.Drawing.Color.White;
+            this.installPyBtn.Location = new System.Drawing.Point(245, 75);
+            this.installPyBtn.Margin = new System.Windows.Forms.Padding(8);
+            this.installPyBtn.Name = "installPyBtn";
+            this.installPyBtn.Size = new System.Drawing.Size(200, 22);
+            this.installPyBtn.TabIndex = 14;
+            this.installPyBtn.Text = "Open Dependency Checker";
+            this.installPyBtn.UseVisualStyleBackColor = false;
+            this.installPyBtn.Click += new System.EventHandler(this.installPyBtn_Click);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(6, 110);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(179, 13);
+            this.label32.TabIndex = 4;
+            this.label32.Text = "Uninstall Embedded Python Runtime";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(6, 80);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(166, 13);
+            this.label33.TabIndex = 2;
+            this.label33.Text = "Install Embedded Python Runtime";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(3, 4);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(204, 20);
+            this.label34.TabIndex = 1;
+            this.label34.Text = "Embedded Python Runtime";
             // 
             // SettingsForm
             // 
@@ -1092,6 +1208,7 @@
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             this.resourceFilesPage.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -1102,7 +1219,8 @@
             this.panel4.PerformLayout();
             this.logPage.ResumeLayout(false);
             this.logPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1187,5 +1305,13 @@
         private System.Windows.Forms.CheckBox logStatus;
         private System.Windows.Forms.ComboBox cmdDebugMode;
         private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.ComboBox pythonRuntime;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Panel panel5;
+        private HTAlt.WinForms.HTButton uninstallPyBtn;
+        private HTAlt.WinForms.HTButton installPyBtn;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label34;
     }
 }
