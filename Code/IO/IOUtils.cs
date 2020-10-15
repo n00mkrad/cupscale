@@ -171,10 +171,8 @@ namespace Cupscale
             string newFilename = Path.GetFileNameWithoutExtension(path).Replace(textToFind, textToReplace);
             string targetPath = Path.Combine(Path.GetDirectoryName(path), newFilename + ext);
             if (File.Exists(targetPath))
-            {
                 File.Delete(targetPath);
-                //Logger.Log("Skipped " + path + " because a file with the target name already exists.");
-            }
+
             File.Move(path, targetPath);
             return targetPath;
         }

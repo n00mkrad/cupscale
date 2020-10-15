@@ -89,13 +89,12 @@ namespace Cupscale.Main
 
         public static async Task PostprocessingSingle (string path, bool dontResize = false)
         {
-            Logger.Log("PostprocessingSingle: " + path);
             string newPath = "";
             if (Path.GetExtension(path) != ".tmp")
                 newPath = path.Substring(0, path.Length - 8);
             else
                 newPath = path.Substring(0, path.Length - 4);
-            Logger.Log("Now trying to move " + path + " -> " + newPath);
+
             try
             {
                 File.Move(path, newPath);
@@ -104,8 +103,8 @@ namespace Cupscale.Main
             {
                 Logger.Log("Failed to move/rename! " + e.Message + "\n" + e.StackTrace);
             }
+
             path = newPath;
-            Logger.Log("PostprocessingSingle New Path: " + path);
 
             if (outputFormat.Text == ExportFormats.PNG.ToStringTitleCase())
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Png50, dontResize);
@@ -127,16 +126,11 @@ namespace Cupscale.Main
         {
             try
             {
-                Logger.Log("FilenamePostprocess: " + file);
                 string newFilename = file;
-
                 string pathNoExt = Path.ChangeExtension(file, null);
                 string ext = Path.GetExtension(file);
 
                 newFilename = pathNoExt + "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+") + ext;
-
-                Logger.Log("newFilename: " + newFilename);
-
                 File.Move(file, newFilename);
                 newFilename = IOUtils.RenameExtension(newFilename, "jpg", Config.Get("jpegExtension"));
 
