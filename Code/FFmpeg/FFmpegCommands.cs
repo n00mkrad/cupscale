@@ -31,8 +31,8 @@ namespace Cupscale
         {
             string hdrStr = "";
             if (hdr) hdrStr = FFmpegStrings.hdrFilter;
-            string args = "-i " + inputFile.WrapPath() + " " + hdrStr
-                + " -vf \"select=eq(n\\," + frameNum + ")\" -vframes 1  " + inputFile.WrapPath() + "-frame" + frameNum + ".png";
+            string args = "-i " + inputFile.Wrap() + " " + hdrStr
+                + " -vf \"select=eq(n\\," + frameNum + ")\" -vframes 1  " + inputFile.Wrap() + "-frame" + frameNum + ".png";
             await FFmpeg.Run(args);
             if (delSrc)
                 DeleteSource(inputFile);

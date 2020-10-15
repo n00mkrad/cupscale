@@ -48,7 +48,7 @@ namespace Cupscale
             int scale = GetScale();
             offsetX *= scale;
             offsetY *= scale;
-            Logger.Log("Merging " + outputCutoutPath + " onto " + Program.lastFilename + " using offset " + offsetX + "x" + offsetY);
+            Logger.Log("[Merger] Merging " + Path.GetFileName(outputCutoutPath) + " onto original using offset " + offsetX + "x" + offsetY);
             Image image = MergeInMemory(scale);
             MainUIHelper.currentOriginal = ImgUtils.GetImage(Paths.tempImgPath);
             MainUIHelper.currentOutput = image;
@@ -80,13 +80,12 @@ namespace Cupscale
                 newWidth = scaledSourceImg.Width;
             }
             float preScale = (float)oldWidth / (float)newWidth;
-            Logger.Log("Pre Scale: " + preScale + "x");
 
             Image cutout = ImgUtils.GetImage(outputCutoutPath);
 
             if (scaledSourceImg.Width * scale == cutout.Width && scaledSourceImg.Height * scale == cutout.Height)
             {
-                Logger.Log("Cutout is the entire image - skipping merge");
+                Logger.Log("[Merger] Cutout is the entire image - skipping merge");
                 return cutout;
             }
 
@@ -136,7 +135,6 @@ namespace Cupscale
             MagickImage val = ImgUtils.GetMagickImage(inputCutoutPath);
             MagickImage val2 = ImgUtils.GetMagickImage(outputCutoutPath);
             int result = (int)Math.Round((float)val2.Width / (float)val.Width);
-            Logger.Log("Preview Merger Scale: " + inputCutoutPath + " -> " + outputCutoutPath + " = " + result + "x");
             return result;
         }
 

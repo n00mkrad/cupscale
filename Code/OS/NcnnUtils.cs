@@ -41,11 +41,11 @@ namespace Cupscale.OS
 
 		static async Task RunConverter(string modelPath)
 		{
-			modelPath = modelPath.WrapPath();
+			modelPath = modelPath.Wrap();
 
-			string cmd2 = "/C cd /D " + Config.Get("esrganPath").WrapPath() + " & pth2ncnn.exe " + modelPath;
+			string cmd2 = "/C cd /D " + Config.Get("esrganPath").Wrap() + " & pth2ncnn.exe " + modelPath;
 
-			Logger.Log("CMD: " + cmd2);
+			Logger.Log("[CMD] " + cmd2);
 			Process converterProc = new Process();
 			//converterProc.StartInfo.UseShellExecute = false;
 			//converterProc.StartInfo.RedirectStandardOutput = true;

@@ -27,6 +27,7 @@ namespace Cupscale.Cupscale
 
         public static void Start (string outpath)
         {
+            Logger.Log("[Queue] Start()");
             currentOutPath = outpath;
             outputFileQueue.Clear();
             processedFiles.Clear();
@@ -37,7 +38,7 @@ namespace Cupscale.Cupscale
 
         public static void Stop ()
         {
-            Logger.Log("PostProcessingQueue.Stop()");
+            Logger.Log("[Queue] Stop()");
             run = false;
         }
 
@@ -46,21 +47,8 @@ namespace Cupscale.Cupscale
             while (run || AnyFilesLeft())
             {
                 CheckNcnnOutput();
-                Logger.Log("Update() Loop runs, run: " + run + ", AnyFilesLeft(): " + AnyFilesLeft());
-                /*
-                foreach (string file in Directory.GetFiles(Paths.imgOutPath, "*.png.png", SearchOption.AllDirectories))   // Rename to tmp
-                {
-                    try
-                    {
-                        string newPath = file.Substring(0, file.Length - 8) + ".tmp";
-                        Logger.Log("renaming " + file + " -> " + newPath);
-                        File.Move(file, newPath);
-                    }
-                    catch { }
-                }
-                */
                 string[] outFiles = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories);
-                Logger.Log("Queue Update() - " + outFiles.Length + " files in out folder");
+                //Logger.Log("[Queue] Update() - " + outFiles.Length + " files in out folder");
                 foreach (string file in outFiles)
                 {
                     if (!outputFileQueue.Contains(file) && !processedFiles.Contains(file) && !outputFiles.Contains(file))
@@ -69,14 +57,9 @@ namespace Cupscale.Cupscale
                         outputFileQueue.Enqueue(file);
                         Logger.Log("[Queue] Enqueued " + Path.GetFileName(file));
                     }
-                    else
-                    {
-                        Logger.Log("Skipped " + file + " - Is In Queue: " + outputFileQueue.Contains(file) + " - Is Processed: " + processedFiles.Contains(file) + " - Is Outfile: " + outputFiles.Contains(file));
-                    }
                 }
                 await Task.Delay(1000);
             }
-            Logger.Log("Exited Update()");
         }
 
         static bool AnyFilesLeft ()
@@ -85,7 +68,6 @@ namespace Cupscale.Cupscale
                 return true;
             if (IOUtils.GetAmountOfFiles(Paths.imgOutNcnnPath, true) > 0)
                 return true;
-            Logger.Log("No files in Paths.imgOutPath");
             return false;
         }
 
@@ -94,7 +76,6 @@ namespace Cupscale.Cupscale
         public static async Task ProcessQueue ()
         {
             Stopwatch sw = new Stopwatch();
-            Logger.Log("ProcessQueue()");
             while (run || AnyFilesLeft())
             {
                 if (outputFileQueue.Count > 0)
@@ -146,7 +127,7 @@ namespace Cupscale.Cupscale
                     
                     BatchUpscaleUI.upscaledImages++;
                 }
-                await Task.Delay(250);
+                await Task.Delay(200);
             }
         }
 

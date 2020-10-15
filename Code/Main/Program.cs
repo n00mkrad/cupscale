@@ -32,9 +32,9 @@ namespace Cupscale
 		{
 			Application.SetCompatibleTextRenderingDefault(defaultValue: false);
 			Application.EnableVisualStyles();
-			Console.WriteLine("Main()");
 			IOUtils.DeleteIfExists(Path.Combine(IOUtils.GetAppDataDir(), "sessionlog.txt"));
 			Config.Init();
+			Logger.Init();
 			Paths.Init();
 			EsrganData.CheckModelDir();
 			ResourceLimits.Memory = (ulong)Math.Round(ResourceLimits.Memory * 1.5f);

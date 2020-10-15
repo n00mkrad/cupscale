@@ -15,6 +15,15 @@ namespace Cupscale
 
 		public static bool disable;
 
+		public static bool doLogIo;
+		public static bool doLogStatus;
+
+		public static void Init ()
+        {
+			doLogIo = Config.GetBool("logIo");
+			doLogStatus = Config.GetBool("logStatus");
+		}
+
 		public static void Log(string s, bool logToFile = true, bool noLineBreak = false, bool replaceLastLine = false)
 		{
 			if (disable) return;

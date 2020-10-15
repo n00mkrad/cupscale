@@ -9,18 +9,18 @@ using Cupscale.UI;
 
 namespace Cupscale.IO
 {
-	internal class ShippedEsrgan
+	internal class ShippedFiles
 	{
 		public static string path;
 
 		public static async Task Init()
 		{
-			Logger.Log("ShippedEsrgan Init()");
+			Logger.Log("[ShippedFiles] Init()");
 			path = Paths.esrganPath;
 			if (!InstallationIsValid())
 				await Install();
 			else
-				Logger.Log("Installation valid.");
+				Logger.Log("[ShippedFiles] Installation is valid.");
 		}
 
 		public static bool InstallationIsValid ()
@@ -47,7 +47,7 @@ namespace Cupscale.IO
             {
 				if (!Directory.Exists(dir))
 				{
-					Logger.Log("Installation invalid: Directory " + dir + " not found");
+					Logger.Log("[ShippedFiles] Installation invalid: Directory " + dir + " not found");
 					return false;
 				}
 			}
@@ -56,16 +56,16 @@ namespace Cupscale.IO
 			{
 				if (!File.Exists(file))
 				{
-					Logger.Log("Installation invalid: File " + file + " not found");
+					Logger.Log("[ShippedFiles] Installation invalid: File " + file + " not found");
 					return false;
 				}
 			}
 
-			int exeVersion = new StringReader(Resources.shipped_files_version).ReadLine().GetInt();
-			int diskVersion = IOUtils.ReadLines(Path.Combine(IOUtils.GetAppDataDir(), "shipped_files_version"))[0].GetInt();
+			int exeVersion = new StringReader(Resources.shipped_files_version).ReadLine().Split('#')[0].GetInt();
+			int diskVersion = IOUtils.ReadLines(Path.Combine(IOUtils.GetAppDataDir(), "shipped_files_version"))[0].Split('#')[0].GetInt();
 			if (exeVersion != diskVersion)
             {
-				Logger.Log("Installation invalid: Shipped file version mismatch - Executable is " + exeVersion + ", installation is " + diskVersion);
+				Logger.Log("[ShippedFiles] Installation invalid: Shipped file version mismatch - Executable is " + exeVersion + ", installation is " + diskVersion);
 				return false;
 			}
 
@@ -106,7 +106,7 @@ namespace Cupscale.IO
 
 		static async Task UnSevenzip (string path)
         {
-			Logger.Log("Extracting " + path);
+			Logger.Log("[ShippedFiles] Extracting " + path);
 			await Task.Delay(20);
 			SevenZipNET.SevenZipExtractor.Path7za = path7za;
 			SevenZipNET.SevenZipExtractor extractor = new SevenZipNET.SevenZipExtractor(path);

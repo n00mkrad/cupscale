@@ -20,7 +20,7 @@ namespace Cupscale
             ffmpeg.StartInfo.RedirectStandardError = true;
             ffmpeg.StartInfo.CreateNoWindow = true;
             ffmpeg.StartInfo.FileName = "cmd.exe";
-            ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.WrapPath() + " & ffmpeg.exe -hide_banner -loglevel warning -y -stats " + args;
+            ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.Wrap() + " & ffmpeg.exe -hide_banner -loglevel warning -y -stats " + args;
             Logger.Log("Running ffmpeg...");
             Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
             ffmpeg.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
@@ -46,7 +46,7 @@ namespace Cupscale
             ffmpeg.StartInfo.RedirectStandardError = true;
             ffmpeg.StartInfo.CreateNoWindow = true;
             ffmpeg.StartInfo.FileName = "cmd.exe";
-            ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.WrapPath()
+            ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.Wrap()
                 + " & gifski.exe " + args;
             Logger.Log("Running gifski...");
             Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
@@ -73,7 +73,7 @@ namespace Cupscale
             ffmpeg.StartInfo.RedirectStandardError = true;
             ffmpeg.StartInfo.CreateNoWindow = true;
             ffmpeg.StartInfo.FileName = "cmd.exe";
-            ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.WrapPath() + " & ffmpeg.exe -hide_banner -y -stats " + args;
+            ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.Wrap() + " & ffmpeg.exe -hide_banner -y -stats " + args;
             ffmpeg.Start();
             ffmpeg.WaitForExit();
             string output = ffmpeg.StandardOutput.ReadToEnd();

@@ -61,7 +61,7 @@ namespace Cupscale
 
 		public async Task CheckInstallation ()
         {
-			await ShippedEsrgan.Init();
+			await ShippedFiles.Init();
 			Enabled = true;
 		}
 
@@ -81,7 +81,7 @@ namespace Cupscale
 			if (!string.IsNullOrWhiteSpace(statusText) && lastStatus != statusText)
             {
 				statusLabel.Text = statusText;
-				Logger.Log("Status changed: " + statusText);
+				if (Logger.doLogStatus) Logger.Log("Status changed: " + statusText);
 				lastStatus = statusText;
 			}
 		}
@@ -235,7 +235,7 @@ namespace Cupscale
 
 		async Task DragNDrop (string [] files)
         {
-			Logger.Log("Dropped " + files.Length + " file(s), files[0] = " + files[0]);
+			Logger.Log("[MainUI] Dropped " + files.Length + " file(s), files[0] = " + files[0]);
 			IOUtils.ClearDir(Paths.tempImgPath.GetParentDir());
 			string path = files[0];
 			DialogForm loadingDialogForm = null;
@@ -243,7 +243,7 @@ namespace Cupscale
 			{
 				htTabControl.SelectedIndex = 1;
 				int compatFilesAmount = IOUtils.GetAmountOfCompatibleFiles(path, true);
-				batchDirLabel.Text = "Loaded " + path.WrapPath() + " - Found " + compatFilesAmount + " compatible files.";
+				batchDirLabel.Text = "Loaded " + path.Wrap() + " - Found " + compatFilesAmount + " compatible files.";
 				BatchUpscaleUI.LoadDir(path);
 				upscaleBtn.Text = "Upscale " + compatFilesAmount + " Images";
 				return;
@@ -317,6 +317,12 @@ namespace Cupscale
 					failed = true;
 				}
 			}
+		}
+
+		public void ForceMaximize ()
+        {
+			WindowState = FormWindowState.Minimized;
+			WindowState = FormWindowState.Maximized;
 		}
 
         private async void upscaleBtn_Click(object sender, EventArgs e)

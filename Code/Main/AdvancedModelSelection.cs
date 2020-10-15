@@ -112,27 +112,27 @@ namespace Cupscale.Main
                         arg += $";{e3m1i}&{e3m2};{e3m2i}";
                 }
 
-                arg = arg.WrapPath(true, false);
+                arg = arg.Wrap(true, false);
             }
             else
             {
-                arg = $" --model {e1m1.WrapPath()}";
+                arg = $" --model {e1m1.Wrap()}";
                 // Add Entry 1
                 if (!string.IsNullOrWhiteSpace(e1m2))       // Check if entry 1 has a second model
-                    arg += $";{e1m1i};{e1m2.WrapPath()};{e1m2i}";
+                    arg += $";{e1m1i};{e1m2.Wrap()};{e1m2i}";
                 // Add Entry 2
                 if (!string.IsNullOrWhiteSpace(e2m1))       // Check if entry 2 is used
                 {
-                    arg += $" --postfilter {e2m1.WrapPath()}";
+                    arg += $" --postfilter {e2m1.Wrap()}";
                     if (!string.IsNullOrWhiteSpace(e2m2))       // Check if entry 2 has a second model
-                        arg += $";{e2m1i};{e2m2.WrapPath()};{e2m2i}";
+                        arg += $";{e2m1i};{e2m2.Wrap()};{e2m2i}";
                 }
                 // Add Entry 3
                 if (!string.IsNullOrWhiteSpace(e3m1))       // Check if entry 3 is used
                 {
-                    arg += $" --postfilter {e3m1.WrapPath()}";
+                    arg += $" --postfilter {e3m1.Wrap()}";
                     if (!string.IsNullOrWhiteSpace(e3m2))       // Check if entry 3 has a second model
-                        arg += $";{e3m1i};{e3m2.WrapPath()};{e3m2i}";
+                        arg += $";{e3m1i};{e3m2.Wrap()};{e3m2i}";
                 }
             }
 

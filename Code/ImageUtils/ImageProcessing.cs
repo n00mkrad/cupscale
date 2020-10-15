@@ -1,10 +1,7 @@
-using System;
-using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Cupscale.Cupscale;
 using Cupscale.ImageUtils;
 using Cupscale.IO;
@@ -12,9 +9,7 @@ using Cupscale.Main;
 using Cupscale.Properties;
 using Cupscale.UI;
 using ImageMagick;
-using ImageMagick.Formats.Bmp;
 using ImageMagick.Formats.Dds;
-using ImageMagick.Formats.Png;
 using Paths = Cupscale.IO.Paths;
 
 namespace Cupscale
@@ -76,7 +71,7 @@ namespace Cupscale
                 await PreProcessImage(file.FullName, fillAlpha);
                 i++;
             }
-            Logger.Log("Done pre-processing images");
+            Logger.Log("[ImgProc] Done pre-processing images");
         }
 
         public static async Task PreProcessImage(string path, bool fillAlpha)
@@ -84,7 +79,9 @@ namespace Cupscale
             MagickImage img = ImgUtils.GetMagickImage(path, true);
             img.Quality = 20;
 
-            Logger.Log("Preprocessing " + path + " - Fill Alpha: " + fillAlpha);
+            Logger.Log("[ImgProc] Preprocessing " + path + " - Fill Alpha: " + fillAlpha);
+
+            img = CheckColorSpace(path, img);
 
             if (fillAlpha)
                 img = ImgUtils.FillAlphaWithBgColor(img);
@@ -93,7 +90,7 @@ namespace Cupscale
 
             string outPath = path + ".png";
             await Task.Delay(1);
-            img.Format = img.Format = GetPngFormat(path);
+            img.Format = MagickFormat.Png32;
 
             if (outPath.ToLower() == path.ToLower())    // Force overwrite by deleting source file before writing new file - THIS IS IMPORTANT
                 File.Delete(path);
@@ -102,7 +99,7 @@ namespace Cupscale
 
             if (outPath.ToLower() != path.ToLower())
             {
-                Logger.Log("Deleting source file: " + path);
+                if (Logger.doLogIo) Logger.Log("[ImgProc] Deleting source file: " + path);
                 File.Delete(path);
             }
         }
@@ -112,21 +109,21 @@ namespace Cupscale
         {
             MagickImage img = ImgUtils.GetMagickImage(path, allowTgaFlip);
 
-            Logger.Log("Converting " + path + " - Target Format: " + format.ToString() + " - DeleteSource: " + deleteSource + " - FillAlpha: " + fillAlpha + " - ExtMode: " + extMode.ToString() + " - outpath: " + overrideOutPath);
+            Logger.Log($"[ImgProc] Converting {path} to {format}, DelSrc: {deleteSource}, Fill: {fillAlpha}, Ext: {extMode}");
             string newExt = "png";
             if (format == Format.PngRaw)
             {
-                img.Format = GetPngFormat(path);
+                img.Format = MagickFormat.Png32;
                 img.Quality = 0;
             }
             if (format == Format.Png50)
             {
-                img.Format = GetPngFormat(path);
+                img.Format = MagickFormat.Png32;
                 img.Quality = 50;
             }
             if (format == Format.PngFast)
             {
-                img.Format = GetPngFormat(path);
+                img.Format = MagickFormat.Png32;
                 img.Quality = 20;
             }
             if (format == Format.Jpeg)
@@ -139,6 +136,8 @@ namespace Cupscale
             {
                 img.Format = MagickFormat.WebP;
                 img.Quality = Config.GetInt("webpQ");
+                if (img.Quality >= 100)
+                    img.Settings.SetDefine(MagickFormat.WebP, "lossless", true);
                 newExt = "webp";
             }
             if (format == Format.BMP)
@@ -162,6 +161,8 @@ namespace Cupscale
                 img.Settings.SetDefines(ddsDefines);
             }
 
+            img = CheckColorSpace(path, img);
+
             if (fillAlpha)
                 img = ImgUtils.FillAlphaWithBgColor(img);
 
@@ -184,32 +185,30 @@ namespace Cupscale
                 File.Delete(path);                
 
             img.Write(outPath);
-            Logger.Log("Writing image to " + outPath);
+            Logger.Log("[ImgProc] Written image to " + outPath);
             if (deleteSource && !inPathIsOutPath)
             {
-                Logger.Log("Deleting source file: " + path);
+                if(Logger.doLogIo) Logger.Log("[ImgProc] Deleting source file: " + path);
                 File.Delete(path);
             }
             img.Dispose();
             await Task.Delay(1);
         }
 
-        static MagickFormat GetPngFormat (string path)
+        static MagickImage CheckColorSpace (string path, MagickImage img)
         {
-            bool isPng = Path.GetExtension(path).ToLower() == ".png";
-            if(!isPng)
-                return MagickFormat.Png32;
             int depth = ImgUtils.GetColorDepth(path);
+            Logger.Log($"[ImgProc] Color depth of {Path.GetFileName(path)} is {depth}.");
+
             if (depth < 24)
             {
-                Logger.Log($"Color depth of {Path.GetFileName(path)} is {depth}, using Png24 format");
-                return MagickFormat.Png24;
+                Logger.Log("[ImgProc] Depth is <24 - Converting to 32-bit.");
+                MagickImage img32 = new MagickImage(MagickColors.Transparent, img.Width, img.Height);
+                img32.Format = MagickFormat.Png32;
+                img32.Composite(img, CompositeOperator.Over);
+                return img32;
             }
-            else
-            {
-                Logger.Log($"Color depth of {Path.GetFileName(path)} is {depth}, using Png32 format for alpha support");
-                return MagickFormat.Png32;
-            }
+            return img;
         }
 
         public static async Task PostProcessImage(string path, Format format, bool dontResize)
@@ -238,6 +237,8 @@ namespace Cupscale
             {
                 img.Format = MagickFormat.WebP;
                 img.Quality = Config.GetInt("webpQ");
+                if(img.Quality >= 100)
+                    img.Settings.SetDefine(MagickFormat.WebP, "lossless", true);
                 ext = "webp";
             }
             if (format == Format.BMP)
@@ -263,19 +264,19 @@ namespace Cupscale
             if (Upscale.currentMode == Upscale.UpscaleMode.Single || Upscale.currentMode == Upscale.UpscaleMode.Composition)
                 MainUIHelper.lastOutfile = outPath;
 
-            Logger.Log("Writing image as " + img.Format + " to " + outPath);
+            Logger.Log("[ImgProc] Writing image as " + img.Format + " to " + outPath);
             img.Write(outPath);
 
             if (outPath.ToLower() != path.ToLower())
             {
-                Logger.Log("Deleting source file: " + path);
+                if (Logger.doLogIo) Logger.Log("[ImgProc] Deleting source file: " + path);
                 File.Delete(path);
             }
         }
 
         public static async Task PostProcessDDS(string path)
         {
-            Logger.Log("PostProcess: Loading MagickImage from " + path);
+            Logger.Log("[ImgProc] PostProcessDDS: Loading MagickImage from " + path);
             MagickImage img = ImgUtils.GetMagickImage(path);
             string ext = "dds";
 
@@ -296,7 +297,7 @@ namespace Cupscale
 
             if (outPath.ToLower() != path.ToLower())
             {
-                Logger.Log("Deleting source file: " + path);
+                if (Logger.doLogIo) Logger.Log("[ImgProc] Deleting source file: " + path);
                 File.Delete(path);
             }
         }
@@ -306,11 +307,7 @@ namespace Cupscale
             if (!(preScaleMode == Upscale.ScaleMode.Percent && preScaleValue == 100))   // Skip if target scale is 100%
             {
                 img = ResizeImage(img, preScaleValue, preScaleMode, preFilter, preOnlyDownscale);
-                Logger.Log("ResizeImagePre: Resized to " + img.Width + "x" + img.Height);
-            }
-            else
-            {
-                Logger.Log("ResizeImagePre: Skipped resize because it's set to 100%.");
+                Logger.Log("[ImgProc] ResizeImagePre: Resized to " + img.Width + "x" + img.Height);
             }
             return img;
         }
@@ -320,11 +317,7 @@ namespace Cupscale
             if (!(postScaleMode == Upscale.ScaleMode.Percent && postScaleValue == 100))   // Skip if target scale is 100%
             {
                 img = ResizeImage(img, postScaleValue, postScaleMode, postFilter, postOnlyDownscale);
-                Logger.Log("ResizeImagePost: Resized to " + img.Width + "x" + img.Height);
-            }
-            else
-            {
-                Logger.Log("ResizeImagePost: Skipped resize because it's set to 100%.");
+                Logger.Log("[ImgProc] ResizeImagePost: Resized to " + img.Width + "x" + img.Height);
             }
             return img;
         }
@@ -343,7 +336,7 @@ namespace Cupscale
 
             if (scaleMode == Upscale.ScaleMode.Percent)
             {
-                Logger.Log("-> Scaling to " + scaleValue + "% with filter " + filter + "...");
+                Logger.Log("[ImgProc] Scaling to " + scaleValue + "% with filter " + filter + "...");
                 img.Resize(new Percentage(scaleValue));
                 return img;
             }
@@ -357,7 +350,7 @@ namespace Cupscale
             {
                 if (onlyDownscale && (img.Height <= scaleValue))
                     return img;     // Return image without scaling
-                Logger.Log("-> Scaling to " + scaleValue + "px height with filter " + filter + "...");
+                Logger.Log("[ImgProc] Scaling to " + scaleValue + "px height with filter " + filter + "...");
                 MagickGeometry geom = new MagickGeometry("x" + scaleValue);
                 img.Resize(geom);
             }
@@ -370,7 +363,7 @@ namespace Cupscale
             {
                 if (onlyDownscale && (img.Width <= scaleValue))
                     return img;     // Return image without scaling
-                Logger.Log("-> Scaling to " + scaleValue + "px width with filter " + filter + "...");
+                Logger.Log("[ImgProc] Scaling to " + scaleValue + "px width with filter " + filter + "...");
                 MagickGeometry geom = new MagickGeometry(scaleValue + "x");
                 img.Resize(geom);
             }

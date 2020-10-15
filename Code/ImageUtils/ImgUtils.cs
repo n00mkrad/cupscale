@@ -1,8 +1,10 @@
 ﻿using DdsFileTypePlus;
 using ImageMagick;
+using Microsoft.WindowsAPICodePack.Shell;
 using PaintDotNet;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -17,16 +19,16 @@ namespace Cupscale.ImageUtils
     {
         public static Image GetImage(string path)
         {
-            Logger.Log("IOUtils.GetImage: Reading Image from " + path);
+            if (Logger.doLogIo) Logger.Log("[ImgUtils] Reading Image from " + path);
             using MemoryStream stream = new MemoryStream(File.ReadAllBytes(path));
             Image img = Image.FromStream(stream);
-            Logger.Log("[OK]", true, true);
+            if (Logger.doLogIo) Logger.Log("[OK]", true, true);
             return img;
         }
 
         public static MagickImage GetMagickImage(string path, bool allowTgaFlip = false)
         {
-            Logger.Log("IOUtils.GetMagickImage: Reading Image from " + path);
+            if (Logger.doLogIo) Logger.Log("[ImgUtils] Reading MagickImage from " + path);
             MagickImage image;
             if (Path.GetExtension(path).ToLower() == ".dds")
             {
@@ -36,7 +38,7 @@ namespace Cupscale.ImageUtils
                 }
                 catch
                 {
-                    Logger.Log("Failed to read DDS using Mackig.NET - Trying DdsFileTypePlusHack");
+                    Logger.Log("[ImgUtils] Failed to read DDS using Mackig.NET - Trying DdsFileTypePlusHack");
                     try
                     {
                         Surface surface = DdsFile.Load(path);
@@ -45,7 +47,7 @@ namespace Cupscale.ImageUtils
                     }
                     catch (Exception e)
                     {
-                        Logger.ErrorMessage("This DDS format appears to be incompatible.", e);
+                        Logger.ErrorMessage("[ImgUtils] This DDS format appears to be incompatible.", e);
                         return null;
                     }
                 }
@@ -57,9 +59,9 @@ namespace Cupscale.ImageUtils
             if (allowTgaFlip && Path.GetExtension(path).ToLower() == ".tga" && Config.GetBool("flipTga"))
             {
                 image.Flip();
-                Logger.Log("[Flipped TGA]", true, true);
+                if (Logger.doLogIo) Logger.Log("[Flipped TGA]", true, true);
             }
-            Logger.Log("[OK]", true, true);
+            if (Logger.doLogIo) Logger.Log("[OK]", true, true);
             return image;
         }
 
@@ -102,10 +104,19 @@ namespace Cupscale.ImageUtils
 
         public static int GetColorDepth(string path)
         {
-            using (var stream = new MemoryStream(File.ReadAllBytes(path)))
+            try
             {
-                var source = BitmapFrame.Create(stream, BitmapCreateOptions.IgnoreImageCache, BitmapCacheOption.OnLoad);
-                return source.Format.BitsPerPixel;
+                ShellFile shellFile = ShellFile.FromFilePath(path);
+                int depth = (int)shellFile.Properties.System.Image.BitDepth.Value;
+                return depth;
+                //MemoryStream stream = new MemoryStream(File.ReadAllBytes(path));
+                //var source = BitmapFrame.Create(stream, BitmapCreateOptions.IgnoreImageCache, BitmapCacheOption.OnDemand);
+                //return source.Format.BitsPerPixel;
+            }
+            catch (Exception e)
+            {
+                Logger.Log("[ImgUtils] Failed to read color depth: " + e.Message + " - Defaulting to 32.");
+                return 32;
             }
         }
 

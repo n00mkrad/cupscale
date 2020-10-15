@@ -272,7 +272,7 @@ namespace Cupscale
                 }
                 else
                 {
-                    await FFmpeg.RunGifski(" -r 1 -W 2048 -q -o " + outpath.WrapPath() + " \"" + framesPath + "/\"*.\"png\"");
+                    await FFmpeg.RunGifski(" -r 1 -W 2048 -q -o " + outpath.Wrap() + " \"" + framesPath + "/\"*.\"png\"");
                 }
 
                 if (save)

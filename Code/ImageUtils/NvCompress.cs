@@ -24,8 +24,8 @@ namespace Cupscale.ImageUtils
 
 		public static async Task Run(string inpath, string outpath, string dxtMode, bool alpha, bool enableMips)
 		{
-			inpath = inpath.WrapPath(true, true);
-			outpath = outpath.WrapPath(true, false);
+			inpath = inpath.Wrap(true, true);
+			outpath = outpath.Wrap(true, false);
 
 			string alphaStr = "";
 			if (alpha)
@@ -35,9 +35,9 @@ namespace Cupscale.ImageUtils
 			if (enableMips)
 				mipStr = "";
 
-			string cmd2 = "/C cd /D " + Config.Get("esrganPath").WrapPath()
+			string cmd2 = "/C cd /D " + Config.Get("esrganPath").Wrap()
 				+ " & nvcompress.exe -" + dxtMode + alphaStr + mipStr + inpath + outpath;
-			Logger.Log("CMD: " + cmd2);
+			Logger.Log("[CMD] " + cmd2);
 			Process nvCompress = new Process();
 			nvCompress.StartInfo.UseShellExecute = false;
 			nvCompress.StartInfo.RedirectStandardOutput = true;

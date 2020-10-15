@@ -107,13 +107,14 @@ namespace Cupscale
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.label7 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.selectOutPathBtn = new System.Windows.Forms.Button();
+            this.batchOutDir = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.preprocessMode = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.batchOutMode = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.batchOutDir = new System.Windows.Forms.TextBox();
             this.panel10 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.batchFileList = new System.Windows.Forms.TextBox();
@@ -145,7 +146,6 @@ namespace Cupscale
             this.panel15 = new System.Windows.Forms.Panel();
             this.vramLabel = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -167,6 +167,7 @@ namespace Cupscale
             this.panel9.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             this.panel12.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
             this.panel10.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
@@ -176,7 +177,6 @@ namespace Cupscale
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel15.SuspendLayout();
-            this.tableLayoutPanel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // leftPanel
@@ -1039,11 +1039,12 @@ namespace Cupscale
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(8, 8);
             this.label7.Margin = new System.Windows.Forms.Padding(8);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(49, 14);
+            this.label7.Size = new System.Drawing.Size(50, 14);
             this.label7.TabIndex = 12;
             this.label7.Text = "Options";
             // 
@@ -1062,6 +1063,23 @@ namespace Cupscale
             this.panel12.Size = new System.Drawing.Size(291, 691);
             this.panel12.TabIndex = 11;
             // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel10.ColumnCount = 2;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel10.Controls.Add(this.selectOutPathBtn, 1, 0);
+            this.tableLayoutPanel10.Controls.Add(this.batchOutDir, 0, 0);
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(8, 32);
+            this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 1;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(275, 23);
+            this.tableLayoutPanel10.TabIndex = 19;
+            // 
             // selectOutPathBtn
             // 
             this.selectOutPathBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1077,6 +1095,19 @@ namespace Cupscale
             this.selectOutPathBtn.Text = "...";
             this.selectOutPathBtn.UseVisualStyleBackColor = false;
             this.selectOutPathBtn.Click += new System.EventHandler(this.selectOutPathBtn_Click);
+            // 
+            // batchOutDir
+            // 
+            this.batchOutDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.batchOutDir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.batchOutDir.ForeColor = System.Drawing.Color.White;
+            this.batchOutDir.Location = new System.Drawing.Point(0, 0);
+            this.batchOutDir.Margin = new System.Windows.Forms.Padding(0);
+            this.batchOutDir.Name = "batchOutDir";
+            this.batchOutDir.Size = new System.Drawing.Size(245, 23);
+            this.batchOutDir.TabIndex = 10;
+            this.batchOutDir.Text = "Will get auto-filled once you load a directory.";
             // 
             // label19
             // 
@@ -1100,7 +1131,7 @@ namespace Cupscale
             this.preprocessMode.FormattingEnabled = true;
             this.preprocessMode.Items.AddRange(new object[] {
             "Enabled - Convert, Fill Alpha If Needed, Resize If Enabled",
-            "Disabled - Skips The Conversion Process. Make Sure Images Are Compatible!"});
+            "Disabled - Skip Conversion. Make Sure Images Are Compatible!"});
             this.preprocessMode.Location = new System.Drawing.Point(8, 134);
             this.preprocessMode.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
             this.preprocessMode.Name = "preprocessMode";
@@ -1148,19 +1179,6 @@ namespace Cupscale
             this.label13.TabIndex = 13;
             this.label13.Text = "Output Directory:";
             // 
-            // batchOutDir
-            // 
-            this.batchOutDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.batchOutDir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.batchOutDir.ForeColor = System.Drawing.Color.White;
-            this.batchOutDir.Location = new System.Drawing.Point(0, 0);
-            this.batchOutDir.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            this.batchOutDir.Name = "batchOutDir";
-            this.batchOutDir.Size = new System.Drawing.Size(245, 23);
-            this.batchOutDir.TabIndex = 10;
-            this.batchOutDir.Text = "Will get auto-filled once you load a directory.";
-            // 
             // panel10
             // 
             this.panel10.Controls.Add(this.tableLayoutPanel8);
@@ -1204,11 +1222,12 @@ namespace Cupscale
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(8, 8);
             this.label6.Margin = new System.Windows.Forms.Padding(8);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 14);
+            this.label6.Size = new System.Drawing.Size(48, 14);
             this.label6.TabIndex = 11;
             this.label6.Text = "File List";
             // 
@@ -1516,7 +1535,7 @@ namespace Cupscale
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(344, 34);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Cupscale [Build 21 - 10/13/20]";
+            this.label5.Text = "Cupscale [Build 22 - 10/14/20]";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel7
@@ -1616,23 +1635,6 @@ namespace Cupscale
             this.vramLabel.Text = "No Nvidia GPU detected!";
             this.vramLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tableLayoutPanel10
-            // 
-            this.tableLayoutPanel10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel10.ColumnCount = 2;
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel10.Controls.Add(this.selectOutPathBtn, 1, 0);
-            this.tableLayoutPanel10.Controls.Add(this.batchOutDir, 0, 0);
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(8, 32);
-            this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            this.tableLayoutPanel10.RowCount = 1;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(275, 23);
-            this.tableLayoutPanel10.TabIndex = 19;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1676,6 +1678,8 @@ namespace Cupscale
             this.tableLayoutPanel9.PerformLayout();
             this.panel12.ResumeLayout(false);
             this.panel12.PerformLayout();
+            this.tableLayoutPanel10.ResumeLayout(false);
+            this.tableLayoutPanel10.PerformLayout();
             this.panel10.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
@@ -1689,8 +1693,6 @@ namespace Cupscale
             this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel15.ResumeLayout(false);
-            this.tableLayoutPanel10.ResumeLayout(false);
-            this.tableLayoutPanel10.PerformLayout();
             this.ResumeLayout(false);
 
         }

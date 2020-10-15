@@ -87,7 +87,7 @@ namespace Cupscale
 
         public static void Copy(string sourceDir, string targetDir, string wildcard = "*", bool move = false, bool onlyCompatibles = false, string removeFromName = "")
         {
-            Logger.Log("Copying directory \"" + sourceDir + "\" to \"" + targetDir + "\" (Move: " + move + " - RemoveFromName: " + removeFromName + ")");
+            Logger.Log("[IOUtils] Copying directory \"" + sourceDir + "\" to \"" + targetDir + "\" (Move: " + move + " - RemoveFromName: " + removeFromName + ")");
             Directory.CreateDirectory(targetDir);
             DirectoryInfo source = new DirectoryInfo(sourceDir);
             DirectoryInfo target = new DirectoryInfo(targetDir);
@@ -120,7 +120,7 @@ namespace Cupscale
         {
             if (!Directory.Exists(path))
                 return;
-            Logger.Log("Clearing " + path);
+            if (Logger.doLogIo) Logger.Log("[IOUtils] Clearing " + path);
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
             foreach (FileInfo fileInfo in files)
@@ -242,7 +242,7 @@ namespace Cupscale
             }
             catch (Exception e)
             {
-                Logger.ErrorMessage($"Copy from \"{source}\" to \"{dest}\" (Overwrite: {overwrite}) failed:", e);
+                Logger.ErrorMessage($"[IOUtils] Copy from \"{source}\" to \"{dest}\" (Overwrite: {overwrite}) failed:", e);
                 return false;
             }
             return true;
@@ -361,7 +361,7 @@ namespace Cupscale
                 searchOpt = SearchOption.AllDirectories;
 
             foreach (string file in Directory.GetFiles(path, pattern, searchOpt))
-                Logger.Log($"File in {path}: {file}");
+                Logger.Log($"[IOUtils] File in {path}: {file}");
         }
     }
 }

@@ -38,10 +38,9 @@ namespace Cupscale
 		public static void ReloadModelList()
 		{
 			string mdlPath = Config.Get("modelPath");
-			Logger.Log("Loading model names from " + mdlPath);
             if (!Directory.Exists(mdlPath))
             {
-				Logger.Log("Model dir doesn't exist!");
+				Logger.Log("[EsrganData] Model dir doesn't exist!");
 				return;
 			}
 			models.Clear();

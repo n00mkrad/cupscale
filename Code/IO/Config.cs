@@ -77,7 +77,7 @@ namespace Cupscale
 		{
 			return key switch
 			{
-				"esrganPath" => WriteDefault("esrganPath", ShippedEsrgan.path),
+				"esrganPath" => WriteDefault("esrganPath", ShippedFiles.path),
 				"esrganVer" => WriteDefault("esrganVer", "0"), 
 				"tilesize" => WriteDefault("tilesize", "512"),
 				"alpha" => WriteDefault("alpha", "False"),
@@ -93,6 +93,9 @@ namespace Cupscale
 				"reloadImageBeforeUpscale" => WriteDefault("reloadImageBeforeUpscale", "False"),
 				"cmdDebug" => WriteDefault("cmdDebug", "False"),
 				"flipTga" => WriteDefault("flipTga", "True"),
+				"logIo" => WriteDefault("logIo", "False"),
+				"logStatus" => WriteDefault("logStatus", "False"),
+				"cmdDebugMode" => WriteDefault("cmdDebugMode", "0"),
 				_ => null, 
 			};
 		}

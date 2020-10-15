@@ -231,7 +231,7 @@ namespace Cupscale.UI
             int num5 = (int)Math.Round(sourceImageRegion.Width * zoomFactor);
             int num6 = (int)Math.Round(sourceImageRegion.Height * zoomFactor);
             Size size = previewImg.GetInsideViewPort().Size;
-            Logger.Log("Saving current region to bitmap. Offset: " + previewImg.AutoScrollPosition.X + "x" + previewImg.AutoScrollPosition.Y);
+            Logger.Log("[MainUI] Saving current region to bitmap. Offset: " + previewImg.AutoScrollPosition.X + "x" + previewImg.AutoScrollPosition.Y);
             PreviewMerger.offsetX = (float)previewImg.AutoScrollPosition.X / (float)previewImg.ZoomFactor;
             PreviewMerger.offsetY = (float)previewImg.AutoScrollPosition.Y / (float)previewImg.ZoomFactor;
             if (num5 <= size.Width)

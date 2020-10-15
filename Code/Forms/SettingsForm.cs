@@ -53,6 +53,10 @@ namespace Cupscale.Forms
             Config.LoadGuiElement(dxtMode);
             Config.LoadGuiElement(ddsEnableMips);
             Config.LoadGuiElement(flipTga);
+            // Debug
+            Config.LoadGuiElement(logIo);
+            Config.LoadGuiElement(logStatus);
+            Config.LoadComboxIndex(cmdDebugMode);
         }
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -74,13 +78,16 @@ namespace Cupscale.Forms
             Config.SaveComboxIndex(cudaFallback);
             Config.SaveComboxIndex(previewFormat);
             Config.SaveGuiElement(reloadImageBeforeUpscale);
-
             // Formats
             Config.SaveGuiElement(jpegQ, true);
             Config.SaveGuiElement(webpQ, true);
             Config.SaveGuiElement(dxtMode);
             Config.SaveGuiElement(ddsEnableMips);
             Config.SaveGuiElement(flipTga);
+            // Debug
+            Config.SaveGuiElement(logIo);
+            Config.SaveGuiElement(logStatus);
+            Config.SaveComboxIndex(cmdDebugMode);
         }
 
         private void confAlphaBgColorBtn_Click(object sender, EventArgs e)
@@ -95,6 +102,8 @@ namespace Cupscale.Forms
         {
             if (logTbox.Visible)
                 logTbox.Text = Logger.GetSessionLog();
+            logTbox.SelectionStart = logTbox.Text.Length;
+            logTbox.ScrollToCaret();
         }
 
         private void selectModelsPathBtn_Click(object sender, EventArgs e)
@@ -109,20 +118,20 @@ namespace Cupscale.Forms
 
         private async void reinstallOverwriteBtn_Click(object sender, EventArgs e)
         {
-            await ShippedEsrgan.Install();
+            await ShippedFiles.Install();
             BringToFront();
         }
 
         private async void reinstallCleanBtn_Click(object sender, EventArgs e)
         {
-            ShippedEsrgan.Uninstall(false);
-            await ShippedEsrgan.Install();
+            ShippedFiles.Uninstall(false);
+            await ShippedFiles.Install();
             BringToFront();
         }
 
         private void uninstallResBtn_Click(object sender, EventArgs e)
         {
-            ShippedEsrgan.Uninstall(false);
+            ShippedFiles.Uninstall(false);
             MessageBox.Show("Uninstalled resources.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.\n" +
                 "However, your settings file was not deleted.", "Message");
             Logger.disable = true;
@@ -133,7 +142,7 @@ namespace Cupscale.Forms
         private void uninstallFullBtn_Click(object sender, EventArgs e)
         {
             Close();
-            ShippedEsrgan.Uninstall(true);
+            ShippedFiles.Uninstall(true);
             MessageBox.Show("Uninstalled all files.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.", "Message");
             Logger.disable = true;
             Config.disable = true;

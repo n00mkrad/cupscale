@@ -89,7 +89,6 @@ namespace Cupscale.Forms
             string modelName = Path.GetFileNameWithoutExtension(selectedModel);
             if (modelBtn != null)
                 modelBtn.Text = modelName;
-            Logger.Log("Selected model " + modelName + " - Full path: " + selectedModel);
             if (modelNo == 1)   // idk if this could be less hardcoded?
                 Program.currentModel1 = selectedModel;
             if (modelNo == 2)
