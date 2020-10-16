@@ -28,7 +28,6 @@ namespace Cupscale
 
 		public MainForm()
 		{
-			EsrganData.ReloadModelList();
 			CheckForIllegalCrossThreadCalls = false;
 			InitializeComponent();
 			MainUIHelper.Init(previewImg, model1TreeBtn, model2TreeBtn, prevOutputFormatCombox, prevOverwriteCombox);
@@ -56,6 +55,9 @@ namespace Cupscale
 			UIHelpers.InitCombox(preprocessMode, 0);
 			await CheckInstallation();
 			EmbeddedPython.Init();
+
+			EsrganData.CheckModelDir();
+			EsrganData.ReloadModelList();
 
 			NvApi.Init();
 		}

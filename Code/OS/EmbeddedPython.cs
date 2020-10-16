@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -95,6 +96,7 @@ namespace Cupscale.OS
             Print("Compressing files...");
             RunCompact();
             Print("Done!");
+            Config.Set("pythonRuntime", "1");
             Init();
             Program.ShowMessage("Installed embedded Python runtime and enabled it!\nIf you want to disable it, you can do so in the settings.", "Message");
             runBtn.Enabled = true;
@@ -110,6 +112,8 @@ namespace Cupscale.OS
             compact.StartInfo.FileName = "cmd.exe";
             compact.StartInfo.Arguments = $"/C compact /C /S:{extractPath.Wrap()}";
             compact.Start();
+            Thread.Sleep(100);  // <-- ugly hack
+            SetWindowText(compact.MainWindowHandle, "Compressing Python installation... Do not close this window!");
             compact.WaitForExit();
         }
 
@@ -157,7 +161,7 @@ namespace Cupscale.OS
                     {
                         Print("Error: " + e.Message);
                     }
-                    await Task.Delay(2000);
+                    await Task.Delay(3000);
                 }
             });
         }
@@ -175,6 +179,9 @@ namespace Cupscale.OS
             }
             return 0;
         }
+
+        [DllImport("user32.dll")]
+        static extern int SetWindowText(IntPtr hWnd, string text);
 
         static void Print(string s, bool replaceLastLine = false)
         {

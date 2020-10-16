@@ -48,6 +48,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.installerLogBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.gpu = new System.Windows.Forms.Label();
             this.tabList1.SuspendLayout();
             this.tabListPage1.SuspendLayout();
             this.tabListPage2.SuspendLayout();
@@ -66,6 +68,8 @@
             // 
             // tabListPage1
             // 
+            this.tabListPage1.Controls.Add(this.gpu);
+            this.tabListPage1.Controls.Add(this.label5);
             this.tabListPage1.Controls.Add(this.label7);
             this.tabListPage1.Controls.Add(this.cv2);
             this.tabListPage1.Controls.Add(this.label2);
@@ -98,7 +102,7 @@
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(6, 80);
+            this.label14.Location = new System.Drawing.Point(6, 112);
             this.label14.Margin = new System.Windows.Forms.Padding(6);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(94, 20);
@@ -111,7 +115,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(6, 112);
+            this.label1.Location = new System.Drawing.Point(6, 144);
             this.label1.Margin = new System.Windows.Forms.Padding(6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 20);
@@ -123,26 +127,26 @@
             this.nvGpu.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.nvGpu.AutoSize = true;
             this.nvGpu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nvGpu.ForeColor = System.Drawing.Color.Red;
-            this.nvGpu.Location = new System.Drawing.Point(287, 80);
+            this.nvGpu.ForeColor = System.Drawing.Color.Silver;
+            this.nvGpu.Location = new System.Drawing.Point(287, 112);
             this.nvGpu.Margin = new System.Windows.Forms.Padding(6);
             this.nvGpu.Name = "nvGpu";
-            this.nvGpu.Size = new System.Drawing.Size(93, 20);
+            this.nvGpu.Size = new System.Drawing.Size(98, 20);
             this.nvGpu.TabIndex = 22;
-            this.nvGpu.Text = "Not Found";
+            this.nvGpu.Text = "Checking...";
             // 
             // sysPython
             // 
             this.sysPython.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.sysPython.AutoSize = true;
             this.sysPython.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sysPython.ForeColor = System.Drawing.Color.Red;
-            this.sysPython.Location = new System.Drawing.Point(287, 112);
+            this.sysPython.ForeColor = System.Drawing.Color.Silver;
+            this.sysPython.Location = new System.Drawing.Point(287, 144);
             this.sysPython.Margin = new System.Windows.Forms.Padding(6);
             this.sysPython.Name = "sysPython";
-            this.sysPython.Size = new System.Drawing.Size(93, 20);
+            this.sysPython.Size = new System.Drawing.Size(98, 20);
             this.sysPython.TabIndex = 23;
-            this.sysPython.Text = "Not Found";
+            this.sysPython.Text = "Checking...";
             // 
             // label4
             // 
@@ -150,7 +154,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(6, 144);
+            this.label4.Location = new System.Drawing.Point(6, 176);
             this.label4.Margin = new System.Windows.Forms.Padding(6);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(144, 20);
@@ -162,13 +166,13 @@
             this.embedPython.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.embedPython.AutoSize = true;
             this.embedPython.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.embedPython.ForeColor = System.Drawing.Color.Red;
-            this.embedPython.Location = new System.Drawing.Point(287, 144);
+            this.embedPython.ForeColor = System.Drawing.Color.Silver;
+            this.embedPython.Location = new System.Drawing.Point(287, 176);
             this.embedPython.Margin = new System.Windows.Forms.Padding(6);
             this.embedPython.Name = "embedPython";
-            this.embedPython.Size = new System.Drawing.Size(93, 20);
+            this.embedPython.Size = new System.Drawing.Size(98, 20);
             this.embedPython.TabIndex = 25;
-            this.embedPython.Text = "Not Found";
+            this.embedPython.Text = "Checking...";
             // 
             // label6
             // 
@@ -176,7 +180,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(6, 176);
+            this.label6.Location = new System.Drawing.Point(6, 208);
             this.label6.Margin = new System.Windows.Forms.Padding(6);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(114, 20);
@@ -188,13 +192,13 @@
             this.torch.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.torch.AutoSize = true;
             this.torch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.torch.ForeColor = System.Drawing.Color.Red;
-            this.torch.Location = new System.Drawing.Point(287, 176);
+            this.torch.ForeColor = System.Drawing.Color.Silver;
+            this.torch.Location = new System.Drawing.Point(287, 208);
             this.torch.Margin = new System.Windows.Forms.Padding(6);
             this.torch.Name = "torch";
-            this.torch.Size = new System.Drawing.Size(93, 20);
+            this.torch.Size = new System.Drawing.Size(98, 20);
             this.torch.TabIndex = 27;
-            this.torch.Text = "Not Found";
+            this.torch.Text = "Checking...";
             // 
             // label2
             // 
@@ -202,7 +206,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(6, 208);
+            this.label2.Location = new System.Drawing.Point(6, 240);
             this.label2.Margin = new System.Windows.Forms.Padding(6);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(135, 20);
@@ -214,13 +218,13 @@
             this.cv2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cv2.AutoSize = true;
             this.cv2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cv2.ForeColor = System.Drawing.Color.Red;
-            this.cv2.Location = new System.Drawing.Point(287, 208);
+            this.cv2.ForeColor = System.Drawing.Color.Silver;
+            this.cv2.Location = new System.Drawing.Point(287, 240);
             this.cv2.Margin = new System.Windows.Forms.Padding(6);
             this.cv2.Name = "cv2";
-            this.cv2.Size = new System.Drawing.Size(93, 20);
+            this.cv2.Size = new System.Drawing.Size(98, 20);
             this.cv2.TabIndex = 29;
-            this.cv2.Text = "Not Found";
+            this.cv2.Text = "Checking...";
             // 
             // label8
             // 
@@ -288,12 +292,38 @@
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Silver;
-            this.label7.Location = new System.Drawing.Point(6, 272);
+            this.label7.Location = new System.Drawing.Point(6, 304);
             this.label7.Margin = new System.Windows.Forms.Padding(6);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(539, 160);
+            this.label7.Size = new System.Drawing.Size(539, 128);
             this.label7.TabIndex = 31;
             this.label7.Text = resources.GetString("label7.Text");
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(6, 80);
+            this.label5.Margin = new System.Windows.Forms.Padding(6);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(48, 20);
+            this.label5.TabIndex = 32;
+            this.label5.Text = "GPU:";
+            // 
+            // gpu
+            // 
+            this.gpu.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.gpu.AutoSize = true;
+            this.gpu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gpu.ForeColor = System.Drawing.Color.Silver;
+            this.gpu.Location = new System.Drawing.Point(287, 80);
+            this.gpu.Margin = new System.Windows.Forms.Padding(6);
+            this.gpu.Name = "gpu";
+            this.gpu.Size = new System.Drawing.Size(98, 20);
+            this.gpu.TabIndex = 33;
+            this.gpu.Text = "Checking...";
             // 
             // DependencyCheckerForm
             // 
@@ -338,5 +368,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox installerLogBox;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label gpu;
+        private System.Windows.Forms.Label label5;
     }
 }

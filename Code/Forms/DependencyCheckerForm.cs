@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,21 +25,39 @@ namespace Cupscale.Forms
 
         private async void DependencyCheckerForm_Load(object sender, EventArgs e)
         {
-            //await Task.Delay(200);
-            //await Refresh();
+            
         }
 
         public async Task Refresh ()
         {
+            SetChecking(gpu);
+            if (HasGpu())
+            {
+                gpu.Text = "Available";
+                gpu.ForeColor = Color.Lime;
+            }
+            else
+            {
+                SetToNotFound(gpu);
+            }
+
+            await Task.Delay(10);
+
+            SetChecking(nvGpu);
             string gpuName = NvApi.GetGpuName().Replace("GeForce ", "");
             if (!string.IsNullOrWhiteSpace(gpuName))
             {
                 nvGpu.Text = gpuName;
                 nvGpu.ForeColor = Color.Lime;
             }
+            else
+            {
+                SetToNotFound(nvGpu);
+            }
 
             await Task.Delay(10);
 
+            SetChecking(sysPython);
             string sysPyVer = GetSysPyVersion();
             if (!string.IsNullOrWhiteSpace(sysPyVer) && !sysPyVer.ToLower().Contains("not found") && sysPyVer.Length <= 35)
             {
@@ -52,6 +71,7 @@ namespace Cupscale.Forms
 
             await Task.Delay(10);
 
+            SetChecking(embedPython);
             string embedPyVer = GetEmbedPyVersion();
             if (!string.IsNullOrWhiteSpace(embedPyVer) && !embedPyVer.ToLower().Contains("not found") && embedPyVer.Length <= 35)
             {
@@ -65,6 +85,7 @@ namespace Cupscale.Forms
 
             await Task.Delay(10);
 
+            SetChecking(torch);
             string torchVer = GetPytorchVer();
             if (!string.IsNullOrWhiteSpace(torchVer) && torchVer.Length <= 35)
             {
@@ -78,6 +99,7 @@ namespace Cupscale.Forms
 
             await Task.Delay(10);
 
+            SetChecking(cv2);
             string cv2Ver = GetOpenCvVer();
             if (!string.IsNullOrWhiteSpace(cv2Ver) && !cv2Ver.ToLower().Contains("ModuleNotFoundError") && cv2Ver.Length <= 35)
             {
@@ -90,10 +112,38 @@ namespace Cupscale.Forms
             }
         }
 
+        void SetChecking(Label l)
+        {
+            l.Text = "Checking...";
+            l.ForeColor = Color.Silver;
+        }
+
         void SetToNotFound (Label l)
         {
             l.Text = "Not Found";
             l.ForeColor = Color.Red;
+        }
+
+        bool HasGpu ()
+        {
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DisplayConfiguration");
+
+            string graphicsCard = string.Empty;
+            foreach (ManagementObject mo in searcher.Get())
+            {
+                foreach (PropertyData property in mo.Properties)
+                {
+                    if (property.Name == "Description")
+                    {
+                        graphicsCard = property.Value.ToString();
+                        if (string.IsNullOrWhiteSpace(graphicsCard) || graphicsCard.ToLower().Contains("microsoft"))
+                            return false;
+                        Logger.Log("Found GPU: " + graphicsCard);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         string GetSysPyVersion ()
