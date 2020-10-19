@@ -263,7 +263,6 @@ namespace Cupscale.OS
             }
             string data = output.Data;
             Logger.Log("[Python] " + data);
-            //Logger.Log($"{data.ToLower()}.Contains(error) == {data.ToLower().Contains("error")}");
             if (data.ToLower().Contains("error"))
             {
                 if (currentProcess != null && !currentProcess.HasExited)

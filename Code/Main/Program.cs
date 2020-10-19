@@ -24,6 +24,7 @@ namespace Cupscale
 		public static FilterType currentFilter = FilterType.Point;
 
 		public static List<Form> currentTemporaryForms = new List<Form>();	// Temp forms that get closed when something gets cancelled
+		public static List<MsgBox> openMessageBoxes = new List<MsgBox>();  // Temp forms that get closed when something gets cancelled
 
 		public static bool busy;
 
@@ -44,7 +45,16 @@ namespace Cupscale
 		public static void ShowMessage (string msg, string title = "Message")
         {
 			MessageBox.Show(msg, title, MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);
-        }
+			//new MsgBox(msg, title).ShowDialog();
+			//MsgBox msgBox = new MsgBox(msg, title);
+			//openMessageBoxes.Add(msgBox);
+			//mainForm.Enabled = false;
+			//msgBox.Show();
+			//if (openMessageBoxes.Count <= 0)
+			//	mainForm.Enabled = true;
+			//else
+			//	openMessageBoxes[0].BringToFront();
+		}
 
 		public static void Cleanup ()
         {

@@ -16,7 +16,7 @@ namespace Cupscale.OS
         static float vramGb;
         static float vramFreeGb;
 
-        public static void Init ()
+        public static async void Init ()
         {
             try
             {
@@ -26,8 +26,11 @@ namespace Cupscale.OS
                     return;
                 gpu = gpus[0];
 
-                RefreshVram();
-                RefreshLoop();
+                while (true)
+                {
+                    RefreshVram();
+                    await Task.Delay(1000);
+                }
             }
             catch (Exception e)
             {
@@ -51,8 +54,7 @@ namespace Cupscale.OS
 
         public static async void RefreshLoop ()
         {
-            RefreshVram();
-            await Task.Delay(1000);
+
             RefreshLoop();
         }
 

@@ -16,6 +16,13 @@ namespace Cupscale.Forms
 {
     public partial class DependencyCheckerForm : Form
     {
+        bool gpuAvail;
+        bool nvGpuAvail;
+        bool sysPyAvail;
+        bool embedPyAvail;
+        bool torchAvail;
+        bool cv2Avail;
+
         public DependencyCheckerForm(bool openInstaller = false)
         {
             InitializeComponent();
@@ -30,29 +37,36 @@ namespace Cupscale.Forms
 
         public async Task Refresh ()
         {
+            gpuAvail = false;
+            nvGpuAvail = false;
+            sysPyAvail = false;
+            embedPyAvail = false;
+            torchAvail = false;
+            cv2Avail = false;
+
             SetChecking(gpu);
             if (HasGpu())
             {
-                gpu.Text = "Available";
-                gpu.ForeColor = Color.Lime;
+                SetGreen(gpu, "Available");
+                gpuAvail = true;
             }
             else
             {
-                SetToNotFound(gpu);
+                SetRed(gpu);
             }
 
             await Task.Delay(10);
 
             SetChecking(nvGpu);
-            string gpuName = NvApi.GetGpuName().Replace("GeForce ", "");
-            if (!string.IsNullOrWhiteSpace(gpuName))
+            string nvGpuName = NvApi.GetGpuName().Replace("GeForce ", "");
+            if (!string.IsNullOrWhiteSpace(nvGpuName))
             {
-                nvGpu.Text = gpuName;
-                nvGpu.ForeColor = Color.Lime;
+                SetGreen(nvGpu, nvGpuName);
+                nvGpuAvail = true;
             }
             else
             {
-                SetToNotFound(nvGpu);
+                SetRed(nvGpu);
             }
 
             await Task.Delay(10);
@@ -61,12 +75,12 @@ namespace Cupscale.Forms
             string sysPyVer = GetSysPyVersion();
             if (!string.IsNullOrWhiteSpace(sysPyVer) && !sysPyVer.ToLower().Contains("not found") && sysPyVer.Length <= 35)
             {
-                sysPython.Text = sysPyVer;
-                sysPython.ForeColor = Color.Lime;
+                SetGreen(sysPython, sysPyVer);
+                sysPyAvail = true;
             }
             else
             {
-                SetToNotFound(sysPython);
+                SetRed(sysPython);
             }
 
             await Task.Delay(10);
@@ -75,12 +89,12 @@ namespace Cupscale.Forms
             string embedPyVer = GetEmbedPyVersion();
             if (!string.IsNullOrWhiteSpace(embedPyVer) && !embedPyVer.ToLower().Contains("not found") && embedPyVer.Length <= 35)
             {
-                embedPython.Text = embedPyVer;
-                embedPython.ForeColor = Color.Lime;
+                SetGreen(embedPython, embedPyVer);
+                embedPyAvail = true;
             }
             else
             {
-                SetToNotFound(embedPython);
+                SetRed(embedPython);
             }
 
             await Task.Delay(10);
@@ -89,12 +103,12 @@ namespace Cupscale.Forms
             string torchVer = GetPytorchVer();
             if (!string.IsNullOrWhiteSpace(torchVer) && torchVer.Length <= 35)
             {
-                torch.Text = torchVer;
-                torch.ForeColor = Color.Lime;
+                SetGreen(torch, torchVer);
+                torchAvail = true;
             }
             else
             {
-                SetToNotFound(torch);
+                SetRed(torch);
             }
 
             await Task.Delay(10);
@@ -103,13 +117,40 @@ namespace Cupscale.Forms
             string cv2Ver = GetOpenCvVer();
             if (!string.IsNullOrWhiteSpace(cv2Ver) && !cv2Ver.ToLower().Contains("ModuleNotFoundError") && cv2Ver.Length <= 35)
             {
-                cv2.Text = cv2Ver;
-                cv2.ForeColor = Color.Lime;
+                SetGreen(cv2, cv2Ver);
+                cv2Avail = true;
             }
             else
             {
-                SetToNotFound(cv2);
+                SetRed(cv2);
             }
+
+            RefreshAvailOptions();
+        }
+
+        void RefreshAvailOptions ()
+        {
+            bool hasAnyPy = sysPyAvail || embedPyAvail;
+            bool hasPyDepends = torchAvail && cv2Avail;
+
+            if(hasAnyPy && hasPyDepends)
+            {
+                SetGreen(cpuUpscaling, "Available");
+                if (nvGpuAvail)
+                    SetGreen(cudaUpscaling, "Available");
+                else
+                    SetRed(cudaUpscaling, "No Nvidia GPU");
+            }
+            else
+            {
+                SetRed(cpuUpscaling, "Missing Dependencies");
+                SetRed(cudaUpscaling, "Missing Dependencies");
+            }
+
+            if(gpuAvail)
+                SetGreen(ncnnUpscaling, "Available");
+            else
+                SetRed(ncnnUpscaling, "Not Available");
         }
 
         void SetChecking(Label l)
@@ -118,9 +159,15 @@ namespace Cupscale.Forms
             l.ForeColor = Color.Silver;
         }
 
-        void SetToNotFound (Label l)
+        void SetGreen(Label l, string t)
         {
-            l.Text = "Not Found";
+            l.Text = t;
+            l.ForeColor = Color.Lime;
+        }
+
+        void SetRed (Label l, string t = "Not Found")
+        {
+            l.Text = t;
             l.ForeColor = Color.Red;
         }
 
