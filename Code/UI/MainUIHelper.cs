@@ -83,6 +83,8 @@ namespace Cupscale.UI
                     outImg = Directory.GetFiles(Paths.imgOutPath, "*.png*", SearchOption.AllDirectories)[0];
                 else
                     outImg = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories)[0];
+                Program.mainForm.SetProgress(100f, "Post-Processing...");
+                await Task.Delay(50);
                 await Upscale.PostprocessingSingle(outImg, false);
                 string outFilename = Upscale.FilenamePostprocess(lastOutfile);
                 await Upscale.CopyImagesTo(Path.GetDirectoryName(Program.lastFilename));

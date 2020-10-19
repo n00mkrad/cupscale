@@ -60,6 +60,9 @@ namespace Cupscale
 			EsrganData.ReloadModelList();
 
 			NvApi.Init();
+
+			if (OSUtils.IsUserAdministrator())
+				Program.ShowMessage("Cupscale is running as administrator.\nThis will break Drag-n-Drop functionality.", "Warning");
 		}
 
 		public async Task CheckInstallation ()

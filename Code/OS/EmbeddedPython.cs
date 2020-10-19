@@ -19,17 +19,27 @@ namespace Cupscale.OS
 {
     class EmbeddedPython
     {
-        public static bool enabled;
+        public static string GetPyCmd()
+        {
+            if (IsEnabled())
+                return GetEmbedPyPath();
+            else
+                return "python";
+        }
 
-        public static string GetPyPath()
+        public static string GetEmbedPyPath()
         {
             return Path.Combine(ShippedFiles.path, "py", "python.exe");
         }
 
+        public static bool IsEnabled()
+        {
+            return Config.GetInt("pythonRuntime") == 1;
+        }
+
         public static void Init()
         {
-            enabled = Config.GetInt("pythonRuntime") == 1;
-            if (!enabled) return;
+            if (Config.GetInt("pythonRuntime") != 1) return;
             string shippedPath = ShippedFiles.path;
             IOUtils.Copy(Path.Combine(shippedPath, "utils"), Path.Combine(shippedPath, "py", "utils"));
             File.Copy(Path.Combine(shippedPath, "esrlupscale.py"), Path.Combine(shippedPath, "py", "esrlupscale.py"), true);
@@ -104,13 +114,16 @@ namespace Cupscale.OS
 
         static void RunCompact ()
         {
+            bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
+            string opt = "/C";
+            if (stayOpen) opt = "/K";
             Process compact = new Process();
             //compact.StartInfo.UseShellExecute = false;
             //compact.StartInfo.RedirectStandardOutput = true;
             //compact.StartInfo.RedirectStandardError = true;
             //compact.StartInfo.CreateNoWindow = true;
             compact.StartInfo.FileName = "cmd.exe";
-            compact.StartInfo.Arguments = $"/C compact /C /S:{extractPath.Wrap()}";
+            compact.StartInfo.Arguments = $"{opt} compact /C /S:{extractPath.Wrap()}";
             compact.Start();
             Thread.Sleep(100);  // <-- ugly hack
             SetWindowText(compact.MainWindowHandle, "Compressing Python installation... Do not close this window!");

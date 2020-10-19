@@ -37,7 +37,9 @@
     </PackageReference>
     <PackageReference Include="HTAlt.WinForms" Version="0.1.6" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.22.0" />
+    <PackageReference Include="MozJpegSharp" Version="1.0.27" />
     <PackageReference Include="NvAPIWrapper.Net" Version="0.8.0.98" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Magick.NET-Q16-AnyCPU" />

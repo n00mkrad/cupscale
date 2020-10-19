@@ -108,9 +108,10 @@ namespace Cupscale
         public static async Task ConvertImage(string path, Format format, bool fillAlpha, ExtMode extMode, bool deleteSource = true, string overrideOutPath = "", bool allowTgaFlip = false)
         {
             MagickImage img = ImgUtils.GetMagickImage(path, allowTgaFlip);
+            string newExt = "png";
+            bool magick = true;
 
             Logger.Log($"[ImgProc] Converting {path} to {format}, DelSrc: {deleteSource}, Fill: {fillAlpha}, Ext: {extMode}");
-            string newExt = "png";
             if (format == Format.PngRaw)
             {
                 img.Format = MagickFormat.Png32;
@@ -128,9 +129,18 @@ namespace Cupscale
             }
             if (format == Format.Jpeg)
             {
-                img.Format = MagickFormat.Jpeg;
-                img.Quality = Config.GetInt("jpegQ");
                 newExt = "jpg";
+                int q = Config.GetInt("jpegQ");
+                if (Config.GetBool("useMozJpeg"))
+                {
+                    MozJpeg.Encode(path, GetOutPath(path, newExt, extMode, overrideOutPath), q);
+                    magick = false;
+                }
+                else
+                {
+                    img.Format = MagickFormat.Jpeg;
+                    img.Quality = q;
+                }
             }
             if (format == Format.Weppy)
             {
@@ -163,29 +173,20 @@ namespace Cupscale
 
             img = CheckColorSpace(path, img);
 
-            if (fillAlpha)
+            if (fillAlpha && magick)
                 img = ImgUtils.FillAlphaWithBgColor(img);
 
-            string outPath = null;
-
-            if (extMode == ExtMode.UseNew)
-                outPath = Path.ChangeExtension(path, newExt);
-
-            if (extMode == ExtMode.KeepOld)
-                outPath = path;
-
-            if (extMode == ExtMode.AppendNew)
-                outPath = path + "." + newExt;
-
-            if (!string.IsNullOrWhiteSpace(overrideOutPath))
-                outPath = overrideOutPath;
+            string outPath = GetOutPath(path, newExt, extMode, overrideOutPath);
 
             bool inPathIsOutPath = outPath.ToLower() == path.ToLower();
             if (inPathIsOutPath)    // Force overwrite by deleting source file before writing new file - THIS IS IMPORTANT
-                File.Delete(path);                
+                File.Delete(path);
 
-            img.Write(outPath);
-            Logger.Log("[ImgProc] Written image to " + outPath);
+            if (magick)
+            {
+                img.Write(outPath);
+                Logger.Log("[ImgProc] Written image to " + outPath);
+            }
             if (deleteSource && !inPathIsOutPath)
             {
                 if(Logger.doLogIo) Logger.Log("[ImgProc] Deleting source file: " + path);
@@ -193,6 +194,23 @@ namespace Cupscale
             }
             img.Dispose();
             await Task.Delay(1);
+        }
+
+        static string GetOutPath (string path, string newExt, ExtMode extMode, string overrideOutPath)
+        {
+            if (!string.IsNullOrWhiteSpace(overrideOutPath))
+                return overrideOutPath;
+
+            if (extMode == ExtMode.UseNew)
+                return Path.ChangeExtension(path, newExt);
+
+            if (extMode == ExtMode.KeepOld)
+                return path;
+
+            if (extMode == ExtMode.AppendNew)
+                return path + "." + newExt;
+
+            return null;
         }
 
         static MagickImage CheckColorSpace (string path, MagickImage img)
@@ -213,10 +231,15 @@ namespace Cupscale
 
         public static async Task PostProcessImage(string path, Format format, bool dontResize)
         {
+            if (!dontResize)
+                ResizeImagePost(path);
+
             MagickImage img = ImgUtils.GetMagickImage(path);
-            string ext = "png";
+            string newExt = "png";
+            bool magick = true;
+
             if (format == Format.Source)
-                ext = Path.GetExtension(path).Replace(".", "");
+                newExt = Path.GetExtension(path).Replace(".", "");
             if (format == Format.Png50)
             {
                 img.Format = MagickFormat.Png;
@@ -229,9 +252,18 @@ namespace Cupscale
             }
             if (format == Format.Jpeg)
             {
-                img.Format = MagickFormat.Jpeg;
-                img.Quality = Config.GetInt("jpegQ");
-                ext = "jpg";
+                newExt = "jpg";
+                int q = Config.GetInt("jpegQ");
+                if (Config.GetBool("useMozJpeg"))
+                {
+                    MozJpeg.Encode(path, GetOutPath(path, newExt, ExtMode.UseNew, ""), q);
+                    magick = false;
+                }
+                else
+                {
+                    img.Format = MagickFormat.Jpeg;
+                    img.Quality = q;
+                }
             }
             if (format == Format.Weppy)
             {
@@ -239,24 +271,21 @@ namespace Cupscale
                 img.Quality = Config.GetInt("webpQ");
                 if(img.Quality >= 100)
                     img.Settings.SetDefine(MagickFormat.WebP, "lossless", true);
-                ext = "webp";
+                newExt = "webp";
             }
             if (format == Format.BMP)
             {
                 img.Format = MagickFormat.Bmp;
-                ext = "bmp";
+                newExt = "bmp";
             }
             if (format == Format.TGA)
             {
                 img.Format = MagickFormat.Tga;
-                ext = "tga";
+                newExt = "tga";
             }
 
-            if(!dontResize)
-                img = ResizeImagePost(img);
-
             await Task.Delay(1);
-            string outPath = Path.ChangeExtension(img.FileName, ext);
+            string outPath = GetOutPath(path, newExt, ExtMode.UseNew, "");
 
             if (Upscale.currentMode == Upscale.UpscaleMode.Batch)
                 PostProcessingQueue.lastOutfile = outPath;
@@ -264,8 +293,11 @@ namespace Cupscale
             if (Upscale.currentMode == Upscale.UpscaleMode.Single || Upscale.currentMode == Upscale.UpscaleMode.Composition)
                 MainUIHelper.lastOutfile = outPath;
 
-            Logger.Log("[ImgProc] Writing image as " + img.Format + " to " + outPath);
-            img.Write(outPath);
+            if (magick)
+            {
+                img.Write(outPath);
+                Logger.Log("[ImgProc] Written image to " + outPath);
+            }
 
             if (outPath.ToLower() != path.ToLower())
             {
@@ -280,7 +312,7 @@ namespace Cupscale
             MagickImage img = ImgUtils.GetMagickImage(path);
             string ext = "dds";
 
-            img = ResizeImagePost(img);
+            img = ResizeImagePostMagick(img);
 
             img.Format = MagickFormat.Png00;
             img.Write(path);
@@ -306,23 +338,34 @@ namespace Cupscale
         {
             if (!(preScaleMode == Upscale.ScaleMode.Percent && preScaleValue == 100))   // Skip if target scale is 100%
             {
-                img = ResizeImage(img, preScaleValue, preScaleMode, preFilter, preOnlyDownscale);
+                img = ResizeImageAdvancedMagick(img, preScaleValue, preScaleMode, preFilter, preOnlyDownscale);
                 Logger.Log("[ImgProc] ResizeImagePre: Resized to " + img.Width + "x" + img.Height);
             }
             return img;
         }
 
-        public static MagickImage ResizeImagePost(MagickImage img)
+        public static MagickImage ResizeImagePostMagick(MagickImage img)
         {
             if (!(postScaleMode == Upscale.ScaleMode.Percent && postScaleValue == 100))   // Skip if target scale is 100%
             {
-                img = ResizeImage(img, postScaleValue, postScaleMode, postFilter, postOnlyDownscale);
+                img = ResizeImageAdvancedMagick(img, postScaleValue, postScaleMode, postFilter, postOnlyDownscale);
                 Logger.Log("[ImgProc] ResizeImagePost: Resized to " + img.Width + "x" + img.Height);
             }
             return img;
         }
 
-        public static MagickImage ResizeImage(MagickImage img, int scaleValue, Upscale.ScaleMode scaleMode, Upscale.Filter filter, bool onlyDownscale)
+        public static void ResizeImagePost(string path)
+        {
+            if (!(postScaleMode == Upscale.ScaleMode.Percent && postScaleValue == 100))   // Skip if target scale is 100%
+            {
+                ImgSharpUtils.ResizeImageAdvanced(path, postScaleValue, postScaleMode, postFilter, postOnlyDownscale);
+                Logger.Log("[ImgProc] ResizeImagePost: Resized using ImageSharp");
+            }
+        }
+
+
+
+        public static MagickImage ResizeImageAdvancedMagick(MagickImage img, int scaleValue, Upscale.ScaleMode scaleMode, Upscale.Filter filter, bool onlyDownscale)
         {
             img.FilterType = FilterType.Mitchell;
             if (filter == Upscale.Filter.Bicubic)

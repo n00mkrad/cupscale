@@ -91,10 +91,12 @@ namespace Cupscale.OS
                 return;
             Program.mainForm.SetProgress(1f, "[ESRGAN] Resizing preview output...");
             await Task.Delay(1);
-            MagickImage img = ImgUtils.GetMagickImage(Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);
-            MagickImage magickImage = ImageProcessing.ResizeImagePost(img);
-            img = magickImage;
-            img.Write(img.FileName);
+            //MagickImage img = ImgUtils.GetMagickImage(Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);
+            //MagickImage magickImage = ImageProcessing.ResizeImagePost(img);
+            //img = magickImage;
+            //img.Write(img.FileName);
+            string img = Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0];
+            ImageProcessing.ResizeImagePost(img);
         }
 
         public static string GetModelArg(ModelData mdl, bool joey)
@@ -153,11 +155,8 @@ namespace Cupscale.OS
             string opt = "/C";
             if (stayOpen) opt = "/K";
 
-            string py = "python ";
-            if (EmbeddedPython.enabled) py = EmbeddedPython.GetPyPath().Wrap();
-
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
-            cmd += $"{py} esrlmain.py {inpath}{outpath}{deviceStr} --tilesize {tilesize}{alphaStr}{modelArg}";
+            cmd += $"{EmbeddedPython.GetPyCmd()} esrlmain.py {inpath}{outpath}{deviceStr} --tilesize {tilesize}{alphaStr}{modelArg}";
             Logger.Log("[CMD] " + cmd);
             Process esrganProcess = new Process();
             esrganProcess.StartInfo.UseShellExecute = showWindow;
@@ -214,11 +213,8 @@ namespace Cupscale.OS
             string opt = "/C";
             if (stayOpen) opt = "/K";
 
-            string py = "python";
-            if (EmbeddedPython.enabled) py = EmbeddedPython.GetPyPath().Wrap();
-
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
-            cmd += $"{py} upscale.py --input{inpath}--output{outpath}{deviceStr}{seamStr} --tile_size {tilesize}{alphaStr}{modelArg}";
+            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input{inpath}--output{outpath}{deviceStr}{seamStr} --tile_size {tilesize}{alphaStr}{modelArg}";
 
             Logger.Log("[CMD] " + cmd);
             Process esrganProcess = new Process();

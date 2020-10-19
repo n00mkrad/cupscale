@@ -52,12 +52,6 @@ namespace Cupscale.OS
             Program.mainForm.SetVramLabel($"{gpu.FullName}: {vramGb.ToString("0.00")} GB VRAM - {vramFreeGb.ToString("0.00")} GB Free", col);
         }
 
-        public static async void RefreshLoop ()
-        {
-
-            RefreshLoop();
-        }
-
         public static string GetGpuName ()
         {
             try

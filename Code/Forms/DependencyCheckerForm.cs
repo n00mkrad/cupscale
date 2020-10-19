@@ -16,6 +16,8 @@ namespace Cupscale.Forms
 {
     public partial class DependencyCheckerForm : Form
     {
+        Stopwatch sw = new Stopwatch();
+
         bool gpuAvail;
         bool nvGpuAvail;
         bool sysPyAvail;
@@ -37,6 +39,15 @@ namespace Cupscale.Forms
 
         public async Task Refresh ()
         {
+            if (sw.ElapsedMilliseconds < 1000 && sw.ElapsedMilliseconds != 0)
+            {
+                Logger.Log($"[DepCheck] Skipping refresh - Only {sw.ElapsedMilliseconds}ms have passed since last refresh!");
+                return;
+            }
+
+            sw.Restart();
+            Logger.Log("[DepCheck] Refreshing...");
+
             gpuAvail = false;
             nvGpuAvail = false;
             sysPyAvail = false;
@@ -59,6 +70,7 @@ namespace Cupscale.Forms
 
             SetChecking(nvGpu);
             string nvGpuName = NvApi.GetGpuName().Replace("GeForce ", "");
+            Logger.Log("[DepCheck] GPU Name: " + nvGpuName);
             if (!string.IsNullOrWhiteSpace(nvGpuName))
             {
                 SetGreen(nvGpu, nvGpuName);
@@ -185,20 +197,23 @@ namespace Cupscale.Forms
                         graphicsCard = property.Value.ToString();
                         if (string.IsNullOrWhiteSpace(graphicsCard) || graphicsCard.ToLower().Contains("microsoft"))
                             return false;
-                        Logger.Log("Found GPU: " + graphicsCard);
+                        Logger.Log("[DepCheck] Found GPU: " + graphicsCard);
                         return true;
                     }
                 }
             }
+            Logger.Log("[DepCheck] No GPU found!");
             return false;
         }
 
         string GetSysPyVersion ()
         {
             string pythonOut = GetSysPythonOutput();
+            Logger.Log("[DepCheck] System Python Check Output: " + pythonOut.Trim());
             try
             {
                 string ver = pythonOut.Split('(')[0].Trim();
+                Logger.Log("[DepCheck] Sys Python Ver: " + ver);
                 return ver;
             }
             catch
@@ -210,9 +225,11 @@ namespace Cupscale.Forms
         string GetEmbedPyVersion()
         {
             string pythonOut = GetEmbedPythonOutput();
+            Logger.Log("[DepCheck] Embed Python Check Output: " + pythonOut.Trim());
             try
             {
                 string ver = pythonOut.Split('(')[0].Trim();
+                Logger.Log("[DepCheck] Embed Python Ver: " + ver);
                 return ver;
             }
             catch
@@ -230,6 +247,7 @@ namespace Cupscale.Forms
             py.StartInfo.CreateNoWindow = true;
             py.StartInfo.FileName = "cmd.exe";
             py.StartInfo.Arguments = "/C python -V";
+            Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
             py.Start();
             py.WaitForExit();
             string output = py.StandardOutput.ReadToEnd();
@@ -245,12 +263,14 @@ namespace Cupscale.Forms
             py.StartInfo.RedirectStandardError = true;
             py.StartInfo.CreateNoWindow = true;
             py.StartInfo.FileName = "cmd.exe";
-            py.StartInfo.Arguments = "/C " + EmbeddedPython.GetPyPath() + " -V";
+            py.StartInfo.Arguments = "/C " + EmbeddedPython.GetPyCmd() + " -V";
+            Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
             py.Start();
             py.WaitForExit();
             string output = py.StandardOutput.ReadToEnd();
             string err = py.StandardError.ReadToEnd();
-            return output + "\n" + err;
+            if (!string.IsNullOrWhiteSpace(err)) output += "\n" + err;
+            return output;
         }
 
         string GetPytorchVer ()
@@ -263,15 +283,15 @@ namespace Cupscale.Forms
                 py.StartInfo.RedirectStandardError = true;
                 py.StartInfo.CreateNoWindow = true;
                 py.StartInfo.FileName = "cmd.exe";
-                if (embedPython.Enabled)
-                    py.StartInfo.Arguments = "/C " + EmbeddedPython.GetPyPath() + " -c \"import torch; print(torch.__version__)\"";
-                else
-                    py.StartInfo.Arguments = "/C python -c \"import torch; print(torch.__version__)\"";
+                py.StartInfo.Arguments = "/C " + EmbeddedPython.GetPyCmd() + " -c \"import torch; print(torch.__version__)\"";
+                Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
                 py.Start();
                 py.WaitForExit();
                 string output = py.StandardOutput.ReadToEnd();
                 string err = py.StandardError.ReadToEnd();
-                return output + "\n" + err;
+                if (!string.IsNullOrWhiteSpace(err)) output += "\n" + err;
+                Logger.Log("[DepCheck] Pytorch Check Output: " + output.Trim());
+                return output;
             }
             catch
             {
@@ -289,15 +309,15 @@ namespace Cupscale.Forms
                 py.StartInfo.RedirectStandardError = true;
                 py.StartInfo.CreateNoWindow = true;
                 py.StartInfo.FileName = "cmd.exe";
-                if (embedPython.Enabled)
-                    py.StartInfo.Arguments = "/C " + EmbeddedPython.GetPyPath() + " -c \"import cv2; print(cv2.__version__)\"";
-                else
-                    py.StartInfo.Arguments = "/C python -c \"import cv2; print(cv2.__version__)\"";
+                py.StartInfo.Arguments = "/C " + EmbeddedPython.GetPyCmd() + " -c \"import cv2; print(cv2.__version__)\"";
+                Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
                 py.Start();
                 py.WaitForExit();
                 string output = py.StandardOutput.ReadToEnd();
                 string err = py.StandardError.ReadToEnd();
-                return output + "\n" + err;
+                if(!string.IsNullOrWhiteSpace(err)) output += "\n" + err;
+                Logger.Log("[DepCheck] CV2 Check Output: " + output.Trim());
+                return output;
             }
             catch
             {

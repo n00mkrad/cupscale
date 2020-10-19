@@ -34,6 +34,8 @@
             this.settingsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.pythonRuntime = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.seamlessMode = new System.Windows.Forms.ComboBox();
             this.cudaFallback = new System.Windows.Forms.ComboBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
@@ -84,6 +86,12 @@
             this.label12 = new System.Windows.Forms.Label();
             this.resourceFilesPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.uninstallPyBtn = new HTAlt.WinForms.HTButton();
+            this.installPyBtn = new HTAlt.WinForms.HTButton();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.uninstallFullBtn = new HTAlt.WinForms.HTButton();
             this.label18 = new System.Windows.Forms.Label();
@@ -108,14 +116,8 @@
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.label24 = new System.Windows.Forms.Label();
-            this.pythonRuntime = new System.Windows.Forms.ComboBox();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.uninstallPyBtn = new HTAlt.WinForms.HTButton();
-            this.installPyBtn = new HTAlt.WinForms.HTButton();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.useMozJpeg = new System.Windows.Forms.CheckBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -134,12 +136,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             this.resourceFilesPage.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.panel2.SuspendLayout();
             this.debugPage.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.panel4.SuspendLayout();
             this.logPage.SuspendLayout();
-            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabList1
@@ -204,6 +206,31 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(455, 463);
             this.panel7.TabIndex = 4;
+            // 
+            // pythonRuntime
+            // 
+            this.pythonRuntime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.pythonRuntime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.pythonRuntime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.pythonRuntime.ForeColor = System.Drawing.Color.White;
+            this.pythonRuntime.FormattingEnabled = true;
+            this.pythonRuntime.Items.AddRange(new object[] {
+            "Use System Python",
+            "Use Embedded Python If Available"});
+            this.pythonRuntime.Location = new System.Drawing.Point(220, 107);
+            this.pythonRuntime.Margin = new System.Windows.Forms.Padding(8);
+            this.pythonRuntime.Name = "pythonRuntime";
+            this.pythonRuntime.Size = new System.Drawing.Size(225, 21);
+            this.pythonRuntime.TabIndex = 21;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(6, 110);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(82, 13);
+            this.label24.TabIndex = 20;
+            this.label24.Text = "Python Runtime";
             // 
             // seamlessMode
             // 
@@ -658,6 +685,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.useMozJpeg);
+            this.panel1.Controls.Add(this.label26);
             this.panel1.Controls.Add(this.pictureBox7);
             this.panel1.Controls.Add(this.dxtMode);
             this.panel1.Controls.Add(this.ddsEnableMips);
@@ -677,7 +706,7 @@
             // 
             this.pictureBox7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox7.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox7.Location = new System.Drawing.Point(118, 106);
+            this.pictureBox7.Location = new System.Drawing.Point(118, 136);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(22, 22);
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -701,7 +730,7 @@
             "BC3 (DXT5)",
             "BC4 ",
             "BC5"});
-            this.dxtMode.Location = new System.Drawing.Point(220, 137);
+            this.dxtMode.Location = new System.Drawing.Point(220, 167);
             this.dxtMode.Margin = new System.Windows.Forms.Padding(8);
             this.dxtMode.Name = "dxtMode";
             this.dxtMode.Size = new System.Drawing.Size(100, 21);
@@ -710,7 +739,7 @@
             // ddsEnableMips
             // 
             this.ddsEnableMips.AutoSize = true;
-            this.ddsEnableMips.Location = new System.Drawing.Point(220, 169);
+            this.ddsEnableMips.Location = new System.Drawing.Point(220, 199);
             this.ddsEnableMips.Name = "ddsEnableMips";
             this.ddsEnableMips.Size = new System.Drawing.Size(15, 14);
             this.ddsEnableMips.TabIndex = 17;
@@ -719,7 +748,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 170);
+            this.label13.Location = new System.Drawing.Point(6, 200);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(125, 13);
             this.label13.TabIndex = 15;
@@ -728,7 +757,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 140);
+            this.label3.Location = new System.Drawing.Point(6, 170);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(151, 13);
             this.label3.TabIndex = 14;
@@ -738,7 +767,7 @@
             // 
             this.webpQ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.webpQ.ForeColor = System.Drawing.Color.White;
-            this.webpQ.Location = new System.Drawing.Point(220, 107);
+            this.webpQ.Location = new System.Drawing.Point(220, 137);
             this.webpQ.Name = "webpQ";
             this.webpQ.Size = new System.Drawing.Size(50, 20);
             this.webpQ.TabIndex = 13;
@@ -755,7 +784,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 110);
+            this.label10.Location = new System.Drawing.Point(6, 140);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(106, 13);
             this.label10.TabIndex = 4;
@@ -802,6 +831,85 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(922, 469);
             this.tableLayoutPanel2.TabIndex = 4;
+            // 
+            // panel5
+            // 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.uninstallPyBtn);
+            this.panel5.Controls.Add(this.installPyBtn);
+            this.panel5.Controls.Add(this.label32);
+            this.panel5.Controls.Add(this.label33);
+            this.panel5.Controls.Add(this.label34);
+            this.panel5.Location = new System.Drawing.Point(464, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(455, 463);
+            this.panel5.TabIndex = 5;
+            // 
+            // uninstallPyBtn
+            // 
+            this.uninstallPyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uninstallPyBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.uninstallPyBtn.FlatAppearance.BorderSize = 0;
+            this.uninstallPyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.uninstallPyBtn.ForeColor = System.Drawing.Color.White;
+            this.uninstallPyBtn.Location = new System.Drawing.Point(245, 105);
+            this.uninstallPyBtn.Margin = new System.Windows.Forms.Padding(8);
+            this.uninstallPyBtn.Name = "uninstallPyBtn";
+            this.uninstallPyBtn.Size = new System.Drawing.Size(200, 22);
+            this.uninstallPyBtn.TabIndex = 15;
+            this.uninstallPyBtn.Text = "Uninstall";
+            this.uninstallPyBtn.UseVisualStyleBackColor = false;
+            this.uninstallPyBtn.VisibleChanged += new System.EventHandler(this.uninstallPyBtn_VisibleChanged);
+            this.uninstallPyBtn.Click += new System.EventHandler(this.uninstallPyBtn_Click);
+            // 
+            // installPyBtn
+            // 
+            this.installPyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.installPyBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.installPyBtn.FlatAppearance.BorderSize = 0;
+            this.installPyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.installPyBtn.ForeColor = System.Drawing.Color.White;
+            this.installPyBtn.Location = new System.Drawing.Point(245, 75);
+            this.installPyBtn.Margin = new System.Windows.Forms.Padding(8);
+            this.installPyBtn.Name = "installPyBtn";
+            this.installPyBtn.Size = new System.Drawing.Size(200, 22);
+            this.installPyBtn.TabIndex = 14;
+            this.installPyBtn.Text = "Open Dependency Checker";
+            this.installPyBtn.UseVisualStyleBackColor = false;
+            this.installPyBtn.Click += new System.EventHandler(this.installPyBtn_Click);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(6, 110);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(179, 13);
+            this.label32.TabIndex = 4;
+            this.label32.Text = "Uninstall Embedded Python Runtime";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(6, 80);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(166, 13);
+            this.label33.TabIndex = 2;
+            this.label33.Text = "Install Embedded Python Runtime";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(3, 4);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(204, 20);
+            this.label34.TabIndex = 1;
+            this.label34.Text = "Embedded Python Runtime";
             // 
             // panel2
             // 
@@ -1026,9 +1134,9 @@
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(6, 140);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(151, 13);
+            this.label28.Size = new System.Drawing.Size(108, 13);
             this.label28.TabIndex = 4;
-            this.label28.Text = "Show ESRGAN CMD Window";
+            this.label28.Text = "Show CMD Windows";
             // 
             // label29
             // 
@@ -1071,109 +1179,23 @@
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
             // 
-            // label24
+            // label26
             // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(6, 110);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(82, 13);
-            this.label24.TabIndex = 20;
-            this.label24.Text = "Python Runtime";
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(6, 110);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(148, 13);
+            this.label26.TabIndex = 20;
+            this.label26.Text = "JPEG: Use MozJpeg Encoder";
             // 
-            // pythonRuntime
+            // useMozJpeg
             // 
-            this.pythonRuntime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.pythonRuntime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.pythonRuntime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.pythonRuntime.ForeColor = System.Drawing.Color.White;
-            this.pythonRuntime.FormattingEnabled = true;
-            this.pythonRuntime.Items.AddRange(new object[] {
-            "Use System Python",
-            "Use Embedded Python If Available"});
-            this.pythonRuntime.Location = new System.Drawing.Point(220, 107);
-            this.pythonRuntime.Margin = new System.Windows.Forms.Padding(8);
-            this.pythonRuntime.Name = "pythonRuntime";
-            this.pythonRuntime.Size = new System.Drawing.Size(225, 21);
-            this.pythonRuntime.TabIndex = 21;
-            // 
-            // panel5
-            // 
-            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.uninstallPyBtn);
-            this.panel5.Controls.Add(this.installPyBtn);
-            this.panel5.Controls.Add(this.label32);
-            this.panel5.Controls.Add(this.label33);
-            this.panel5.Controls.Add(this.label34);
-            this.panel5.Location = new System.Drawing.Point(464, 3);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(455, 463);
-            this.panel5.TabIndex = 5;
-            // 
-            // uninstallPyBtn
-            // 
-            this.uninstallPyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.uninstallPyBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.uninstallPyBtn.FlatAppearance.BorderSize = 0;
-            this.uninstallPyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.uninstallPyBtn.ForeColor = System.Drawing.Color.White;
-            this.uninstallPyBtn.Location = new System.Drawing.Point(245, 105);
-            this.uninstallPyBtn.Margin = new System.Windows.Forms.Padding(8);
-            this.uninstallPyBtn.Name = "uninstallPyBtn";
-            this.uninstallPyBtn.Size = new System.Drawing.Size(200, 22);
-            this.uninstallPyBtn.TabIndex = 15;
-            this.uninstallPyBtn.Text = "Uninstall";
-            this.uninstallPyBtn.UseVisualStyleBackColor = false;
-            this.uninstallPyBtn.VisibleChanged += new System.EventHandler(this.uninstallPyBtn_VisibleChanged);
-            this.uninstallPyBtn.Click += new System.EventHandler(this.uninstallPyBtn_Click);
-            // 
-            // installPyBtn
-            // 
-            this.installPyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.installPyBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.installPyBtn.FlatAppearance.BorderSize = 0;
-            this.installPyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.installPyBtn.ForeColor = System.Drawing.Color.White;
-            this.installPyBtn.Location = new System.Drawing.Point(245, 75);
-            this.installPyBtn.Margin = new System.Windows.Forms.Padding(8);
-            this.installPyBtn.Name = "installPyBtn";
-            this.installPyBtn.Size = new System.Drawing.Size(200, 22);
-            this.installPyBtn.TabIndex = 14;
-            this.installPyBtn.Text = "Open Dependency Checker";
-            this.installPyBtn.UseVisualStyleBackColor = false;
-            this.installPyBtn.Click += new System.EventHandler(this.installPyBtn_Click);
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(6, 110);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(179, 13);
-            this.label32.TabIndex = 4;
-            this.label32.Text = "Uninstall Embedded Python Runtime";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(6, 80);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(166, 13);
-            this.label33.TabIndex = 2;
-            this.label33.Text = "Install Embedded Python Runtime";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(3, 4);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(204, 20);
-            this.label34.TabIndex = 1;
-            this.label34.Text = "Embedded Python Runtime";
+            this.useMozJpeg.AutoSize = true;
+            this.useMozJpeg.Location = new System.Drawing.Point(220, 110);
+            this.useMozJpeg.Name = "useMozJpeg";
+            this.useMozJpeg.Size = new System.Drawing.Size(15, 14);
+            this.useMozJpeg.TabIndex = 21;
+            this.useMozJpeg.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -1211,6 +1233,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             this.resourceFilesPage.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.debugPage.ResumeLayout(false);
@@ -1219,8 +1243,6 @@
             this.panel4.PerformLayout();
             this.logPage.ResumeLayout(false);
             this.logPage.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1313,5 +1335,7 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.CheckBox useMozJpeg;
+        private System.Windows.Forms.Label label26;
     }
 }

@@ -97,6 +97,7 @@ namespace Cupscale
 				"logStatus" => WriteDefault("logStatus", "False"),
 				"cmdDebugMode" => WriteDefault("cmdDebugMode", "0"),
 				"pythonRuntime" => WriteDefault("pythonRuntime", "0"),
+				"useMozJpeg" => WriteDefault("useMozJpeg", "True"),
 				_ => null, 
 			};
 		}

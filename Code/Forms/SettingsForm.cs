@@ -55,6 +55,7 @@ namespace Cupscale.Forms
             Config.LoadGuiElement(dxtMode);
             Config.LoadGuiElement(ddsEnableMips);
             Config.LoadGuiElement(flipTga);
+            Config.LoadGuiElement(useMozJpeg);
             // Debug
             Config.LoadGuiElement(logIo);
             Config.LoadGuiElement(logStatus);
@@ -66,7 +67,7 @@ namespace Cupscale.Forms
             await Task.Delay(100);
             SaveSettings();
             EmbeddedPython.Init();
-            if(Config.GetInt("pythonRuntime") == 1 && !File.Exists(EmbeddedPython.GetPyPath()))
+            if(Config.GetInt("pythonRuntime") == 1 && !File.Exists(EmbeddedPython.GetEmbedPyPath()))
             {
                 Program.ShowMessage("You enabled the embedded Python runtime but haven't downloaded and installed it.\n" +
                     "You can download it in the Dependency Checker window.");
@@ -94,6 +95,7 @@ namespace Cupscale.Forms
             Config.SaveGuiElement(dxtMode);
             Config.SaveGuiElement(ddsEnableMips);
             Config.SaveGuiElement(flipTga);
+            Config.SaveGuiElement(useMozJpeg);
             // Debug
             Config.SaveGuiElement(logIo);
             Config.SaveGuiElement(logStatus);
@@ -182,7 +184,7 @@ namespace Cupscale.Forms
         {
             try
             {
-                Directory.Delete(EmbeddedPython.GetPyPath().GetParentDir(), true);
+                Directory.Delete(EmbeddedPython.GetEmbedPyPath().GetParentDir(), true);
                 uninstallPyBtn.Enabled = false;
             }
             catch (Exception ex)
@@ -194,7 +196,7 @@ namespace Cupscale.Forms
         private void uninstallPyBtn_VisibleChanged(object sender, EventArgs e)
         {
             if (uninstallPyBtn.Visible)
-                uninstallPyBtn.Enabled = File.Exists(EmbeddedPython.GetPyPath());
+                uninstallPyBtn.Enabled = File.Exists(EmbeddedPython.GetEmbedPyPath());
         }
     }
 }
