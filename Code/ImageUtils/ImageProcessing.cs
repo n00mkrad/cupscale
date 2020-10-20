@@ -1,3 +1,4 @@
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -47,7 +48,10 @@ namespace Cupscale
                 format = Format.TGA;
 
             if (GetTrimmedExtension(file) == "dds")
-                format = Format.DDS;
+            {
+                await PostProcessDDS(path);
+                return;
+            }
 
             if (postprocess)
                 await PostProcessImage(file.FullName, format, batchProcessing);
@@ -162,6 +166,7 @@ namespace Cupscale
             }
             if (format == Format.DDS)
             {
+                // TODO: Replace with nvcompress?
                 img.Format = MagickFormat.Dds;
                 newExt = "dds";
                 DdsCompression comp = DdsCompression.None;
@@ -171,10 +176,12 @@ namespace Cupscale
                 img.Settings.SetDefines(ddsDefines);
             }
 
-            img = CheckColorSpace(path, img);
-
-            if (fillAlpha && magick)
-                img = ImgUtils.FillAlphaWithBgColor(img);
+            if (magick)
+            {
+                img = CheckColorSpace(path, img);
+                if (fillAlpha)
+                    img = ImgUtils.FillAlphaWithBgColor(img);
+            }
 
             string outPath = GetOutPath(path, newExt, extMode, overrideOutPath);
 
@@ -231,6 +238,8 @@ namespace Cupscale
 
         public static async Task PostProcessImage(string path, Format format, bool dontResize)
         {
+            Logger.Log($"[ImgProc] Post-Processing {Path.GetFileName(path)} to {format}, resize: {!dontResize}");
+
             if (!dontResize)
                 ResizeImagePost(path);
 
@@ -283,6 +292,12 @@ namespace Cupscale
                 img.Format = MagickFormat.Tga;
                 newExt = "tga";
             }
+            if (format == Format.DDS)
+            {
+                magick = false;
+                newExt = "tga";
+                await NvCompress.ConvertToDds(path, GetOutPath(path, newExt, ExtMode.UseNew, ""));
+            }
 
             await Task.Delay(1);
             string outPath = GetOutPath(path, newExt, ExtMode.UseNew, "");
@@ -319,7 +334,7 @@ namespace Cupscale
 
             string outPath = Path.ChangeExtension(img.FileName, ext);
 
-            await NvCompress.SaveDds(path, outPath);
+            await NvCompress.ConvertToDds(path, outPath);
 
             if (Upscale.currentMode == Upscale.UpscaleMode.Batch)
                 PostProcessingQueue.lastOutfile = outPath;

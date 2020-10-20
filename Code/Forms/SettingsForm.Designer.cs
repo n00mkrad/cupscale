@@ -74,6 +74,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.useMozJpeg = new System.Windows.Forms.CheckBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.dxtMode = new System.Windows.Forms.ComboBox();
             this.ddsEnableMips = new System.Windows.Forms.CheckBox();
@@ -116,8 +118,8 @@
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.label26 = new System.Windows.Forms.Label();
-            this.useMozJpeg = new System.Windows.Forms.CheckBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -142,6 +144,8 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.panel4.SuspendLayout();
             this.logPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             this.SuspendLayout();
             // 
             // tabList1
@@ -685,6 +689,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.pictureBox8);
             this.panel1.Controls.Add(this.useMozJpeg);
             this.panel1.Controls.Add(this.label26);
             this.panel1.Controls.Add(this.pictureBox7);
@@ -701,6 +706,24 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(455, 463);
             this.panel1.TabIndex = 4;
+            // 
+            // useMozJpeg
+            // 
+            this.useMozJpeg.AutoSize = true;
+            this.useMozJpeg.Location = new System.Drawing.Point(220, 110);
+            this.useMozJpeg.Name = "useMozJpeg";
+            this.useMozJpeg.Size = new System.Drawing.Size(15, 14);
+            this.useMozJpeg.TabIndex = 21;
+            this.useMozJpeg.UseVisualStyleBackColor = true;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(6, 110);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(148, 13);
+            this.label26.TabIndex = 20;
+            this.label26.Text = "JPEG: Use MozJpeg Encoder";
             // 
             // pictureBox7
             // 
@@ -759,9 +782,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 170);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(151, 13);
+            this.label3.Size = new System.Drawing.Size(126, 13);
             this.label3.TabIndex = 14;
-            this.label3.Text = "DDS: DXT Compression Mode";
+            this.label3.Text = "DDS: Compression Mode";
             // 
             // webpQ
             // 
@@ -1073,6 +1096,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.pictureBox9);
             this.panel4.Controls.Add(this.cmdDebugMode);
             this.panel4.Controls.Add(this.logStatus);
             this.panel4.Controls.Add(this.logIo);
@@ -1179,23 +1203,32 @@
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
             // 
-            // label26
+            // pictureBox8
             // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(6, 110);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(148, 13);
-            this.label26.TabIndex = 20;
-            this.label26.Text = "JPEG: Use MozJpeg Encoder";
+            this.pictureBox8.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox8.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox8.Location = new System.Drawing.Point(160, 106);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox8.TabIndex = 22;
+            this.pictureBox8.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox8, "Enable Mozilla\'s highly efficient JPEG encoder.\r\nIt will producer smaller JPEG fi" +
+        "les at the same quality.");
             // 
-            // useMozJpeg
+            // pictureBox9
             // 
-            this.useMozJpeg.AutoSize = true;
-            this.useMozJpeg.Location = new System.Drawing.Point(220, 110);
-            this.useMozJpeg.Name = "useMozJpeg";
-            this.useMozJpeg.Size = new System.Drawing.Size(15, 14);
-            this.useMozJpeg.TabIndex = 21;
-            this.useMozJpeg.UseVisualStyleBackColor = true;
+            this.pictureBox9.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox9.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox9.Location = new System.Drawing.Point(120, 136);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox9.TabIndex = 20;
+            this.pictureBox9.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox9, "Whenever Cupscale runs Windows binaries (e.g. the DDS compressor), the CMD window" +
+        " is hidden.\r\nYou can change this here if you want to debug the full output of th" +
+        "e executables.");
             // 
             // SettingsForm
             // 
@@ -1243,6 +1276,8 @@
             this.panel4.PerformLayout();
             this.logPage.ResumeLayout(false);
             this.logPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1337,5 +1372,7 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.CheckBox useMozJpeg;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.PictureBox pictureBox9;
     }
 }

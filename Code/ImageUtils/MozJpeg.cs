@@ -14,8 +14,8 @@ namespace Cupscale.ImageUtils
         {
             try
             {
-                using var bmp = new Bitmap(inPath);
-                using var tjc = new MozJpegSharp.TJCompressor();
+                Bitmap bmp = (Bitmap)ImgUtils.GetImage(inPath);
+                var tjc = new MozJpegSharp.TJCompressor();
                 byte[] compressed;
                 MozJpegSharp.TJSubsamplingOption subSample = MozJpegSharp.TJSubsamplingOption.Chrominance420;
                 if (!chromaSubSample)

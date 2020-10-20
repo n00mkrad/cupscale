@@ -180,15 +180,22 @@ namespace Cupscale.Forms
             uninstallPyBtn_VisibleChanged(null, null);
         }
 
-        private void uninstallPyBtn_Click(object sender, EventArgs e)
+        private async void uninstallPyBtn_Click(object sender, EventArgs e)
         {
             try
             {
+                DialogForm dialogForm = new DialogForm("Uninstall Python Runtime...");
+                await Task.Delay(50);
                 Directory.Delete(EmbeddedPython.GetEmbedPyPath().GetParentDir(), true);
+                dialogForm.Close();
                 uninstallPyBtn.Enabled = false;
+
+                Config.Set("pythonRuntime", "0");
+                Config.LoadComboxIndex(pythonRuntime);
             }
             catch (Exception ex)
             {
+                Program.CloseTempForms();
                 Logger.ErrorMessage("Can't uninstall embedded Python runtime: ", ex);
             }
         }
