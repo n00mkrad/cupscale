@@ -83,8 +83,8 @@ namespace Cupscale.ImageUtils
 
 			string data = output.Data;
 
-			if(data.Length >= 5)
-				Logger.Log("[NVCOMPRESS] " + data.Replace("\n", " ").Replace("\r", " "));
+			if(data.Length >= 4)
+				Logger.Log("[NvCompress] " + data.Replace("\n", " ").Replace("\r", " "));
 		}
 	}
 }

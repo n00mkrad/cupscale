@@ -263,7 +263,7 @@ namespace Cupscale.Forms
             py.StartInfo.RedirectStandardError = true;
             py.StartInfo.CreateNoWindow = true;
             py.StartInfo.FileName = "cmd.exe";
-            py.StartInfo.Arguments = "/C " + EmbeddedPython.GetPyCmd() + " -V";
+            py.StartInfo.Arguments = "/C " + EmbeddedPython.GetEmbedPyPath() + " -V";
             Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
             py.Start();
             py.WaitForExit();

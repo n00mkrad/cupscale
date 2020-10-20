@@ -184,7 +184,7 @@ namespace Cupscale.Forms
         {
             try
             {
-                DialogForm dialogForm = new DialogForm("Uninstall Python Runtime...");
+                DialogForm dialogForm = new DialogForm("Uninstalling Python Runtime...");
                 await Task.Delay(50);
                 Directory.Delete(EmbeddedPython.GetEmbedPyPath().GetParentDir(), true);
                 dialogForm.Close();
