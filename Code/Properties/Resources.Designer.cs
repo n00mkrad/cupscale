@@ -153,6 +153,26 @@ namespace Cupscale.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap interp {
+            get {
+                object obj = ResourceManager.GetObject("interp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap modelCompare {
+            get {
+                object obj = ResourceManager.GetObject("modelCompare", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap paypal256px {
             get {
                 object obj = ResourceManager.GetObject("paypal256px", resourceCulture);

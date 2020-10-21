@@ -34,7 +34,6 @@ namespace Cupscale.OS
                     Program.mainForm.SetProgress(1f, "Loading ESRGAN-NCNN...");
                     DialogForm dialogForm = new DialogForm("Loading ESRGAN-NCNN...\nThis should take 10-25 seconds.", 14);
                     Program.lastModelName = mdl.model1Name;
-                    //PostProcessingQueue.ncnn = true;
                     await RunNcnn(inpath, outpath, mdl.model1Path);
                 }
                 else
@@ -42,7 +41,6 @@ namespace Cupscale.OS
                     Program.mainForm.SetProgress(4f, "Starting ESRGAN...");
                     File.Delete(Paths.progressLogfile);
                     string modelArg = GetModelArg(mdl, useJoey);
-                    //PostProcessingQueue.ncnn = false;
                     if (useJoey)
                         await RunJoey(inpath, outpath, modelArg, tilesize, alpha, showTileProgress);
                     else
@@ -382,6 +380,35 @@ namespace Cupscale.OS
 
             if (data.Contains("vkAllocateMemory"))
                 Program.ShowMessage("ESRGAN-NCNN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
+        }
+
+        public static string Interpolate (ModelData mdl)
+        {
+            bool showWindow = Config.GetInt("cmdDebugMode") > 0;
+            bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
+
+            Process py = OSUtils.NewProcess(!showWindow);
+
+            string opt = "/C";
+            if (stayOpen) opt = "/K";
+
+            string alphaStr = (mdl.interp / 100f).ToString("0.00").Replace(",", ".");
+            string outPath = mdl.model1Path.GetParentDir();
+            string filename = $"{mdl.model1Name}-{mdl.model2Name}-interp{alphaStr}.pth";
+            outPath = Path.Combine(outPath, filename);
+
+            string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
+            cmd += $"{EmbeddedPython.GetPyCmd()} interp.py {mdl.model1Path.Wrap()} {mdl.model2Path.Wrap()} {alphaStr} {outPath.Wrap()}";
+            
+            py.StartInfo.Arguments = cmd;
+            Logger.Log("[ESRGAN Interp] CMD: " + py.StartInfo.Arguments);
+            py.Start();
+            py.WaitForExit();
+            string output = py.StandardOutput.ReadToEnd();
+            string err = py.StandardError.ReadToEnd();
+            if (!string.IsNullOrWhiteSpace(err)) output += "\n" + err;
+            Logger.Log("[ESRGAN Interp] Output: " + output);
+            return outPath;
         }
     }
 }

@@ -44,16 +44,9 @@ namespace Cupscale
 
 		public static void ShowMessage (string msg, string title = "Message")
         {
-			MessageBox.Show(msg, title, MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);
-			//new MsgBox(msg, title).ShowDialog();
-			//MsgBox msgBox = new MsgBox(msg, title);
-			//openMessageBoxes.Add(msgBox);
-			//mainForm.Enabled = false;
-			//msgBox.Show();
-			//if (openMessageBoxes.Count <= 0)
-			//	mainForm.Enabled = true;
-			//else
-			//	openMessageBoxes[0].BringToFront();
+			//MessageBox.Show(msg, title, MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);
+			DialogQueue.Init();
+			DialogQueue.ShowDialog(new MsgBox(msg.Replace("\n", Environment.NewLine), title));
 		}
 
 		public static void Cleanup ()

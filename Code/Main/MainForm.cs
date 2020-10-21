@@ -18,6 +18,7 @@ using Cupscale.ImageUtils;
 using System.Diagnostics;
 using Cupscale.OS;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using static Cupscale.UI.MainUIHelper;
 
 namespace Cupscale
 {
@@ -541,6 +542,27 @@ namespace Cupscale
         private void htButton1_Click(object sender, EventArgs e)
         {
 			new DependencyCheckerForm().ShowDialog();
+        }
+
+        private async void offlineInterpBtn_Click(object sender, EventArgs e)
+        {
+			if (MainUIHelper.currentMode == Mode.Interp)
+			{
+				string mdl1 = Program.currentModel1;
+				string mdl2 = Program.currentModel2;
+				if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2))
+					return;
+				ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
+				DialogForm loadingForm = new DialogForm("Interpolating...");
+				await Task.Delay(50);
+				string outPath = ESRGAN.Interpolate(mdl);
+				loadingForm.Close();
+				Program.ShowMessage("Saved interpolated model to:\n\n" + outPath);
+			}
+            else
+            {
+				Program.ShowMessage("Please select \"Interpolate Between Two Models\" and select two models.");
+            }
         }
     }
 }

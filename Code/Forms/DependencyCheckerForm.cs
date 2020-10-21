@@ -240,12 +240,7 @@ namespace Cupscale.Forms
 
         string GetSysPythonOutput ()
         {
-            Process py = new Process();
-            py.StartInfo.UseShellExecute = false;
-            py.StartInfo.RedirectStandardOutput = true;
-            py.StartInfo.RedirectStandardError = true;
-            py.StartInfo.CreateNoWindow = true;
-            py.StartInfo.FileName = "cmd.exe";
+            Process py = OSUtils.NewProcess(true);
             py.StartInfo.Arguments = "/C python -V";
             Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
             py.Start();
@@ -257,12 +252,7 @@ namespace Cupscale.Forms
 
         string GetEmbedPythonOutput ()
         {
-            Process py = new Process();
-            py.StartInfo.UseShellExecute = false;
-            py.StartInfo.RedirectStandardOutput = true;
-            py.StartInfo.RedirectStandardError = true;
-            py.StartInfo.CreateNoWindow = true;
-            py.StartInfo.FileName = "cmd.exe";
+            Process py = OSUtils.NewProcess(true);
             py.StartInfo.Arguments = "/C " + EmbeddedPython.GetEmbedPyPath() + " -V";
             Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
             py.Start();
@@ -277,12 +267,7 @@ namespace Cupscale.Forms
         {
             try
             {
-                Process py = new Process();
-                py.StartInfo.UseShellExecute = false;
-                py.StartInfo.RedirectStandardOutput = true;
-                py.StartInfo.RedirectStandardError = true;
-                py.StartInfo.CreateNoWindow = true;
-                py.StartInfo.FileName = "cmd.exe";
+                Process py = OSUtils.NewProcess(true);
                 py.StartInfo.Arguments = "/C " + EmbeddedPython.GetPyCmd() + " -c \"import torch; print(torch.__version__)\"";
                 Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
                 py.Start();
@@ -303,12 +288,7 @@ namespace Cupscale.Forms
         {
             try
             {
-                Process py = new Process();
-                py.StartInfo.UseShellExecute = false;
-                py.StartInfo.RedirectStandardOutput = true;
-                py.StartInfo.RedirectStandardError = true;
-                py.StartInfo.CreateNoWindow = true;
-                py.StartInfo.FileName = "cmd.exe";
+                Process py = OSUtils.NewProcess(true);
                 py.StartInfo.Arguments = "/C " + EmbeddedPython.GetPyCmd() + " -c \"import cv2; print(cv2.__version__)\"";
                 Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
                 py.Start();

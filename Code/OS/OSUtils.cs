@@ -2,6 +2,7 @@
 using System.Text;
 using System.Security.Principal;
 using System;
+using System.Diagnostics;
 
 namespace Cupscale.OS
 {
@@ -33,6 +34,23 @@ namespace Cupscale.OS
                     user.Dispose();
             }
             return isAdmin;
+        }
+
+        //public enum ProcessMode { Visible }
+        public static Process SetStartInfo (Process proc, bool hidden, string filename = "cmd.exe")
+        {
+            proc.StartInfo.UseShellExecute = !hidden;
+            proc.StartInfo.RedirectStandardOutput = hidden;
+            proc.StartInfo.RedirectStandardError = hidden;
+            proc.StartInfo.CreateNoWindow = hidden;
+            proc.StartInfo.FileName = filename;
+            return proc;
+        }
+
+        public static Process NewProcess(bool hidden, string filename = "cmd.exe")
+        {
+            Process proc = new Process();
+            return SetStartInfo(proc, hidden, filename);
         }
     }
 }

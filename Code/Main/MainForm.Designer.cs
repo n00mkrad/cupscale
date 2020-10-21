@@ -140,6 +140,7 @@ namespace Cupscale
             this.panel6 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.offlineInterpBtn = new HTAlt.WinForms.HTButton();
             this.htButton1 = new HTAlt.WinForms.HTButton();
             this.paypalBtn = new HTAlt.WinForms.HTButton();
             this.openModelFolderBtn = new HTAlt.WinForms.HTButton();
@@ -887,8 +888,8 @@ namespace Cupscale
             this.htTabControl.BorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.htTabControl.Controls.Add(this.previewTab);
             this.htTabControl.Controls.Add(this.batchTab);
-            this.htTabControl.DisableClose = false;
-            this.htTabControl.DisableDragging = false;
+            this.htTabControl.DisableClose = true;
+            this.htTabControl.DisableDragging = true;
             this.htTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.htTabControl.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.htTabControl.HoverTabButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(176)))), ((int)(((byte)(239)))));
@@ -1542,6 +1543,7 @@ namespace Cupscale
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.offlineInterpBtn);
             this.panel7.Controls.Add(this.htButton1);
             this.panel7.Controls.Add(this.paypalBtn);
             this.panel7.Controls.Add(this.openModelFolderBtn);
@@ -1553,6 +1555,27 @@ namespace Cupscale
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(300, 40);
             this.panel7.TabIndex = 8;
+            // 
+            // offlineInterpBtn
+            // 
+            this.offlineInterpBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.offlineInterpBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.offlineInterpBtn.ButtonImage = global::Cupscale.Properties.Resources.interp;
+            this.offlineInterpBtn.DrawImage = true;
+            this.offlineInterpBtn.FlatAppearance.BorderSize = 0;
+            this.offlineInterpBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.offlineInterpBtn.ForeColor = System.Drawing.Color.White;
+            this.offlineInterpBtn.ImageIndex = 0;
+            this.offlineInterpBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
+            this.offlineInterpBtn.Location = new System.Drawing.Point(140, 6);
+            this.offlineInterpBtn.Name = "offlineInterpBtn";
+            this.offlineInterpBtn.Size = new System.Drawing.Size(34, 34);
+            this.offlineInterpBtn.TabIndex = 14;
+            this.offlineInterpBtn.Text = " ";
+            this.toolTip1.SetToolTip(this.offlineInterpBtn, "Create Interpolated Model");
+            this.offlineInterpBtn.UseVisualStyleBackColor = false;
+            this.offlineInterpBtn.Click += new System.EventHandler(this.offlineInterpBtn_Click);
             // 
             // htButton1
             // 
@@ -1587,7 +1610,7 @@ namespace Cupscale
             this.paypalBtn.ForeColor = System.Drawing.Color.White;
             this.paypalBtn.ImageIndex = 0;
             this.paypalBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
-            this.paypalBtn.Location = new System.Drawing.Point(100, 6);
+            this.paypalBtn.Location = new System.Drawing.Point(60, 6);
             this.paypalBtn.Name = "paypalBtn";
             this.paypalBtn.Size = new System.Drawing.Size(34, 34);
             this.paypalBtn.TabIndex = 12;
@@ -1622,14 +1645,14 @@ namespace Cupscale
             this.comparisonToolBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comparisonToolBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.comparisonToolBtn.ButtonImage = global::Cupscale.Properties.Resources.baseline_photo_library_white_48dp;
+            this.comparisonToolBtn.ButtonImage = global::Cupscale.Properties.Resources.modelCompare;
             this.comparisonToolBtn.DrawImage = true;
             this.comparisonToolBtn.FlatAppearance.BorderSize = 0;
             this.comparisonToolBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comparisonToolBtn.ForeColor = System.Drawing.Color.White;
             this.comparisonToolBtn.ImageIndex = 0;
             this.comparisonToolBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
-            this.comparisonToolBtn.Location = new System.Drawing.Point(140, 6);
+            this.comparisonToolBtn.Location = new System.Drawing.Point(100, 6);
             this.comparisonToolBtn.Name = "comparisonToolBtn";
             this.comparisonToolBtn.Size = new System.Drawing.Size(34, 34);
             this.comparisonToolBtn.TabIndex = 10;
@@ -1678,7 +1701,7 @@ namespace Cupscale
             this.vramLabel.Name = "vramLabel";
             this.vramLabel.Size = new System.Drawing.Size(614, 40);
             this.vramLabel.TabIndex = 2;
-            this.vramLabel.Text = "No Nvidia GPU detected!";
+            this.vramLabel.Text = " ";
             this.vramLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MainForm
@@ -1816,5 +1839,6 @@ namespace Cupscale
         private TableLayoutPanel tableLayoutPanel10;
         private HTAlt.WinForms.HTButton paypalBtn;
         private HTAlt.WinForms.HTButton htButton1;
+        private HTAlt.WinForms.HTButton offlineInterpBtn;
     }
 }
