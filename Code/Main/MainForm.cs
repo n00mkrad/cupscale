@@ -454,8 +454,7 @@ namespace Cupscale
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            try { Program.Cleanup(); }
-			catch { }                       // This is fine if it fails due to locks, runs on startup anyway.
+            Program.Cleanup();
 		}
 
 		public void SetHasPreview (bool state)

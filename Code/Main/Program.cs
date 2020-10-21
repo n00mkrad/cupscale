@@ -54,16 +54,23 @@ namespace Cupscale
 
 		public static void Cleanup ()
         {
-			IOUtils.ClearDir(Paths.previewPath);
-			IOUtils.ClearDir(Paths.previewOutPath);
-			IOUtils.ClearDir(Paths.clipboardFolderPath);
-			IOUtils.ClearDir(Paths.imgInPath);
-			IOUtils.ClearDir(Paths.imgOutPath);
-			IOUtils.ClearDir(Paths.imgOutNcnnPath);
-			IOUtils.ClearDir(Paths.tempImgPath.GetParentDir());
-			IOUtils.ClearDir(Path.Combine(IOUtils.GetAppDataDir(), "giftemp"));
-			IOUtils.DeleteIfExists(Path.Combine(Paths.presetsPath, "lastUsed"));
-			IOUtils.ClearDir(Paths.compositionOut);
+            try
+            {
+				IOUtils.ClearDir(Paths.previewPath);
+				IOUtils.ClearDir(Paths.previewOutPath);
+				IOUtils.ClearDir(Paths.clipboardFolderPath);
+				IOUtils.ClearDir(Paths.imgInPath);
+				IOUtils.ClearDir(Paths.imgOutPath);
+				IOUtils.ClearDir(Paths.imgOutNcnnPath);
+				IOUtils.ClearDir(Paths.tempImgPath.GetParentDir());
+				IOUtils.ClearDir(Path.Combine(IOUtils.GetAppDataDir(), "giftemp"));
+				IOUtils.DeleteIfExists(Path.Combine(Paths.presetsPath, "lastUsed"));
+				IOUtils.ClearDir(Paths.compositionOut);
+			}
+			catch (Exception e)
+            {
+				Logger.Log("Error during cleanup: " + e.Message);
+            }
 		}
 
 		public static void CloseTempForms ()
