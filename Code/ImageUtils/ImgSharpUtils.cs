@@ -73,8 +73,6 @@ namespace Cupscale.ImageUtils
                 if (onlyDownscale && (img.Height <= scaleValue))
                     return;     // don't scale
                 Logger.Log("[ImgSharp] Scaling to " + scaleValue + "px height with filter " + filter + "...");
-                //MagickGeometry geom = new MagickGeometry("x" + scaleValue);
-                //img.Resize(geom);
                 float wFactor = (float)scaleValue / img.Height;
                 img.Mutate(x => x.Resize((img.Width * wFactor).RoundToInt(), scaleValue, resampler));
                 img.Save(outpath, enc);
@@ -90,10 +88,8 @@ namespace Cupscale.ImageUtils
                 if (onlyDownscale && (img.Width <= scaleValue))
                     return;     // don't scale
                 Logger.Log("[ImgSharp] Scaling to " + scaleValue + "px width with filter " + filter + "...");
-                //MagickGeometry geom = new MagickGeometry(scaleValue + "x");
-                //img.Resize(geom);
                 float hFactor = (float)scaleValue / img.Width;
-                img.Mutate(x => x.Resize(scaleValue, (img.Width * hFactor).RoundToInt(), resampler));
+                img.Mutate(x => x.Resize(scaleValue, (img.Height * hFactor).RoundToInt(), resampler));
                 img.Save(outpath, enc);
                 return;
             }

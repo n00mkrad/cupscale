@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace Cupscale
 {
-    class ClipboardPreview
+    class ClipboardComparison
     {
         public static Bitmap originalPreview;
         public static Bitmap resultPreview;
@@ -30,12 +30,13 @@ namespace Cupscale
             {
                 if (fullImage)
                 {
+                    // this code is not used atm and probably does not work!!
                     originalPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-input-scaled.png")));
                     resultPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview-merged.png")));
                 }
                 else
                 {
-                    originalPreview = new Bitmap(ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewPath, "*.png.*", SearchOption.AllDirectories)[0]));
+                    //originalPreview = new Bitmap(ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewPath, "*.png.*", SearchOption.AllDirectories)[0]));
                     resultPreview = new Bitmap(ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]));
                 }
             }
@@ -123,7 +124,7 @@ namespace Cupscale
                 }
                 else
                 {
-                    originalPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png.png")));
+                    //originalPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png.png")));
                     resultPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp")));
                 }
             }
@@ -251,11 +252,14 @@ namespace Cupscale
             IOUtils.ClearDir(tempPath);
             Directory.CreateDirectory(framesPath);
 
-            string img1 = Path.Combine(IO.Paths.previewPath, "preview.png.png");
-            string img2 = Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp");
+            //string img1 = Path.Combine(IO.Paths.previewPath, "preview.png.png");
+            //string img2 = Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp");
+            //
+            //Image image1 = ImgUtils.GetImage(img1);
+            //Image image2 = ImgUtils.GetImage(img2);
 
-            Image image1 = ImgUtils.GetImage(img1);
-            Image image2 = ImgUtils.GetImage(img2);
+            Image image1 = originalPreview;
+            Image image2 = resultPreview;
             float scale = (float)image2.Width / (float)image1.Width;
             Logger.Log("Scale for animation: " + scale);
 
@@ -263,8 +267,8 @@ namespace Cupscale
 
             if (image2.Width <= 2048 && image2.Height <= 2048)
             {
-                ImgUtils.GetImage(img1).Scale(scale, InterpolationMode.NearestNeighbor).Save(Path.Combine(framesPath, "0.png"));
-                File.Copy(img2, Path.Combine(framesPath, "1.png"), true);
+                image1.Scale(scale, InterpolationMode.NearestNeighbor).Save(Path.Combine(framesPath, "0.png"));
+                image2.Save(Path.Combine(framesPath, "1.png"));
                 if (h264)
                 {
                     await FFmpegCommands.FramesToOneFpsMp4(framesPath, false, 14, 9, "", false);

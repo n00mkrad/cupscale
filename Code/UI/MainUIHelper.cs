@@ -171,6 +171,7 @@ namespace Cupscale.UI
             {
                 SaveCurrentCutout();
             }
+            ClipboardComparison.originalPreview = (Bitmap)ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewPath, "*.png.*", SearchOption.AllDirectories)[0]);
             await ImageProcessing.PreProcessImages(Paths.previewPath, !bool.Parse(Config.Get("alpha")));
             string tilesize = Config.Get("tilesize");
             bool alpha = bool.Parse(Config.Get("alpha"));

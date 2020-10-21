@@ -394,11 +394,11 @@ namespace Cupscale
 
         private void copyCompToClipboardBtn_Click(object sender, EventArgs e)
         {
-			if (prevClipboardTypeCombox.SelectedIndex == 0) ClipboardPreview.CopyToClipboardSideBySide(false);
-			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardPreview.CopyToClipboardSlider(false);
-			if (prevClipboardTypeCombox.SelectedIndex == 2) ClipboardPreview.BeforeAfterAnim(false, false);
-			if (prevClipboardTypeCombox.SelectedIndex == 3) ClipboardPreview.BeforeAfterAnim(false, true);
-			if (prevClipboardTypeCombox.SelectedIndex == 4) ClipboardPreview.OnlyResult(false);
+			if (prevClipboardTypeCombox.SelectedIndex == 0) ClipboardComparison.CopyToClipboardSideBySide(false);
+			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardComparison.CopyToClipboardSlider(false);
+			if (prevClipboardTypeCombox.SelectedIndex == 2) ClipboardComparison.BeforeAfterAnim(false, false);
+			if (prevClipboardTypeCombox.SelectedIndex == 3) ClipboardComparison.BeforeAfterAnim(false, true);
+			if (prevClipboardTypeCombox.SelectedIndex == 4) ClipboardComparison.OnlyResult(false);
 		}
 
         private void model1TreeBtn_Click(object sender, EventArgs e)
@@ -413,11 +413,11 @@ namespace Cupscale
 
         private void savePreviewToFileBtn_Click(object sender, EventArgs e)
         {
-			if (prevClipboardTypeCombox.SelectedIndex == 0) ClipboardPreview.CopyToClipboardSideBySide(true);
-			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardPreview.CopyToClipboardSlider(true);
-			if (prevClipboardTypeCombox.SelectedIndex == 2) ClipboardPreview.BeforeAfterAnim(true, false);
-			if (prevClipboardTypeCombox.SelectedIndex == 3) ClipboardPreview.BeforeAfterAnim(true, true);
-			if (prevClipboardTypeCombox.SelectedIndex == 4) ClipboardPreview.OnlyResult(true);
+			if (prevClipboardTypeCombox.SelectedIndex == 0) ClipboardComparison.CopyToClipboardSideBySide(true);
+			if (prevClipboardTypeCombox.SelectedIndex == 1) ClipboardComparison.CopyToClipboardSlider(true);
+			if (prevClipboardTypeCombox.SelectedIndex == 2) ClipboardComparison.BeforeAfterAnim(true, false);
+			if (prevClipboardTypeCombox.SelectedIndex == 3) ClipboardComparison.BeforeAfterAnim(true, true);
+			if (prevClipboardTypeCombox.SelectedIndex == 4) ClipboardComparison.OnlyResult(true);
 		}
 
 		public void ResetToLastState ()
