@@ -69,8 +69,10 @@ namespace Cupscale.Forms
             EmbeddedPython.Init();
             if(Config.GetInt("pythonRuntime") == 1 && !File.Exists(EmbeddedPython.GetEmbedPyPath()))
             {
-                Program.ShowMessage("You enabled the embedded Python runtime but haven't downloaded and installed it.\n" +
+                MsgBox msg = Program.ShowMessage("You enabled the embedded Python runtime but haven't downloaded and installed it.\n" +
                     "You can download it in the Dependency Checker window.");
+                while (DialogQueue.IsOpen(msg)) await Task.Delay(50);
+                
                 new DependencyCheckerForm(true).ShowDialog();
             }
         }

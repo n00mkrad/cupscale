@@ -1,4 +1,5 @@
-﻿using Cupscale.IO;
+﻿using Cupscale.Forms;
+using Cupscale.IO;
 using Cupscale.UI;
 using System;
 using System.Collections.Generic;
@@ -102,13 +103,16 @@ namespace Cupscale.OS
             tasks.Add(ExtractAsync());
             await Task.WhenAll(tasks);
             Print("Done extracting files.");
-            Program.ShowMessage("The Python files will now be compressed to reduce the amount of storage space needed from 2.4 GB to 1.6 GB.\nThis can take a few minutes.", "Message");
+            MsgBox msg = Program.ShowMessage("The Python files will now be compressed to reduce the amount of storage space needed " +
+                "from 2.4 GB to 1.6 GB.\nThis can take a few minutes.", "Message");
+            while (DialogQueue.IsOpen(msg)) await Task.Delay(50);
             Print("Compressing files...");
             RunCompact();
             Print("Done!");
             Config.Set("pythonRuntime", "1");
             Init();
-            Program.ShowMessage("Installed embedded Python runtime and enabled it!\nIf you want to disable it, you can do so in the settings.", "Message");
+            MsgBox msg2 = Program.ShowMessage("Installed embedded Python runtime and enabled it!\nIf you want to disable it, you can do so in the settings.", "Message");
+            while (DialogQueue.IsOpen(msg2)) await Task.Delay(50);
             runBtn.Enabled = true;
         }
 
@@ -117,15 +121,10 @@ namespace Cupscale.OS
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
             string opt = "/C";
             if (stayOpen) opt = "/K";
-            Process compact = new Process();
-            //compact.StartInfo.UseShellExecute = false;
-            //compact.StartInfo.RedirectStandardOutput = true;
-            //compact.StartInfo.RedirectStandardError = true;
-            //compact.StartInfo.CreateNoWindow = true;
-            compact.StartInfo.FileName = "cmd.exe";
+            Process compact = OSUtils.NewProcess(false);
             compact.StartInfo.Arguments = $"{opt} compact /C /S:{extractPath.Wrap()}";
             compact.Start();
-            Thread.Sleep(100);  // <-- ugly hack
+            Thread.Sleep(100);  // <-- ugly hack https://stackoverflow.com/a/1016863/14274419
             SetWindowText(compact.MainWindowHandle, "Compressing Python installation... Do not close this window!");
             compact.WaitForExit();
         }

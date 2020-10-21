@@ -19,6 +19,7 @@ using System.Diagnostics;
 using Cupscale.OS;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using static Cupscale.UI.MainUIHelper;
+using System.Runtime.CompilerServices;
 
 namespace Cupscale
 {

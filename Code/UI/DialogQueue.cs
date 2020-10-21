@@ -27,10 +27,13 @@ namespace Cupscale.UI
                 if (queue.Count > 0)
                 {
                     MsgBox currentDialog = queue.Peek();
+                    //Logger.Log("Showing msg - " + )
+                    Program.mainForm.Activate();
                     currentDialog.ShowDialog();
+                    currentDialog.BringToFront();
                     await Task.Delay(100);
                 }
-                await Task.Delay(50);
+                await Task.Delay(1);
             }
         }
 
@@ -47,5 +50,9 @@ namespace Cupscale.UI
             queue.Enqueue(form);
         }
 
+        public static bool IsOpen (MsgBox form)
+        {
+            return queue.Contains(form);
+        }
     }
 }
