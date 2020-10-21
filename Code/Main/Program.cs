@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cupscale.Forms;
@@ -67,7 +68,7 @@ namespace Cupscale
 
 		public static void CloseTempForms ()
         {
-			foreach (Form form in currentTemporaryForms)
+			foreach (Form form in currentTemporaryForms.ToList())
 				form.Close();
         }
 

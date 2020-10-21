@@ -178,9 +178,6 @@ namespace Cupscale.Forms
                 filter = Upscale.Filter.NearestNeighbor;
             Logger.Log("Scaling image for composition...");
             await Task.Delay(1);
-            //MagickImage img = new MagickImage(path);
-            //img = ImageProcessing.ResizeImageAdvancedMagick(img, newWidth, Upscale.ScaleMode.PixelsWidth, filter, false);   // TODO: Replace with ImgSharp resize?
-            //img.Write(path);
             ImgSharpUtils.ResizeImageAdvanced(path, newWidth, Upscale.ScaleMode.PixelsWidth, filter, false);
             AddText(path, text);
         }
@@ -194,8 +191,6 @@ namespace Cupscale.Forms
             int heightWithFooter = baseImg.Height + footerHeight;
             Bitmap img = new Bitmap(baseImg.Width, heightWithFooter);
             Logger.Log($"img: {img.Width}x{img.Height}");
-            //Logger.Log("sourceImg.Width: " + sourceImg.Width);
-            //Logger.Log("Size for new bitmap: " + targetWidth + "x" + targetHeight);
             using (Graphics graphics = Graphics.FromImage(img))
             {
                 graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;

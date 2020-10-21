@@ -549,16 +549,24 @@ namespace Cupscale
         {
 			if (MainUIHelper.currentMode == Mode.Interp)
 			{
-				string mdl1 = Program.currentModel1;
-				string mdl2 = Program.currentModel2;
-				if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2))
-					return;
-				ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
-				DialogForm loadingForm = new DialogForm("Interpolating...");
-				await Task.Delay(50);
-				string outPath = ESRGAN.Interpolate(mdl);
-				loadingForm.Close();
-				Program.ShowMessage("Saved interpolated model to:\n\n" + outPath);
+                try
+                {
+					string mdl1 = Program.currentModel1;
+					string mdl2 = Program.currentModel2;
+					if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2))
+						return;
+					ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
+					DialogForm loadingForm = new DialogForm("Interpolating...");
+					await Task.Delay(50);
+					string outPath = ESRGAN.Interpolate(mdl);
+					loadingForm.Close();
+					Program.ShowMessage("Saved interpolated model to:\n\n" + outPath);
+				}
+				catch (Exception interpException)
+                {
+					Logger.ErrorMessage("Error trying to create an interpolated model:", interpException);
+					Program.CloseTempForms();
+                }
 			}
             else
             {

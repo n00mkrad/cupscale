@@ -408,6 +408,8 @@ namespace Cupscale.OS
             string err = py.StandardError.ReadToEnd();
             if (!string.IsNullOrWhiteSpace(err)) output += "\n" + err;
             Logger.Log("[ESRGAN Interp] Output: " + output);
+            if (output.ToLower().Contains("error"))
+                throw new Exception("Interpolation Error - Output:\n" + output);
             return outPath;
         }
     }
