@@ -98,6 +98,7 @@ namespace Cupscale
 				"cmdDebugMode" => WriteDefault("cmdDebugMode", "0"),
 				"pythonRuntime" => WriteDefault("pythonRuntime", "0"),
 				"useMozJpeg" => WriteDefault("useMozJpeg", "True"),
+				"comparisonUseScaling" => WriteDefault("comparisonUseScaling", "0"),
 				_ => null, 
 			};
 		}

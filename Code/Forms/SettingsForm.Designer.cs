@@ -74,6 +74,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.useMozJpeg = new System.Windows.Forms.CheckBox();
             this.label26 = new System.Windows.Forms.Label();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
@@ -107,6 +108,7 @@
             this.debugPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.cmdDebugMode = new System.Windows.Forms.ComboBox();
             this.logStatus = new System.Windows.Forms.CheckBox();
             this.logIo = new System.Windows.Forms.CheckBox();
@@ -118,8 +120,8 @@
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.comparisonUseScaling = new System.Windows.Forms.ComboBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -135,6 +137,7 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             this.resourceFilesPage.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -143,9 +146,8 @@
             this.debugPage.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.logPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            this.logPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabList1
@@ -418,6 +420,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.comparisonUseScaling);
+            this.panel6.Controls.Add(this.label31);
             this.panel6.Controls.Add(this.reloadImageBeforeUpscale);
             this.panel6.Controls.Add(this.label23);
             this.panel6.Controls.Add(this.pictureBox5);
@@ -706,6 +710,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(455, 463);
             this.panel1.TabIndex = 4;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox8.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox8.Location = new System.Drawing.Point(160, 106);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox8.TabIndex = 22;
+            this.pictureBox8.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox8, "Enable Mozilla\'s highly efficient JPEG encoder.\r\nIt will producer smaller JPEG fi" +
+        "les at the same quality.");
             // 
             // useMozJpeg
             // 
@@ -1109,6 +1126,20 @@
             this.panel4.Size = new System.Drawing.Size(455, 463);
             this.panel4.TabIndex = 4;
             // 
+            // pictureBox9
+            // 
+            this.pictureBox9.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox9.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox9.Location = new System.Drawing.Point(120, 136);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox9.TabIndex = 20;
+            this.pictureBox9.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox9, "Whenever Cupscale runs Windows binaries (e.g. the DDS compressor), the CMD window" +
+        " is hidden.\r\nYou can change this here if you want to debug the full output of th" +
+        "e executables.");
+            // 
             // cmdDebugMode
             // 
             this.cmdDebugMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1203,32 +1234,30 @@
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
             // 
-            // pictureBox8
+            // label31
             // 
-            this.pictureBox8.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox8.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox8.Location = new System.Drawing.Point(160, 106);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox8.TabIndex = 22;
-            this.pictureBox8.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox8, "Enable Mozilla\'s highly efficient JPEG encoder.\r\nIt will producer smaller JPEG fi" +
-        "les at the same quality.");
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(6, 230);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(130, 13);
+            this.label31.TabIndex = 22;
+            this.label31.Text = "Comparison Scaling Mode";
             // 
-            // pictureBox9
+            // comparisonUseScaling
             // 
-            this.pictureBox9.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox9.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox9.Location = new System.Drawing.Point(120, 136);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox9.TabIndex = 20;
-            this.pictureBox9.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox9, "Whenever Cupscale runs Windows binaries (e.g. the DDS compressor), the CMD window" +
-        " is hidden.\r\nYou can change this here if you want to debug the full output of th" +
-        "e executables.");
+            this.comparisonUseScaling.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.comparisonUseScaling.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comparisonUseScaling.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comparisonUseScaling.ForeColor = System.Drawing.Color.White;
+            this.comparisonUseScaling.FormattingEnabled = true;
+            this.comparisonUseScaling.Items.AddRange(new object[] {
+            "Compare With Unscaled Input Image",
+            "Compare With Scaled Input (If Resizing Is On)"});
+            this.comparisonUseScaling.Location = new System.Drawing.Point(220, 227);
+            this.comparisonUseScaling.Margin = new System.Windows.Forms.Padding(8);
+            this.comparisonUseScaling.Name = "comparisonUseScaling";
+            this.comparisonUseScaling.Size = new System.Drawing.Size(225, 21);
+            this.comparisonUseScaling.TabIndex = 22;
             // 
             // SettingsForm
             // 
@@ -1263,6 +1292,7 @@
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             this.resourceFilesPage.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -1274,10 +1304,9 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             this.logPage.ResumeLayout(false);
             this.logPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1374,5 +1403,7 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.ComboBox comparisonUseScaling;
+        private System.Windows.Forms.Label label31;
     }
 }

@@ -36,8 +36,9 @@ namespace Cupscale
                 }
                 else
                 {
-                    //originalPreview = new Bitmap(ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewPath, "*.png.*", SearchOption.AllDirectories)[0]));
-                    resultPreview = new Bitmap(ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]));
+                    if(Config.GetInt("comparisonUseScaling") == 1)
+                        originalPreview = (Bitmap)ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewPath, "*.png.*", SearchOption.AllDirectories)[0]);
+                    resultPreview = (Bitmap)ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);
                 }
             }
             catch
@@ -124,8 +125,9 @@ namespace Cupscale
                 }
                 else
                 {
-                    //originalPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png.png")));
-                    resultPreview = new Bitmap(ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp")));
+                    if (Config.GetInt("comparisonUseScaling") == 1)
+                        originalPreview = (Bitmap)ImgUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png.png"));
+                    resultPreview = (Bitmap)ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp"));
                 }
             }
             catch
@@ -252,14 +254,12 @@ namespace Cupscale
             IOUtils.ClearDir(tempPath);
             Directory.CreateDirectory(framesPath);
 
-            //string img1 = Path.Combine(IO.Paths.previewPath, "preview.png.png");
-            //string img2 = Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp");
-            //
-            //Image image1 = ImgUtils.GetImage(img1);
-            //Image image2 = ImgUtils.GetImage(img2);
-
             Image image1 = originalPreview;
             Image image2 = resultPreview;
+
+            if (Config.GetInt("comparisonUseScaling") == 1)
+                image1 = (Bitmap)ImgUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png.png"));
+
             float scale = (float)image2.Width / (float)image1.Width;
             Logger.Log("Scale for animation: " + scale);
 

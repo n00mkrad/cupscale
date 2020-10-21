@@ -7,11 +7,15 @@
     <TargetFramework>net472</TargetFramework>
     <Prefer32Bit>True</Prefer32Bit>
     <Platforms>AnyCPU;x64</Platforms>
+    <Configurations>Debug;Release;NoNCNN</Configurations>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>Preview</LangVersion>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <ApplicationIcon>CupscaleLogo1.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='NoNCNN|x64'">
+    <Optimize></Optimize>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Costura32\DdsFileTypePlusIO_x86.dll" />
@@ -96,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="C:\Users\NMKD\.nuget\packages\sevenzipextractor\1.0.15\build\x86\7z.dll" Link="Costura32\7z.dll" />
+    <None Update="Resources\esrgan-ncnn.7z">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <NativeLibs Remove="Resources\7za.exe" />

@@ -49,6 +49,7 @@ namespace Cupscale.Forms
             Config.LoadComboxIndex(previewFormat);
             Config.LoadGuiElement(reloadImageBeforeUpscale);
             Config.LoadComboxIndex(pythonRuntime);
+            Config.LoadComboxIndex(comparisonUseScaling);
             // Formats
             Config.LoadGuiElement(jpegQ);
             Config.LoadGuiElement(webpQ);
@@ -91,6 +92,7 @@ namespace Cupscale.Forms
             Config.SaveComboxIndex(previewFormat);
             Config.SaveGuiElement(reloadImageBeforeUpscale);
             Config.SaveComboxIndex(pythonRuntime);
+            Config.SaveComboxIndex(comparisonUseScaling);
             // Formats
             Config.SaveGuiElement(jpegQ, true);
             Config.SaveGuiElement(webpQ, true);
