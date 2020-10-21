@@ -467,6 +467,8 @@ namespace Cupscale
 
         private async void saveMergedPreviewBtn_Click(object sender, EventArgs e)
         {
+			DialogForm loadingForm = new DialogForm("Post-Processing And Saving...");
+			await Task.Delay(50);
 			Upscale.currentMode = Upscale.UpscaleMode.Single;
 			string ext = Path.GetExtension(Program.lastFilename);
 			string outPath = Path.ChangeExtension(Program.lastFilename, null) + "[temp]" + ext + ".tmp";
@@ -474,6 +476,7 @@ namespace Cupscale
 			await Upscale.PostprocessingSingle(outPath, true);
 			string outFilename = Upscale.FilenamePostprocess(MainUIHelper.lastOutfile);
 			string finalPath = IOUtils.ReplaceInFilename(outFilename, "[temp]", "");
+			loadingForm.Close();
 			Program.ShowMessage("Saved to " + finalPath + ".", "Message");
 		}
 
