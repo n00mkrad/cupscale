@@ -392,5 +392,17 @@ namespace Cupscale
 
             return size;
         }
+
+        public static void RemoveReadonlyFlag (string path)
+        {
+            try
+            {
+                File.SetAttributes(path, File.GetAttributes(path) & ~FileAttributes.ReadOnly);
+            }
+            catch (Exception e)
+            {
+                Logger.Log($"[IOUtils] Failed removing ReadOnly flag on {path}:\n{e.Message}");
+            }
+        }
     }
 }

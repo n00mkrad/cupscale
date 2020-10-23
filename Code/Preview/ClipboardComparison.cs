@@ -254,6 +254,8 @@ namespace Cupscale
             IOUtils.ClearDir(tempPath);
             Directory.CreateDirectory(framesPath);
 
+            resultPreview = (Bitmap)ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);
+
             Image image1 = originalPreview;
             Image image2 = resultPreview;
 

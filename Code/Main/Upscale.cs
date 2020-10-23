@@ -87,7 +87,7 @@ namespace Cupscale.Main
             return mdl;
         }
 
-        public static async Task PostprocessingSingle (string path, bool dontResize = false)
+        public static async Task PostprocessingSingle (string path, bool dontResize = false, int retryCount = 10)
         {
             string newPath = "";
             if (Path.GetExtension(path) != ".tmp")
@@ -99,9 +99,21 @@ namespace Cupscale.Main
             {
                 File.Move(path, newPath);
             }
-            catch (Exception e)
+            catch (Exception e)     // An I/O error can appear if the file is still locked by python (?)
             {
                 Logger.Log("Failed to move/rename! " + e.Message + "\n" + e.StackTrace);
+                if(retryCount > 0)
+                {
+                    await Task.Delay(200);      // Wait 200ms and retry up to 10 times
+                    int newRetryCount = retryCount - 1;
+                    Logger.Log("Retrying - " + newRetryCount + " attempts left.");
+                    PostprocessingSingle(path, dontResize, newRetryCount);
+                }
+                else
+                {
+                    Logger.ErrorMessage($"Failed to rename {Path.GetFileName(path)} and ran out of retries!", e);
+                }
+                return;
             }
 
             path = newPath;

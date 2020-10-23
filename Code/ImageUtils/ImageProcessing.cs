@@ -166,14 +166,9 @@ namespace Cupscale
             }
             if (format == Format.DDS)
             {
-                // TODO: Replace with nvcompress?
-                img.Format = MagickFormat.Dds;
-                newExt = "dds";
-                DdsCompression comp = DdsCompression.None;
-                if (Config.GetBool("ddsUseDxt"))
-                    comp = DdsCompression.Dxt1;
-                DdsWriteDefines ddsDefines = new DdsWriteDefines { Compression = comp, Mipmaps = Config.GetInt("ddsMipsAmount") };
-                img.Settings.SetDefines(ddsDefines);
+                magick = false;
+                newExt = "tga";
+                await NvCompress.ConvertToDds(path, GetOutPath(path, newExt, ExtMode.UseNew, ""));
             }
 
             if (magick)
@@ -184,6 +179,12 @@ namespace Cupscale
             }
 
             string outPath = GetOutPath(path, newExt, extMode, overrideOutPath);
+
+            if (File.Exists(outPath))
+            {
+                if (Logger.doLogIo) Logger.Log("[ImgProc] File exists at - making sure it doesn't have readonly flag");
+                IOUtils.RemoveReadonlyFlag(outPath);
+            }
 
             bool inPathIsOutPath = outPath.ToLower() == path.ToLower();
             if (inPathIsOutPath)    // Force overwrite by deleting source file before writing new file - THIS IS IMPORTANT
@@ -200,6 +201,7 @@ namespace Cupscale
                 File.Delete(path);
             }
             img.Dispose();
+            IOUtils.RemoveReadonlyFlag(outPath);
             await Task.Delay(1);
         }
 
