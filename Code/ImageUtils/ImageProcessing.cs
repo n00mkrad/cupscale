@@ -85,7 +85,7 @@ namespace Cupscale
 
             Logger.Log("[ImgProc] Preprocessing " + path + " - Fill Alpha: " + fillAlpha);
 
-            img = CheckColorSpace(path, img);
+            img = CheckColorDepth(path, img);
 
             if (fillAlpha)
                 img = ImgUtils.FillAlphaWithBgColor(img);
@@ -173,7 +173,7 @@ namespace Cupscale
 
             if (magick)
             {
-                img = CheckColorSpace(path, img);
+                img = CheckColorDepth(path, img);
                 if (fillAlpha)
                     img = ImgUtils.FillAlphaWithBgColor(img);
             }
@@ -222,7 +222,7 @@ namespace Cupscale
             return null;
         }
 
-        static MagickImage CheckColorSpace (string path, MagickImage img)
+        static MagickImage CheckColorDepth (string path, MagickImage img)
         {
             int depth = ImgUtils.GetColorDepth(path);
             Logger.Log($"[ImgProc] Color depth of {Path.GetFileName(path)} is {depth}.");

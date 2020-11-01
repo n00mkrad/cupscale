@@ -20,6 +20,7 @@ using Cupscale.OS;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using static Cupscale.UI.MainUIHelper;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 namespace Cupscale
 {
@@ -574,6 +575,20 @@ namespace Cupscale
             {
 				Program.ShowMessage("Please select \"Interpolate Between Two Models\" and select two models.");
             }
+        }
+
+        private void previewImg_Click(object sender, EventArgs e)
+        {
+			MouseEventArgs me = (MouseEventArgs)e;
+			if (me.Button == MouseButtons.Right)
+            {
+				CommonOpenFileDialog fileDialog = new CommonOpenFileDialog();
+				fileDialog.InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+				fileDialog.IsFolderPicker = false;
+				fileDialog.Multiselect = true;
+				if (fileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+					DragNDrop(fileDialog.FileNames.ToArray());
+			}
         }
     }
 }
