@@ -17,6 +17,7 @@ namespace Cupscale
     internal class IOUtils
     {
         public static string[] compatibleExtensions = new string[] { ".png", ".jpg", ".jpeg", ".bmp", ".tga", ".webp", ".dds" };
+        static bool hasShownPortableInfo = false;
 
         public static string GetAppDataDir()
         {
@@ -24,7 +25,11 @@ namespace Cupscale
             path = Path.Combine(path, "Cupscale");
             if (IsPortable())
             {
-                Logger.Log("Running in portable mode. Data folder: " + Path.Combine(GetExeDir(), "CupscaleData"), false);
+                if (!hasShownPortableInfo)
+                {
+                    Logger.Log("Running in portable mode. Data folder: " + Path.Combine(GetExeDir(), "CupscaleData"), false);
+                    hasShownPortableInfo = true;
+                }
                 path = Path.Combine(GetExeDir(), "CupscaleData");
             }
             Directory.CreateDirectory(path);
