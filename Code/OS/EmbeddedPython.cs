@@ -68,10 +68,11 @@ namespace Cupscale.OS
 
             await Task.Delay(10);
 
-            int diskSpaceMb = GetDiskSpace();
+            Print("Checking disk space before installation...");
+            int diskSpaceMb = GetDiskSpace(IOUtils.GetAppDataDir());
             if (diskSpaceMb < 5000)
             {
-                Print("Not enough disk space on C:/!");
+                Print("Not enough disk space on the current drive!");
                 runBtn.Enabled = true;
                 return;
             }
@@ -178,16 +179,26 @@ namespace Cupscale.OS
             });
         }
 
-        static int GetDiskSpace()
+        static int GetDiskSpace(string path, bool print = true)
         {
-            DriveInfo[] allDrives = DriveInfo.GetDrives();
-            foreach (DriveInfo d in allDrives)
+            try
             {
-                if (d.IsReady == true && d.Name == "C:\\")
+                string driveLetter = path.Substring(0, 2);      // Make 'C:/some/random/path' => 'C:' etc
+                DriveInfo[] allDrives = DriveInfo.GetDrives();
+                foreach (DriveInfo d in allDrives)
                 {
-                    float freeMegabytes = d.AvailableFreeSpace / 1024f / 1000f;
-                    return (int)freeMegabytes;
+                    if (d.IsReady == true && d.Name.StartsWith(driveLetter))
+                    {
+                        float freeMegabytes = d.AvailableFreeSpace / 1024f / 1000f;
+                        if (print)
+                            Print($"Disk space on drive \"{d.Name}\": {(int)freeMegabytes} MB");
+                        return (int)freeMegabytes;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Logger.ErrorMessage("Error trying to get disk space.", e);
             }
             return 0;
         }
@@ -201,7 +212,10 @@ namespace Cupscale.OS
             {
                 logBox.Text = logBox.Text.Remove(logBox.Text.LastIndexOf(Environment.NewLine));
             }
-            logBox.Text += Environment.NewLine + s;
+            if(string.IsNullOrWhiteSpace(logBox.Text))
+                logBox.Text += s;
+            else
+                logBox.Text += Environment.NewLine + s;
             logBox.SelectionStart = logBox.Text.Length;
             logBox.ScrollToCaret();
         }
