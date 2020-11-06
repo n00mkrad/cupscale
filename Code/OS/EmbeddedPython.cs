@@ -23,7 +23,7 @@ namespace Cupscale.OS
         public static string GetPyCmd()
         {
             if (IsEnabled())
-                return GetEmbedPyPath();
+                return GetEmbedPyPath().Wrap();
             else
                 return "python";
         }

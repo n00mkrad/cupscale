@@ -1,4 +1,5 @@
 ﻿using Cupscale.OS;
+using Cupscale.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -253,7 +254,7 @@ namespace Cupscale.Forms
         string GetEmbedPythonOutput ()
         {
             Process py = OSUtils.NewProcess(true);
-            py.StartInfo.Arguments = "/C " + EmbeddedPython.GetEmbedPyPath() + " -V";
+            py.StartInfo.Arguments = "\"/C\" " + EmbeddedPython.GetEmbedPyPath().Wrap() + " -V";
             Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
             py.Start();
             py.WaitForExit();
@@ -268,7 +269,7 @@ namespace Cupscale.Forms
             try
             {
                 Process py = OSUtils.NewProcess(true);
-                py.StartInfo.Arguments = "/C " + EmbeddedPython.GetPyCmd() + " -c \"import torch; print(torch.__version__)\"";
+                py.StartInfo.Arguments = "\"/C\" " + EmbeddedPython.GetPyCmd() + " -c \"import torch; print(torch.__version__)\"";
                 Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
                 py.Start();
                 py.WaitForExit();
@@ -289,7 +290,7 @@ namespace Cupscale.Forms
             try
             {
                 Process py = OSUtils.NewProcess(true);
-                py.StartInfo.Arguments = "/C " + EmbeddedPython.GetPyCmd() + " -c \"import cv2; print(cv2.__version__)\"";
+                py.StartInfo.Arguments = "\"/C\" " + EmbeddedPython.GetPyCmd() + " -c \"import cv2; print(cv2.__version__)\"";
                 Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
                 py.Start();
                 py.WaitForExit();

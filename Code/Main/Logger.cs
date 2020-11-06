@@ -22,6 +22,13 @@ namespace Cupscale
         {
 			doLogIo = Config.GetBool("logIo");
 			doLogStatus = Config.GetBool("logStatus");
+			PrintArgs();
+		}
+
+		public static void PrintArgs ()
+        {
+			foreach (string arg in Environment.GetCommandLineArgs())
+				Log("Arg: " + arg);
 		}
 
 		public static void Log(string s, bool logToFile = true, bool noLineBreak = false, bool replaceLastLine = false)

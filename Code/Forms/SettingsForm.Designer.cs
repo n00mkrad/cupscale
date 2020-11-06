@@ -51,6 +51,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.comparisonUseScaling = new System.Windows.Forms.ComboBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.reloadImageBeforeUpscale = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
@@ -120,8 +122,6 @@
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.label31 = new System.Windows.Forms.Label();
-            this.comparisonUseScaling = new System.Windows.Forms.ComboBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -442,6 +442,31 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(455, 463);
             this.panel6.TabIndex = 3;
+            // 
+            // comparisonUseScaling
+            // 
+            this.comparisonUseScaling.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.comparisonUseScaling.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comparisonUseScaling.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comparisonUseScaling.ForeColor = System.Drawing.Color.White;
+            this.comparisonUseScaling.FormattingEnabled = true;
+            this.comparisonUseScaling.Items.AddRange(new object[] {
+            "Compare With Unscaled Input Image",
+            "Compare With Scaled Input (If Resizing Is On)"});
+            this.comparisonUseScaling.Location = new System.Drawing.Point(220, 227);
+            this.comparisonUseScaling.Margin = new System.Windows.Forms.Padding(8);
+            this.comparisonUseScaling.Name = "comparisonUseScaling";
+            this.comparisonUseScaling.Size = new System.Drawing.Size(225, 21);
+            this.comparisonUseScaling.TabIndex = 22;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(6, 230);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(130, 13);
+            this.label31.TabIndex = 22;
+            this.label31.Text = "Comparison Scaling Mode";
             // 
             // reloadImageBeforeUpscale
             // 
@@ -764,7 +789,7 @@
             this.dxtMode.ForeColor = System.Drawing.Color.White;
             this.dxtMode.FormattingEnabled = true;
             this.dxtMode.Items.AddRange(new object[] {
-            "Off",
+            "ARGB (None)",
             "BC1 (DXT1)",
             "BC2 (DXT3)",
             "BC3 (DXT5)",
@@ -1233,31 +1258,6 @@
             this.logTbox.Size = new System.Drawing.Size(922, 469);
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(6, 230);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(130, 13);
-            this.label31.TabIndex = 22;
-            this.label31.Text = "Comparison Scaling Mode";
-            // 
-            // comparisonUseScaling
-            // 
-            this.comparisonUseScaling.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.comparisonUseScaling.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comparisonUseScaling.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comparisonUseScaling.ForeColor = System.Drawing.Color.White;
-            this.comparisonUseScaling.FormattingEnabled = true;
-            this.comparisonUseScaling.Items.AddRange(new object[] {
-            "Compare With Unscaled Input Image",
-            "Compare With Scaled Input (If Resizing Is On)"});
-            this.comparisonUseScaling.Location = new System.Drawing.Point(220, 227);
-            this.comparisonUseScaling.Margin = new System.Windows.Forms.Padding(8);
-            this.comparisonUseScaling.Name = "comparisonUseScaling";
-            this.comparisonUseScaling.Size = new System.Drawing.Size(225, 21);
-            this.comparisonUseScaling.TabIndex = 22;
             // 
             // SettingsForm
             // 

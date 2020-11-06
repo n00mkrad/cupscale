@@ -16,7 +16,7 @@ namespace Cupscale.ImageUtils
 
         public static async Task ConvertToDds (string inputFile, string outputPath)
         {
-			string dxtString = Config.Get("dxtMode").ToLower().Replace("off", "rgb");
+			string dxtString = Config.Get("dxtMode").ToLower().Replace("argb", "rgb");
 			if (dxtString.Contains(" "))
 				dxtString = dxtString.Split(' ')[0];
 			await Run(inputFile, outputPath, dxtString, Config.GetBool("alpha"), Config.GetBool("ddsEnableMips"));

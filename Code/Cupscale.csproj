@@ -6,7 +6,7 @@
     <UseWindowsForms>True</UseWindowsForms>
     <TargetFramework>net472</TargetFramework>
     <Prefer32Bit>True</Prefer32Bit>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>AnyCPU;x64;x86</Platforms>
     <Configurations>Debug;Release;NoNCNN</Configurations>
   </PropertyGroup>
   <PropertyGroup>

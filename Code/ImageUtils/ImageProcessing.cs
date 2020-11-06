@@ -53,6 +53,10 @@ namespace Cupscale
                 return;
             }
 
+            string ext = Path.GetExtension(path).ToUpper().Replace(".", "");
+            if (format == Format.Png50 && ext != "PNG")
+                Program.ShowMessage("Cupscale does not support the image format " + ext + ", so PNG is used.");
+
             if (postprocess)
                 await PostProcessImage(file.FullName, format, batchProcessing);
             else

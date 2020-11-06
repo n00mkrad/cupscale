@@ -20,10 +20,25 @@ namespace Cupscale
 
         public static string GetAppDataDir()
         {
-            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string text = Path.Combine(folderPath, "Cupscale");
-            Directory.CreateDirectory(text);
-            return text;
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            path = Path.Combine(path, "Cupscale");
+            if (IsPortable())
+            {
+                Logger.Log("Running in portable mode. Data folder: " + Path.Combine(GetExeDir(), "CupscaleData"), false);
+                path = Path.Combine(GetExeDir(), "CupscaleData");
+            }
+            Directory.CreateDirectory(path);
+            return path;
+        }
+
+        public static bool IsPortable ()
+        {
+            foreach (string arg in Environment.GetCommandLineArgs())
+            {
+                if (arg == "-portable")
+                    return true;
+            }
+            return false;
         }
 
         public static string GetExeDir()
