@@ -1539,7 +1539,7 @@ namespace Cupscale
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(344, 34);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Cupscale [Build 26 - 10/21/20]";
+            this.label5.Text = "Cupscale [Build 27 - 11/06/20]";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel7

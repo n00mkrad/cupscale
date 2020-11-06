@@ -191,7 +191,7 @@ namespace Cupscale.OS
                     {
                         float freeMegabytes = d.AvailableFreeSpace / 1024f / 1000f;
                         if (print)
-                            Print($"Disk space on drive \"{d.Name}\": {(int)freeMegabytes} MB");
+                            Print($"Available disk space on drive {d.Name} is {(int)freeMegabytes} MB.");
                         return (int)freeMegabytes;
                     }
                 }

@@ -1,3 +1,4 @@
+11	# added joey's esrgan to fix seams with esrl code
 10	# added interp py script
 9	# fixed esrl output path
 8	# updated scripts to not log filename for error handling
