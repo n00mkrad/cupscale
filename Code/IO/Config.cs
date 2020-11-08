@@ -100,6 +100,7 @@ namespace Cupscale
 				"pythonRuntime" => WriteDefault("pythonRuntime", "0"),
 				"useMozJpeg" => WriteDefault("useMozJpeg", "True"),
 				"comparisonUseScaling" => WriteDefault("comparisonUseScaling", "0"),
+				"joeyAlphaMode" => WriteDefault("joeyAlphaMode", "1"),
 				_ => null, 
 			};
 		}

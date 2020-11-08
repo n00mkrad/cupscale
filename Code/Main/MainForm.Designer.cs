@@ -1,13 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
-using Cupscale.UI;
 using ImageBox = Cyotek.Windows.Forms.ImageBox;
-using Cupscale.Properties;
-using System.Drawing.Drawing2D;
 
-namespace Cupscale
+namespace Cupscale.Main
 {
     partial class MainForm
     {
@@ -34,6 +29,7 @@ namespace Cupscale
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.leftPanel = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -108,6 +104,10 @@ namespace Cupscale
             this.preResizeFilter = new System.Windows.Forms.ComboBox();
             this.preResizeScale = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label25 = new System.Windows.Forms.Label();
+            this.openSourceFolderBtn = new HTAlt.WinForms.HTButton();
+            this.reloadImgBtn = new HTAlt.WinForms.HTButton();
             this.flowPanelLeft = new System.Windows.Forms.FlowLayoutPanel();
             this.panel13 = new System.Windows.Forms.Panel();
             this.prevToggleFilterBtn = new HTAlt.WinForms.HTButton();
@@ -126,6 +126,8 @@ namespace Cupscale
             this.label12 = new System.Windows.Forms.Label();
             this.prevClipboardTypeCombox = new System.Windows.Forms.ComboBox();
             this.panel22 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.seamlessMode = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.alpha = new System.Windows.Forms.CheckBox();
@@ -171,11 +173,14 @@ namespace Cupscale
             this.panel19.SuspendLayout();
             this.panel18.SuspendLayout();
             this.panel20.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.flowPanelLeft.SuspendLayout();
             this.panel13.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel21.SuspendLayout();
             this.panel22.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -852,6 +857,7 @@ namespace Cupscale
             this.flowPanelRight.Controls.Add(this.panel19);
             this.flowPanelRight.Controls.Add(this.panel18);
             this.flowPanelRight.Controls.Add(this.panel20);
+            this.flowPanelRight.Controls.Add(this.panel4);
             this.flowPanelRight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowPanelRight.FlowDirection = System.Windows.Forms.FlowDirection.BottomUp;
             this.flowPanelRight.Location = new System.Drawing.Point(964, 43);
@@ -1277,6 +1283,63 @@ namespace Cupscale
             this.label18.TabIndex = 5;
             this.label18.Text = "Scaling Filter";
             // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.label25);
+            this.panel4.Controls.Add(this.openSourceFolderBtn);
+            this.panel4.Controls.Add(this.reloadImgBtn);
+            this.panel4.Location = new System.Drawing.Point(3, 197);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(288, 97);
+            this.panel4.TabIndex = 4;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.ForeColor = System.Drawing.Color.White;
+            this.label25.Location = new System.Drawing.Point(3, 4);
+            this.label25.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(114, 13);
+            this.label25.TabIndex = 2;
+            this.label25.Text = "Loaded Image Options";
+            // 
+            // openSourceFolderBtn
+            // 
+            this.openSourceFolderBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.openSourceFolderBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.openSourceFolderBtn.Enabled = false;
+            this.openSourceFolderBtn.FlatAppearance.BorderSize = 0;
+            this.openSourceFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.openSourceFolderBtn.ForeColor = System.Drawing.Color.White;
+            this.openSourceFolderBtn.Location = new System.Drawing.Point(4, 26);
+            this.openSourceFolderBtn.Name = "openSourceFolderBtn";
+            this.openSourceFolderBtn.Size = new System.Drawing.Size(278, 30);
+            this.openSourceFolderBtn.TabIndex = 11;
+            this.openSourceFolderBtn.Text = "Open Folder Containing Source File";
+            this.openSourceFolderBtn.UseVisualStyleBackColor = false;
+            this.openSourceFolderBtn.Click += new System.EventHandler(this.openSourceFolderBtn_Click);
+            // 
+            // reloadImgBtn
+            // 
+            this.reloadImgBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.reloadImgBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.reloadImgBtn.Enabled = false;
+            this.reloadImgBtn.FlatAppearance.BorderSize = 0;
+            this.reloadImgBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.reloadImgBtn.ForeColor = System.Drawing.Color.White;
+            this.reloadImgBtn.Location = new System.Drawing.Point(4, 62);
+            this.reloadImgBtn.Name = "reloadImgBtn";
+            this.reloadImgBtn.Size = new System.Drawing.Size(278, 30);
+            this.reloadImgBtn.TabIndex = 8;
+            this.reloadImgBtn.Text = "Reload Image From Source File";
+            this.reloadImgBtn.UseVisualStyleBackColor = false;
+            this.reloadImgBtn.Click += new System.EventHandler(this.reloadImgBtn_Click);
+            // 
             // flowPanelLeft
             // 
             this.flowPanelLeft.Controls.Add(this.panel13);
@@ -1518,6 +1581,8 @@ namespace Cupscale
             // 
             this.panel22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.panel22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel22.Controls.Add(this.pictureBox1);
+            this.panel22.Controls.Add(this.pictureBox6);
             this.panel22.Controls.Add(this.seamlessMode);
             this.panel22.Controls.Add(this.label2);
             this.panel22.Controls.Add(this.alpha);
@@ -1525,13 +1590,39 @@ namespace Cupscale
             this.panel22.Controls.Add(this.tilesize);
             this.panel22.Controls.Add(this.label24);
             this.panel22.Controls.Add(this.label29);
-            this.panel22.Location = new System.Drawing.Point(3, 454);
+            this.panel22.Location = new System.Drawing.Point(3, 473);
             this.panel22.Name = "panel22";
-            this.panel22.Size = new System.Drawing.Size(341, 137);
+            this.panel22.Size = new System.Drawing.Size(341, 118);
             this.panel22.TabIndex = 6;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox1.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox1.Location = new System.Drawing.Point(82, 26);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 26;
+            this.pictureBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox1, "Sets the size (in pixels on each axis) of the image tiles that are loaded into VR" +
+        "AM at once.\r\nReduce this if you run out of memory.\r\n");
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox6.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox6.Location = new System.Drawing.Point(92, 86);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.TabIndex = 21;
+            this.pictureBox6.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox6, resources.GetString("pictureBox6.ToolTip"));
             // 
             // seamlessMode
             // 
+            this.seamlessMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.seamlessMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.seamlessMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.seamlessMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1539,9 +1630,11 @@ namespace Cupscale
             this.seamlessMode.FormattingEnabled = true;
             this.seamlessMode.Items.AddRange(new object[] {
             "Off",
-            "Tiled Seamless",
-            "Mirrored Seamless"});
-            this.seamlessMode.Location = new System.Drawing.Point(174, 106);
+            "Repeat: Tile",
+            "Repeat: Mirror",
+            "Padding: Extend",
+            "Padding: Alpha"});
+            this.seamlessMode.Location = new System.Drawing.Point(174, 87);
             this.seamlessMode.Margin = new System.Windows.Forms.Padding(8);
             this.seamlessMode.Name = "seamlessMode";
             this.seamlessMode.Size = new System.Drawing.Size(157, 21);
@@ -1550,9 +1643,10 @@ namespace Cupscale
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(4, 109);
+            this.label2.Location = new System.Drawing.Point(4, 90);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 13);
             this.label2.TabIndex = 24;
@@ -1560,8 +1654,9 @@ namespace Cupscale
             // 
             // alpha
             // 
+            this.alpha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.alpha.AutoSize = true;
-            this.alpha.Location = new System.Drawing.Point(174, 81);
+            this.alpha.Location = new System.Drawing.Point(174, 62);
             this.alpha.Name = "alpha";
             this.alpha.Size = new System.Drawing.Size(15, 14);
             this.alpha.TabIndex = 23;
@@ -1570,9 +1665,10 @@ namespace Cupscale
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(4, 79);
+            this.label3.Location = new System.Drawing.Point(4, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 13);
             this.label3.TabIndex = 22;
@@ -1580,6 +1676,7 @@ namespace Cupscale
             // 
             // tilesize
             // 
+            this.tilesize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tilesize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tilesize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.tilesize.ForeColor = System.Drawing.Color.White;
@@ -1594,7 +1691,7 @@ namespace Cupscale
             "256",
             "192",
             "128"});
-            this.tilesize.Location = new System.Drawing.Point(174, 46);
+            this.tilesize.Location = new System.Drawing.Point(174, 27);
             this.tilesize.Margin = new System.Windows.Forms.Padding(8);
             this.tilesize.Name = "tilesize";
             this.tilesize.Size = new System.Drawing.Size(157, 21);
@@ -1603,9 +1700,10 @@ namespace Cupscale
             // 
             // label24
             // 
+            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label24.AutoSize = true;
             this.label24.ForeColor = System.Drawing.Color.White;
-            this.label24.Location = new System.Drawing.Point(4, 49);
+            this.label24.Location = new System.Drawing.Point(4, 30);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(72, 13);
             this.label24.TabIndex = 20;
@@ -1638,7 +1736,7 @@ namespace Cupscale
             this.panel3.Controls.Add(this.label16);
             this.panel3.Controls.Add(this.interpRbtn);
             this.panel3.Controls.Add(this.singleModelRbtn);
-            this.panel3.Location = new System.Drawing.Point(3, 190);
+            this.panel3.Location = new System.Drawing.Point(3, 209);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(341, 258);
             this.panel3.TabIndex = 7;
@@ -1863,6 +1961,8 @@ namespace Cupscale
             this.panel18.PerformLayout();
             this.panel20.ResumeLayout(false);
             this.panel20.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.flowPanelLeft.ResumeLayout(false);
             this.panel13.ResumeLayout(false);
             this.panel13.PerformLayout();
@@ -1872,6 +1972,8 @@ namespace Cupscale
             this.panel21.PerformLayout();
             this.panel22.ResumeLayout(false);
             this.panel22.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
@@ -1972,5 +2074,11 @@ namespace Cupscale
         private Label label3;
         private ComboBox tilesize;
         private Label label24;
+        private PictureBox pictureBox6;
+        private PictureBox pictureBox1;
+        private Panel panel4;
+        private Label label25;
+        private HTAlt.WinForms.HTButton openSourceFolderBtn;
+        private HTAlt.WinForms.HTButton reloadImgBtn;
     }
 }

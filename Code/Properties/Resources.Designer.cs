@@ -191,6 +191,17 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use &quot;Tile&quot; or &quot;Mirror&quot; for seamless/tiled textures.
+        ///&quot;Extend&quot; will stretch the last pixel row on each side to avoid seams on the borders of the image.
+        ///&quot;Alpha&quot; will surround the image with transparency to avoid pixels being squashed to the border of the image..
+        /// </summary>
+        public static string seamlessTooltip {
+            get {
+                return ResourceManager.GetString("seamlessTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 11	# added joey&apos;s esrgan to fix seams with esrl code
         ///10	# added interp py script
         ///9	# fixed esrl output path

@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Cupscale.Forms;
 using Cupscale.ImageUtils;
 using Cupscale.IO;
+using Cupscale.Main;
 using Cupscale.UI;
 using ImageMagick;
 using Paths = Cupscale.IO.Paths;

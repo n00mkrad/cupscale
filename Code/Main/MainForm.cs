@@ -1,11 +1,8 @@
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Cupscale.UI;
 using Cyotek.Windows.Forms;
-using ImageBox = Cyotek.Windows.Forms.ImageBox;
-using Cupscale.Properties;
 using System.Drawing.Drawing2D;
 using Cupscale.Forms;
 using Cupscale.Main;
@@ -13,16 +10,14 @@ using System.Threading.Tasks;
 using System.IO;
 using Cupscale.IO;
 using Cupscale.Cupscale;
-using Win32Interop.Structs;
 using Cupscale.ImageUtils;
 using System.Diagnostics;
 using Cupscale.OS;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using static Cupscale.UI.MainUIHelper;
-using System.Runtime.CompilerServices;
 using System.Linq;
 
-namespace Cupscale
+namespace Cupscale.Main
 {
 	public partial class MainForm : Form
 	{
@@ -146,7 +141,7 @@ namespace Cupscale
 		private void previewImg_DragDrop(object sender, DragEventArgs e)
 		{
 			string[] array = e.Data.GetData(DataFormats.FileDrop) as string[];
-			DragNDrop(array);
+			LoadImages(array);
 		}
 
 		private void previewImg_MouseDown(object sender, MouseEventArgs e)
@@ -244,10 +239,10 @@ namespace Cupscale
         private void batchTab_DragDrop(object sender, DragEventArgs e)
         {
 			string[] array = e.Data.GetData(DataFormats.FileDrop) as string[];
-			DragNDrop(array);
+			LoadImages(array);
 		}
 
-		async Task DragNDrop (string [] files)
+		async Task LoadImages (string [] files)
         {
 			Logger.Log("[MainUI] Dropped " + files.Length + " file(s), files[0] = " + files[0]);
 			IOUtils.ClearDir(Paths.tempImgPath.GetParentDir());
@@ -290,7 +285,7 @@ namespace Cupscale
 			if (failed) { FailReset(); return; }
 			SetHasPreview(false);
 			loadingDialogForm.Close();
-			SetRefreshPreviewBtns(true);
+			ImageLoadedChanged(true);
 			SetProgress(0f, "Ready.");
 		}
 
@@ -303,10 +298,12 @@ namespace Cupscale
 			failed = false;
         }
 
-		public void SetRefreshPreviewBtns (bool state)
+		public void ImageLoadedChanged (bool state = true)
         {
 			refreshPreviewCutoutBtn.Enabled = state;
 			refreshPreviewFullBtn.Enabled = state;
+			reloadImgBtn.Enabled = state;
+			openSourceFolderBtn.Enabled = state;
 		}
 
 		public async void ReloadImage (bool allowFail = true)	// Returns false on error
@@ -514,7 +511,7 @@ namespace Cupscale
 					Image clipboardImg = Clipboard.GetImage();
 					string savePath = Path.Combine(Paths.clipboardFolderPath, "Clipboard.png");
 					clipboardImg.Save(savePath);
-					await DragNDrop(new string[] { savePath });
+					await LoadImages(new string[] { savePath });
 				}
 				catch
 				{
@@ -592,7 +589,7 @@ namespace Cupscale
 				fileDialog.IsFolderPicker = false;
 				fileDialog.Multiselect = true;
 				if (fileDialog.ShowDialog() == CommonFileDialogResult.Ok)
-					DragNDrop(fileDialog.FileNames.ToArray());
+					LoadImages(fileDialog.FileNames.ToArray());
 			}
         }
 
@@ -624,6 +621,16 @@ namespace Cupscale
         private void seamlessMode_SelectedIndexChanged(object sender, EventArgs e)
         {
 			SaveEsrganOptions();
+		}
+
+        private void reloadImgBtn_Click(object sender, EventArgs e)
+        {
+			ReloadImage(false);
+        }
+
+        private void openSourceFolderBtn_Click(object sender, EventArgs e)
+        {
+			Process.Start("explorer.exe", Program.lastFilename.GetParentDir());
 		}
     }
 }

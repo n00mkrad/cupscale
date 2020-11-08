@@ -195,32 +195,32 @@ namespace Cupscale.OS
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
 
-            inpath = inpath.Wrap(true, true);
-            outpath = outpath.Wrap(true, true);
+            inpath = inpath.Wrap();
+            outpath = outpath.Wrap();
 
-            string alphaStr = "";
-            if (alpha) alphaStr = " --alpha_mode 2 ";
+            string alphaStr = "--alpha_mode 0";
+            if (alpha) alphaStr = $"--alpha_mode {Config.GetInt("joeyAlphaMode")}";
 
             string deviceStr = "";
-            if (Config.Get("cudaFallback").GetInt() == 1 || Config.Get("cudaFallback").GetInt() == 2) deviceStr = " --cpu ";
+            if (Config.Get("cudaFallback").GetInt() == 1 || Config.Get("cudaFallback").GetInt() == 2) deviceStr = "--cpu";
 
             string seamStr = "";
-            if (Config.Get("seamlessMode").GetInt() == 1) seamStr = " --seamless";
-            if (Config.Get("seamlessMode").GetInt() == 2) seamStr = " --mirror";
+            switch (Config.Get("seamlessMode").GetInt())
+            {
+                case 1: seamStr = "--seamless"; break;
+                case 2: seamStr = "--mirror"; break;
+                case 3: seamStr = "--replicate"; break;
+                case 4: seamStr = "--alpha_padding"; break;
+            }
 
             string opt = "/C";
             if (stayOpen) opt = "/K";
 
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
-            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input{inpath}--output{outpath}{deviceStr}{seamStr} --tile_size {tilesize}{alphaStr}{modelArg}";
+            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {deviceStr} {seamStr} --tile_size {tilesize} {alphaStr} {modelArg}";
 
             Logger.Log("[CMD] " + cmd);
-            Process esrganProcess = new Process();
-            esrganProcess.StartInfo.UseShellExecute = showWindow;
-            esrganProcess.StartInfo.RedirectStandardOutput = !showWindow;
-            esrganProcess.StartInfo.RedirectStandardError = !showWindow;
-            esrganProcess.StartInfo.CreateNoWindow = !showWindow;
-            esrganProcess.StartInfo.FileName = "cmd.exe";
+            Process esrganProcess = OSUtils.NewProcess(!showWindow);
             esrganProcess.StartInfo.Arguments = cmd;
             if (!showWindow)
             {
@@ -332,12 +332,7 @@ namespace Cupscale.OS
             cmd += "esrgan-ncnn-vulkan.exe -i " + inpath + " -o " + outpath + " -m " + currentNcnnModel.Wrap() + " -s " + scale;
             Logger.Log("[CMD] " + cmd);
 
-            Process ncnnProcess = new Process();
-            ncnnProcess.StartInfo.UseShellExecute = showWindow;
-            ncnnProcess.StartInfo.RedirectStandardOutput = !showWindow;
-            ncnnProcess.StartInfo.RedirectStandardError = !showWindow;
-            ncnnProcess.StartInfo.CreateNoWindow = !showWindow;
-            ncnnProcess.StartInfo.FileName = "cmd.exe";
+            Process ncnnProcess = OSUtils.NewProcess(!showWindow);
             ncnnProcess.StartInfo.Arguments = cmd;
             if (!showWindow)
             {

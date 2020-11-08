@@ -34,6 +34,7 @@
             this.settingsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.pythonRuntime = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.seamlessMode = new System.Windows.Forms.ComboBox();
@@ -126,6 +127,7 @@
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -192,6 +194,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.pictureBox10);
             this.panel7.Controls.Add(this.pythonRuntime);
             this.panel7.Controls.Add(this.label24);
             this.panel7.Controls.Add(this.seamlessMode);
@@ -212,6 +215,19 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(455, 463);
             this.panel7.TabIndex = 4;
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox10.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox10.Location = new System.Drawing.Point(84, 136);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox10.TabIndex = 22;
+            this.pictureBox10.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox10, "Sets the size (in pixels on each axis) of the image tiles that are loaded into VR" +
+        "AM at once.\r\nReduce this if you run out of memory.");
             // 
             // pythonRuntime
             // 
@@ -247,8 +263,10 @@
             this.seamlessMode.FormattingEnabled = true;
             this.seamlessMode.Items.AddRange(new object[] {
             "Off",
-            "Tiled Seamless",
-            "Mirrored Seamless"});
+            "Repeat: Tile",
+            "Repeat: Mirror",
+            "Padding: Extend",
+            "Padding: Alpha"});
             this.seamlessMode.Location = new System.Drawing.Point(220, 197);
             this.seamlessMode.Margin = new System.Windows.Forms.Padding(8);
             this.seamlessMode.Name = "seamlessMode";
@@ -284,8 +302,7 @@
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox6.TabIndex = 17;
             this.pictureBox6.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox6, "Only supported by Joey\'s ESRGAN.\r\nUse this if you want to upscale seamless/tiled " +
-        "textures.\r\nIt tries to preserve the tiling.");
+            this.toolTip.SetToolTip(this.pictureBox6, resources.GetString("pictureBox6.ToolTip"));
             // 
             // label22
             // 
@@ -344,7 +361,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 10;
             this.pictureBox1.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox1, resources.GetString("testStr"));
             // 
             // label2
             // 
@@ -1278,6 +1294,7 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -1405,5 +1422,6 @@
         private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.ComboBox comparisonUseScaling;
         private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.PictureBox pictureBox10;
     }
 }
