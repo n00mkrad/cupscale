@@ -326,7 +326,7 @@
             this.esrganVer.FormattingEnabled = true;
             this.esrganVer.Items.AddRange(new object[] {
             "Joey\'s ESRGAN Fork",
-            "esrgan-launcher"});
+            "esrgan-launcher [DEPRECATED]"});
             this.esrganVer.Location = new System.Drawing.Point(220, 77);
             this.esrganVer.Margin = new System.Windows.Forms.Padding(8);
             this.esrganVer.Name = "esrganVer";
@@ -344,7 +344,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 10;
             this.pictureBox1.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox1, resources.GetString("pictureBox1.ToolTip"));
+            this.toolTip.SetToolTip(this.pictureBox1, resources.GetString("testStr"));
             // 
             // label2
             // 

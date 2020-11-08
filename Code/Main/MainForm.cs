@@ -28,6 +28,7 @@ namespace Cupscale
 	{
 		public bool resetImageOnMove = false;
 		public PreviewState resetState;
+		public bool initialized = false;
 
 		public MainForm()
 		{
@@ -66,6 +67,10 @@ namespace Cupscale
 
 			if (OSUtils.IsUserAdministrator())
 				Program.ShowMessage("Cupscale is running as administrator.\nThis will break Drag-n-Drop functionality.", "Warning");
+
+			LoadEsrganOptions();
+
+			initialized = true;
 		}
 
 		public async Task CheckInstallation ()
@@ -590,5 +595,35 @@ namespace Cupscale
 					DragNDrop(fileDialog.FileNames.ToArray());
 			}
         }
+
+		public void SaveEsrganOptions ()
+        {
+			if (!initialized) return;
+			Config.SaveGuiElement(tilesize);
+			Config.SaveGuiElement(alpha);
+			Config.SaveComboxIndex(seamlessMode);
+		}
+
+		public void LoadEsrganOptions ()
+        {
+			Config.LoadGuiElement(tilesize);
+			Config.LoadGuiElement(alpha);
+			Config.LoadComboxIndex(seamlessMode);
+		}
+
+        private void tilesize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			SaveEsrganOptions();
+        }
+
+        private void alpha_CheckedChanged(object sender, EventArgs e)
+        {
+			SaveEsrganOptions();
+		}
+
+        private void seamlessMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			SaveEsrganOptions();
+		}
     }
 }

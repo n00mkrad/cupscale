@@ -191,7 +191,9 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 9	# fixed esrl output path
+        ///   Looks up a localized string similar to 11	# added joey&apos;s esrgan to fix seams with esrl code
+        ///10	# added interp py script
+        ///9	# fixed esrl output path
         ///8	# updated scripts to not log filename for error handling
         ///7	# updated joey&apos;s esrgan code to commit 6b58c546938e3563e5c0419e4d6468e78e3736d7
         ///6	# fixed esrgan-launcher buffer writing
@@ -204,6 +206,15 @@ namespace Cupscale.Properties {
         public static string shipped_files_version {
             get {
                 return ResourceManager.GetString("shipped_files_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is a relatively long test string!\nIt even has a a second line. Hope this works..
+        /// </summary>
+        public static string testStr {
+            get {
+                return ResourceManager.GetString("testStr", resourceCulture);
             }
         }
         

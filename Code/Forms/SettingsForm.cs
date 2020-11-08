@@ -68,6 +68,7 @@ namespace Cupscale.Forms
             await Task.Delay(100);
             SaveSettings();
             EmbeddedPython.Init();
+            Program.mainForm.LoadEsrganOptions();
             if(Config.GetInt("pythonRuntime") == 1 && !File.Exists(EmbeddedPython.GetEmbedPyPath()))
             {
                 MsgBox msg = Program.ShowMessage("You enabled the embedded Python runtime but haven't downloaded and installed it.\n" +

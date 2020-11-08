@@ -80,7 +80,7 @@ namespace Cupscale
 			{
 				"esrganPath" => WriteDefault("esrganPath", ShippedFiles.path),
 				"esrganVer" => WriteDefault("esrganVer", "0"), 
-				"tilesize" => WriteDefault("tilesize", "512"),
+				"tilesize" => WriteDefault("tilesize", "1024"),
 				"alpha" => WriteDefault("alpha", "False"),
 				"seamlessMode" => WriteDefault("seamlessMode", "0"),
 				"alphaBgColor" => WriteDefault("alphaBgColor", "000000FF"),
