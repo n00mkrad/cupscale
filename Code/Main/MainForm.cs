@@ -78,10 +78,9 @@ namespace Cupscale.Main
 		string lastStatus = "";
 		public void SetProgress(float prog, string statusText = "")
 		{
-			if(lastProg != prog)
+			if(prog > 0 && lastProg != prog)
             {
 				int percent = (int)Math.Round(prog);
-				if (percent < 0) percent = 0;
 				if (percent > 100) percent = 100;
 				htProgBar.Value = percent;
 				htProgBar.Refresh();

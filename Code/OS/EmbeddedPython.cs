@@ -69,7 +69,8 @@ namespace Cupscale.OS
             await Task.Delay(10);
 
             Print("Checking disk space before installation...");
-            int diskSpaceMb = GetDiskSpace(IOUtils.GetAppDataDir());
+            int diskSpaceMb = IOUtils.GetDiskSpace(IOUtils.GetAppDataDir());
+            Print($"Available disk space on the current drive: {diskSpaceMb} MB.");
             if (diskSpaceMb < 5000)
             {
                 Print("Not enough disk space on the current drive!");
@@ -177,30 +178,6 @@ namespace Cupscale.OS
                     await Task.Delay(3000);
                 }
             });
-        }
-
-        static int GetDiskSpace(string path, bool print = true)
-        {
-            try
-            {
-                string driveLetter = path.Substring(0, 2);      // Make 'C:/some/random/path' => 'C:' etc
-                DriveInfo[] allDrives = DriveInfo.GetDrives();
-                foreach (DriveInfo d in allDrives)
-                {
-                    if (d.IsReady == true && d.Name.StartsWith(driveLetter))
-                    {
-                        float freeMegabytes = d.AvailableFreeSpace / 1024f / 1000f;
-                        if (print)
-                            Print($"Available disk space on drive {d.Name} is {(int)freeMegabytes} MB.");
-                        return (int)freeMegabytes;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.ErrorMessage("Error trying to get disk space.", e);
-            }
-            return 0;
         }
 
         [DllImport("user32.dll")]

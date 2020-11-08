@@ -56,13 +56,22 @@ namespace Cupscale.UI
             FillFileList(imgs, false);
         }
 
-        public static async Task CopyDroppedImages (string[] imgs)
+        public static async Task CopyImages(string[] imgs, int targetAmount = 0)
         {
             IOUtils.ClearDir(Paths.imgInPath);
+
+            int i = 0;
             foreach (string img in imgs)
             {
                 if(IOUtils.compatibleExtensions.Contains(Path.GetExtension(img).ToLower()) && File.Exists(img))
+                {
                     File.Copy(img, Path.Combine(Paths.imgInPath, Path.GetFileName(img)));
+                    i++;
+                    float prog = -1f;
+                    if (targetAmount > 0)
+                        prog = ((float)i / targetAmount) * 100f;
+                    if (i % 20 == 0) Program.mainForm.SetProgress(prog, $"Copied {i} images...");
+                }
                 await Task.Delay(1);
             }
         }
@@ -104,6 +113,11 @@ namespace Cupscale.UI
                 Program.ShowMessage("No directory loaded.", "Error");
                 return;
             }
+            if (HasEnoughDiskSpace(currentInDir))
+            {
+                Program.ShowMessage($"Not enough disk space on {currentInDir.Substring(0, 3)} to store temporary files!", "Error");
+                return;
+            }
             Upscale.currentMode = Upscale.UpscaleMode.Batch;
             Program.mainForm.SetBusy(true);
             Program.mainForm.SetProgress(2f, "Loading images...");
@@ -135,6 +149,16 @@ namespace Cupscale.UI
             Program.mainForm.SetBusy(false);
         }
 
+        static bool HasEnoughDiskSpace (string path, float multiplier = 2.0f)
+        {
+            int requiredDiskSpace = (IOUtils.GetDirSize(new DirectoryInfo(path)) * multiplier).RoundToInt();
+            int availDiskSpace = IOUtils.GetDiskSpace(path, false);
+            Logger.Log($"Disk space check for {path} - {requiredDiskSpace} B needed, {availDiskSpace} B available");
+            if (availDiskSpace > requiredDiskSpace)
+                return true;
+            return false;
+        }
+
         public static int upscaledImages = 0;
 
         public static async void GetProgress (string outdir, int target)
@@ -163,11 +187,12 @@ namespace Cupscale.UI
             IOUtils.ClearDir(Paths.imgInPath);
             if (multiImgMode)
             {
-                await CopyDroppedImages(currentInFiles);
+                await CopyImages(currentInFiles);
             }
             else
             {
-                IOUtils.Copy(currentInDir, Paths.imgInPath, "*", move, true);
+                string[] files = IOUtils.GetCompatibleFiles(currentInDir, true);
+                await CopyImages(files, files.Length);
             }
         }
     }

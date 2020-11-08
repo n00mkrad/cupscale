@@ -424,5 +424,27 @@ namespace Cupscale
                 Logger.Log($"[IOUtils] Failed removing ReadOnly flag on {path}:\n{e.Message}");
             }
         }
+
+        public static int GetDiskSpace(string path, bool mbytes = true)
+        {
+            try
+            {
+                string driveLetter = path.Substring(0, 2);      // Make 'C:/some/random/path' => 'C:' etc
+                DriveInfo[] allDrives = DriveInfo.GetDrives();
+                foreach (DriveInfo d in allDrives)
+                {
+                    if (d.IsReady == true && d.Name.StartsWith(driveLetter))
+                    {
+                        float freeMegabytes = d.AvailableFreeSpace / 1024f / 1000f;
+                        return (int)freeMegabytes;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.ErrorMessage("Error trying to get disk space.", e);
+            }
+            return 0;
+        }
     }
 }
