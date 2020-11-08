@@ -113,9 +113,9 @@ namespace Cupscale.UI
                 Program.ShowMessage("No directory loaded.", "Error");
                 return;
             }
-            if (HasEnoughDiskSpace(currentInDir))
+            if (!HasEnoughDiskSpace(IOUtils.GetAppDataDir()))
             {
-                Program.ShowMessage($"Not enough disk space on {currentInDir.Substring(0, 3)} to store temporary files!", "Error");
+                Program.ShowMessage($"Not enough disk space on {IOUtils.GetAppDataDir().Substring(0, 3)} to store temporary files!", "Error");
                 return;
             }
             Upscale.currentMode = Upscale.UpscaleMode.Batch;
@@ -151,10 +151,11 @@ namespace Cupscale.UI
 
         static bool HasEnoughDiskSpace (string path, float multiplier = 2.0f)
         {
-            int requiredDiskSpace = (IOUtils.GetDirSize(new DirectoryInfo(path)) * multiplier).RoundToInt();
-            int availDiskSpace = IOUtils.GetDiskSpace(path, false);
-            Logger.Log($"Disk space check for {path} - {requiredDiskSpace} B needed, {availDiskSpace} B available");
-            if (availDiskSpace > requiredDiskSpace)
+            long requiredDiskSpace = (IOUtils.GetDirSize(new DirectoryInfo(path)) * multiplier).RoundToInt();
+            int requiredDiskSpaceMb = (int)(requiredDiskSpace / 1024f / 1000f);
+            long availDiskSpaceMb = IOUtils.GetDiskSpace(path);
+            Logger.Log($"Disk space check for {path} - {requiredDiskSpaceMb} MB needed, {availDiskSpaceMb} MB available");
+            if (availDiskSpaceMb > requiredDiskSpaceMb)
                 return true;
             return false;
         }

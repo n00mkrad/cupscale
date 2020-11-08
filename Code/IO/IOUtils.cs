@@ -425,7 +425,7 @@ namespace Cupscale
             }
         }
 
-        public static int GetDiskSpace(string path, bool mbytes = true)
+        public static long GetDiskSpace(string path, bool mbytes = true)
         {
             try
             {
@@ -435,8 +435,10 @@ namespace Cupscale
                 {
                     if (d.IsReady == true && d.Name.StartsWith(driveLetter))
                     {
-                        float freeMegabytes = d.AvailableFreeSpace / 1024f / 1000f;
-                        return (int)freeMegabytes;
+                        if (mbytes)
+                            return (long)(d.AvailableFreeSpace / 1024f / 1000f);
+                        else
+                            return d.AvailableFreeSpace;
                     }
                 }
             }
