@@ -630,7 +630,11 @@ namespace Cupscale.Main
 
         private void openSourceFolderBtn_Click(object sender, EventArgs e)
         {
-			Process.Start("explorer.exe", Program.lastFilename.GetParentDir());
+			string dir = Program.lastFilename.GetParentDir();
+			if (Directory.Exists(dir))
+				Process.Start("explorer.exe", dir);
+			else
+				Program.ShowMessage("The source directory does not seem to exist anymore!");
 		}
     }
 }
