@@ -49,6 +49,8 @@ namespace Cupscale.UI
 
         public static void TabSelected ()
         {
+            if (!outDir.Visible)
+                return;
             if (string.IsNullOrWhiteSpace(currentInDir))
             {
                 Program.mainForm.SetButtonText("Upscale Images");

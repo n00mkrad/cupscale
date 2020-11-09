@@ -101,6 +101,9 @@ namespace Cupscale
 				"useMozJpeg" => WriteDefault("useMozJpeg", "True"),
 				"comparisonUseScaling" => WriteDefault("comparisonUseScaling", "0"),
 				"joeyAlphaMode" => WriteDefault("joeyAlphaMode", "1"),
+				// Video
+				"h265" => WriteDefault("h265", "False"),
+				"crf" => WriteDefault("crf", "16"),
 				_ => null, 
 			};
 		}

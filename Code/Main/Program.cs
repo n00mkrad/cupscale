@@ -68,6 +68,8 @@ namespace Cupscale
 				IOUtils.ClearDir(Path.Combine(IOUtils.GetAppDataDir(), "giftemp"));
 				IOUtils.DeleteIfExists(Path.Combine(Paths.presetsPath, "lastUsed"));
 				IOUtils.ClearDir(Paths.compositionOut);
+				IOUtils.ClearDir(Paths.framesOutPath);
+				IOUtils.DeleteIfExists(Path.Combine(IOUtils.GetAppDataDir(), "frames-out.mp4"));
 			}
 			catch (Exception e)
             {

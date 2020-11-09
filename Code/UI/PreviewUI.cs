@@ -107,8 +107,6 @@ namespace Cupscale.UI
             else
                 Program.mainForm.SetProgress(0f, "Cancelled: " + reason);
             string inputImgPath = Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastImgPath));
-            if (overwrite.SelectedIndex == 1 && File.Exists(inputImgPath) && !File.Exists(Program.lastImgPath))    // Copy image back if overwrite mode was on
-                File.Move(inputImgPath, Program.lastImgPath);
         }
 
         public static void TabSelected()
@@ -131,9 +129,6 @@ namespace Cupscale.UI
             string outpath = Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastImgPath));
             try
             {
-                //if (overwrite.SelectedIndex == 1)
-                //    File.Move(Program.lastFilename, Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastFilename)));
-                //else
                 File.Copy(Program.lastImgPath, outpath);
             }
             catch (Exception e)
