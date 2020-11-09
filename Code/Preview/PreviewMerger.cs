@@ -24,7 +24,7 @@ namespace Cupscale
 
         public static void Merge()
         {
-            MainUIHelper.sw.Stop();
+            PreviewUI.sw.Stop();
             Program.mainForm.SetProgress(100f);
             inputCutoutPath = Path.Combine(Paths.previewPath, "preview.png.png");
             outputCutoutPath = Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0];
@@ -50,10 +50,10 @@ namespace Cupscale
             offsetY *= scale;
             Logger.Log("[Merger] Merging " + Path.GetFileName(outputCutoutPath) + " onto original using offset " + offsetX + "x" + offsetY);
             Image image = MergeInMemory(scale);
-            MainUIHelper.currentOriginal = ImgUtils.GetImage(Paths.tempImgPath);
-            MainUIHelper.currentOutput = image;
-            MainUIHelper.currentScale = ImgUtils.GetScaleFloat(ImgUtils.GetImage(inputCutoutPath), ImgUtils.GetImage(outputCutoutPath));
-            UIHelpers.ReplaceImageAtSameScale(MainUIHelper.previewImg, image);
+            PreviewUI.currentOriginal = ImgUtils.GetImage(Paths.tempImgPath);
+            PreviewUI.currentOutput = image;
+            PreviewUI.currentScale = ImgUtils.GetScaleFloat(ImgUtils.GetImage(inputCutoutPath), ImgUtils.GetImage(outputCutoutPath));
+            UIHelpers.ReplaceImageAtSameScale(PreviewUI.previewImg, image);
             Program.mainForm.SetProgress(0f, "Done.");
         }
 
@@ -120,12 +120,12 @@ namespace Cupscale
             originalCutout.Quality = 0;  // Save preview as uncompressed PNG for max speed
             originalCutout.Write(scaledCutoutPath);
 
-            MainUIHelper.currentOriginal = ImgUtils.GetImage(scaledCutoutPath);
-            MainUIHelper.currentOutput = ImgUtils.GetImage(outputCutoutPath);
+            PreviewUI.currentOriginal = ImgUtils.GetImage(scaledCutoutPath);
+            PreviewUI.currentOutput = ImgUtils.GetImage(outputCutoutPath);
 
-            MainUIHelper.previewImg.Image = MainUIHelper.currentOutput;
-            MainUIHelper.previewImg.ZoomToFit();
-            MainUIHelper.previewImg.Zoom = (int)Math.Round(MainUIHelper.previewImg.Zoom * 1.01f);
+            PreviewUI.previewImg.Image = PreviewUI.currentOutput;
+            PreviewUI.previewImg.ZoomToFit();
+            PreviewUI.previewImg.Zoom = (int)Math.Round(PreviewUI.previewImg.Zoom * 1.01f);
             Program.mainForm.resetImageOnMove = true;
             Program.mainForm.SetProgress(0f, "Done.");
         }
@@ -140,19 +140,19 @@ namespace Cupscale
 
         public static void ShowOutput()
         {
-            if (MainUIHelper.currentOutput != null)
+            if (PreviewUI.currentOutput != null)
             {
                 showingOriginal = false;
-                UIHelpers.ReplaceImageAtSameScale(MainUIHelper.previewImg, MainUIHelper.currentOutput);
+                UIHelpers.ReplaceImageAtSameScale(PreviewUI.previewImg, PreviewUI.currentOutput);
             }
         }
 
         public static void ShowOriginal()
         {
-            if (MainUIHelper.currentOriginal != null)
+            if (PreviewUI.currentOriginal != null)
             {
                 showingOriginal = true;
-                UIHelpers.ReplaceImageAtSameScale(MainUIHelper.previewImg, MainUIHelper.currentOriginal);
+                UIHelpers.ReplaceImageAtSameScale(PreviewUI.previewImg, PreviewUI.currentOriginal);
             }
         }
     }

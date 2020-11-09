@@ -312,7 +312,7 @@ namespace Cupscale
                 PostProcessingQueue.lastOutfile = outPath;
 
             if (Upscale.currentMode == Upscale.UpscaleMode.Single || Upscale.currentMode == Upscale.UpscaleMode.Composition)
-                MainUIHelper.lastOutfile = outPath;
+                PreviewUI.lastOutfile = outPath;
 
             if (magick)
             {
@@ -346,7 +346,7 @@ namespace Cupscale
                 PostProcessingQueue.lastOutfile = outPath;
 
             if (Upscale.currentMode == Upscale.UpscaleMode.Single || Upscale.currentMode == Upscale.UpscaleMode.Composition)
-                MainUIHelper.lastOutfile = outPath;
+                PreviewUI.lastOutfile = outPath;
 
             if (outPath.ToLower() != path.ToLower())
             {

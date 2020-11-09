@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using static Cupscale.UI.MainUIHelper;
+using static Cupscale.UI.PreviewUI;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Cupscale.Main
@@ -59,27 +59,27 @@ namespace Cupscale.Main
         {
             ModelData mdl = new ModelData();
 
-            if (MainUIHelper.currentMode == Mode.Single)
+            if (PreviewUI.currentMode == Mode.Single)
             {
                 string mdl1 = Program.currentModel1;
                 if (string.IsNullOrWhiteSpace(mdl1)) return mdl;
                 mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
             }
-            if (MainUIHelper.currentMode == Mode.Interp)
+            if (PreviewUI.currentMode == Mode.Interp)
             {
                 string mdl1 = Program.currentModel1;
                 string mdl2 = Program.currentModel2;
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return mdl;
                 mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
             }
-            if (MainUIHelper.currentMode == Mode.Chain)
+            if (PreviewUI.currentMode == Mode.Chain)
             {
                 string mdl1 = Program.currentModel1;
                 string mdl2 = Program.currentModel2;
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return mdl;
                 mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
             }
-            if (MainUIHelper.currentMode == Mode.Advanced)
+            if (PreviewUI.currentMode == Mode.Advanced)
             {
                 mdl = new ModelData(null, null, ModelData.ModelMode.Advanced);
             }

@@ -14,7 +14,7 @@ using Cupscale.ImageUtils;
 using System.Diagnostics;
 using Cupscale.OS;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using static Cupscale.UI.MainUIHelper;
+using static Cupscale.UI.PreviewUI;
 using System.Linq;
 
 namespace Cupscale.Main
@@ -29,8 +29,9 @@ namespace Cupscale.Main
 		{
 			CheckForIllegalCrossThreadCalls = false;
 			InitializeComponent();
-			MainUIHelper.Init(previewImg, model1TreeBtn, model2TreeBtn, prevOutputFormatCombox, prevOverwriteCombox);
-			BatchUpscaleUI.Init(batchOutDir, batchFileList);
+			PreviewUI.Init(previewImg, model1TreeBtn, model2TreeBtn, prevOutputFormatCombox, prevOverwriteCombox);
+			BatchUpscaleUI.Init(batchOutDir, batchFileList, batchDirLabel);
+			VideoUpscaleUI.Init(videoOutDir, videoLogBox, videoPathLabel);
 			Program.mainForm = this;
 			WindowState = FormWindowState.Maximized;
 		}
@@ -78,7 +79,7 @@ namespace Cupscale.Main
 		string lastStatus = "";
 		public void SetProgress(float prog, string statusText = "")
 		{
-			if(prog > 0 && lastProg != prog)
+			if(prog >= 0 && lastProg != prog)
             {
 				int percent = (int)Math.Round(prog);
 				if (percent > 100) percent = 100;
@@ -131,10 +132,8 @@ namespace Cupscale.Main
 
 		private void previewImg_DragEnter(object sender, DragEventArgs e)
 		{
-			if (e.Data.GetDataPresent(DataFormats.FileDrop))
-				e.Effect = DragDropEffects.Copy;
-			else
-				e.Effect = DragDropEffects.None;
+			if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+			else e.Effect = DragDropEffects.None;
 		}
 
 		private void previewImg_DragDrop(object sender, DragEventArgs e)
@@ -179,7 +178,7 @@ namespace Cupscale.Main
 
         void UpdatePreviewInfo ()
         {
-            MainUIHelper.UpdatePreviewLabels(prevZoomLabel, prevSizeLabel, prevCutoutLabel);
+            PreviewUI.UpdatePreviewLabels(prevZoomLabel, prevSizeLabel, prevCutoutLabel);
         }
 
         private void settingsBtn_Click(object sender, EventArgs e)
@@ -208,16 +207,16 @@ namespace Cupscale.Main
 			model2TreeBtn.Enabled = (interpRbtn.Checked || chainRbtn.Checked);
 			interpConfigureBtn.Visible = interpRbtn.Checked;
 			advancedConfigureBtn.Visible = advancedBtn.Checked;
-			if (singleModelRbtn.Checked) MainUIHelper.currentMode = MainUIHelper.Mode.Single;
-			if (interpRbtn.Checked) MainUIHelper.currentMode = MainUIHelper.Mode.Interp;
-			if (chainRbtn.Checked) MainUIHelper.currentMode = MainUIHelper.Mode.Chain;
-			if (advancedBtn.Checked) MainUIHelper.currentMode = MainUIHelper.Mode.Advanced;
+			if (singleModelRbtn.Checked) PreviewUI.currentMode = PreviewUI.Mode.Single;
+			if (interpRbtn.Checked) PreviewUI.currentMode = PreviewUI.Mode.Interp;
+			if (chainRbtn.Checked) PreviewUI.currentMode = PreviewUI.Mode.Chain;
+			if (advancedBtn.Checked) PreviewUI.currentMode = PreviewUI.Mode.Advanced;
 		}
 
         private void interpConfigureBtn_Click(object sender, EventArgs e)
         {
 			
-			if (!MainUIHelper.HasValidModelSelection())
+			if (!PreviewUI.HasValidModelSelection())
             {
 				Program.ShowMessage("Please select two models for interpolation.", "Message");
 				return;
@@ -229,10 +228,8 @@ namespace Cupscale.Main
 
         private void batchTab_DragEnter(object sender, DragEventArgs e)
         {
-			if (e.Data.GetDataPresent(DataFormats.FileDrop))
-				e.Effect = DragDropEffects.Copy;
-			else
-				e.Effect = DragDropEffects.None;
+			if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+			else e.Effect = DragDropEffects.None;
 		}
 
         private void batchTab_DragDrop(object sender, DragEventArgs e)
@@ -250,10 +247,7 @@ namespace Cupscale.Main
 			if (IOUtils.IsPathDirectory(path))
 			{
 				htTabControl.SelectedIndex = 1;
-				int compatFilesAmount = IOUtils.GetAmountOfCompatibleFiles(path, true);
-				batchDirLabel.Text = "Loaded " + path.Wrap() + " - Found " + compatFilesAmount + " compatible files.";
 				BatchUpscaleUI.LoadDir(path);
-				upscaleBtn.Text = "Upscale " + compatFilesAmount + " Images";
 				return;
 			}
 			if(files.Length > 1)
@@ -271,15 +265,15 @@ namespace Cupscale.Main
 			SetProgress(0f, "Loading image...");
 			loadingDialogForm = new DialogForm("Loading " + Path.GetFileName(path) +"...");
 			await Task.Delay(20);
-			MainUIHelper.ResetCachedImages();
-			if (!MainUIHelper.DroppedImageIsValid(path))
+			PreviewUI.ResetCachedImages();
+			if (!PreviewUI.DroppedImageIsValid(path))
             {
 				SetProgress(0f, "Ready.");
 				await Task.Delay(1);
 				Program.CloseTempForms();
 				return;
 			}
-			Program.lastFilename = path;
+			Program.lastImgPath = path;
 			ReloadImage(false);
 			if (failed) { FailReset(); return; }
 			SetHasPreview(false);
@@ -293,8 +287,14 @@ namespace Cupscale.Main
         {
 			SetProgress(0f, "Reset after error.");
 			Program.CloseTempForms();
-			Program.lastFilename = null;
+			Program.lastImgPath = null;
 			failed = false;
+        }
+
+		public void SetButtonText (string s)
+        {
+			if (!string.IsNullOrWhiteSpace(s))
+				upscaleBtn.Text = s;
         }
 
 		public void ImageLoadedChanged (bool state = true)
@@ -309,12 +309,12 @@ namespace Cupscale.Main
         {
 			try
 			{
-				string path = Program.lastFilename;
+				string path = Program.lastImgPath;
 				File.Copy(path, Paths.tempImgPath, true);
 				bool fillAlpha = !bool.Parse(Config.Get("alpha"));
 				await ImageProcessing.ConvertImage(path, ImageProcessing.Format.PngRaw, fillAlpha, ImageProcessing.ExtMode.UseNew, false, Paths.tempImgPath, true);
 				previewImg.Image = ImgUtils.GetImage(Paths.tempImgPath);
-				MainUIHelper.currentScale = 1;
+				PreviewUI.currentScale = 1;
 				previewImg.ZoomToFit();
 				lastZoom = previewImg.Zoom;
 			}
@@ -340,7 +340,7 @@ namespace Cupscale.Main
 			if (Program.busy)
 				return;
 
-            if (!MainUIHelper.HasValidModelSelection())
+            if (!PreviewUI.HasValidModelSelection())
             {
 				Program.ShowMessage("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
 				return;
@@ -356,10 +356,9 @@ namespace Cupscale.Main
 			if (Config.GetBool("reloadImageBeforeUpscale"))
 				ReloadImage();
 			UpdateResizeMode();
-			if (htTabControl.SelectedIndex == 0)
-				await MainUIHelper.UpscaleImage();
-			if (htTabControl.SelectedIndex == 1)
-				await BatchUpscaleUI.Run(preprocessMode.SelectedIndex == 0);
+			if (htTabControl.SelectedIndex == 0) await PreviewUI.UpscaleImage();
+			if (htTabControl.SelectedIndex == 1) await BatchUpscaleUI.Run(preprocessMode.SelectedIndex == 0);
+			if (htTabControl.SelectedIndex == 2) await VideoUpscaleUI.Run();
 		}
 
 		public void UpdateResizeMode ()
@@ -385,13 +384,13 @@ namespace Cupscale.Main
 			if (Config.GetBool("reloadImageBeforeUpscale"))
 				ReloadImage();
 			UpdateResizeMode();
-			MainUIHelper.UpscalePreview(true);
+			PreviewUI.UpscalePreview(true);
 		}
 
         private void refreshPreviewCutoutBtn_Click(object sender, EventArgs e)
         {
 			UpdateResizeMode();
-			MainUIHelper.UpscalePreview();
+			PreviewUI.UpscalePreview();
 		}
 
         private void copyCompToClipboardBtn_Click(object sender, EventArgs e)
@@ -427,7 +426,7 @@ namespace Cupscale.Main
 			previewImg.Image = resetState.image;
 			previewImg.Zoom = resetState.zoom;
 			previewImg.AutoScrollPosition = resetState.autoScrollPosition;		// This doesn't work correctly :/
-			MainUIHelper.ResetCachedImages();
+			PreviewUI.ResetCachedImages();
 			resetImageOnMove = false;
 		}
 
@@ -446,7 +445,7 @@ namespace Cupscale.Main
 
         private void openOutFolderBtn_Click(object sender, EventArgs e)
         {
-			MainUIHelper.OpenLastOutputFolder();
+			PreviewUI.OpenLastOutputFolder();
         }
 
 		public void AfterFirstUpscale ()
@@ -471,11 +470,11 @@ namespace Cupscale.Main
 			DialogForm loadingForm = new DialogForm("Post-Processing And Saving...");
 			await Task.Delay(50);
 			Upscale.currentMode = Upscale.UpscaleMode.Single;
-			string ext = Path.GetExtension(Program.lastFilename);
-			string outPath = Path.ChangeExtension(Program.lastFilename, null) + "[temp]" + ext + ".tmp";
+			string ext = Path.GetExtension(Program.lastImgPath);
+			string outPath = Path.ChangeExtension(Program.lastImgPath, null) + "[temp]" + ext + ".tmp";
 			previewImg.Image.Save(outPath);
 			await Upscale.PostprocessingSingle(outPath, true);
-			string outFilename = Upscale.FilenamePostprocess(MainUIHelper.lastOutfile);
+			string outFilename = Upscale.FilenamePostprocess(PreviewUI.lastOutfile);
 			string finalPath = IOUtils.ReplaceInFilename(outFilename, "[temp]", "");
 			loadingForm.Close();
 			Program.ShowMessage("Saved to " + finalPath + ".", "Message");
@@ -551,7 +550,7 @@ namespace Cupscale.Main
 
         private async void offlineInterpBtn_Click(object sender, EventArgs e)
         {
-			if (MainUIHelper.currentMode == Mode.Interp)
+			if (PreviewUI.currentMode == Mode.Interp)
 			{
                 try
                 {
@@ -615,6 +614,8 @@ namespace Cupscale.Main
         private void alpha_CheckedChanged(object sender, EventArgs e)
         {
 			SaveEsrganOptions();
+			if(initialized && !string.IsNullOrWhiteSpace(Program.lastImgPath))
+				ReloadImage(false);
 		}
 
         private void seamlessMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -629,11 +630,40 @@ namespace Cupscale.Main
 
         private void openSourceFolderBtn_Click(object sender, EventArgs e)
         {
-			string dir = Program.lastFilename.GetParentDir();
+			string dir = Program.lastImgPath.GetParentDir();
 			if (Directory.Exists(dir))
 				Process.Start("explorer.exe", dir);
 			else
 				Program.ShowMessage("The source directory does not seem to exist anymore!");
+		}
+
+        private void htTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			if (htTabControl.SelectedIndex == 0) PreviewUI.TabSelected();
+			if (htTabControl.SelectedIndex == 1) BatchUpscaleUI.TabSelected();
+			if (htTabControl.SelectedIndex == 2) VideoUpscaleUI.TabSelected();
+		}
+
+        private void videoTab_DragEnter(object sender, DragEventArgs e)
+        {
+			if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+			else e.Effect = DragDropEffects.None;
+		}
+
+		private void videoTab_DragDrop(object sender, DragEventArgs e)
+		{
+			string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
+			VideoUpscaleUI.LoadFile(files[0]);
+        }
+
+        private void videoOutPathBtn_Click(object sender, EventArgs e)
+        {
+			CommonOpenFileDialog folderDialog = new CommonOpenFileDialog();
+			if (Directory.Exists(videoOutDir.Text.Trim()))
+				folderDialog.InitialDirectory = videoOutDir.Text;
+			folderDialog.IsFolderPicker = true;
+			if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+				videoOutDir.Text = folderDialog.FileName;
 		}
     }
 }

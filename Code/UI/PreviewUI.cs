@@ -16,7 +16,7 @@ using Paths = Cupscale.IO.Paths;
 
 namespace Cupscale.UI
 {
-    internal class MainUIHelper
+    internal class PreviewUI
     {
         public enum Mode { Single, Interp, Chain, Advanced }
         public static Mode currentMode;
@@ -87,7 +87,7 @@ namespace Cupscale.UI
                 await Task.Delay(50);
                 await Upscale.PostprocessingSingle(outImg, false);
                 string outFilename = Upscale.FilenamePostprocess(lastOutfile);
-                await Upscale.CopyImagesTo(Path.GetDirectoryName(Program.lastFilename));
+                await Upscale.CopyImagesTo(Path.GetDirectoryName(Program.lastImgPath));
             }
             catch (Exception e)
             {
@@ -106,9 +106,14 @@ namespace Cupscale.UI
                 Program.mainForm.SetProgress(0f, "Cancelled.");
             else
                 Program.mainForm.SetProgress(0f, "Cancelled: " + reason);
-            string inputImgPath = Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastFilename));
-            if (overwrite.SelectedIndex == 1 && File.Exists(inputImgPath) && !File.Exists(Program.lastFilename))    // Copy image back if overwrite mode was on
-                File.Move(inputImgPath, Program.lastFilename);
+            string inputImgPath = Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastImgPath));
+            if (overwrite.SelectedIndex == 1 && File.Exists(inputImgPath) && !File.Exists(Program.lastImgPath))    // Copy image back if overwrite mode was on
+                File.Move(inputImgPath, Program.lastImgPath);
+        }
+
+        public static void TabSelected()
+        {
+            Program.mainForm.SetButtonText("Upscale And Save");
         }
 
         public static bool HasValidModelSelection()
@@ -123,13 +128,13 @@ namespace Cupscale.UI
 
         static string CopyImage()
         {
-            string outpath = Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastFilename));
+            string outpath = Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastImgPath));
             try
             {
                 //if (overwrite.SelectedIndex == 1)
                 //    File.Move(Program.lastFilename, Path.Combine(Paths.imgInPath, Path.GetFileName(Program.lastFilename)));
                 //else
-                File.Copy(Program.lastFilename, outpath);
+                File.Copy(Program.lastImgPath, outpath);
             }
             catch (Exception e)
             {

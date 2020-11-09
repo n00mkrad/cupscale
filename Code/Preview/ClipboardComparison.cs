@@ -78,7 +78,7 @@ namespace Cupscale
 
                 Font font = new Font("Times New Roman", graphics.DpiY * fontSize / 72);
 
-                string barString = "[CS] " + Path.GetFileName(Program.lastFilename) + " - " + modelName;
+                string barString = "[CS] " + Path.GetFileName(Program.lastImgPath) + " - " + modelName;
 
                 int cf = 0, lf = 0;
                 while (s.Width >= 2 * newWidth)
@@ -172,7 +172,7 @@ namespace Cupscale
 
                 Font font = new Font("Times New Roman", graphics.DpiY * fontSize / 72);
 
-                string barString = "[CS] " + Path.GetFileName(Program.lastFilename) + " - " + modelName;
+                string barString = "[CS] " + Path.GetFileName(Program.lastImgPath) + " - " + modelName;
 
                 int cf = 0, lf = 0;
                 while (s.Width >= newWidth)
@@ -214,7 +214,7 @@ namespace Cupscale
 
         static async Task SaveComparisonToFile (Image outputImage)
         {
-            string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison.png";
+            string comparisonSavePath = Path.ChangeExtension(Program.lastImgPath, null) + "-comparison.png";
             outputImage.Save(comparisonSavePath);
             await ImageProcessing.ConvertImage(comparisonSavePath, GetSaveFormat(), false, ImageProcessing.ExtMode.UseNew);
             Program.ShowMessage("Saved current comparison to:\n\n" + Path.ChangeExtension(comparisonSavePath, null), "Message");
@@ -283,7 +283,7 @@ namespace Cupscale
 
                 if (save)
                 {
-                    string comparisonSavePath = Path.ChangeExtension(Program.lastFilename, null) + "-comparison." + ext;
+                    string comparisonSavePath = Path.ChangeExtension(Program.lastImgPath, null) + "-comparison." + ext;
                     File.Copy(outpath, comparisonSavePath, true);
                     dialogForm.Close();
                     Program.ShowMessage("Saved current comparison to:\n\n" + comparisonSavePath, "Message");

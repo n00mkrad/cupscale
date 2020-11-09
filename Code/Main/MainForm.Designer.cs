@@ -65,6 +65,23 @@ namespace Cupscale.Main
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.batchFileList = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.videoTab = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.videoPathLabel = new System.Windows.Forms.Label();
+            this.panel37 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel38 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.label31 = new System.Windows.Forms.Label();
+            this.panel39 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.videoOutPathBtn = new System.Windows.Forms.Button();
+            this.videoOutDir = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.panel40 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
+            this.videoLogBox = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -181,6 +198,16 @@ namespace Cupscale.Main
             this.tableLayoutPanel10.SuspendLayout();
             this.panel10.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
+            this.videoTab.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.panel37.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
+            this.panel38.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
+            this.panel39.SuspendLayout();
+            this.tableLayoutPanel12.SuspendLayout();
+            this.panel40.SuspendLayout();
+            this.tableLayoutPanel13.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel15.SuspendLayout();
@@ -344,6 +371,7 @@ namespace Cupscale.Main
             this.htTabControl.BorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.htTabControl.Controls.Add(this.previewTab);
             this.htTabControl.Controls.Add(this.batchTab);
+            this.htTabControl.Controls.Add(this.videoTab);
             this.htTabControl.DisableClose = true;
             this.htTabControl.DisableDragging = true;
             this.htTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -365,6 +393,7 @@ namespace Cupscale.Main
             this.htTabControl.UnselectedTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
             this.htTabControl.UpDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
             this.htTabControl.UpDownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(112)))));
+            this.htTabControl.SelectedIndexChanged += new System.EventHandler(this.htTabControl_SelectedIndexChanged);
             // 
             // previewTab
             // 
@@ -690,6 +719,233 @@ namespace Cupscale.Main
             this.label6.Size = new System.Drawing.Size(48, 14);
             this.label6.TabIndex = 11;
             this.label6.Text = "File List";
+            // 
+            // videoTab
+            // 
+            this.videoTab.AllowDrop = true;
+            this.videoTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.videoTab.Controls.Add(this.tableLayoutPanel2);
+            this.videoTab.Location = new System.Drawing.Point(4, 27);
+            this.videoTab.Name = "videoTab";
+            this.videoTab.Padding = new System.Windows.Forms.Padding(3);
+            this.videoTab.Size = new System.Drawing.Size(594, 813);
+            this.videoTab.TabIndex = 2;
+            this.videoTab.Text = "Upscale Videos";
+            this.videoTab.DragDrop += new System.Windows.Forms.DragEventHandler(this.videoTab_DragDrop);
+            this.videoTab.DragEnter += new System.Windows.Forms.DragEventHandler(this.videoTab_DragEnter);
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.videoPathLabel, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel37, 0, 1);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(588, 807);
+            this.tableLayoutPanel2.TabIndex = 14;
+            // 
+            // videoPathLabel
+            // 
+            this.videoPathLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.videoPathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.videoPathLabel.ForeColor = System.Drawing.Color.White;
+            this.videoPathLabel.Location = new System.Drawing.Point(3, 0);
+            this.videoPathLabel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.videoPathLabel.Name = "videoPathLabel";
+            this.videoPathLabel.Size = new System.Drawing.Size(582, 55);
+            this.videoPathLabel.TabIndex = 11;
+            this.videoPathLabel.Text = "Drag And Drop A GIF/Video File Here";
+            this.videoPathLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel37
+            // 
+            this.panel37.Controls.Add(this.tableLayoutPanel6);
+            this.panel37.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel37.Location = new System.Drawing.Point(3, 83);
+            this.panel37.Name = "panel37";
+            this.panel37.Size = new System.Drawing.Size(582, 721);
+            this.panel37.TabIndex = 12;
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.ColumnCount = 2;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Controls.Add(this.panel38, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.panel40, 1, 0);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 1;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(582, 721);
+            this.tableLayoutPanel6.TabIndex = 0;
+            // 
+            // panel38
+            // 
+            this.panel38.Controls.Add(this.tableLayoutPanel11);
+            this.panel38.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel38.Location = new System.Drawing.Point(0, 0);
+            this.panel38.Margin = new System.Windows.Forms.Padding(0);
+            this.panel38.Name = "panel38";
+            this.panel38.Size = new System.Drawing.Size(291, 721);
+            this.panel38.TabIndex = 0;
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.ColumnCount = 1;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.Controls.Add(this.label31, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.panel39, 0, 1);
+            this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel11.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 2;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(291, 721);
+            this.tableLayoutPanel11.TabIndex = 13;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.label31.ForeColor = System.Drawing.Color.White;
+            this.label31.Location = new System.Drawing.Point(8, 8);
+            this.label31.Margin = new System.Windows.Forms.Padding(8);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(50, 14);
+            this.label31.TabIndex = 12;
+            this.label31.Text = "Options";
+            // 
+            // panel39
+            // 
+            this.panel39.Controls.Add(this.tableLayoutPanel12);
+            this.panel39.Controls.Add(this.label34);
+            this.panel39.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel39.Location = new System.Drawing.Point(0, 30);
+            this.panel39.Margin = new System.Windows.Forms.Padding(0);
+            this.panel39.Name = "panel39";
+            this.panel39.Size = new System.Drawing.Size(291, 691);
+            this.panel39.TabIndex = 11;
+            // 
+            // tableLayoutPanel12
+            // 
+            this.tableLayoutPanel12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel12.ColumnCount = 2;
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel12.Controls.Add(this.videoOutPathBtn, 1, 0);
+            this.tableLayoutPanel12.Controls.Add(this.videoOutDir, 0, 0);
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(8, 32);
+            this.tableLayoutPanel12.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            this.tableLayoutPanel12.RowCount = 1;
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(275, 23);
+            this.tableLayoutPanel12.TabIndex = 19;
+            // 
+            // videoOutPathBtn
+            // 
+            this.videoOutPathBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.videoOutPathBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.videoOutPathBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.videoOutPathBtn.ForeColor = System.Drawing.Color.White;
+            this.videoOutPathBtn.Location = new System.Drawing.Point(249, 0);
+            this.videoOutPathBtn.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.videoOutPathBtn.Name = "videoOutPathBtn";
+            this.videoOutPathBtn.Size = new System.Drawing.Size(26, 23);
+            this.videoOutPathBtn.TabIndex = 18;
+            this.videoOutPathBtn.Text = "...";
+            this.videoOutPathBtn.UseVisualStyleBackColor = false;
+            this.videoOutPathBtn.Click += new System.EventHandler(this.videoOutPathBtn_Click);
+            // 
+            // videoOutDir
+            // 
+            this.videoOutDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.videoOutDir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.videoOutDir.ForeColor = System.Drawing.Color.White;
+            this.videoOutDir.Location = new System.Drawing.Point(0, 0);
+            this.videoOutDir.Margin = new System.Windows.Forms.Padding(0);
+            this.videoOutDir.Name = "videoOutDir";
+            this.videoOutDir.Size = new System.Drawing.Size(245, 23);
+            this.videoOutDir.TabIndex = 10;
+            this.videoOutDir.Text = "Will get auto-filled once you load a directory.";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.ForeColor = System.Drawing.Color.White;
+            this.label34.Location = new System.Drawing.Point(8, 7);
+            this.label34.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(99, 15);
+            this.label34.TabIndex = 13;
+            this.label34.Text = "Output Directory:";
+            // 
+            // panel40
+            // 
+            this.panel40.Controls.Add(this.tableLayoutPanel13);
+            this.panel40.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel40.Location = new System.Drawing.Point(291, 0);
+            this.panel40.Margin = new System.Windows.Forms.Padding(0);
+            this.panel40.Name = "panel40";
+            this.panel40.Size = new System.Drawing.Size(291, 721);
+            this.panel40.TabIndex = 1;
+            // 
+            // tableLayoutPanel13
+            // 
+            this.tableLayoutPanel13.ColumnCount = 1;
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel13.Controls.Add(this.videoLogBox, 0, 1);
+            this.tableLayoutPanel13.Controls.Add(this.label35, 0, 0);
+            this.tableLayoutPanel13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel13.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel13.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel13.Name = "tableLayoutPanel13";
+            this.tableLayoutPanel13.RowCount = 2;
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(291, 721);
+            this.tableLayoutPanel13.TabIndex = 12;
+            // 
+            // videoLogBox
+            // 
+            this.videoLogBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.videoLogBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.videoLogBox.ForeColor = System.Drawing.Color.White;
+            this.videoLogBox.Location = new System.Drawing.Point(8, 38);
+            this.videoLogBox.Margin = new System.Windows.Forms.Padding(8);
+            this.videoLogBox.Multiline = true;
+            this.videoLogBox.Name = "videoLogBox";
+            this.videoLogBox.ReadOnly = true;
+            this.videoLogBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.videoLogBox.Size = new System.Drawing.Size(275, 675);
+            this.videoLogBox.TabIndex = 12;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.label35.ForeColor = System.Drawing.Color.White;
+            this.label35.Location = new System.Drawing.Point(8, 8);
+            this.label35.Margin = new System.Windows.Forms.Padding(8);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(118, 14);
+            this.label35.TabIndex = 11;
+            this.label35.Text = "Video Upscaling Log";
             // 
             // panel6
             // 
@@ -2157,6 +2413,20 @@ namespace Cupscale.Main
             this.panel10.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
+            this.videoTab.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel37.ResumeLayout(false);
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.panel38.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
+            this.tableLayoutPanel11.PerformLayout();
+            this.panel39.ResumeLayout(false);
+            this.panel39.PerformLayout();
+            this.tableLayoutPanel12.ResumeLayout(false);
+            this.tableLayoutPanel12.PerformLayout();
+            this.panel40.ResumeLayout(false);
+            this.tableLayoutPanel13.ResumeLayout(false);
+            this.tableLayoutPanel13.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel15.ResumeLayout(false);
@@ -2312,5 +2582,22 @@ namespace Cupscale.Main
         private Panel panel32;
         private Panel panel35;
         private Panel panel36;
+        private TabPage videoTab;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Label videoPathLabel;
+        private Panel panel37;
+        private TableLayoutPanel tableLayoutPanel6;
+        private Panel panel38;
+        private TableLayoutPanel tableLayoutPanel11;
+        private Label label31;
+        private Panel panel39;
+        private TableLayoutPanel tableLayoutPanel12;
+        private Button videoOutPathBtn;
+        private TextBox videoOutDir;
+        private Label label34;
+        private Panel panel40;
+        private TableLayoutPanel tableLayoutPanel13;
+        private TextBox videoLogBox;
+        private Label label35;
     }
 }

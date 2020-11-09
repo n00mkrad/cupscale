@@ -17,6 +17,7 @@ namespace Cupscale
     internal class IOUtils
     {
         public static string[] compatibleExtensions = new string[] { ".png", ".jpg", ".jpeg", ".bmp", ".tga", ".webp", ".dds" };
+        public static string[] videoExtensions = new string[] { ".mp4", ".mkv", ".gif" };
         static bool hasShownPortableInfo = false;
 
         public static string GetAppDataDir()
@@ -447,6 +448,21 @@ namespace Cupscale
                 Logger.ErrorMessage("Error trying to get disk space.", e);
             }
             return 0;
+        }
+
+        public static bool HasEnoughDiskSpace(string path, float multiplier = 2.0f)
+        {
+            long requiredDiskSpace = 0;
+            if (IOUtils.IsPathDirectory(path))
+                requiredDiskSpace = (GetDirSize(new DirectoryInfo(path)) * multiplier).RoundToInt();
+            else
+                requiredDiskSpace = (new FileInfo(path).Length * multiplier).RoundToInt();
+            int requiredDiskSpaceMb = (int)(requiredDiskSpace / 1024f / 1000f);
+            long availDiskSpaceMb = IOUtils.GetDiskSpace(path);
+            Logger.Log($"Disk space check for {path} with multiplier {multiplier} - {requiredDiskSpaceMb} MB needed, {availDiskSpaceMb} MB available");
+            if (availDiskSpaceMb > requiredDiskSpaceMb)
+                return true;
+            return false;
         }
     }
 }

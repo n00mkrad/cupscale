@@ -62,11 +62,11 @@ namespace Cupscale.OS
                     await Program.PutTaskDelay();
                     Image outImg = ImgUtils.GetImage(Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);
                     Image inputImg = ImgUtils.GetImage(Paths.tempImgPath);
-                    MainUIHelper.previewImg.Image = outImg;
-                    MainUIHelper.currentOriginal = inputImg;
-                    MainUIHelper.currentOutput = outImg;
-                    MainUIHelper.currentScale = ImgUtils.GetScaleFloat(inputImg, outImg);
-                    MainUIHelper.previewImg.ZoomToFit();
+                    PreviewUI.previewImg.Image = outImg;
+                    PreviewUI.currentOriginal = inputImg;
+                    PreviewUI.currentOutput = outImg;
+                    PreviewUI.currentScale = ImgUtils.GetScaleFloat(inputImg, outImg);
+                    PreviewUI.previewImg.ZoomToFit();
                     Program.mainForm.SetHasPreview(true);
                     //Program.mainForm.SetProgress(0f, "Done.");
                 }

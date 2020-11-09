@@ -18,8 +18,9 @@ namespace Cupscale
 	{
 		public static MainForm mainForm;
 		public static string lastOutputDir;
-		public static string lastFilename;
-		public static string lastDirPath;
+		public static string lastImgPath;		// Single Image
+		public static string lastDirPath;		// Batch
+		public static string lastVidPath;       // Video
 		public static string lastModelName;
 		public static string currentModel1;
 		public static string currentModel2;

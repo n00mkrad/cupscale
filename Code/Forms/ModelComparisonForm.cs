@@ -63,7 +63,7 @@ namespace Cupscale.Forms
 
         private async void runBtn_Click(object sender, EventArgs e)
         {
-            if(MainUIHelper.previewImg.Image == null || !File.Exists(Paths.tempImgPath))
+            if(PreviewUI.previewImg.Image == null || !File.Exists(Paths.tempImgPath))
             {
                 Program.ShowMessage("No image loaded!", "Error");
                 return;
@@ -72,7 +72,7 @@ namespace Cupscale.Forms
             cutoutMode = cropMode.SelectedIndex == 1;
             if (cutoutMode)
             {
-                MainUIHelper.SaveCurrentCutout();
+                PreviewUI.SaveCurrentCutout();
                 currentSourcePath = Path.Combine(Paths.previewPath, "preview.png");
             }
             else
@@ -95,13 +95,13 @@ namespace Cupscale.Forms
             }
             bool vert = compositionMode.SelectedIndex == 1;
             MagickImage merged = ImgUtils.MergeImages(Directory.GetFiles(Paths.imgOutPath, "*.png", SearchOption.AllDirectories), vert, true);
-            string mergedPath = Path.Combine(Paths.imgOutPath, Path.GetFileNameWithoutExtension(Program.lastFilename) + "-composition");
+            string mergedPath = Path.Combine(Paths.imgOutPath, Path.GetFileNameWithoutExtension(Program.lastImgPath) + "-composition");
             mergedPath = Path.ChangeExtension(mergedPath, GetSaveExt());
             merged.Write(mergedPath);
-            await Upscale.CopyImagesTo(Program.lastFilename.GetParentDir());
+            await Upscale.CopyImagesTo(Program.lastImgPath.GetParentDir());
             IOUtils.ClearDir(Paths.previewPath);
             Enabled = true;
-            Program.ShowMessage("Saved model composition to " + Program.lastFilename.GetParentDir() + "\\" + Path.GetFileName(mergedPath), "Message");
+            Program.ShowMessage("Saved model composition to " + Program.lastImgPath.GetParentDir() + "\\" + Path.GetFileName(mergedPath), "Message");
         }
 
         static ImageProcessing.Format GetSaveFormat()
@@ -126,7 +126,7 @@ namespace Cupscale.Forms
 
         async Task DoUpscale (int index, ModelData mdl, bool fullImage)
         {
-            if (MainUIHelper.previewImg.Image == null)
+            if (PreviewUI.previewImg.Image == null)
             {
                 Program.ShowMessage("Please load an image first!", "Error");
                 return;
@@ -153,8 +153,8 @@ namespace Cupscale.Forms
                 else
                     outImg = Directory.GetFiles(Paths.compositionOut, "*.tmp", SearchOption.AllDirectories)[0];
                 await Upscale.PostprocessingSingle(outImg, false);
-                await ProcessImage(MainUIHelper.lastOutfile, mdl.model1Name);
-                IOUtils.TryCopy(MainUIHelper.lastOutfile, Path.Combine(Paths.imgOutPath, $"{index}-{mdl.model1Name}.png"), true);
+                await ProcessImage(PreviewUI.lastOutfile, mdl.model1Name);
+                IOUtils.TryCopy(PreviewUI.lastOutfile, Path.Combine(Paths.imgOutPath, $"{index}-{mdl.model1Name}.png"), true);
             }
             catch (Exception e)
             {

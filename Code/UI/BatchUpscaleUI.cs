@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,6 +17,7 @@ namespace Cupscale.UI
 
         static TextBox outDir;
         static TextBox fileList;
+        static Label titleLabel;
 
         static string currentInDir;
         static string currentParentDir;
@@ -27,10 +27,11 @@ namespace Cupscale.UI
 
         public static Stopwatch sw = new Stopwatch();
 
-        public static void Init (TextBox outDirBox, TextBox fileListBox)
+        public static void Init (TextBox outDirBox, TextBox fileListBox, Label mainLabel)
         {
             outDir = outDirBox;
             fileList = fileListBox;
+            titleLabel = mainLabel;
         }
 
         public static void LoadDir (string path)
@@ -43,6 +44,19 @@ namespace Cupscale.UI
             Program.lastDirPath = currentInDir;
             string[] files = Directory.GetFiles(currentInDir, "*", SearchOption.AllDirectories).Where(file => IOUtils.compatibleExtensions.Any(x => file.EndsWith(x, StringComparison.OrdinalIgnoreCase))).ToArray();
             FillFileList(files, true);
+            TabSelected();
+        }
+
+        public static void TabSelected ()
+        {
+            if (string.IsNullOrWhiteSpace(currentInDir))
+            {
+                Program.mainForm.SetButtonText("Upscale Images");
+                return;
+            }
+            int compatFilesAmount = IOUtils.GetAmountOfCompatibleFiles(currentInDir, true);
+            titleLabel.Text = "Loaded " + currentInDir.Wrap() + " - Found " + compatFilesAmount + " compatible files.";
+            Program.mainForm.SetButtonText("Upscale " + compatFilesAmount + " Images");
         }
 
         public static void LoadImages(string[] imgs)
@@ -97,12 +111,14 @@ namespace Cupscale.UI
             fileList.AppendText(text);
         }
 
-        public static async Task Run (bool preprocess)
+        public static async Task Run (bool preprocess, bool postProcess = true, string overrideOutDir = "")
         {
-            IOUtils.ClearDir(Paths.imgInPath);
-            IOUtils.ClearDir(Paths.imgOutPath);
             bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
             bool useCpu = (Config.Get("cudaFallback").GetInt() == 1);
+
+            string imgOutDir = outDir.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(overrideOutDir)) imgOutDir = overrideOutDir;
+
             if (useNcnn && !Program.mainForm.HasValidNcnnModelSelection())
             {
                 Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
@@ -113,7 +129,7 @@ namespace Cupscale.UI
                 Program.ShowMessage("No directory loaded.", "Error");
                 return;
             }
-            if (!HasEnoughDiskSpace(IOUtils.GetAppDataDir()))
+            if (!IOUtils.HasEnoughDiskSpace(IOUtils.GetAppDataDir(), 2.0f))
             {
                 Program.ShowMessage($"Not enough disk space on {IOUtils.GetAppDataDir().Substring(0, 3)} to store temporary files!", "Error");
                 return;
@@ -122,7 +138,7 @@ namespace Cupscale.UI
             Program.mainForm.SetBusy(true);
             Program.mainForm.SetProgress(2f, "Loading images...");
             await Task.Delay(20);
-            Directory.CreateDirectory(outDir.Text.Trim());
+            Directory.CreateDirectory(imgOutDir);
             await CopyCompatibleImagesToTemp();
             Program.mainForm.SetProgress(3f, "Pre-Processing...");
             if (preprocess)
@@ -132,32 +148,24 @@ namespace Cupscale.UI
             ModelData mdl = Upscale.GetModelData();
             GetProgress(Paths.imgOutPath, IOUtils.GetAmountOfFiles(Paths.imgInPath, true));
 
-            PostProcessingQueue.Start(outDir.Text.Trim());
+            if(postProcess)
+                PostProcessingQueue.Start(imgOutDir);
 
             List<Task> tasks = new List<Task>();
             ESRGAN.Backend backend = ESRGAN.Backend.CUDA;
             if (useCpu) backend = ESRGAN.Backend.CPU;
             if (useNcnn) backend = ESRGAN.Backend.NCNN;
             tasks.Add(ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, backend, false));
-            tasks.Add(PostProcessingQueue.Update());
-            tasks.Add(PostProcessingQueue.ProcessQueue());
-
+            if (postProcess)
+            {
+                tasks.Add(PostProcessingQueue.Update());
+                tasks.Add(PostProcessingQueue.ProcessQueue());
+            }
             sw.Restart();
             await Task.WhenAll(tasks);
 
             Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0")}s");
             Program.mainForm.SetBusy(false);
-        }
-
-        static bool HasEnoughDiskSpace (string path, float multiplier = 2.0f)
-        {
-            long requiredDiskSpace = (IOUtils.GetDirSize(new DirectoryInfo(path)) * multiplier).RoundToInt();
-            int requiredDiskSpaceMb = (int)(requiredDiskSpace / 1024f / 1000f);
-            long availDiskSpaceMb = IOUtils.GetDiskSpace(path);
-            Logger.Log($"Disk space check for {path} - {requiredDiskSpaceMb} MB needed, {availDiskSpaceMb} MB available");
-            if (availDiskSpaceMb > requiredDiskSpaceMb)
-                return true;
-            return false;
         }
 
         public static int upscaledImages = 0;
@@ -169,7 +177,6 @@ namespace Cupscale.UI
             {
                 if (Directory.Exists(outdir))
                 {
-                    //int count = PostProcessingQueue.processedFiles.Count;
                     float percentage = (float)upscaledImages / target;
                     percentage = percentage * 100f;
                     if (percentage >= 100f)
@@ -185,6 +192,13 @@ namespace Cupscale.UI
         static async Task CopyCompatibleImagesToTemp(bool move = false)
         {
             IOUtils.ClearDir(Paths.imgOutPath);
+
+            Logger.Log("currentInDir: " + currentInDir + ", imgInPath: " + Paths.imgInPath);
+            if (currentInDir == Paths.imgInPath)    // Skip if we are directly upscaling the img-in folder
+                return;
+
+            Logger.Log("Clearing imgInPath");
+
             IOUtils.ClearDir(Paths.imgInPath);
             if (multiImgMode)
             {
