@@ -1,11 +1,7 @@
 ﻿using Cupscale.IO;
+using Cupscale.OS;
 using Cupscale.UI;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Cupscale
@@ -14,12 +10,7 @@ namespace Cupscale
     {
         public static async Task Run(string args)
         {
-            Process ffmpeg = new Process();
-            ffmpeg.StartInfo.UseShellExecute = false;
-            ffmpeg.StartInfo.RedirectStandardOutput = true;
-            ffmpeg.StartInfo.RedirectStandardError = true;
-            ffmpeg.StartInfo.CreateNoWindow = true;
-            ffmpeg.StartInfo.FileName = "cmd.exe";
+            Process ffmpeg = OSUtils.NewProcess(true);
             ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.Wrap() + " & ffmpeg.exe -hide_banner -loglevel warning -y -stats " + args;
             Logger.Log("Running ffmpeg...");
             Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
@@ -40,14 +31,8 @@ namespace Cupscale
 
         public static async Task RunGifski (string args)
         {
-            Process ffmpeg = new Process();
-            ffmpeg.StartInfo.UseShellExecute = false;
-            ffmpeg.StartInfo.RedirectStandardOutput = true;
-            ffmpeg.StartInfo.RedirectStandardError = true;
-            ffmpeg.StartInfo.CreateNoWindow = true;
-            ffmpeg.StartInfo.FileName = "cmd.exe";
-            ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.Wrap()
-                + " & gifski.exe " + args;
+            Process ffmpeg = OSUtils.NewProcess(true);
+            ffmpeg.StartInfo.Arguments = $"/C cd /D {Paths.esrganPath.Wrap()} & gifski.exe {args}";
             Logger.Log("Running gifski...");
             Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
             ffmpeg.OutputDataReceived += new DataReceivedEventHandler(OutputHandlerGifski);
@@ -67,18 +52,15 @@ namespace Cupscale
 
         public static string RunAndGetOutput (string args)
         {
-            Process ffmpeg = new Process();
-            ffmpeg.StartInfo.UseShellExecute = false;
-            ffmpeg.StartInfo.RedirectStandardOutput = true;
-            ffmpeg.StartInfo.RedirectStandardError = true;
-            ffmpeg.StartInfo.CreateNoWindow = true;
-            ffmpeg.StartInfo.FileName = "cmd.exe";
+            Process ffmpeg = OSUtils.NewProcess(true);
             ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.Wrap() + " & ffmpeg.exe -hide_banner -y -stats " + args;
             ffmpeg.Start();
             ffmpeg.WaitForExit();
             string output = ffmpeg.StandardOutput.ReadToEnd();
             string err = ffmpeg.StandardError.ReadToEnd();
-            return output + "\n" + err;
+            if (!string.IsNullOrWhiteSpace(err))
+                output = output + "\n" + err;
+            return output;
         }
     }
 }

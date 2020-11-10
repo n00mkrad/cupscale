@@ -16,7 +16,7 @@ namespace Cupscale
 {
     internal class IOUtils
     {
-        public static string[] compatibleExtensions = new string[] { ".png", ".jpg", ".jpeg", ".bmp", ".tga", ".webp", ".dds" };
+        public static string[] compatibleExtensions = new string[] { ".png", ".jpg", ".jpeg", ".bmp", ".tga", ".webp", ".dds", ".gif" };
         public static string[] videoExtensions = new string[] { ".mp4", ".mkv", ".gif" };
         static bool hasShownPortableInfo = false;
 

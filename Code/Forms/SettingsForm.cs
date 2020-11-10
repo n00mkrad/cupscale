@@ -57,6 +57,10 @@ namespace Cupscale.Forms
             Config.LoadGuiElement(ddsEnableMips);
             Config.LoadGuiElement(flipTga);
             Config.LoadGuiElement(useMozJpeg);
+            // Video
+            Config.LoadGuiElement(crf);
+            Config.LoadGuiElement(h265);
+            Config.LoadGuiElement(gifskiQ);
             // Debug
             Config.LoadGuiElement(logIo);
             Config.LoadGuiElement(logStatus);
@@ -81,6 +85,7 @@ namespace Cupscale.Forms
 
         void SaveSettings()
         {
+            Clamp();
             // ESRGAN/Cupscale
             Config.SaveComboxIndex(esrganVer);
             Config.SaveGuiElement(tilesize, true);
@@ -101,10 +106,23 @@ namespace Cupscale.Forms
             Config.SaveGuiElement(ddsEnableMips);
             Config.SaveGuiElement(flipTga);
             Config.SaveGuiElement(useMozJpeg);
+            // Video
+            Config.SaveGuiElement(crf);
+            Config.SaveGuiElement(h265);
+            Config.SaveGuiElement(gifskiQ);
             // Debug
             Config.SaveGuiElement(logIo);
             Config.SaveGuiElement(logStatus);
             Config.SaveComboxIndex(cmdDebugMode);
+        }
+
+        void Clamp ()
+        {
+            tilesize.Text = tilesize.GetInt().Clamp(64, 8192).ToString();
+            jpegQ.Text = jpegQ.GetInt().Clamp(0, 100).ToString();
+            webpQ.Text = webpQ.GetInt().Clamp(0, 100).ToString();
+            crf.Text = crf.GetInt().Clamp(0, 51).ToString();
+            gifskiQ.Text = gifskiQ.GetInt().Clamp(0, 100).ToString();
         }
 
         private void confAlphaBgColorBtn_Click(object sender, EventArgs e)

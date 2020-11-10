@@ -29,9 +29,9 @@ namespace Cupscale.Main
 		{
 			CheckForIllegalCrossThreadCalls = false;
 			InitializeComponent();
-			PreviewUI.Init(previewImg, model1TreeBtn, model2TreeBtn, prevOutputFormatCombox, prevOverwriteCombox);
+			PreviewUI.Init(previewImg, model1TreeBtn, model2TreeBtn, imageOutputFormat, prevOverwriteCombox);
 			BatchUpscaleUI.Init(batchOutDir, batchFileList, batchDirLabel);
-			VideoUpscaleUI.Init(videoOutDir, videoLogBox, videoPathLabel);
+			VideoUpscaleUI.Init(videoOutDir, videoLogBox, videoPathLabel, videoOutputFormat);
 			Program.mainForm = this;
 			WindowState = FormWindowState.Maximized;
 		}
@@ -45,8 +45,9 @@ namespace Cupscale.Main
 			UIHelpers.FillEnumComboBox(preResizeFilter, typeof(Upscale.Filter), 0);
 			// Right Panel
 			UIHelpers.InitCombox(prevOverwriteCombox, 0);
-			UIHelpers.InitCombox(prevOutputFormatCombox, 0);
-			UIHelpers.FillEnumComboBox(prevOutputFormatCombox, typeof(Upscale.ExportFormats));
+			UIHelpers.InitCombox(imageOutputFormat, 0);
+			UIHelpers.FillEnumComboBox(imageOutputFormat, typeof(Upscale.ImgExportMode));
+			UIHelpers.FillEnumComboBox(videoOutputFormat, typeof(Upscale.VidExportMode));
 			UIHelpers.InitCombox(postResizeScale, 1);
 			UIHelpers.InitCombox(postResizeMode, 0);
 			UIHelpers.FillEnumComboBox(postResizeFilter, typeof(Upscale.Filter), 0);
@@ -243,7 +244,6 @@ namespace Cupscale.Main
 			Logger.Log("[MainUI] Dropped " + files.Length + " file(s), files[0] = " + files[0]);
 			IOUtils.ClearDir(Paths.tempImgPath.GetParentDir());
 			string path = files[0];
-			DialogForm loadingDialogForm = null;
 			if (IOUtils.IsPathDirectory(path))
 			{
 				htTabControl.SelectedIndex = 1;
@@ -253,18 +253,13 @@ namespace Cupscale.Main
 			if(files.Length > 1)
             {
 				htTabControl.SelectedIndex = 1;
-				int compatFilesAmount = IOUtils.GetAmountOfCompatibleFiles(files);
 				BatchUpscaleUI.LoadImages(files);
-				batchDirLabel.Text = "Loaded " + compatFilesAmount + " compatible files.";
-				upscaleBtn.Text = "Upscale " + compatFilesAmount + " Images";
 				return;
 			}
 			upscaleBtn.Text = "Upscale And Save";
 			htTabControl.SelectedIndex = 0;
 			previewImg.Text = "";
 			SetProgress(0f, "Loading image...");
-			loadingDialogForm = new DialogForm("Loading " + Path.GetFileName(path) +"...");
-			await Task.Delay(20);
 			PreviewUI.ResetCachedImages();
 			if (!PreviewUI.DroppedImageIsValid(path))
             {
@@ -277,7 +272,6 @@ namespace Cupscale.Main
 			ReloadImage(false);
 			if (failed) { FailReset(); return; }
 			SetHasPreview(false);
-			loadingDialogForm.Close();
 			ImageLoadedChanged(true);
 			SetProgress(0f, "Ready.");
 		}
@@ -307,9 +301,11 @@ namespace Cupscale.Main
 
 		public async void ReloadImage (bool allowFail = true)	// Returns false on error
         {
+			string path = Program.lastImgPath;
+			DialogForm loadingBox = new DialogForm($"Loading {Path.GetFileName(path)}", 20);
+			await Task.Delay(10);
 			try
 			{
-				string path = Program.lastImgPath;
 				File.Copy(path, Paths.tempImgPath, true);
 				bool fillAlpha = !bool.Parse(Config.Get("alpha"));
 				await ImageProcessing.ConvertImage(path, ImageProcessing.Format.PngRaw, fillAlpha, ImageProcessing.ExtMode.UseNew, false, Paths.tempImgPath, true);
@@ -327,12 +323,8 @@ namespace Cupscale.Main
 					failed = true;
 				}
 			}
-		}
-
-		public void ForceMaximize ()
-        {
-			WindowState = FormWindowState.Minimized;
-			WindowState = FormWindowState.Maximized;
+			if(loadingBox != null)
+				loadingBox.Close();
 		}
 
         private async void upscaleBtn_Click(object sender, EventArgs e)
@@ -639,9 +631,14 @@ namespace Cupscale.Main
 
         private void htTabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
+			videoOutputFormat.Visible = false;
 			if (htTabControl.SelectedIndex == 0) PreviewUI.TabSelected();
 			if (htTabControl.SelectedIndex == 1) BatchUpscaleUI.TabSelected();
-			if (htTabControl.SelectedIndex == 2) VideoUpscaleUI.TabSelected();
+			if (htTabControl.SelectedIndex == 2)
+			{
+				VideoUpscaleUI.TabSelected();
+				videoOutputFormat.Visible = true;
+			}
 		}
 
         private void videoTab_DragEnter(object sender, DragEventArgs e)

@@ -123,6 +123,19 @@
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.videoFormatsPage = new Cyotek.Windows.Forms.TabListPage();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.h265 = new System.Windows.Forms.CheckBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.gifskiQ = new System.Windows.Forms.TextBox();
+            this.crf = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.pictureBox13 = new System.Windows.Forms.PictureBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -150,12 +163,19 @@
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             this.logPage.SuspendLayout();
+            this.videoFormatsPage.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
             this.SuspendLayout();
             // 
             // tabList1
             // 
             this.tabList1.Controls.Add(this.settingsPage);
             this.tabList1.Controls.Add(this.formatsPage);
+            this.tabList1.Controls.Add(this.videoFormatsPage);
             this.tabList1.Controls.Add(this.resourceFilesPage);
             this.tabList1.Controls.Add(this.debugPage);
             this.tabList1.Controls.Add(this.logPage);
@@ -1275,6 +1295,152 @@
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
             // 
+            // videoFormatsPage
+            // 
+            this.videoFormatsPage.Controls.Add(this.tableLayoutPanel5);
+            this.videoFormatsPage.Name = "videoFormatsPage";
+            this.videoFormatsPage.Size = new System.Drawing.Size(922, 469);
+            this.videoFormatsPage.Text = "Video Format Settings";
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Controls.Add(this.panel9, 0, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(922, 469);
+            this.tableLayoutPanel5.TabIndex = 4;
+            // 
+            // panel9
+            // 
+            this.panel9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel9.Controls.Add(this.pictureBox13);
+            this.panel9.Controls.Add(this.pictureBox11);
+            this.panel9.Controls.Add(this.h265);
+            this.panel9.Controls.Add(this.label37);
+            this.panel9.Controls.Add(this.pictureBox12);
+            this.panel9.Controls.Add(this.gifskiQ);
+            this.panel9.Controls.Add(this.crf);
+            this.panel9.Controls.Add(this.label40);
+            this.panel9.Controls.Add(this.label41);
+            this.panel9.Controls.Add(this.label42);
+            this.panel9.Location = new System.Drawing.Point(3, 3);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(455, 463);
+            this.panel9.TabIndex = 4;
+            // 
+            // pictureBox11
+            // 
+            this.pictureBox11.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox11.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox11.Location = new System.Drawing.Point(127, 106);
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox11.TabIndex = 22;
+            this.pictureBox11.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox11, "Use h265 instead of h264 for better quality/filesize ratio.\r\nHowever, compatibili" +
+        "ty is worse, so don\'t use this for online sharing.");
+            // 
+            // h265
+            // 
+            this.h265.AutoSize = true;
+            this.h265.Location = new System.Drawing.Point(220, 110);
+            this.h265.Name = "h265";
+            this.h265.Size = new System.Drawing.Size(15, 14);
+            this.h265.TabIndex = 21;
+            this.h265.UseVisualStyleBackColor = true;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(6, 110);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(115, 13);
+            this.label37.TabIndex = 20;
+            this.label37.Text = "MP4: Use h265 Codec";
+            // 
+            // pictureBox12
+            // 
+            this.pictureBox12.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox12.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox12.Location = new System.Drawing.Point(71, 136);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox12.TabIndex = 19;
+            this.pictureBox12.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox12, "Quality setting for the Gifski encoder.\r\n100 is maximum, 0 is lowest.");
+            // 
+            // gifskiQ
+            // 
+            this.gifskiQ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.gifskiQ.ForeColor = System.Drawing.Color.White;
+            this.gifskiQ.Location = new System.Drawing.Point(220, 137);
+            this.gifskiQ.Name = "gifskiQ";
+            this.gifskiQ.Size = new System.Drawing.Size(50, 20);
+            this.gifskiQ.TabIndex = 13;
+            // 
+            // crf
+            // 
+            this.crf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.crf.ForeColor = System.Drawing.Color.White;
+            this.crf.Location = new System.Drawing.Point(220, 77);
+            this.crf.Name = "crf";
+            this.crf.Size = new System.Drawing.Size(50, 20);
+            this.crf.TabIndex = 12;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(6, 140);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(59, 13);
+            this.label40.TabIndex = 4;
+            this.label40.Text = "GIF Quality";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(6, 80);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(126, 13);
+            this.label41.TabIndex = 2;
+            this.label41.Text = "MP4: Quality (CRF Level)";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.Location = new System.Drawing.Point(3, 4);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(163, 20);
+            this.label42.TabIndex = 1;
+            this.label42.Text = "Video Export Settings";
+            // 
+            // pictureBox13
+            // 
+            this.pictureBox13.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox13.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox13.Location = new System.Drawing.Point(138, 76);
+            this.pictureBox13.Name = "pictureBox13";
+            this.pictureBox13.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox13.TabIndex = 23;
+            this.pictureBox13.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox13, "h264/h265 quality level.\r\nHigher is better.\r\nFor reference, 16 is high, 22 is med" +
+        "ium, 28 is low.\r\nYou can use lower values if h265 is enabled as it\'s more effici" +
+        "ent.");
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1324,6 +1490,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             this.logPage.ResumeLayout(false);
             this.logPage.PerformLayout();
+            this.videoFormatsPage.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1423,5 +1596,18 @@
         private System.Windows.Forms.ComboBox comparisonUseScaling;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.PictureBox pictureBox10;
+        private Cyotek.Windows.Forms.TabListPage videoFormatsPage;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.PictureBox pictureBox11;
+        private System.Windows.Forms.CheckBox h265;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.PictureBox pictureBox12;
+        private System.Windows.Forms.TextBox gifskiQ;
+        private System.Windows.Forms.TextBox crf;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.PictureBox pictureBox13;
     }
 }

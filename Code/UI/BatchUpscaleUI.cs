@@ -47,20 +47,6 @@ namespace Cupscale.UI
             TabSelected();
         }
 
-        public static void TabSelected ()
-        {
-            if (!outDir.Visible)
-                return;
-            if (string.IsNullOrWhiteSpace(currentInDir))
-            {
-                Program.mainForm.SetButtonText("Upscale Images");
-                return;
-            }
-            int compatFilesAmount = IOUtils.GetAmountOfCompatibleFiles(currentInDir, true);
-            titleLabel.Text = "Loaded " + currentInDir.Wrap() + " - Found " + compatFilesAmount + " compatible files.";
-            Program.mainForm.SetButtonText("Upscale " + compatFilesAmount + " Images");
-        }
-
         public static void LoadImages(string[] imgs)
         {
             multiImgMode = true;
@@ -70,6 +56,30 @@ namespace Cupscale.UI
             currentInFiles = imgs;
             Program.lastDirPath = outDir.Text;
             FillFileList(imgs, false);
+            TabSelected();
+        }
+
+        public static void TabSelected ()
+        {
+            if (!outDir.Visible)
+                return;
+            if (string.IsNullOrWhiteSpace(currentInDir))
+            {
+                Program.mainForm.SetButtonText("Upscale Images");
+                return;
+            }
+            if (multiImgMode)
+            {
+                int compatFilesAmount = IOUtils.GetAmountOfCompatibleFiles(currentInFiles);
+                titleLabel.Text = "Loaded " + compatFilesAmount + " compatible files.";
+                Program.mainForm.SetButtonText("Upscale " + compatFilesAmount + " Images");
+            }
+            else
+            {
+                int compatFilesAmount = IOUtils.GetAmountOfCompatibleFiles(currentInDir, true);
+                titleLabel.Text = "Loaded " + currentInDir.Wrap() + " - Found " + compatFilesAmount + " compatible files.";
+                Program.mainForm.SetButtonText("Upscale " + compatFilesAmount + " Images");
+            }
         }
 
         public static async Task CopyImages(string[] imgs, int targetAmount = 0)

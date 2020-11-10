@@ -17,7 +17,8 @@ namespace Cupscale.Main
     {
         public enum UpscaleMode { Preview, Single, Batch, Composition }
         public static UpscaleMode currentMode = UpscaleMode.Preview;
-        public enum ExportFormats { PNG, SameAsSource, JPEG, WEBP, BMP, TGA, DDS }
+        public enum ImgExportMode { PNG, SameAsSource, JPEG, WEBP, BMP, TGA, DDS }
+        public enum VidExportMode { MP4, GIF, SameAsSource }
         public enum Filter { Mitchell, Bicubic, NearestNeighbor }
         public enum ScaleMode { Percent, PixelsHeight, PixelsWidth, PixelsShorterSide, PixelsLongerSide }
         public enum Overwrite { No, Yes, }
@@ -118,19 +119,19 @@ namespace Cupscale.Main
 
             path = newPath;
 
-            if (outputFormat.Text == ExportFormats.PNG.ToStringTitleCase())
+            if (outputFormat.Text == ImgExportMode.PNG.ToStringTitleCase())
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Png50, dontResize);
-            if (outputFormat.Text == ExportFormats.SameAsSource.ToStringTitleCase())
+            if (outputFormat.Text == ImgExportMode.SameAsSource.ToStringTitleCase())
                 await ImageProcessing.ConvertImageToOriginalFormat(path, true, false, dontResize);
-            if (outputFormat.Text == ExportFormats.JPEG.ToStringTitleCase())
+            if (outputFormat.Text == ImgExportMode.JPEG.ToStringTitleCase())
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Jpeg, dontResize);
-            if (outputFormat.Text == ExportFormats.WEBP.ToStringTitleCase())
+            if (outputFormat.Text == ImgExportMode.WEBP.ToStringTitleCase())
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Weppy, dontResize);
-            if (outputFormat.Text == ExportFormats.BMP.ToStringTitleCase())
+            if (outputFormat.Text == ImgExportMode.BMP.ToStringTitleCase())
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.BMP, dontResize);
-            if (outputFormat.Text == ExportFormats.TGA.ToStringTitleCase())
+            if (outputFormat.Text == ImgExportMode.TGA.ToStringTitleCase())
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.TGA, dontResize);
-            if (outputFormat.Text == ExportFormats.DDS.ToStringTitleCase())
+            if (outputFormat.Text == ImgExportMode.DDS.ToStringTitleCase())
                 await ImageProcessing.PostProcessDDS(path);
         }
 

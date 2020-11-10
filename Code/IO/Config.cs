@@ -103,7 +103,8 @@ namespace Cupscale
 				"joeyAlphaMode" => WriteDefault("joeyAlphaMode", "1"),
 				// Video
 				"h265" => WriteDefault("h265", "False"),
-				"crf" => WriteDefault("crf", "16"),
+				"crf" => WriteDefault("crf", "18"),
+				"gifskiQ" => WriteDefault("gifskiQ", "100"),
 				_ => null, 
 			};
 		}

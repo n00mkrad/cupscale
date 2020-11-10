@@ -1,4 +1,5 @@
 ﻿using Cupscale.Cupscale;
+using Cupscale.Forms;
 using Cupscale.IO;
 using Cupscale.Main;
 using Cupscale.OS;
@@ -17,18 +18,21 @@ namespace Cupscale.UI
         static TextBox outDir;
         static TextBox logBox;
         static Label titleLabel;
+        static ComboBox outputFormatBox;
+
+        static Upscale.VidExportMode outputFormat = Upscale.VidExportMode.MP4;
 
         static string currentInPath;
         static string currentParentDir;
 
         static float currentFps;
-        static string currentExt = ".mp4";
 
-        public static void Init(TextBox outDirBox, TextBox logTextbox, Label mainLabel)
+        public static void Init(TextBox outDirBox, TextBox logTextbox, Label mainLabel, ComboBox outFormatBox)
         {
             outDir = outDirBox;
             logBox = logTextbox;
             titleLabel = mainLabel;
+            outputFormatBox = outFormatBox;
         }
 
         public static void LoadFile(string path)
@@ -67,24 +71,68 @@ namespace Cupscale.UI
                 Program.ShowMessage($"Not enough disk space on {IOUtils.GetAppDataDir().Substring(0, 3)} to store temporary files!", "Error");
                 return;
             }
-            IOUtils.ClearDir(Paths.framesOutPath);
-            currentFps = FFmpegCommands.GetFramerate(currentInPath);
-            Print("Detected frame rate of video as " + currentFps);
-            IOUtils.ClearDir(Paths.imgInPath);
+            LoadVideo();
             Print("Extracting frames...");
             await FFmpegCommands.VideoToFrames(currentInPath, Paths.imgInPath, false, false, false);
             int amountFrames = IOUtils.GetAmountOfCompatibleFiles(Paths.imgInPath, false);
-            Print($"Done - Extracted  {amountFrames} frames{Environment.NewLine}Upscaling frames...");
+            Print($"Done - Extracted  {amountFrames} frames.");
+            await PreprocessIfNeeded();
             BatchUpscaleUI.LoadDir(Paths.imgInPath);
+            Print("Upscaling frames...");
             await BatchUpscaleUI.Run(false, true, Paths.framesOutPath);
             RenameOutFiles();
             Print($"Done upscaling all frames.{Environment.NewLine}Creating video from frames...");
-            await FFmpegCommands.FramesToMp4(Paths.framesOutPath, Config.GetBool("h265"), Config.GetInt("crf"), currentFps, "", false);
+            await CreateVideo();
             Print($"Done creating video.");
             CopyBack(Path.Combine(IOUtils.GetAppDataDir(), "frames-out.mp4"));
             IOUtils.ClearDir(Paths.imgInPath);
             IOUtils.ClearDir(Paths.framesOutPath);
             Print("Done.");
+        }
+
+        static void LoadVideo ()
+        {
+            IOUtils.ClearDir(Paths.framesOutPath);
+            currentFps = FFmpegCommands.GetFramerate(currentInPath);
+            Print("Detected frame rate of video as " + currentFps);
+            IOUtils.ClearDir(Paths.imgInPath);
+        }
+
+        static async Task PreprocessIfNeeded ()
+        {
+            if (!(ImageProcessing.preScaleMode == Upscale.ScaleMode.Percent && ImageProcessing.preScaleValue == 100))   // Skip if target scale is 100%
+            {
+                Print("Pre-Resizing is enabled - Preprocessing frames...");
+                await Task.Delay(10);
+                await ImageProcessing.PreProcessImages(Paths.imgInPath, false);
+                Print("Done preprocessing.");
+            }
+        }
+
+        static async Task CreateVideo ()
+        {
+            if (outputFormatBox.Text == Upscale.VidExportMode.MP4.ToStringTitleCase())
+                outputFormat = Upscale.VidExportMode.MP4;
+            if (outputFormatBox.Text == Upscale.VidExportMode.GIF.ToStringTitleCase())
+                outputFormat = Upscale.VidExportMode.GIF;
+            if (outputFormatBox.Text == Upscale.VidExportMode.SameAsSource.ToStringTitleCase())
+                outputFormat = (Upscale.VidExportMode)Enum.Parse(typeof(Upscale.VidExportMode), Path.GetExtension(currentInPath).Replace(".", "").ToUpper());
+
+            if (outputFormat == Upscale.VidExportMode.MP4)
+            {
+                DialogForm f = new DialogForm("Creating video from frames...", 300);
+                await Task.Delay(10);
+                await FFmpegCommands.FramesToMp4(Paths.framesOutPath, Config.GetBool("h265"), Config.GetInt("crf"), currentFps, "", false);
+                f.Close();
+            }
+                
+            if (outputFormat == Upscale.VidExportMode.GIF)
+            {
+                DialogForm f = new DialogForm("Creating GIF from frames...\nThis can take a while for high-resolution GIFs.", 600);
+                await Task.Delay(10);
+                await FFmpeg.RunGifski($" -r {currentFps.RoundToInt()} -W 4096 -Q {Config.GetInt("gifskiQ")} -q -o {Path.Combine(IOUtils.GetAppDataDir(), "frames-out.mp4")} \"" + Paths.framesOutPath + "/\"*.\"png\"");
+                f.Close();
+            }
         }
 
         static void CopyBack (string path)
@@ -98,7 +146,7 @@ namespace Cupscale.UI
             else
                 outPath = Path.Combine(outDir.Text.Trim(), Path.GetFileName(currentInPath));
 
-            outPath = Path.ChangeExtension(outPath, currentExt);
+            outPath = Path.ChangeExtension(outPath, outputFormat.ToString().ToLower());
             Print("Moving output video to " + outPath + "...");
             File.Move(path, outPath);
         }
@@ -111,8 +159,8 @@ namespace Cupscale.UI
                 if (frame.Contains("-"))
                 {
                     string filename = Path.GetFileName(frame);
-                    string newFilename = Path.GetFileName(frame).Split('-')[0];
-                    string newPath = Path.Combine(frame.GetParentDir(), newFilename + Path.GetExtension(frame));
+                    string newFilename = Path.GetFileNameWithoutExtension(frame).Split('-')[0];
+                    string newPath = Path.Combine(frame.GetParentDir(), newFilename + Path.GetExtension(frame)).Replace(".png.png", ".png");
                     Logger.Log("NewPath: " + newPath);
                     File.Move(frame, newPath);
                 }

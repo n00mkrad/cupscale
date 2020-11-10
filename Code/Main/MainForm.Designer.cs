@@ -24,7 +24,7 @@ namespace Cupscale.Main
         private Label statusLabel;
         private Label prevSizeLabel;
         private Label prevCutoutLabel;
-        private ComboBox prevOutputFormatCombox;
+        private ComboBox imageOutputFormat;
 
         private void InitializeComponent()
         {
@@ -105,7 +105,7 @@ namespace Cupscale.Main
             this.label10 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.prevOverwriteCombox = new System.Windows.Forms.ComboBox();
-            this.prevOutputFormatCombox = new System.Windows.Forms.ComboBox();
+            this.imageOutputFormat = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.panel25 = new System.Windows.Forms.Panel();
             this.panel26 = new System.Windows.Forms.Panel();
@@ -182,6 +182,7 @@ namespace Cupscale.Main
             this.interpRbtn = new System.Windows.Forms.RadioButton();
             this.singleModelRbtn = new System.Windows.Forms.RadioButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.videoOutputFormat = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -1250,10 +1251,11 @@ namespace Cupscale.Main
             // 
             this.panel19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.panel19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel19.Controls.Add(this.videoOutputFormat);
             this.panel19.Controls.Add(this.label10);
             this.panel19.Controls.Add(this.label23);
             this.panel19.Controls.Add(this.prevOverwriteCombox);
-            this.panel19.Controls.Add(this.prevOutputFormatCombox);
+            this.panel19.Controls.Add(this.imageOutputFormat);
             this.panel19.Controls.Add(this.label11);
             this.panel19.Location = new System.Drawing.Point(3, 585);
             this.panel19.Name = "panel19";
@@ -1302,27 +1304,27 @@ namespace Cupscale.Main
             this.prevOverwriteCombox.TabIndex = 2;
             this.prevOverwriteCombox.SelectedIndexChanged += new System.EventHandler(this.prevOverwriteCombox_SelectedIndexChanged);
             // 
-            // prevOutputFormatCombox
+            // imageOutputFormat
             // 
-            this.prevOutputFormatCombox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.imageOutputFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.prevOutputFormatCombox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.prevOutputFormatCombox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.prevOutputFormatCombox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.prevOutputFormatCombox.ForeColor = System.Drawing.Color.White;
-            this.prevOutputFormatCombox.FormattingEnabled = true;
-            this.prevOutputFormatCombox.Items.AddRange(new object[] {
+            this.imageOutputFormat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.imageOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.imageOutputFormat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.imageOutputFormat.ForeColor = System.Drawing.Color.White;
+            this.imageOutputFormat.FormattingEnabled = true;
+            this.imageOutputFormat.Items.AddRange(new object[] {
             "PNG",
             "Same As Input",
             "JPEG - High",
             "JPEG - Medium",
             "WEBP - High",
             "WEBP - Medium"});
-            this.prevOutputFormatCombox.Location = new System.Drawing.Point(5, 94);
-            this.prevOutputFormatCombox.Margin = new System.Windows.Forms.Padding(8);
-            this.prevOutputFormatCombox.Name = "prevOutputFormatCombox";
-            this.prevOutputFormatCombox.Size = new System.Drawing.Size(276, 21);
-            this.prevOutputFormatCombox.TabIndex = 4;
+            this.imageOutputFormat.Location = new System.Drawing.Point(5, 94);
+            this.imageOutputFormat.Margin = new System.Windows.Forms.Padding(8);
+            this.imageOutputFormat.Name = "imageOutputFormat";
+            this.imageOutputFormat.Size = new System.Drawing.Size(276, 21);
+            this.imageOutputFormat.TabIndex = 4;
             // 
             // label11
             // 
@@ -2379,6 +2381,22 @@ namespace Cupscale.Main
             this.singleModelRbtn.UseVisualStyleBackColor = true;
             this.singleModelRbtn.CheckedChanged += new System.EventHandler(this.singleModelRbtn_CheckedChanged);
             // 
+            // videoOutputFormat
+            // 
+            this.videoOutputFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.videoOutputFormat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.videoOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.videoOutputFormat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.videoOutputFormat.ForeColor = System.Drawing.Color.White;
+            this.videoOutputFormat.FormattingEnabled = true;
+            this.videoOutputFormat.Location = new System.Drawing.Point(5, 94);
+            this.videoOutputFormat.Margin = new System.Windows.Forms.Padding(8);
+            this.videoOutputFormat.Name = "videoOutputFormat";
+            this.videoOutputFormat.Size = new System.Drawing.Size(276, 21);
+            this.videoOutputFormat.TabIndex = 6;
+            this.videoOutputFormat.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2599,5 +2617,6 @@ namespace Cupscale.Main
         private TableLayoutPanel tableLayoutPanel13;
         private TextBox videoLogBox;
         private Label label35;
+        private ComboBox videoOutputFormat;
     }
 }
