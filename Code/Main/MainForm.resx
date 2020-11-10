@@ -129,6 +129,6 @@
 "Alpha" will surround the image with transparency to avoid pixels being squashed to the border of the image.</value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>31</value>
+    <value>34</value>
   </metadata>
 </root>

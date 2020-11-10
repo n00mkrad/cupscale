@@ -67,6 +67,17 @@ namespace Cupscale.Main
 
 			LoadEsrganOptions();
 
+
+			flowPanelLeft.AutoScroll = false;
+			flowPanelLeft.HorizontalScroll.Maximum = 0;
+			flowPanelLeft.VerticalScroll.Visible = false;
+			flowPanelLeft.AutoScroll = true;
+
+			flowPanelRight.AutoScroll = false;
+			flowPanelRight.HorizontalScroll.Maximum = 0;
+			flowPanelRight.VerticalScroll.Visible = false;
+			flowPanelRight.AutoScroll = true;
+
 			initialized = true;
 		}
 
