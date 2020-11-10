@@ -67,7 +67,6 @@ namespace Cupscale.Main
 
 			LoadEsrganOptions();
 
-
 			flowPanelLeft.AutoScroll = false;
 			flowPanelLeft.HorizontalScroll.Maximum = 0;
 			flowPanelLeft.VerticalScroll.Visible = false;
@@ -640,8 +639,15 @@ namespace Cupscale.Main
 				Program.ShowMessage("The source directory does not seem to exist anymore!");
 		}
 
+		int lastTabIndex = 0;
         private void htTabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (Program.busy)
+            {
+				htTabControl.SelectedIndex = lastTabIndex;
+				return;
+            }
+			lastTabIndex = htTabControl.SelectedIndex;
 			videoOutputFormat.Visible = false;
 			if (htTabControl.SelectedIndex == 0) PreviewUI.TabSelected();
 			if (htTabControl.SelectedIndex == 1) BatchUpscaleUI.TabSelected();

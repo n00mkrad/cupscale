@@ -71,22 +71,26 @@ namespace Cupscale.UI
                 Program.ShowMessage($"Not enough disk space on {IOUtils.GetAppDataDir().Substring(0, 3)} to store temporary files!", "Error");
                 return;
             }
+            Program.mainForm.SetBusy(true);
             LoadVideo();
             Print("Extracting frames...");
             await FFmpegCommands.VideoToFrames(currentInPath, Paths.imgInPath, false, false, false);
             int amountFrames = IOUtils.GetAmountOfCompatibleFiles(Paths.imgInPath, false);
             Print($"Done - Extracted  {amountFrames} frames.");
             await PreprocessIfNeeded();
-            BatchUpscaleUI.LoadDir(Paths.imgInPath);
+            BatchUpscaleUI.LoadDir(Paths.imgInPath, true);
             Print("Upscaling frames...");
             await BatchUpscaleUI.Run(false, true, Paths.framesOutPath);
             RenameOutFiles();
-            Print($"Done upscaling all frames.{Environment.NewLine}Creating video from frames...");
+            Print($"Done upscaling all frames.");
+            BatchUpscaleUI.Reset();
+            Print("Creating video from frames...");
             await CreateVideo();
             Print($"Done creating video.");
             CopyBack(Path.Combine(IOUtils.GetAppDataDir(), "frames-out.mp4"));
             IOUtils.ClearDir(Paths.imgInPath);
             IOUtils.ClearDir(Paths.framesOutPath);
+            Program.mainForm.SetBusy(false);
             Print("Done.");
         }
 
@@ -106,6 +110,24 @@ namespace Cupscale.UI
                 await Task.Delay(10);
                 await ImageProcessing.PreProcessImages(Paths.imgInPath, false);
                 Print("Done preprocessing.");
+            }
+        }
+
+        static async Task PostprocessIfNeeded()
+        {
+            if (!(ImageProcessing.postScaleMode == Upscale.ScaleMode.Percent && ImageProcessing.postScaleValue == 100))   // Skip if target scale is 100%
+            {
+                Print("Post-Resizing is enabled - Postprocessing frames...");
+                await Task.Delay(10);
+                string[] imgs = IOUtils.GetCompatibleFiles(Paths.imgOutPath, false, "*.png");
+                int i = 0;
+                foreach (string img in imgs)
+                {
+                    await ImageProcessing.PostProcessImage(img, ImageProcessing.Format.PngFast, false);
+                    i++;
+                    Program.mainForm.SetProgress(Program.GetPercentage(i, imgs.Length), "Resizing " + Path.GetFileName(img));
+                }
+                Print("Done postprocessing.");
             }
         }
 

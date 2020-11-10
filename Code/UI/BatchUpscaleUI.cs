@@ -27,21 +27,29 @@ namespace Cupscale.UI
 
         public static Stopwatch sw = new Stopwatch();
 
+        // For resetting
+        static string defaultOutStr;
+        static string defaultTitleText;
+
         public static void Init (TextBox outDirBox, TextBox fileListBox, Label mainLabel)
         {
             outDir = outDirBox;
             fileList = fileListBox;
             titleLabel = mainLabel;
+
+            defaultOutStr = outDir.Text;
+            defaultTitleText = titleLabel.Text;
         }
 
-        public static void LoadDir (string path)
+        public static void LoadDir (string path, bool noGui = false)
         {
             multiImgMode = false;
-            outDir.Text = path;
             currentInDir = path.Trim();
             currentParentDir = path.Trim();
             currentInFiles = null;
             Program.lastDirPath = currentInDir;
+            if (noGui) return;
+            outDir.Text = path;
             string[] files = Directory.GetFiles(currentInDir, "*", SearchOption.AllDirectories).Where(file => IOUtils.compatibleExtensions.Any(x => file.EndsWith(x, StringComparison.OrdinalIgnoreCase))).ToArray();
             FillFileList(files, true);
             TabSelected();
@@ -57,6 +65,16 @@ namespace Cupscale.UI
             Program.lastDirPath = outDir.Text;
             FillFileList(imgs, false);
             TabSelected();
+        }
+
+        public static void Reset ()
+        {
+            multiImgMode = false;
+            outDir.Text = defaultOutStr;
+            titleLabel.Text = defaultTitleText;
+            currentInDir = null;
+            currentParentDir = null;
+            currentInFiles = null;
         }
 
         public static void TabSelected ()
