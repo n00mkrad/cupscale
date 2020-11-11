@@ -94,23 +94,23 @@ namespace Cupscale.Main
             this.panel15 = new System.Windows.Forms.Panel();
             this.vramLabel = new System.Windows.Forms.Label();
             this.flowPanelRight = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel17 = new System.Windows.Forms.Panel();
+            this.upscalePanel = new System.Windows.Forms.Panel();
             this.saveMergedPreviewBtn = new HTAlt.WinForms.HTButton();
             this.label20 = new System.Windows.Forms.Label();
             this.openOutFolderBtn = new HTAlt.WinForms.HTButton();
             this.upscaleBtn = new HTAlt.WinForms.HTButton();
-            this.panel27 = new System.Windows.Forms.Panel();
+            this.rSpacer1 = new System.Windows.Forms.Panel();
             this.panel28 = new System.Windows.Forms.Panel();
-            this.panel19 = new System.Windows.Forms.Panel();
+            this.savePanel = new System.Windows.Forms.Panel();
             this.videoOutputFormat = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.prevOverwriteCombox = new System.Windows.Forms.ComboBox();
             this.imageOutputFormat = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.panel25 = new System.Windows.Forms.Panel();
+            this.rSpacer2 = new System.Windows.Forms.Panel();
             this.panel26 = new System.Windows.Forms.Panel();
-            this.panel18 = new System.Windows.Forms.Panel();
+            this.postResizePanel = new System.Windows.Forms.Panel();
             this.postResizeOnlyDownscale = new System.Windows.Forms.CheckBox();
             this.postResizeMode = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -118,9 +118,9 @@ namespace Cupscale.Main
             this.postResizeFilter = new System.Windows.Forms.ComboBox();
             this.postResizeScale = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.panel23 = new System.Windows.Forms.Panel();
+            this.rSpacer3 = new System.Windows.Forms.Panel();
             this.panel24 = new System.Windows.Forms.Panel();
-            this.panel20 = new System.Windows.Forms.Panel();
+            this.preResizePanel = new System.Windows.Forms.Panel();
             this.preResizeOnlyDownscale = new System.Windows.Forms.CheckBox();
             this.preResizeMode = new System.Windows.Forms.ComboBox();
             this.label28 = new System.Windows.Forms.Label();
@@ -128,36 +128,36 @@ namespace Cupscale.Main
             this.preResizeFilter = new System.Windows.Forms.ComboBox();
             this.preResizeScale = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.rSpacer4 = new System.Windows.Forms.Panel();
             this.panel16 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.imgOptsPanel = new System.Windows.Forms.Panel();
             this.label25 = new System.Windows.Forms.Label();
             this.openSourceFolderBtn = new HTAlt.WinForms.HTButton();
             this.reloadImgBtn = new HTAlt.WinForms.HTButton();
             this.flowPanelLeft = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel13 = new System.Windows.Forms.Panel();
+            this.prevCtrlPanel = new System.Windows.Forms.Panel();
             this.prevToggleFilterBtn = new HTAlt.WinForms.HTButton();
             this.refreshPreviewCutoutBtn = new HTAlt.WinForms.HTButton();
             this.label21 = new System.Windows.Forms.Label();
             this.refreshPreviewFullBtn = new HTAlt.WinForms.HTButton();
-            this.panel29 = new System.Windows.Forms.Panel();
+            this.leftSpacer1 = new System.Windows.Forms.Panel();
             this.panel30 = new System.Windows.Forms.Panel();
-            this.panel14 = new System.Windows.Forms.Panel();
+            this.prevInfoPanel = new System.Windows.Forms.Panel();
             this.prevCutoutLabel = new System.Windows.Forms.Label();
             this.prevSizeLabel = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.prevZoomLabel = new System.Windows.Forms.Label();
-            this.panel33 = new System.Windows.Forms.Panel();
+            this.leftSpacer2 = new System.Windows.Forms.Panel();
             this.panel34 = new System.Windows.Forms.Panel();
-            this.panel21 = new System.Windows.Forms.Panel();
+            this.compPanel = new System.Windows.Forms.Panel();
             this.savePreviewToFileBtn = new HTAlt.WinForms.HTButton();
             this.label27 = new System.Windows.Forms.Label();
             this.copyCompToClipboardBtn = new HTAlt.WinForms.HTButton();
             this.label12 = new System.Windows.Forms.Label();
             this.prevClipboardTypeCombox = new System.Windows.Forms.ComboBox();
-            this.panel31 = new System.Windows.Forms.Panel();
+            this.leftSpacer3 = new System.Windows.Forms.Panel();
             this.panel32 = new System.Windows.Forms.Panel();
-            this.panel22 = new System.Windows.Forms.Panel();
+            this.esrganPanel = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.seamlessMode = new System.Windows.Forms.ComboBox();
@@ -167,9 +167,9 @@ namespace Cupscale.Main
             this.tilesize = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
-            this.panel35 = new System.Windows.Forms.Panel();
+            this.leftSpacer4 = new System.Windows.Forms.Panel();
             this.panel36 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.mdlPanel = new System.Windows.Forms.Panel();
             this.advancedBtn = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.advancedConfigureBtn = new System.Windows.Forms.Button();
@@ -213,27 +213,27 @@ namespace Cupscale.Main
             this.panel7.SuspendLayout();
             this.panel15.SuspendLayout();
             this.flowPanelRight.SuspendLayout();
-            this.panel17.SuspendLayout();
-            this.panel27.SuspendLayout();
-            this.panel19.SuspendLayout();
-            this.panel25.SuspendLayout();
-            this.panel18.SuspendLayout();
-            this.panel23.SuspendLayout();
-            this.panel20.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.upscalePanel.SuspendLayout();
+            this.rSpacer1.SuspendLayout();
+            this.savePanel.SuspendLayout();
+            this.rSpacer2.SuspendLayout();
+            this.postResizePanel.SuspendLayout();
+            this.rSpacer3.SuspendLayout();
+            this.preResizePanel.SuspendLayout();
+            this.rSpacer4.SuspendLayout();
+            this.imgOptsPanel.SuspendLayout();
             this.flowPanelLeft.SuspendLayout();
-            this.panel13.SuspendLayout();
-            this.panel29.SuspendLayout();
-            this.panel14.SuspendLayout();
-            this.panel33.SuspendLayout();
-            this.panel21.SuspendLayout();
-            this.panel31.SuspendLayout();
-            this.panel22.SuspendLayout();
+            this.prevCtrlPanel.SuspendLayout();
+            this.leftSpacer1.SuspendLayout();
+            this.prevInfoPanel.SuspendLayout();
+            this.leftSpacer2.SuspendLayout();
+            this.compPanel.SuspendLayout();
+            this.leftSpacer3.SuspendLayout();
+            this.esrganPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            this.panel35.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.leftSpacer4.SuspendLayout();
+            this.mdlPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // leftPanel
@@ -1134,15 +1134,15 @@ namespace Cupscale.Main
             // flowPanelRight
             // 
             this.flowPanelRight.AutoScroll = true;
-            this.flowPanelRight.Controls.Add(this.panel17);
-            this.flowPanelRight.Controls.Add(this.panel27);
-            this.flowPanelRight.Controls.Add(this.panel19);
-            this.flowPanelRight.Controls.Add(this.panel25);
-            this.flowPanelRight.Controls.Add(this.panel18);
-            this.flowPanelRight.Controls.Add(this.panel23);
-            this.flowPanelRight.Controls.Add(this.panel20);
-            this.flowPanelRight.Controls.Add(this.panel5);
-            this.flowPanelRight.Controls.Add(this.panel4);
+            this.flowPanelRight.Controls.Add(this.upscalePanel);
+            this.flowPanelRight.Controls.Add(this.rSpacer1);
+            this.flowPanelRight.Controls.Add(this.savePanel);
+            this.flowPanelRight.Controls.Add(this.rSpacer2);
+            this.flowPanelRight.Controls.Add(this.postResizePanel);
+            this.flowPanelRight.Controls.Add(this.rSpacer3);
+            this.flowPanelRight.Controls.Add(this.preResizePanel);
+            this.flowPanelRight.Controls.Add(this.rSpacer4);
+            this.flowPanelRight.Controls.Add(this.imgOptsPanel);
             this.flowPanelRight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowPanelRight.FlowDirection = System.Windows.Forms.FlowDirection.BottomUp;
             this.flowPanelRight.Location = new System.Drawing.Point(944, 43);
@@ -1152,19 +1152,19 @@ namespace Cupscale.Main
             this.flowPanelRight.TabIndex = 10;
             this.flowPanelRight.WrapContents = false;
             // 
-            // panel17
+            // upscalePanel
             // 
-            this.panel17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.panel17.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel17.Controls.Add(this.saveMergedPreviewBtn);
-            this.panel17.Controls.Add(this.label20);
-            this.panel17.Controls.Add(this.openOutFolderBtn);
-            this.panel17.Controls.Add(this.upscaleBtn);
-            this.panel17.Location = new System.Drawing.Point(3, 737);
-            this.panel17.Name = "panel17";
-            this.panel17.Size = new System.Drawing.Size(288, 135);
-            this.panel17.TabIndex = 0;
+            this.upscalePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.upscalePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.upscalePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.upscalePanel.Controls.Add(this.saveMergedPreviewBtn);
+            this.upscalePanel.Controls.Add(this.label20);
+            this.upscalePanel.Controls.Add(this.openOutFolderBtn);
+            this.upscalePanel.Controls.Add(this.upscaleBtn);
+            this.upscalePanel.Location = new System.Drawing.Point(3, 737);
+            this.upscalePanel.Name = "upscalePanel";
+            this.upscalePanel.Size = new System.Drawing.Size(310, 135);
+            this.upscalePanel.TabIndex = 0;
             // 
             // saveMergedPreviewBtn
             // 
@@ -1175,9 +1175,9 @@ namespace Cupscale.Main
             this.saveMergedPreviewBtn.FlatAppearance.BorderSize = 0;
             this.saveMergedPreviewBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveMergedPreviewBtn.ForeColor = System.Drawing.Color.White;
-            this.saveMergedPreviewBtn.Location = new System.Drawing.Point(6, 62);
+            this.saveMergedPreviewBtn.Location = new System.Drawing.Point(6, 60);
             this.saveMergedPreviewBtn.Name = "saveMergedPreviewBtn";
-            this.saveMergedPreviewBtn.Size = new System.Drawing.Size(275, 30);
+            this.saveMergedPreviewBtn.Size = new System.Drawing.Size(297, 30);
             this.saveMergedPreviewBtn.TabIndex = 12;
             this.saveMergedPreviewBtn.Text = "Save Current Merged Preview";
             this.saveMergedPreviewBtn.UseVisualStyleBackColor = false;
@@ -1203,9 +1203,9 @@ namespace Cupscale.Main
             this.openOutFolderBtn.FlatAppearance.BorderSize = 0;
             this.openOutFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openOutFolderBtn.ForeColor = System.Drawing.Color.White;
-            this.openOutFolderBtn.Location = new System.Drawing.Point(6, 26);
+            this.openOutFolderBtn.Location = new System.Drawing.Point(6, 24);
             this.openOutFolderBtn.Name = "openOutFolderBtn";
-            this.openOutFolderBtn.Size = new System.Drawing.Size(275, 30);
+            this.openOutFolderBtn.Size = new System.Drawing.Size(297, 30);
             this.openOutFolderBtn.TabIndex = 11;
             this.openOutFolderBtn.Text = "Open Folder Of Last Upscale";
             this.openOutFolderBtn.UseVisualStyleBackColor = false;
@@ -1219,23 +1219,23 @@ namespace Cupscale.Main
             this.upscaleBtn.FlatAppearance.BorderSize = 0;
             this.upscaleBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.upscaleBtn.ForeColor = System.Drawing.Color.White;
-            this.upscaleBtn.Location = new System.Drawing.Point(6, 98);
+            this.upscaleBtn.Location = new System.Drawing.Point(6, 96);
             this.upscaleBtn.Name = "upscaleBtn";
-            this.upscaleBtn.Size = new System.Drawing.Size(275, 30);
+            this.upscaleBtn.Size = new System.Drawing.Size(297, 30);
             this.upscaleBtn.TabIndex = 8;
             this.upscaleBtn.Text = "Upscale And Save";
             this.upscaleBtn.UseVisualStyleBackColor = false;
             this.upscaleBtn.Click += new System.EventHandler(this.upscaleBtn_Click);
             // 
-            // panel27
+            // rSpacer1
             // 
-            this.panel27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel27.BackColor = System.Drawing.Color.Transparent;
-            this.panel27.Controls.Add(this.panel28);
-            this.panel27.Location = new System.Drawing.Point(3, 714);
-            this.panel27.Name = "panel27";
-            this.panel27.Size = new System.Drawing.Size(288, 17);
-            this.panel27.TabIndex = 8;
+            this.rSpacer1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rSpacer1.BackColor = System.Drawing.Color.Transparent;
+            this.rSpacer1.Controls.Add(this.panel28);
+            this.rSpacer1.Location = new System.Drawing.Point(8, 714);
+            this.rSpacer1.Name = "rSpacer1";
+            this.rSpacer1.Size = new System.Drawing.Size(305, 17);
+            this.rSpacer1.TabIndex = 8;
             // 
             // panel28
             // 
@@ -1247,24 +1247,24 @@ namespace Cupscale.Main
             this.panel28.Margin = new System.Windows.Forms.Padding(5);
             this.panel28.Name = "panel28";
             this.panel28.Padding = new System.Windows.Forms.Padding(10);
-            this.panel28.Size = new System.Drawing.Size(277, 7);
+            this.panel28.Size = new System.Drawing.Size(294, 7);
             this.panel28.TabIndex = 0;
             // 
-            // panel19
+            // savePanel
             // 
-            this.panel19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.panel19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel19.Controls.Add(this.videoOutputFormat);
-            this.panel19.Controls.Add(this.label10);
-            this.panel19.Controls.Add(this.label23);
-            this.panel19.Controls.Add(this.prevOverwriteCombox);
-            this.panel19.Controls.Add(this.imageOutputFormat);
-            this.panel19.Controls.Add(this.label11);
-            this.panel19.Location = new System.Drawing.Point(3, 585);
-            this.panel19.Name = "panel19";
-            this.panel19.Size = new System.Drawing.Size(288, 123);
-            this.panel19.TabIndex = 2;
+            this.savePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.savePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.savePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.savePanel.Controls.Add(this.videoOutputFormat);
+            this.savePanel.Controls.Add(this.label10);
+            this.savePanel.Controls.Add(this.label23);
+            this.savePanel.Controls.Add(this.prevOverwriteCombox);
+            this.savePanel.Controls.Add(this.imageOutputFormat);
+            this.savePanel.Controls.Add(this.label11);
+            this.savePanel.Location = new System.Drawing.Point(3, 585);
+            this.savePanel.Name = "savePanel";
+            this.savePanel.Size = new System.Drawing.Size(310, 123);
+            this.savePanel.TabIndex = 2;
             // 
             // videoOutputFormat
             // 
@@ -1278,7 +1278,7 @@ namespace Cupscale.Main
             this.videoOutputFormat.Location = new System.Drawing.Point(5, 94);
             this.videoOutputFormat.Margin = new System.Windows.Forms.Padding(8);
             this.videoOutputFormat.Name = "videoOutputFormat";
-            this.videoOutputFormat.Size = new System.Drawing.Size(276, 21);
+            this.videoOutputFormat.Size = new System.Drawing.Size(298, 21);
             this.videoOutputFormat.TabIndex = 6;
             this.videoOutputFormat.Visible = false;
             // 
@@ -1320,7 +1320,7 @@ namespace Cupscale.Main
             this.prevOverwriteCombox.Location = new System.Drawing.Point(5, 44);
             this.prevOverwriteCombox.Margin = new System.Windows.Forms.Padding(8);
             this.prevOverwriteCombox.Name = "prevOverwriteCombox";
-            this.prevOverwriteCombox.Size = new System.Drawing.Size(276, 21);
+            this.prevOverwriteCombox.Size = new System.Drawing.Size(298, 21);
             this.prevOverwriteCombox.TabIndex = 2;
             this.prevOverwriteCombox.SelectedIndexChanged += new System.EventHandler(this.prevOverwriteCombox_SelectedIndexChanged);
             // 
@@ -1343,7 +1343,7 @@ namespace Cupscale.Main
             this.imageOutputFormat.Location = new System.Drawing.Point(5, 94);
             this.imageOutputFormat.Margin = new System.Windows.Forms.Padding(8);
             this.imageOutputFormat.Name = "imageOutputFormat";
-            this.imageOutputFormat.Size = new System.Drawing.Size(276, 21);
+            this.imageOutputFormat.Size = new System.Drawing.Size(298, 21);
             this.imageOutputFormat.TabIndex = 4;
             // 
             // label11
@@ -1358,15 +1358,15 @@ namespace Cupscale.Main
             this.label11.TabIndex = 5;
             this.label11.Text = "Output Format";
             // 
-            // panel25
+            // rSpacer2
             // 
-            this.panel25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel25.BackColor = System.Drawing.Color.Transparent;
-            this.panel25.Controls.Add(this.panel26);
-            this.panel25.Location = new System.Drawing.Point(3, 562);
-            this.panel25.Name = "panel25";
-            this.panel25.Size = new System.Drawing.Size(288, 17);
-            this.panel25.TabIndex = 7;
+            this.rSpacer2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rSpacer2.BackColor = System.Drawing.Color.Transparent;
+            this.rSpacer2.Controls.Add(this.panel26);
+            this.rSpacer2.Location = new System.Drawing.Point(8, 562);
+            this.rSpacer2.Name = "rSpacer2";
+            this.rSpacer2.Size = new System.Drawing.Size(305, 17);
+            this.rSpacer2.TabIndex = 7;
             // 
             // panel26
             // 
@@ -1378,25 +1378,25 @@ namespace Cupscale.Main
             this.panel26.Margin = new System.Windows.Forms.Padding(5);
             this.panel26.Name = "panel26";
             this.panel26.Padding = new System.Windows.Forms.Padding(10);
-            this.panel26.Size = new System.Drawing.Size(277, 7);
+            this.panel26.Size = new System.Drawing.Size(294, 7);
             this.panel26.TabIndex = 0;
             // 
-            // panel18
+            // postResizePanel
             // 
-            this.panel18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.panel18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel18.Controls.Add(this.postResizeOnlyDownscale);
-            this.panel18.Controls.Add(this.postResizeMode);
-            this.panel18.Controls.Add(this.label22);
-            this.panel18.Controls.Add(this.label8);
-            this.panel18.Controls.Add(this.postResizeFilter);
-            this.panel18.Controls.Add(this.postResizeScale);
-            this.panel18.Controls.Add(this.label9);
-            this.panel18.Location = new System.Drawing.Point(3, 408);
-            this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(288, 148);
-            this.panel18.TabIndex = 1;
+            this.postResizePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.postResizePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.postResizePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.postResizePanel.Controls.Add(this.postResizeOnlyDownscale);
+            this.postResizePanel.Controls.Add(this.postResizeMode);
+            this.postResizePanel.Controls.Add(this.label22);
+            this.postResizePanel.Controls.Add(this.label8);
+            this.postResizePanel.Controls.Add(this.postResizeFilter);
+            this.postResizePanel.Controls.Add(this.postResizeScale);
+            this.postResizePanel.Controls.Add(this.label9);
+            this.postResizePanel.Location = new System.Drawing.Point(3, 408);
+            this.postResizePanel.Name = "postResizePanel";
+            this.postResizePanel.Size = new System.Drawing.Size(310, 148);
+            this.postResizePanel.TabIndex = 1;
             // 
             // postResizeOnlyDownscale
             // 
@@ -1432,7 +1432,7 @@ namespace Cupscale.Main
             this.postResizeMode.Location = new System.Drawing.Point(121, 44);
             this.postResizeMode.Margin = new System.Windows.Forms.Padding(8);
             this.postResizeMode.Name = "postResizeMode";
-            this.postResizeMode.Size = new System.Drawing.Size(160, 21);
+            this.postResizeMode.Size = new System.Drawing.Size(182, 21);
             this.postResizeMode.TabIndex = 6;
             this.postResizeMode.SelectedIndexChanged += new System.EventHandler(this.postResizeMode_SelectedIndexChanged);
             // 
@@ -1475,7 +1475,7 @@ namespace Cupscale.Main
             this.postResizeFilter.Location = new System.Drawing.Point(5, 94);
             this.postResizeFilter.Margin = new System.Windows.Forms.Padding(8);
             this.postResizeFilter.Name = "postResizeFilter";
-            this.postResizeFilter.Size = new System.Drawing.Size(276, 21);
+            this.postResizeFilter.Size = new System.Drawing.Size(298, 21);
             this.postResizeFilter.TabIndex = 4;
             // 
             // postResizeScale
@@ -1494,7 +1494,7 @@ namespace Cupscale.Main
             this.postResizeScale.Location = new System.Drawing.Point(5, 44);
             this.postResizeScale.Margin = new System.Windows.Forms.Padding(8);
             this.postResizeScale.Name = "postResizeScale";
-            this.postResizeScale.Size = new System.Drawing.Size(100, 21);
+            this.postResizeScale.Size = new System.Drawing.Size(122, 21);
             this.postResizeScale.TabIndex = 2;
             // 
             // label9
@@ -1509,15 +1509,15 @@ namespace Cupscale.Main
             this.label9.TabIndex = 5;
             this.label9.Text = "Scaling Filter";
             // 
-            // panel23
+            // rSpacer3
             // 
-            this.panel23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel23.BackColor = System.Drawing.Color.Transparent;
-            this.panel23.Controls.Add(this.panel24);
-            this.panel23.Location = new System.Drawing.Point(3, 385);
-            this.panel23.Name = "panel23";
-            this.panel23.Size = new System.Drawing.Size(288, 17);
-            this.panel23.TabIndex = 6;
+            this.rSpacer3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rSpacer3.BackColor = System.Drawing.Color.Transparent;
+            this.rSpacer3.Controls.Add(this.panel24);
+            this.rSpacer3.Location = new System.Drawing.Point(8, 385);
+            this.rSpacer3.Name = "rSpacer3";
+            this.rSpacer3.Size = new System.Drawing.Size(305, 17);
+            this.rSpacer3.TabIndex = 6;
             // 
             // panel24
             // 
@@ -1529,25 +1529,25 @@ namespace Cupscale.Main
             this.panel24.Margin = new System.Windows.Forms.Padding(5);
             this.panel24.Name = "panel24";
             this.panel24.Padding = new System.Windows.Forms.Padding(10);
-            this.panel24.Size = new System.Drawing.Size(277, 7);
+            this.panel24.Size = new System.Drawing.Size(294, 7);
             this.panel24.TabIndex = 0;
             // 
-            // panel20
+            // preResizePanel
             // 
-            this.panel20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.panel20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel20.Controls.Add(this.preResizeOnlyDownscale);
-            this.panel20.Controls.Add(this.preResizeMode);
-            this.panel20.Controls.Add(this.label28);
-            this.panel20.Controls.Add(this.label17);
-            this.panel20.Controls.Add(this.preResizeFilter);
-            this.panel20.Controls.Add(this.preResizeScale);
-            this.panel20.Controls.Add(this.label18);
-            this.panel20.Location = new System.Drawing.Point(3, 231);
-            this.panel20.Name = "panel20";
-            this.panel20.Size = new System.Drawing.Size(288, 148);
-            this.panel20.TabIndex = 3;
+            this.preResizePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.preResizePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.preResizePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.preResizePanel.Controls.Add(this.preResizeOnlyDownscale);
+            this.preResizePanel.Controls.Add(this.preResizeMode);
+            this.preResizePanel.Controls.Add(this.label28);
+            this.preResizePanel.Controls.Add(this.label17);
+            this.preResizePanel.Controls.Add(this.preResizeFilter);
+            this.preResizePanel.Controls.Add(this.preResizeScale);
+            this.preResizePanel.Controls.Add(this.label18);
+            this.preResizePanel.Location = new System.Drawing.Point(3, 231);
+            this.preResizePanel.Name = "preResizePanel";
+            this.preResizePanel.Size = new System.Drawing.Size(310, 148);
+            this.preResizePanel.TabIndex = 3;
             // 
             // preResizeOnlyDownscale
             // 
@@ -1583,7 +1583,7 @@ namespace Cupscale.Main
             this.preResizeMode.Location = new System.Drawing.Point(124, 44);
             this.preResizeMode.Margin = new System.Windows.Forms.Padding(8);
             this.preResizeMode.Name = "preResizeMode";
-            this.preResizeMode.Size = new System.Drawing.Size(157, 21);
+            this.preResizeMode.Size = new System.Drawing.Size(179, 21);
             this.preResizeMode.TabIndex = 6;
             // 
             // label28
@@ -1625,7 +1625,7 @@ namespace Cupscale.Main
             this.preResizeFilter.Location = new System.Drawing.Point(8, 94);
             this.preResizeFilter.Margin = new System.Windows.Forms.Padding(8);
             this.preResizeFilter.Name = "preResizeFilter";
-            this.preResizeFilter.Size = new System.Drawing.Size(273, 21);
+            this.preResizeFilter.Size = new System.Drawing.Size(295, 21);
             this.preResizeFilter.TabIndex = 4;
             // 
             // preResizeScale
@@ -1644,7 +1644,7 @@ namespace Cupscale.Main
             this.preResizeScale.Location = new System.Drawing.Point(5, 44);
             this.preResizeScale.Margin = new System.Windows.Forms.Padding(8);
             this.preResizeScale.Name = "preResizeScale";
-            this.preResizeScale.Size = new System.Drawing.Size(100, 21);
+            this.preResizeScale.Size = new System.Drawing.Size(122, 21);
             this.preResizeScale.TabIndex = 2;
             // 
             // label18
@@ -1659,15 +1659,15 @@ namespace Cupscale.Main
             this.label18.TabIndex = 5;
             this.label18.Text = "Scaling Filter";
             // 
-            // panel5
+            // rSpacer4
             // 
-            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel5.BackColor = System.Drawing.Color.Transparent;
-            this.panel5.Controls.Add(this.panel16);
-            this.panel5.Location = new System.Drawing.Point(3, 208);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(288, 17);
-            this.panel5.TabIndex = 5;
+            this.rSpacer4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rSpacer4.BackColor = System.Drawing.Color.Transparent;
+            this.rSpacer4.Controls.Add(this.panel16);
+            this.rSpacer4.Location = new System.Drawing.Point(8, 208);
+            this.rSpacer4.Name = "rSpacer4";
+            this.rSpacer4.Size = new System.Drawing.Size(305, 17);
+            this.rSpacer4.TabIndex = 5;
             // 
             // panel16
             // 
@@ -1679,21 +1679,21 @@ namespace Cupscale.Main
             this.panel16.Margin = new System.Windows.Forms.Padding(5);
             this.panel16.Name = "panel16";
             this.panel16.Padding = new System.Windows.Forms.Padding(10);
-            this.panel16.Size = new System.Drawing.Size(277, 7);
+            this.panel16.Size = new System.Drawing.Size(294, 7);
             this.panel16.TabIndex = 0;
             // 
-            // panel4
+            // imgOptsPanel
             // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.label25);
-            this.panel4.Controls.Add(this.openSourceFolderBtn);
-            this.panel4.Controls.Add(this.reloadImgBtn);
-            this.panel4.Location = new System.Drawing.Point(3, 105);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(288, 97);
-            this.panel4.TabIndex = 4;
+            this.imgOptsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgOptsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.imgOptsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.imgOptsPanel.Controls.Add(this.label25);
+            this.imgOptsPanel.Controls.Add(this.openSourceFolderBtn);
+            this.imgOptsPanel.Controls.Add(this.reloadImgBtn);
+            this.imgOptsPanel.Location = new System.Drawing.Point(3, 105);
+            this.imgOptsPanel.Name = "imgOptsPanel";
+            this.imgOptsPanel.Size = new System.Drawing.Size(310, 97);
+            this.imgOptsPanel.TabIndex = 4;
             // 
             // label25
             // 
@@ -1717,7 +1717,7 @@ namespace Cupscale.Main
             this.openSourceFolderBtn.ForeColor = System.Drawing.Color.White;
             this.openSourceFolderBtn.Location = new System.Drawing.Point(4, 26);
             this.openSourceFolderBtn.Name = "openSourceFolderBtn";
-            this.openSourceFolderBtn.Size = new System.Drawing.Size(278, 30);
+            this.openSourceFolderBtn.Size = new System.Drawing.Size(300, 30);
             this.openSourceFolderBtn.TabIndex = 11;
             this.openSourceFolderBtn.Text = "Open Folder Containing Source File";
             this.openSourceFolderBtn.UseVisualStyleBackColor = false;
@@ -1734,7 +1734,7 @@ namespace Cupscale.Main
             this.reloadImgBtn.ForeColor = System.Drawing.Color.White;
             this.reloadImgBtn.Location = new System.Drawing.Point(4, 62);
             this.reloadImgBtn.Name = "reloadImgBtn";
-            this.reloadImgBtn.Size = new System.Drawing.Size(278, 30);
+            this.reloadImgBtn.Size = new System.Drawing.Size(300, 30);
             this.reloadImgBtn.TabIndex = 8;
             this.reloadImgBtn.Text = "Reload Image From Source File";
             this.reloadImgBtn.UseVisualStyleBackColor = false;
@@ -1742,15 +1742,15 @@ namespace Cupscale.Main
             // 
             // flowPanelLeft
             // 
-            this.flowPanelLeft.Controls.Add(this.panel13);
-            this.flowPanelLeft.Controls.Add(this.panel29);
-            this.flowPanelLeft.Controls.Add(this.panel14);
-            this.flowPanelLeft.Controls.Add(this.panel33);
-            this.flowPanelLeft.Controls.Add(this.panel21);
-            this.flowPanelLeft.Controls.Add(this.panel31);
-            this.flowPanelLeft.Controls.Add(this.panel22);
-            this.flowPanelLeft.Controls.Add(this.panel35);
-            this.flowPanelLeft.Controls.Add(this.panel3);
+            this.flowPanelLeft.Controls.Add(this.prevCtrlPanel);
+            this.flowPanelLeft.Controls.Add(this.leftSpacer1);
+            this.flowPanelLeft.Controls.Add(this.prevInfoPanel);
+            this.flowPanelLeft.Controls.Add(this.leftSpacer2);
+            this.flowPanelLeft.Controls.Add(this.compPanel);
+            this.flowPanelLeft.Controls.Add(this.leftSpacer3);
+            this.flowPanelLeft.Controls.Add(this.esrganPanel);
+            this.flowPanelLeft.Controls.Add(this.leftSpacer4);
+            this.flowPanelLeft.Controls.Add(this.mdlPanel);
             this.flowPanelLeft.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowPanelLeft.FlowDirection = System.Windows.Forms.FlowDirection.BottomUp;
             this.flowPanelLeft.Location = new System.Drawing.Point(3, 43);
@@ -1760,18 +1760,18 @@ namespace Cupscale.Main
             this.flowPanelLeft.TabIndex = 11;
             this.flowPanelLeft.WrapContents = false;
             // 
-            // panel13
+            // prevCtrlPanel
             // 
-            this.panel13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.panel13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel13.Controls.Add(this.prevToggleFilterBtn);
-            this.panel13.Controls.Add(this.refreshPreviewCutoutBtn);
-            this.panel13.Controls.Add(this.label21);
-            this.panel13.Controls.Add(this.refreshPreviewFullBtn);
-            this.panel13.Location = new System.Drawing.Point(3, 773);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(341, 99);
-            this.panel13.TabIndex = 3;
+            this.prevCtrlPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.prevCtrlPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.prevCtrlPanel.Controls.Add(this.prevToggleFilterBtn);
+            this.prevCtrlPanel.Controls.Add(this.refreshPreviewCutoutBtn);
+            this.prevCtrlPanel.Controls.Add(this.label21);
+            this.prevCtrlPanel.Controls.Add(this.refreshPreviewFullBtn);
+            this.prevCtrlPanel.Location = new System.Drawing.Point(3, 773);
+            this.prevCtrlPanel.Name = "prevCtrlPanel";
+            this.prevCtrlPanel.Size = new System.Drawing.Size(361, 99);
+            this.prevCtrlPanel.TabIndex = 3;
             // 
             // prevToggleFilterBtn
             // 
@@ -1783,7 +1783,7 @@ namespace Cupscale.Main
             this.prevToggleFilterBtn.ForeColor = System.Drawing.Color.White;
             this.prevToggleFilterBtn.Location = new System.Drawing.Point(5, 26);
             this.prevToggleFilterBtn.Name = "prevToggleFilterBtn";
-            this.prevToggleFilterBtn.Size = new System.Drawing.Size(331, 30);
+            this.prevToggleFilterBtn.Size = new System.Drawing.Size(351, 30);
             this.prevToggleFilterBtn.TabIndex = 9;
             this.prevToggleFilterBtn.Text = "Switch To Bicubic Filtering";
             this.prevToggleFilterBtn.UseVisualStyleBackColor = false;
@@ -1798,9 +1798,9 @@ namespace Cupscale.Main
             this.refreshPreviewCutoutBtn.FlatAppearance.BorderSize = 0;
             this.refreshPreviewCutoutBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refreshPreviewCutoutBtn.ForeColor = System.Drawing.Color.White;
-            this.refreshPreviewCutoutBtn.Location = new System.Drawing.Point(174, 62);
+            this.refreshPreviewCutoutBtn.Location = new System.Drawing.Point(184, 62);
             this.refreshPreviewCutoutBtn.Name = "refreshPreviewCutoutBtn";
-            this.refreshPreviewCutoutBtn.Size = new System.Drawing.Size(162, 30);
+            this.refreshPreviewCutoutBtn.Size = new System.Drawing.Size(172, 30);
             this.refreshPreviewCutoutBtn.TabIndex = 11;
             this.refreshPreviewCutoutBtn.Text = "Refresh Preview (Cutout)";
             this.refreshPreviewCutoutBtn.UseVisualStyleBackColor = false;
@@ -1828,20 +1828,20 @@ namespace Cupscale.Main
             this.refreshPreviewFullBtn.ForeColor = System.Drawing.Color.White;
             this.refreshPreviewFullBtn.Location = new System.Drawing.Point(5, 62);
             this.refreshPreviewFullBtn.Name = "refreshPreviewFullBtn";
-            this.refreshPreviewFullBtn.Size = new System.Drawing.Size(162, 30);
+            this.refreshPreviewFullBtn.Size = new System.Drawing.Size(171, 30);
             this.refreshPreviewFullBtn.TabIndex = 10;
             this.refreshPreviewFullBtn.Text = "Refresh Preview (Full Image)";
             this.refreshPreviewFullBtn.UseVisualStyleBackColor = false;
             this.refreshPreviewFullBtn.Click += new System.EventHandler(this.refreshPreviewFullBtn_Click);
             // 
-            // panel29
+            // leftSpacer1
             // 
-            this.panel29.BackColor = System.Drawing.Color.Transparent;
-            this.panel29.Controls.Add(this.panel30);
-            this.panel29.Location = new System.Drawing.Point(3, 750);
-            this.panel29.Name = "panel29";
-            this.panel29.Size = new System.Drawing.Size(341, 17);
-            this.panel29.TabIndex = 8;
+            this.leftSpacer1.BackColor = System.Drawing.Color.Transparent;
+            this.leftSpacer1.Controls.Add(this.panel30);
+            this.leftSpacer1.Location = new System.Drawing.Point(3, 750);
+            this.leftSpacer1.Name = "leftSpacer1";
+            this.leftSpacer1.Size = new System.Drawing.Size(361, 17);
+            this.leftSpacer1.TabIndex = 8;
             // 
             // panel30
             // 
@@ -1853,21 +1853,21 @@ namespace Cupscale.Main
             this.panel30.Margin = new System.Windows.Forms.Padding(5);
             this.panel30.Name = "panel30";
             this.panel30.Padding = new System.Windows.Forms.Padding(10);
-            this.panel30.Size = new System.Drawing.Size(330, 7);
+            this.panel30.Size = new System.Drawing.Size(350, 7);
             this.panel30.TabIndex = 0;
             // 
-            // panel14
+            // prevInfoPanel
             // 
-            this.panel14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel14.Controls.Add(this.prevCutoutLabel);
-            this.panel14.Controls.Add(this.prevSizeLabel);
-            this.panel14.Controls.Add(this.label26);
-            this.panel14.Controls.Add(this.prevZoomLabel);
-            this.panel14.Location = new System.Drawing.Point(3, 667);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(341, 77);
-            this.panel14.TabIndex = 4;
+            this.prevInfoPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.prevInfoPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.prevInfoPanel.Controls.Add(this.prevCutoutLabel);
+            this.prevInfoPanel.Controls.Add(this.prevSizeLabel);
+            this.prevInfoPanel.Controls.Add(this.label26);
+            this.prevInfoPanel.Controls.Add(this.prevZoomLabel);
+            this.prevInfoPanel.Location = new System.Drawing.Point(3, 667);
+            this.prevInfoPanel.Name = "prevInfoPanel";
+            this.prevInfoPanel.Size = new System.Drawing.Size(361, 77);
+            this.prevInfoPanel.TabIndex = 4;
             // 
             // prevCutoutLabel
             // 
@@ -1913,14 +1913,14 @@ namespace Cupscale.Main
             this.prevZoomLabel.TabIndex = 6;
             this.prevZoomLabel.Text = "Zoom";
             // 
-            // panel33
+            // leftSpacer2
             // 
-            this.panel33.BackColor = System.Drawing.Color.Transparent;
-            this.panel33.Controls.Add(this.panel34);
-            this.panel33.Location = new System.Drawing.Point(3, 644);
-            this.panel33.Name = "panel33";
-            this.panel33.Size = new System.Drawing.Size(341, 17);
-            this.panel33.TabIndex = 10;
+            this.leftSpacer2.BackColor = System.Drawing.Color.Transparent;
+            this.leftSpacer2.Controls.Add(this.panel34);
+            this.leftSpacer2.Location = new System.Drawing.Point(3, 644);
+            this.leftSpacer2.Name = "leftSpacer2";
+            this.leftSpacer2.Size = new System.Drawing.Size(361, 17);
+            this.leftSpacer2.TabIndex = 10;
             // 
             // panel34
             // 
@@ -1932,22 +1932,22 @@ namespace Cupscale.Main
             this.panel34.Margin = new System.Windows.Forms.Padding(5);
             this.panel34.Name = "panel34";
             this.panel34.Padding = new System.Windows.Forms.Padding(10);
-            this.panel34.Size = new System.Drawing.Size(330, 7);
+            this.panel34.Size = new System.Drawing.Size(350, 7);
             this.panel34.TabIndex = 0;
             // 
-            // panel21
+            // compPanel
             // 
-            this.panel21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.panel21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel21.Controls.Add(this.savePreviewToFileBtn);
-            this.panel21.Controls.Add(this.label27);
-            this.panel21.Controls.Add(this.copyCompToClipboardBtn);
-            this.panel21.Controls.Add(this.label12);
-            this.panel21.Controls.Add(this.prevClipboardTypeCombox);
-            this.panel21.Location = new System.Drawing.Point(3, 551);
-            this.panel21.Name = "panel21";
-            this.panel21.Size = new System.Drawing.Size(341, 87);
-            this.panel21.TabIndex = 5;
+            this.compPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.compPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.compPanel.Controls.Add(this.savePreviewToFileBtn);
+            this.compPanel.Controls.Add(this.label27);
+            this.compPanel.Controls.Add(this.copyCompToClipboardBtn);
+            this.compPanel.Controls.Add(this.label12);
+            this.compPanel.Controls.Add(this.prevClipboardTypeCombox);
+            this.compPanel.Location = new System.Drawing.Point(3, 551);
+            this.compPanel.Name = "compPanel";
+            this.compPanel.Size = new System.Drawing.Size(361, 87);
+            this.compPanel.TabIndex = 5;
             // 
             // savePreviewToFileBtn
             // 
@@ -1958,9 +1958,9 @@ namespace Cupscale.Main
             this.savePreviewToFileBtn.FlatAppearance.BorderSize = 0;
             this.savePreviewToFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.savePreviewToFileBtn.ForeColor = System.Drawing.Color.White;
-            this.savePreviewToFileBtn.Location = new System.Drawing.Point(174, 52);
+            this.savePreviewToFileBtn.Location = new System.Drawing.Point(184, 52);
             this.savePreviewToFileBtn.Name = "savePreviewToFileBtn";
-            this.savePreviewToFileBtn.Size = new System.Drawing.Size(162, 30);
+            this.savePreviewToFileBtn.Size = new System.Drawing.Size(172, 30);
             this.savePreviewToFileBtn.TabIndex = 13;
             this.savePreviewToFileBtn.Text = "Save To File";
             this.savePreviewToFileBtn.UseVisualStyleBackColor = false;
@@ -1988,7 +1988,7 @@ namespace Cupscale.Main
             this.copyCompToClipboardBtn.ForeColor = System.Drawing.Color.White;
             this.copyCompToClipboardBtn.Location = new System.Drawing.Point(5, 52);
             this.copyCompToClipboardBtn.Name = "copyCompToClipboardBtn";
-            this.copyCompToClipboardBtn.Size = new System.Drawing.Size(163, 30);
+            this.copyCompToClipboardBtn.Size = new System.Drawing.Size(171, 30);
             this.copyCompToClipboardBtn.TabIndex = 12;
             this.copyCompToClipboardBtn.Text = "Copy To Clipboard";
             this.copyCompToClipboardBtn.UseVisualStyleBackColor = false;
@@ -2023,17 +2023,17 @@ namespace Cupscale.Main
             this.prevClipboardTypeCombox.Location = new System.Drawing.Point(116, 20);
             this.prevClipboardTypeCombox.Margin = new System.Windows.Forms.Padding(8);
             this.prevClipboardTypeCombox.Name = "prevClipboardTypeCombox";
-            this.prevClipboardTypeCombox.Size = new System.Drawing.Size(215, 21);
+            this.prevClipboardTypeCombox.Size = new System.Drawing.Size(235, 21);
             this.prevClipboardTypeCombox.TabIndex = 5;
             // 
-            // panel31
+            // leftSpacer3
             // 
-            this.panel31.BackColor = System.Drawing.Color.Transparent;
-            this.panel31.Controls.Add(this.panel32);
-            this.panel31.Location = new System.Drawing.Point(3, 528);
-            this.panel31.Name = "panel31";
-            this.panel31.Size = new System.Drawing.Size(341, 17);
-            this.panel31.TabIndex = 9;
+            this.leftSpacer3.BackColor = System.Drawing.Color.Transparent;
+            this.leftSpacer3.Controls.Add(this.panel32);
+            this.leftSpacer3.Location = new System.Drawing.Point(3, 528);
+            this.leftSpacer3.Name = "leftSpacer3";
+            this.leftSpacer3.Size = new System.Drawing.Size(361, 17);
+            this.leftSpacer3.TabIndex = 9;
             // 
             // panel32
             // 
@@ -2045,26 +2045,26 @@ namespace Cupscale.Main
             this.panel32.Margin = new System.Windows.Forms.Padding(5);
             this.panel32.Name = "panel32";
             this.panel32.Padding = new System.Windows.Forms.Padding(10);
-            this.panel32.Size = new System.Drawing.Size(330, 7);
+            this.panel32.Size = new System.Drawing.Size(350, 7);
             this.panel32.TabIndex = 0;
             // 
-            // panel22
+            // esrganPanel
             // 
-            this.panel22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.panel22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel22.Controls.Add(this.pictureBox1);
-            this.panel22.Controls.Add(this.pictureBox6);
-            this.panel22.Controls.Add(this.seamlessMode);
-            this.panel22.Controls.Add(this.label2);
-            this.panel22.Controls.Add(this.alpha);
-            this.panel22.Controls.Add(this.label3);
-            this.panel22.Controls.Add(this.tilesize);
-            this.panel22.Controls.Add(this.label24);
-            this.panel22.Controls.Add(this.label29);
-            this.panel22.Location = new System.Drawing.Point(3, 404);
-            this.panel22.Name = "panel22";
-            this.panel22.Size = new System.Drawing.Size(341, 118);
-            this.panel22.TabIndex = 6;
+            this.esrganPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.esrganPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.esrganPanel.Controls.Add(this.pictureBox1);
+            this.esrganPanel.Controls.Add(this.pictureBox6);
+            this.esrganPanel.Controls.Add(this.seamlessMode);
+            this.esrganPanel.Controls.Add(this.label2);
+            this.esrganPanel.Controls.Add(this.alpha);
+            this.esrganPanel.Controls.Add(this.label3);
+            this.esrganPanel.Controls.Add(this.tilesize);
+            this.esrganPanel.Controls.Add(this.label24);
+            this.esrganPanel.Controls.Add(this.label29);
+            this.esrganPanel.Location = new System.Drawing.Point(3, 404);
+            this.esrganPanel.Name = "esrganPanel";
+            this.esrganPanel.Size = new System.Drawing.Size(361, 118);
+            this.esrganPanel.TabIndex = 6;
             // 
             // pictureBox1
             // 
@@ -2093,7 +2093,8 @@ namespace Cupscale.Main
             // 
             // seamlessMode
             // 
-            this.seamlessMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.seamlessMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.seamlessMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.seamlessMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.seamlessMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -2108,7 +2109,7 @@ namespace Cupscale.Main
             this.seamlessMode.Location = new System.Drawing.Point(174, 87);
             this.seamlessMode.Margin = new System.Windows.Forms.Padding(8);
             this.seamlessMode.Name = "seamlessMode";
-            this.seamlessMode.Size = new System.Drawing.Size(157, 21);
+            this.seamlessMode.Size = new System.Drawing.Size(177, 21);
             this.seamlessMode.TabIndex = 25;
             this.seamlessMode.SelectedIndexChanged += new System.EventHandler(this.seamlessMode_SelectedIndexChanged);
             // 
@@ -2147,7 +2148,8 @@ namespace Cupscale.Main
             // 
             // tilesize
             // 
-            this.tilesize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tilesize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tilesize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tilesize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.tilesize.ForeColor = System.Drawing.Color.White;
@@ -2165,7 +2167,7 @@ namespace Cupscale.Main
             this.tilesize.Location = new System.Drawing.Point(174, 27);
             this.tilesize.Margin = new System.Windows.Forms.Padding(8);
             this.tilesize.Name = "tilesize";
-            this.tilesize.Size = new System.Drawing.Size(157, 21);
+            this.tilesize.Size = new System.Drawing.Size(177, 21);
             this.tilesize.TabIndex = 21;
             this.tilesize.SelectedIndexChanged += new System.EventHandler(this.tilesize_SelectedIndexChanged);
             // 
@@ -2191,14 +2193,14 @@ namespace Cupscale.Main
             this.label29.TabIndex = 2;
             this.label29.Text = "ESRGAN Processing Options";
             // 
-            // panel35
+            // leftSpacer4
             // 
-            this.panel35.BackColor = System.Drawing.Color.Transparent;
-            this.panel35.Controls.Add(this.panel36);
-            this.panel35.Location = new System.Drawing.Point(3, 381);
-            this.panel35.Name = "panel35";
-            this.panel35.Size = new System.Drawing.Size(341, 17);
-            this.panel35.TabIndex = 11;
+            this.leftSpacer4.BackColor = System.Drawing.Color.Transparent;
+            this.leftSpacer4.Controls.Add(this.panel36);
+            this.leftSpacer4.Location = new System.Drawing.Point(3, 381);
+            this.leftSpacer4.Name = "leftSpacer4";
+            this.leftSpacer4.Size = new System.Drawing.Size(361, 17);
+            this.leftSpacer4.TabIndex = 11;
             // 
             // panel36
             // 
@@ -2210,29 +2212,29 @@ namespace Cupscale.Main
             this.panel36.Margin = new System.Windows.Forms.Padding(5);
             this.panel36.Name = "panel36";
             this.panel36.Padding = new System.Windows.Forms.Padding(10);
-            this.panel36.Size = new System.Drawing.Size(330, 7);
+            this.panel36.Size = new System.Drawing.Size(350, 7);
             this.panel36.TabIndex = 0;
             // 
-            // panel3
+            // mdlPanel
             // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.advancedBtn);
-            this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.advancedConfigureBtn);
-            this.panel3.Controls.Add(this.model2TreeBtn);
-            this.panel3.Controls.Add(this.interpConfigureBtn);
-            this.panel3.Controls.Add(this.label14);
-            this.panel3.Controls.Add(this.label4);
-            this.panel3.Controls.Add(this.model1TreeBtn);
-            this.panel3.Controls.Add(this.chainRbtn);
-            this.panel3.Controls.Add(this.label16);
-            this.panel3.Controls.Add(this.interpRbtn);
-            this.panel3.Controls.Add(this.singleModelRbtn);
-            this.panel3.Location = new System.Drawing.Point(3, 117);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(341, 258);
-            this.panel3.TabIndex = 7;
+            this.mdlPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.mdlPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mdlPanel.Controls.Add(this.advancedBtn);
+            this.mdlPanel.Controls.Add(this.label1);
+            this.mdlPanel.Controls.Add(this.advancedConfigureBtn);
+            this.mdlPanel.Controls.Add(this.model2TreeBtn);
+            this.mdlPanel.Controls.Add(this.interpConfigureBtn);
+            this.mdlPanel.Controls.Add(this.label14);
+            this.mdlPanel.Controls.Add(this.label4);
+            this.mdlPanel.Controls.Add(this.model1TreeBtn);
+            this.mdlPanel.Controls.Add(this.chainRbtn);
+            this.mdlPanel.Controls.Add(this.label16);
+            this.mdlPanel.Controls.Add(this.interpRbtn);
+            this.mdlPanel.Controls.Add(this.singleModelRbtn);
+            this.mdlPanel.Location = new System.Drawing.Point(3, 117);
+            this.mdlPanel.Name = "mdlPanel";
+            this.mdlPanel.Size = new System.Drawing.Size(361, 258);
+            this.mdlPanel.TabIndex = 7;
             // 
             // advancedBtn
             // 
@@ -2268,7 +2270,7 @@ namespace Cupscale.Main
             this.advancedConfigureBtn.ForeColor = System.Drawing.Color.White;
             this.advancedConfigureBtn.Location = new System.Drawing.Point(202, 108);
             this.advancedConfigureBtn.Name = "advancedConfigureBtn";
-            this.advancedConfigureBtn.Size = new System.Drawing.Size(129, 23);
+            this.advancedConfigureBtn.Size = new System.Drawing.Size(149, 23);
             this.advancedConfigureBtn.TabIndex = 19;
             this.advancedConfigureBtn.Text = "Configure...";
             this.advancedConfigureBtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -2287,7 +2289,7 @@ namespace Cupscale.Main
             this.model2TreeBtn.Location = new System.Drawing.Point(8, 225);
             this.model2TreeBtn.Margin = new System.Windows.Forms.Padding(8);
             this.model2TreeBtn.Name = "model2TreeBtn";
-            this.model2TreeBtn.Size = new System.Drawing.Size(323, 23);
+            this.model2TreeBtn.Size = new System.Drawing.Size(343, 23);
             this.model2TreeBtn.TabIndex = 18;
             this.model2TreeBtn.Text = "None Selected. Click To Change.";
             this.model2TreeBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2303,7 +2305,7 @@ namespace Cupscale.Main
             this.interpConfigureBtn.ForeColor = System.Drawing.Color.White;
             this.interpConfigureBtn.Location = new System.Drawing.Point(202, 62);
             this.interpConfigureBtn.Name = "interpConfigureBtn";
-            this.interpConfigureBtn.Size = new System.Drawing.Size(129, 23);
+            this.interpConfigureBtn.Size = new System.Drawing.Size(149, 23);
             this.interpConfigureBtn.TabIndex = 16;
             this.interpConfigureBtn.Text = "Configure...";
             this.interpConfigureBtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -2345,7 +2347,7 @@ namespace Cupscale.Main
             this.model1TreeBtn.Location = new System.Drawing.Point(8, 175);
             this.model1TreeBtn.Margin = new System.Windows.Forms.Padding(8);
             this.model1TreeBtn.Name = "model1TreeBtn";
-            this.model1TreeBtn.Size = new System.Drawing.Size(323, 23);
+            this.model1TreeBtn.Size = new System.Drawing.Size(343, 23);
             this.model1TreeBtn.TabIndex = 17;
             this.model1TreeBtn.Text = "None Selected. Click To Change.";
             this.model1TreeBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2422,6 +2424,7 @@ namespace Cupscale.Main
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.mainTableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -2460,37 +2463,37 @@ namespace Cupscale.Main
             this.panel7.ResumeLayout(false);
             this.panel15.ResumeLayout(false);
             this.flowPanelRight.ResumeLayout(false);
-            this.panel17.ResumeLayout(false);
-            this.panel17.PerformLayout();
-            this.panel27.ResumeLayout(false);
-            this.panel19.ResumeLayout(false);
-            this.panel19.PerformLayout();
-            this.panel25.ResumeLayout(false);
-            this.panel18.ResumeLayout(false);
-            this.panel18.PerformLayout();
-            this.panel23.ResumeLayout(false);
-            this.panel20.ResumeLayout(false);
-            this.panel20.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.upscalePanel.ResumeLayout(false);
+            this.upscalePanel.PerformLayout();
+            this.rSpacer1.ResumeLayout(false);
+            this.savePanel.ResumeLayout(false);
+            this.savePanel.PerformLayout();
+            this.rSpacer2.ResumeLayout(false);
+            this.postResizePanel.ResumeLayout(false);
+            this.postResizePanel.PerformLayout();
+            this.rSpacer3.ResumeLayout(false);
+            this.preResizePanel.ResumeLayout(false);
+            this.preResizePanel.PerformLayout();
+            this.rSpacer4.ResumeLayout(false);
+            this.imgOptsPanel.ResumeLayout(false);
+            this.imgOptsPanel.PerformLayout();
             this.flowPanelLeft.ResumeLayout(false);
-            this.panel13.ResumeLayout(false);
-            this.panel13.PerformLayout();
-            this.panel29.ResumeLayout(false);
-            this.panel14.ResumeLayout(false);
-            this.panel14.PerformLayout();
-            this.panel33.ResumeLayout(false);
-            this.panel21.ResumeLayout(false);
-            this.panel21.PerformLayout();
-            this.panel31.ResumeLayout(false);
-            this.panel22.ResumeLayout(false);
-            this.panel22.PerformLayout();
+            this.prevCtrlPanel.ResumeLayout(false);
+            this.prevCtrlPanel.PerformLayout();
+            this.leftSpacer1.ResumeLayout(false);
+            this.prevInfoPanel.ResumeLayout(false);
+            this.prevInfoPanel.PerformLayout();
+            this.leftSpacer2.ResumeLayout(false);
+            this.compPanel.ResumeLayout(false);
+            this.compPanel.PerformLayout();
+            this.leftSpacer3.ResumeLayout(false);
+            this.esrganPanel.ResumeLayout(false);
+            this.esrganPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            this.panel35.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.leftSpacer4.ResumeLayout(false);
+            this.mdlPanel.ResumeLayout(false);
+            this.mdlPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2564,24 +2567,24 @@ namespace Cupscale.Main
         private HTAlt.WinForms.HTButton htButton1;
         private HTAlt.WinForms.HTButton offlineInterpBtn;
         private FlowLayoutPanel flowPanelRight;
-        private Panel panel17;
+        private Panel upscalePanel;
         private Label label20;
-        private Panel panel18;
+        private Panel postResizePanel;
         private Label label22;
-        private Panel panel20;
+        private Panel preResizePanel;
         private Label label28;
-        private Panel panel19;
+        private Panel savePanel;
         private Label label23;
         private FlowLayoutPanel flowPanelLeft;
-        private Panel panel13;
+        private Panel prevCtrlPanel;
         private Label label21;
-        private Panel panel14;
+        private Panel prevInfoPanel;
         private Label label26;
-        private Panel panel21;
+        private Panel compPanel;
         private Label label27;
-        private Panel panel22;
+        private Panel esrganPanel;
         private Label label29;
-        private Panel panel3;
+        private Panel mdlPanel;
         private Label label1;
         private ComboBox seamlessMode;
         private Label label2;
@@ -2591,25 +2594,25 @@ namespace Cupscale.Main
         private Label label24;
         private PictureBox pictureBox6;
         private PictureBox pictureBox1;
-        private Panel panel4;
+        private Panel imgOptsPanel;
         private Label label25;
         private HTAlt.WinForms.HTButton openSourceFolderBtn;
         private HTAlt.WinForms.HTButton reloadImgBtn;
-        private Panel panel5;
+        private Panel rSpacer4;
         private Panel panel16;
-        private Panel panel27;
+        private Panel rSpacer1;
         private Panel panel28;
-        private Panel panel25;
+        private Panel rSpacer2;
         private Panel panel26;
-        private Panel panel23;
+        private Panel rSpacer3;
         private Panel panel24;
-        private Panel panel29;
+        private Panel leftSpacer1;
         private Panel panel30;
-        private Panel panel33;
+        private Panel leftSpacer2;
         private Panel panel34;
-        private Panel panel31;
+        private Panel leftSpacer3;
         private Panel panel32;
-        private Panel panel35;
+        private Panel leftSpacer4;
         private Panel panel36;
         private TabPage videoTab;
         private TableLayoutPanel tableLayoutPanel2;

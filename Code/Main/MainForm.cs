@@ -16,6 +16,7 @@ using Cupscale.OS;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using static Cupscale.UI.PreviewUI;
 using System.Linq;
+using System.Security.RightsManagement;
 
 namespace Cupscale.Main
 {
@@ -678,6 +679,34 @@ namespace Cupscale.Main
 			folderDialog.IsFolderPicker = true;
 			if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
 				videoOutDir.Text = folderDialog.FileName;
+		}
+
+		bool lastLeftScrollbarState = false;
+		bool lastRightScrollbarState = false;
+		private void MainForm_Resize(object sender, EventArgs e)
+        {
+			int scrollbarOffset = SystemInformation.VerticalScrollBarWidth + 2;
+
+			bool leftScrollbar = flowPanelLeft.VerticalScroll.Visible;
+			bool rightScrollbar = flowPanelRight.VerticalScroll.Visible;
+
+			Panel[] lPanels = new Panel[] { mdlPanel, esrganPanel, compPanel, prevInfoPanel, prevCtrlPanel, leftSpacer1, leftSpacer2, leftSpacer3, leftSpacer4, };
+			Panel[] rPanels = new Panel[] { imgOptsPanel, preResizePanel, postResizePanel, savePanel, upscalePanel, rSpacer1, rSpacer2, rSpacer3, rSpacer4, };
+
+			if (leftScrollbar && !lastLeftScrollbarState)
+			{ foreach(Panel p in lPanels) p.Width -= scrollbarOffset; }
+
+			if (!leftScrollbar && lastLeftScrollbarState)
+			{ foreach (Panel p in lPanels) p.Width += scrollbarOffset; }
+
+			if (rightScrollbar && !lastRightScrollbarState)
+			{ foreach (Panel p in rPanels) p.Width -= scrollbarOffset; }
+
+			if (!rightScrollbar && lastRightScrollbarState)
+			{ foreach (Panel p in rPanels) p.Width += scrollbarOffset; }
+
+			lastLeftScrollbarState = leftScrollbar;
+			lastRightScrollbarState = rightScrollbar;
 		}
     }
 }

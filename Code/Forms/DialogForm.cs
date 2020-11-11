@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cupscale.UI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace Cupscale.Forms
 {
     public partial class DialogForm : Form
     {
-        public DialogForm(string message, int selfDestructTime = 60)
+        public DialogForm(string message, float selfDestructTime = 60f)
         {
             InitializeComponent();
             Program.currentTemporaryForms.Add(this);
@@ -27,9 +28,9 @@ namespace Cupscale.Forms
             mainLabel.Text = s;
         }
 
-        private async Task SelfDestruct (int time)
+        private async Task SelfDestruct (float time)
         {
-            await Task.Delay(time * 1000);
+            await Task.Delay((time * 1000f).RoundToInt());
             Close();
         }
 
