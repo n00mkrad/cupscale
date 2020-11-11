@@ -20,6 +20,7 @@ namespace Cupscale
 
 		public static void Init ()
         {
+			file = Path.Combine(IOUtils.GetAppDataDir(), "sessionlog.txt");
 			doLogIo = Config.GetBool("logIo");
 			doLogStatus = Config.GetBool("logStatus");
 			PrintArgs();
