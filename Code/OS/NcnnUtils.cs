@@ -1,4 +1,5 @@
-﻿using Cupscale.ImageUtils;
+﻿using Cupscale.Forms;
+using Cupscale.ImageUtils;
 using Cupscale.IO;
 using Cupscale.UI;
 using System;
@@ -26,11 +27,13 @@ namespace Cupscale.OS
 			if (IOUtils.GetAmountOfFiles(outPath, false) < 2)
             {
 				Logger.Log("Running model converter...");
+				DialogForm dialog = new DialogForm("Converting ESRGAN model to NCNN format...");
 				await RunConverter(modelPath);
 				string moveFrom = Path.Combine(Config.Get("esrganPath"), Path.ChangeExtension(modelName, null));
 				Logger.Log("Moving " + moveFrom + " to " + outPath);
 				IOUtils.Copy(moveFrom, outPath, "*", true);
 				Directory.Delete(moveFrom, true);
+				dialog.Close();
 			}
             else
             {

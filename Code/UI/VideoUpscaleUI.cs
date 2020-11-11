@@ -170,7 +170,16 @@ namespace Cupscale.UI
 
             outPath = Path.ChangeExtension(outPath, outputFormat.ToString().ToLower());
             Print("Moving output video to " + outPath + "...");
-            File.Move(path, outPath);
+            try
+            {
+                if (File.Exists(outPath))
+                    File.Delete(outPath);
+                File.Move(path, outPath);
+            }
+            catch (Exception e)
+            {
+                Logger.ErrorMessage("Failed to move video file to output folder.\nMake sure no other programs are accessing files in that folder.", e);
+            }
         }
 
         static void RenameOutFiles ()
