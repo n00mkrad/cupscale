@@ -321,7 +321,7 @@ namespace Cupscale.OS
             await NcnnUtils.ConvertNcnnModel(modelPath);
             Logger.Log("[ESRGAN] NCNN Model is ready: " + currentNcnnModel);
             Program.mainForm.SetProgress(3f, "Loading ESRGAN-NCNN...");
-            DialogForm dialog = new DialogForm("Loading ESRGAN-NCNN...\nThis should take 10-25 seconds.", 14);
+            //DialogForm dialog = new DialogForm("Loading ESRGAN-NCNN...\nThis should take 10-25 seconds.", 14);
             int scale = NcnnUtils.GetNcnnModelScale(currentNcnnModel);
 
             string opt = "/C";

@@ -44,28 +44,34 @@ namespace Cupscale.OS
 
 		static async Task RunConverter(string modelPath)
 		{
+			bool showWindow = Config.GetInt("cmdDebugMode") > 0;
+			bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
+
 			modelPath = modelPath.Wrap();
 
-			string cmd2 = "/C cd /D " + Config.Get("esrganPath").Wrap() + " & pth2ncnn.exe " + modelPath;
+			string opt = "/C";
+			if (stayOpen) opt = "/K";
 
-			Logger.Log("[CMD] " + cmd2);
-			Process converterProc = new Process();
-			//converterProc.StartInfo.UseShellExecute = false;
-			//converterProc.StartInfo.RedirectStandardOutput = true;
-			//converterProc.StartInfo.RedirectStandardError = true;
-			//converterProc.StartInfo.CreateNoWindow = true;
-			converterProc.StartInfo.FileName = "cmd.exe";
-			converterProc.StartInfo.Arguments = cmd2;
-			converterProc.OutputDataReceived += OutputHandler;
-			converterProc.ErrorDataReceived += OutputHandler;
+			string args = $"{opt} cd /D {Config.Get("esrganPath").Wrap()} & pth2ncnn.exe {modelPath}";
+
+			Logger.Log("[CMD] " + args);
+			Process converterProc = OSUtils.NewProcess(!showWindow);
+			converterProc.StartInfo.Arguments = args;
+			if (!showWindow)
+			{
+				converterProc.OutputDataReceived += OutputHandler;
+				converterProc.ErrorDataReceived += OutputHandler;
+			}
 			currentProcess = converterProc;
 			converterProc.Start();
-			//converterProc.BeginOutputReadLine();
-			//converterProc.BeginErrorReadLine();
-			while (!converterProc.HasExited)
+			if (!showWindow)
 			{
-				await Task.Delay(100);
+				converterProc.BeginOutputReadLine();
+				converterProc.BeginErrorReadLine();
 			}
+			while (!converterProc.HasExited)
+				await Task.Delay(100);
+
 			File.Delete(Paths.progressLogfile);
 		}
 
@@ -75,7 +81,7 @@ namespace Cupscale.OS
 				return;
 
 			string data = output.Data;
-			Logger.Log("Model Converter Output: " + data);
+			Logger.Log("[NcnnUtils] Model Converter Output: " + data);
 		}
 
 		public static int GetNcnnModelScale(string modelDir)
