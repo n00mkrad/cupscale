@@ -61,16 +61,6 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] av {
-            get {
-                object obj = ResourceManager.GetObject("av", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap baseline_fact_check_white_48dp {
@@ -131,26 +121,6 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] esrgan {
-            get {
-                object obj = ResourceManager.GetObject("esrgan", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] esrgan_ncnn {
-            get {
-                object obj = ResourceManager.GetObject("esrgan_ncnn", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap interp {
@@ -202,7 +172,9 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 11	# added joey&apos;s esrgan to fix seams with esrl code
+        ///   Looks up a localized string similar to 13	# new h265 supporting ffmpeg exe
+        ///12	# joey&apos;s esrgan update, fix chaining
+        ///11	# added joey&apos;s esrgan to fix seams with esrl code
         ///10	# added interp py script
         ///9	# fixed esrl output path
         ///8	# updated scripts to not log filename for error handling
@@ -210,9 +182,7 @@ namespace Cupscale.Properties {
         ///6	# fixed esrgan-launcher buffer writing
         ///5	# updated esrgan scripts to write image buffer to tmp file
         ///4	# updated esrgan scripts
-        ///3	# updated esrlmain.py to fix chaining problem
-        ///2	# added joey&apos;s esrgan
-        ///1	# added ffmpeg.
+        ///3	# updated esrlmain.py to fix chaining problem        /// [rest of string was truncated]&quot;;.
         /// </summary>
         public static string shipped_files_version {
             get {

@@ -398,6 +398,13 @@ namespace Cupscale
             }
         }
 
+        public static long GetDirSize (string path)
+        {
+            if (!Directory.Exists(path))
+                return 0;
+            return GetDirSize(new DirectoryInfo(path));
+        }
+
         public static long GetDirSize(DirectoryInfo d)
         {
             long size = 0;

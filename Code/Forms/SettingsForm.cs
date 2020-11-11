@@ -153,20 +153,20 @@ namespace Cupscale.Forms
 
         private async void reinstallOverwriteBtn_Click(object sender, EventArgs e)
         {
-            await ShippedFiles.Install();
+            await Installer.Install();
             BringToFront();
         }
 
         private async void reinstallCleanBtn_Click(object sender, EventArgs e)
         {
-            ShippedFiles.Uninstall(false);
-            await ShippedFiles.Install();
+            Installer.Uninstall(false);
+            await Installer.Install();
             BringToFront();
         }
 
         private void uninstallResBtn_Click(object sender, EventArgs e)
         {
-            ShippedFiles.Uninstall(false);
+            Installer.Uninstall(false);
             Program.ShowMessage("Uninstalled resources.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.\n" +
                 "However, your settings file was not deleted.", "Message");
             Logger.disable = true;
@@ -177,7 +177,7 @@ namespace Cupscale.Forms
         private void uninstallFullBtn_Click(object sender, EventArgs e)
         {
             Close();
-            ShippedFiles.Uninstall(true);
+            Installer.Uninstall(true);
             Program.ShowMessage("Uninstalled all files.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.", "Message");
             Logger.disable = true;
             Config.disable = true;

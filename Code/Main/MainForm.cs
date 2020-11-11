@@ -82,7 +82,7 @@ namespace Cupscale.Main
 
 		public async Task CheckInstallation ()
         {
-			await ShippedFiles.Init();
+			await Installer.Init();
 			Enabled = true;
 		}
 

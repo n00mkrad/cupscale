@@ -30,7 +30,7 @@ namespace Cupscale.OS
 
         public static string GetEmbedPyPath()
         {
-            return Path.Combine(ShippedFiles.path, "py", "python.exe");
+            return Path.Combine(Installer.path, "py", "python.exe");
         }
 
         public static bool IsEnabled()
@@ -41,7 +41,7 @@ namespace Cupscale.OS
         public static void Init()
         {
             if (Config.GetInt("pythonRuntime") != 1) return;
-            string shippedPath = ShippedFiles.path;
+            string shippedPath = Installer.path;
             IOUtils.Copy(Path.Combine(shippedPath, "utils"), Path.Combine(shippedPath, "py", "utils"));
             File.Copy(Path.Combine(shippedPath, "esrlupscale.py"), Path.Combine(shippedPath, "py", "esrlupscale.py"), true);
             File.Copy(Path.Combine(shippedPath, "esrlmodel.py"), Path.Combine(shippedPath, "py", "esrlmodel.py"), true);
@@ -59,12 +59,9 @@ namespace Cupscale.OS
             runBtn = runButton;
             runBtn.Enabled = false;
             Print("Initializing...");
-            downloadPath = Path.Combine(ShippedFiles.path, "py.7z");
-            extractPath = Path.Combine(ShippedFiles.path, "py");
+            downloadPath = Path.Combine(Installer.path, "py.7z");
+            extractPath = Path.Combine(Installer.path, "py");
             isExtracting = false;
-
-            //DoneDownloading(null, null);
-            //return;
 
             await Task.Delay(10);
 
@@ -147,10 +144,10 @@ namespace Cupscale.OS
         {
             await Task.Run(async () =>
             {
-                SevenZipNET.SevenZipExtractor.Path7za = Path.Combine(ShippedFiles.path, "7za.exe");
+                SevenZipNET.SevenZipExtractor.Path7za = Path.Combine(Installer.path, "7za.exe");
                 SevenZipNET.SevenZipExtractor extractor = new SevenZipNET.SevenZipExtractor(downloadPath);
                 await Task.Delay(1);
-                extractor.ExtractAll(ShippedFiles.path, true, true);
+                extractor.ExtractAll(Installer.path, true, true);
                 File.Delete(downloadPath);
                 isExtracting = false;
             });

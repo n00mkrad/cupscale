@@ -78,7 +78,7 @@ namespace Cupscale
 		{
 			return key switch
 			{
-				"esrganPath" => WriteDefault("esrganPath", ShippedFiles.path),
+				"esrganPath" => WriteDefault("esrganPath", Installer.path),
 				"esrganVer" => WriteDefault("esrganVer", "0"), 
 				"tilesize" => WriteDefault("tilesize", "1024"),
 				"alpha" => WriteDefault("alpha", "False"),

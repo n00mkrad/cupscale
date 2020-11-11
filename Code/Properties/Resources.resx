@@ -121,20 +121,11 @@
   <data name="x64_7za" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\7za.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="av" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\av.7z;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="questmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\questmark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="baseline_settings_white_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\baseline_settings_white_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="shipped_files_version" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\shipped-files-version.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="esrgan_ncnn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\esrgan-ncnn.7z;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="baseline_folder_open_white_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\baseline_folder_open_white_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2482,9 +2473,6 @@
   <data name="baseline_refresh_white_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\baseline_refresh_white_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="esrgan" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\esrgan.7z;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="baseline_photo_library_white_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\baseline_photo_library_white_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -2507,5 +2495,8 @@
     <value>Use "Tile" or "Mirror" for seamless/tiled textures.
 "Extend" will stretch the last pixel row on each side to avoid seams on the borders of the image.
 "Alpha" will surround the image with transparency to avoid pixels being squashed to the border of the image.</value>
+  </data>
+  <data name="shipped_files_version" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\shipped-files-version.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>
