@@ -17,7 +17,7 @@ namespace Cupscale.Main
     {
         public enum UpscaleMode { Preview, Single, Batch, Composition }
         public static UpscaleMode currentMode = UpscaleMode.Preview;
-        public enum ImgExportMode { PNG, SameAsSource, JPEG, WEBP, BMP, TGA, DDS }
+        public enum ImgExportMode { PNG, SameAsSource, JPEG, WEBP, BMP, TGA, DDS, GIF }
         public enum VidExportMode { MP4, GIF, SameAsSource }
         public enum Filter { Mitchell, Bicubic, NearestNeighbor }
         public enum ScaleMode { Percent, PixelsHeight, PixelsWidth, PixelsShorterSide, PixelsLongerSide }
@@ -133,6 +133,8 @@ namespace Cupscale.Main
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.TGA, dontResize);
             if (outputFormat.Text == ImgExportMode.DDS.ToStringTitleCase())
                 await ImageProcessing.PostProcessDDS(path);
+            if (outputFormat.Text == ImgExportMode.GIF.ToStringTitleCase())
+                await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.GIF, dontResize);
         }
 
         public static string FilenamePostprocess(string file)

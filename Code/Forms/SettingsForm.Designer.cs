@@ -526,7 +526,7 @@
             // 
             this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox5.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox5.Location = new System.Drawing.Point(78, 75);
+            this.pictureBox5.Location = new System.Drawing.Point(78, 76);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(22, 22);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -554,7 +554,7 @@
             // 
             this.pictureBox4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox4.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox4.Location = new System.Drawing.Point(138, 165);
+            this.pictureBox4.Location = new System.Drawing.Point(141, 166);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(22, 22);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -599,15 +599,15 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(6, 170);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(126, 13);
+            this.label14.Size = new System.Drawing.Size(129, 13);
             this.label14.TabIndex = 14;
-            this.label14.Text = "Comparison ImageFormat";
+            this.label14.Text = "Comparison Image Format";
             // 
             // pictureBox3
             // 
             this.pictureBox3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox3.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox3.Location = new System.Drawing.Point(104, 105);
+            this.pictureBox3.Location = new System.Drawing.Point(104, 106);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(22, 22);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1443,7 +1443,6 @@
             // 
             // SettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(1104, 501);

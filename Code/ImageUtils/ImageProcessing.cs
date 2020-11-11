@@ -17,7 +17,7 @@ namespace Cupscale
 {
     internal class ImageProcessing
     {
-        public enum Format { Source, Png50, PngFast, PngRaw, Jpeg, Weppy, BMP, TGA, DDS }
+        public enum Format { Source, Png50, PngFast, PngRaw, Jpeg, Weppy, BMP, TGA, DDS, GIF }
 
         public static Upscale.Filter postFilter = Upscale.Filter.Mitchell;
         public static Upscale.ScaleMode postScaleMode = Upscale.ScaleMode.Percent;
@@ -53,9 +53,12 @@ namespace Cupscale
                 return;
             }
 
+            if (GetTrimmedExtension(file) == "gif")
+                format = Format.GIF;
+
             string ext = Path.GetExtension(path).ToUpper().Replace(".", "");
             if (format == Format.Png50 && ext != "PNG")
-                Program.ShowMessage("Cupscale does not support the image format " + ext + ", so PNG is used.");
+                Program.ShowMessage("Cupscale does not support the image format " + ext + " for exporting, so PNG is used.");
 
             if (postprocess)
                 await PostProcessImage(file.FullName, format, batchProcessing);
@@ -172,7 +175,11 @@ namespace Cupscale
             {
                 magick = false;
                 newExt = "tga";
-                await NvCompress.ConvertToDds(path, GetOutPath(path, newExt, ExtMode.UseNew, ""));
+                await NvCompress.PngToDds(path, GetOutPath(path, newExt, ExtMode.UseNew, ""));
+            }
+            if (format == Format.GIF)
+            {
+                img.Format = MagickFormat.Gif;
             }
 
             if (magick)
@@ -302,7 +309,12 @@ namespace Cupscale
             {
                 magick = false;
                 newExt = "tga";
-                await NvCompress.ConvertToDds(path, GetOutPath(path, newExt, ExtMode.UseNew, ""));
+                await NvCompress.PngToDds(path, GetOutPath(path, newExt, ExtMode.UseNew, ""));
+            }
+            if (format == Format.GIF)
+            {
+                img.Format = MagickFormat.Gif;
+                newExt = "gif";
             }
 
             await Task.Delay(1);
@@ -340,7 +352,7 @@ namespace Cupscale
 
             string outPath = Path.ChangeExtension(img.FileName, ext);
 
-            await NvCompress.ConvertToDds(path, outPath);
+            await NvCompress.PngToDds(path, outPath);
 
             if (Upscale.currentMode == Upscale.UpscaleMode.Batch)
                 PostProcessingQueue.lastOutfile = outPath;

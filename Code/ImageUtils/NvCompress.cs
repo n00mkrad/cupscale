@@ -14,7 +14,7 @@ namespace Cupscale.ImageUtils
     {
 		static Process currentProcess;
 
-        public static async Task ConvertToDds (string inputFile, string outputPath)
+        public static async Task PngToDds (string inputFile, string outputPath)
         {
 			string dxtString = Config.Get("dxtMode").ToLower().Replace("argb", "rgb");
 			if (dxtString.Contains(" "))
