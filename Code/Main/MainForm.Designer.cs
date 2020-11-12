@@ -95,6 +95,7 @@ namespace Cupscale.Main
             this.vramLabel = new System.Windows.Forms.Label();
             this.flowPanelRight = new System.Windows.Forms.FlowLayoutPanel();
             this.upscalePanel = new System.Windows.Forms.Panel();
+            this.cancelBtn = new HTAlt.WinForms.HTButton();
             this.saveMergedPreviewBtn = new HTAlt.WinForms.HTButton();
             this.label20 = new System.Windows.Forms.Label();
             this.openOutFolderBtn = new HTAlt.WinForms.HTButton();
@@ -965,7 +966,7 @@ namespace Cupscale.Main
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(364, 34);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Cupscale [Build 29 - 11/10/20]";
+            this.label5.Text = "Cupscale [Build 31 - 11/12/20]";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel7
@@ -1157,6 +1158,7 @@ namespace Cupscale.Main
             this.upscalePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.upscalePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.upscalePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.upscalePanel.Controls.Add(this.cancelBtn);
             this.upscalePanel.Controls.Add(this.saveMergedPreviewBtn);
             this.upscalePanel.Controls.Add(this.label20);
             this.upscalePanel.Controls.Add(this.openOutFolderBtn);
@@ -1165,6 +1167,23 @@ namespace Cupscale.Main
             this.upscalePanel.Name = "upscalePanel";
             this.upscalePanel.Size = new System.Drawing.Size(310, 135);
             this.upscalePanel.TabIndex = 0;
+            // 
+            // cancelBtn
+            // 
+            this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancelBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.cancelBtn.FlatAppearance.BorderSize = 0;
+            this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelBtn.ForeColor = System.Drawing.Color.Tomato;
+            this.cancelBtn.Location = new System.Drawing.Point(6, 96);
+            this.cancelBtn.Name = "cancelBtn";
+            this.cancelBtn.Size = new System.Drawing.Size(297, 30);
+            this.cancelBtn.TabIndex = 13;
+            this.cancelBtn.Text = "Cancel Upscale";
+            this.cancelBtn.UseVisualStyleBackColor = false;
+            this.cancelBtn.Visible = false;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
             // saveMergedPreviewBtn
             // 
@@ -1429,10 +1448,10 @@ namespace Cupscale.Main
             "Pixels Width",
             "Pixels Longer Side",
             "Pixels Shorter Side"});
-            this.postResizeMode.Location = new System.Drawing.Point(121, 44);
+            this.postResizeMode.Location = new System.Drawing.Point(124, 44);
             this.postResizeMode.Margin = new System.Windows.Forms.Padding(8);
             this.postResizeMode.Name = "postResizeMode";
-            this.postResizeMode.Size = new System.Drawing.Size(182, 21);
+            this.postResizeMode.Size = new System.Drawing.Size(179, 21);
             this.postResizeMode.TabIndex = 6;
             this.postResizeMode.SelectedIndexChanged += new System.EventHandler(this.postResizeMode_SelectedIndexChanged);
             // 
@@ -1494,7 +1513,7 @@ namespace Cupscale.Main
             this.postResizeScale.Location = new System.Drawing.Point(5, 44);
             this.postResizeScale.Margin = new System.Windows.Forms.Padding(8);
             this.postResizeScale.Name = "postResizeScale";
-            this.postResizeScale.Size = new System.Drawing.Size(122, 21);
+            this.postResizeScale.Size = new System.Drawing.Size(103, 21);
             this.postResizeScale.TabIndex = 2;
             // 
             // label9
@@ -1622,10 +1641,10 @@ namespace Cupscale.Main
             "Mitchell",
             "Nearest Neighbor",
             "Bicubic"});
-            this.preResizeFilter.Location = new System.Drawing.Point(8, 94);
+            this.preResizeFilter.Location = new System.Drawing.Point(5, 94);
             this.preResizeFilter.Margin = new System.Windows.Forms.Padding(8);
             this.preResizeFilter.Name = "preResizeFilter";
-            this.preResizeFilter.Size = new System.Drawing.Size(295, 21);
+            this.preResizeFilter.Size = new System.Drawing.Size(298, 21);
             this.preResizeFilter.TabIndex = 4;
             // 
             // preResizeScale
@@ -1644,7 +1663,7 @@ namespace Cupscale.Main
             this.preResizeScale.Location = new System.Drawing.Point(5, 44);
             this.preResizeScale.Margin = new System.Windows.Forms.Padding(8);
             this.preResizeScale.Name = "preResizeScale";
-            this.preResizeScale.Size = new System.Drawing.Size(122, 21);
+            this.preResizeScale.Size = new System.Drawing.Size(103, 21);
             this.preResizeScale.TabIndex = 2;
             // 
             // label18
@@ -1798,9 +1817,9 @@ namespace Cupscale.Main
             this.refreshPreviewCutoutBtn.FlatAppearance.BorderSize = 0;
             this.refreshPreviewCutoutBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refreshPreviewCutoutBtn.ForeColor = System.Drawing.Color.White;
-            this.refreshPreviewCutoutBtn.Location = new System.Drawing.Point(184, 62);
+            this.refreshPreviewCutoutBtn.Location = new System.Drawing.Point(185, 62);
             this.refreshPreviewCutoutBtn.Name = "refreshPreviewCutoutBtn";
-            this.refreshPreviewCutoutBtn.Size = new System.Drawing.Size(172, 30);
+            this.refreshPreviewCutoutBtn.Size = new System.Drawing.Size(171, 30);
             this.refreshPreviewCutoutBtn.TabIndex = 11;
             this.refreshPreviewCutoutBtn.Text = "Refresh Preview (Cutout)";
             this.refreshPreviewCutoutBtn.UseVisualStyleBackColor = false;
@@ -2632,5 +2651,6 @@ namespace Cupscale.Main
         private TextBox videoLogBox;
         private Label label35;
         private ComboBox videoOutputFormat;
+        private HTAlt.WinForms.HTButton cancelBtn;
     }
 }

@@ -19,13 +19,12 @@ namespace Cupscale.OS
 {
     internal class ESRGAN
     {
-        private static Process currentProcess;
-
         public enum PreviewMode { None, Cutout, FullImage }
         public enum Backend { CUDA, CPU, NCNN }
 
         public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, Backend backend, bool showTileProgress = true)
         {
+            Program.cancelled = false;      // Reset cancel flag
             bool useJoey = Config.GetInt("esrganVer") == 0;
             try
             {
@@ -71,12 +70,14 @@ namespace Cupscale.OS
             }
             catch (Exception e)
             {
+                Program.mainForm.SetProgress(0f, "Cancelled.");
+                if (Program.cancelled)
+                    return;
                 if (e.Message.Contains("No such file"))
                     Program.ShowMessage("An error occured during upscaling.\nThe upscale process seems to have exited before completion!", "Error");
                 else
                     Program.ShowMessage("An error occured during upscaling.", "Error");
                 Logger.Log("[ESRGAN] Upscaling Error: " + e.Message + "\n" + e.StackTrace);
-                Program.mainForm.SetProgress(0f, "Cancelled.");
             }
 
         }
@@ -166,7 +167,7 @@ namespace Cupscale.OS
                 esrganProcess.OutputDataReceived += OutputHandler;
                 esrganProcess.ErrorDataReceived += OutputHandler;
             }
-            currentProcess = esrganProcess;
+            Program.currentEsrganProcess = esrganProcess;
             esrganProcess.Start();
             if (!showWindow)
             {
@@ -225,7 +226,7 @@ namespace Cupscale.OS
                 esrganProcess.OutputDataReceived += OutputHandler;
                 esrganProcess.ErrorDataReceived += OutputHandler;
             }
-            currentProcess = esrganProcess;
+            Program.currentEsrganProcess = esrganProcess;
             esrganProcess.Start();
             if (!showWindow)
             {
@@ -250,16 +251,13 @@ namespace Cupscale.OS
         private static void OutputHandler(object sendingProcess, DataReceivedEventArgs output)
         {
             if (output == null || output.Data == null)
-            {
                 return;
-            }
+
             string data = output.Data;
             Logger.Log("[Python] " + data);
             if (data.ToLower().Contains("error"))
             {
-                if (currentProcess != null && !currentProcess.HasExited)
-                    currentProcess.Kill();
-
+                Program.KillEsrgan();
                 Program.ShowMessage("Error occurred: \n\n" + data + "\n\nThe ESRGAN process was killed to avoid lock-ups.", "Error");
             }
 
@@ -337,8 +335,8 @@ namespace Cupscale.OS
             {
                 ncnnProcess.OutputDataReceived += NcnnOutputHandler;
                 ncnnProcess.ErrorDataReceived += NcnnOutputHandler;
-            } 
-            currentProcess = ncnnProcess;
+            }
+            Program.currentEsrganProcess = ncnnProcess;
             ncnnProcess.Start();
             if (!showWindow)
             {
@@ -366,9 +364,7 @@ namespace Cupscale.OS
             Logger.Log("[NCNN] " + data.Replace("\n", " ").Replace("\r", " "));
             if (data.Contains("failed"))
             {
-                if (currentProcess != null && !currentProcess.HasExited)
-                    currentProcess.Kill();
-
+                Program.KillEsrgan();
                 Program.ShowMessage("Error occurred: \n\n" + data + "\n\nThe ESRGAN-NCNN process was killed to avoid lock-ups.", "Error");
             }
 

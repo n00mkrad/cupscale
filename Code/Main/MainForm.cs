@@ -79,7 +79,22 @@ namespace Cupscale.Main
 			flowPanelRight.AutoScroll = true;
 
 			initialized = true;
+			BusyCheckLoop();
 		}
+
+		public async void BusyCheckLoop ()
+        {
+            while (true)
+            {
+				if (ActiveForm != this)
+				{
+					await Task.Delay(100);
+					continue;
+				}
+				cancelBtn.Visible = (Program.busy && Program.currentEsrganProcess != null && !Program.currentEsrganProcess.HasExited);
+				await Task.Delay(100);
+			}
+        }
 
 		public async Task CheckInstallation ()
         {
@@ -708,5 +723,10 @@ namespace Cupscale.Main
 			lastLeftScrollbarState = leftScrollbar;
 			lastRightScrollbarState = rightScrollbar;
 		}
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+			Program.KillEsrgan();
+        }
     }
 }

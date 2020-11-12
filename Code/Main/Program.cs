@@ -33,6 +33,9 @@ namespace Cupscale
         public static List<Form> currentTemporaryForms = new List<Form>();  // Temp forms that get closed when something gets cancelled
         public static List<MsgBox> openMessageBoxes = new List<MsgBox>();  // Temp forms that get closed when something gets cancelled
 
+        public static Process currentEsrganProcess;
+        public static bool cancelled = false;
+
         public static bool busy;
 
         [STAThread]
@@ -63,14 +66,22 @@ namespace Cupscale
             Application.Run(new MainForm());
         }
 
-        static void Lock()
+        public static void KillEsrgan (bool cleanup = true)
         {
-            
+            if (currentEsrganProcess == null || currentEsrganProcess.HasExited)
+                return;
+            cancelled = true;
+            OSUtils.KillProcessTree(currentEsrganProcess.Id);
+            if (cleanup)
+            {
+                IOUtils.ClearDir(Paths.imgInPath);
+                IOUtils.ClearDir(Paths.imgOutPath);
+                IOUtils.ClearDir(Paths.imgOutNcnnPath);
+            }
         }
 
         public static MsgBox ShowMessage(string msg, string title = "Message")
         {
-            //MessageBox.Show(msg, title, MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);
             DialogQueue.Init();
             MsgBox msgBox = new MsgBox(msg.Replace("\n", Environment.NewLine), title);
             DialogQueue.ShowDialog(msgBox);

@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Cupscale.Forms;
 using Cupscale.ImageUtils;
 using Cupscale.IO;
 using Cupscale.Main;
@@ -79,7 +80,7 @@ namespace Cupscale.UI
                 if (useCpu) backend = ESRGAN.Backend.CPU;
                 if (useNcnn) backend = ESRGAN.Backend.NCNN;
                 await ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), Config.GetBool("alpha"), ESRGAN.PreviewMode.None, backend);
-                if(backend == ESRGAN.Backend.NCNN)
+                if (backend == ESRGAN.Backend.NCNN)
                     outImg = Directory.GetFiles(Paths.imgOutPath, "*.png*", SearchOption.AllDirectories)[0];
                 else
                     outImg = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories)[0];
@@ -91,12 +92,15 @@ namespace Cupscale.UI
             }
             catch (Exception e)
             {
+                Program.mainForm.SetProgress(0f, "Cancelled.");
+                if (Program.cancelled)
+                    return;
                 if (e.StackTrace.Contains("Index"))
                     Program.ShowMessage("The upscale process seems to have exited before completion!", "Error");
                 Logger.ErrorMessage("An error occured during upscaling:", e);
-                Program.mainForm.SetProgress(0f, "Cancelled.");
             }
-            Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0.0")}s");
+            if (!Program.cancelled)
+                Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0.0")}s");
             Program.mainForm.SetBusy(false);
         }
 
@@ -211,7 +215,8 @@ namespace Cupscale.UI
                 ModelData mdl = new ModelData(null, null, ModelData.ModelMode.Advanced);
                 await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, tilesize, alpha, prevMode, backend);
             }
-            Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0.0")}s");
+            if (!Program.cancelled)
+                Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0.0")}s");
             Program.mainForm.SetBusy(false);
         }
 

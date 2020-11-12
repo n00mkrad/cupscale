@@ -142,16 +142,23 @@ namespace Cupscale
             if (!Directory.Exists(path))
                 return;
             if (Logger.doLogIo) Logger.Log("[IOUtils] Clearing " + path);
-            DirectoryInfo directoryInfo = new DirectoryInfo(path);
-            FileInfo[] files = directoryInfo.GetFiles();
-            foreach (FileInfo fileInfo in files)
+            try
             {
-                fileInfo.Delete();
+                DirectoryInfo directoryInfo = new DirectoryInfo(path);
+                FileInfo[] files = directoryInfo.GetFiles();
+                foreach (FileInfo fileInfo in files)
+                {
+                    fileInfo.Delete();
+                }
+                DirectoryInfo[] directories = directoryInfo.GetDirectories();
+                foreach (DirectoryInfo directoryInfo2 in directories)
+                {
+                    directoryInfo2.Delete(recursive: true);
+                }
             }
-            DirectoryInfo[] directories = directoryInfo.GetDirectories();
-            foreach (DirectoryInfo directoryInfo2 in directories)
+            catch (Exception e)
             {
-                directoryInfo2.Delete(recursive: true);
+                Logger.Log($"Failed to clear {path}: {e.Message}");
             }
         }
 
