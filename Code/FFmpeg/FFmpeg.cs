@@ -26,7 +26,11 @@ namespace Cupscale
 
         static void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
         {
-            Logger.Log("[FFmpeg] " + outLine.Data);
+            string line = outLine.Data;
+            if (outLine == null || line == null) return;
+            Logger.Log("[FFmpeg] " + line);
+            if (line.ToLower().Contains("error"))
+                Program.ShowMessage("FFmpeg Error:\n\n" + line);
         }
 
         public static async Task RunGifski (string args)
@@ -47,7 +51,11 @@ namespace Cupscale
 
         static void OutputHandlerGifski (object sendingProcess, DataReceivedEventArgs outLine)
         {
-            Logger.Log("[gifski] " + outLine.Data);
+            string line = outLine.Data;
+            if (outLine == null || line == null) return;
+            Logger.Log("[gifski] " + line);
+            if (line.ToLower().Contains("error"))
+                Program.ShowMessage("Gifski Error:\n\n" + line);
         }
 
         public static string RunAndGetOutput (string args)

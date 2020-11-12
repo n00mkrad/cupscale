@@ -25,7 +25,7 @@ namespace Cupscale.UI
         static string currentInPath;
         static string currentParentDir;
 
-        static float currentFps;
+        static float fps;
 
         public static void Init(TextBox outDirBox, TextBox logTextbox, Label mainLabel, ComboBox outFormatBox)
         {
@@ -97,8 +97,8 @@ namespace Cupscale.UI
         static void LoadVideo ()
         {
             IOUtils.ClearDir(Paths.framesOutPath);
-            currentFps = FFmpegCommands.GetFramerate(currentInPath);
-            Print("Detected frame rate of video as " + currentFps);
+            fps = FFmpegCommands.GetFramerate(currentInPath);
+            Print("Detected frame rate of video as " + fps);
             IOUtils.ClearDir(Paths.imgInPath);
         }
 
@@ -144,7 +144,7 @@ namespace Cupscale.UI
             {
                 DialogForm f = new DialogForm("Creating video from frames...", 300);
                 await Task.Delay(10);
-                await FFmpegCommands.FramesToMp4(Paths.framesOutPath, Config.GetBool("h265"), Config.GetInt("crf"), currentFps, "", false);
+                await FFmpegCommands.FramesToMp4(Paths.framesOutPath, Config.GetBool("h265"), Config.GetInt("crf"), fps, "", false);
                 f.Close();
             }
                 
@@ -152,13 +152,20 @@ namespace Cupscale.UI
             {
                 DialogForm f = new DialogForm("Creating GIF from frames...\nThis can take a while for high-resolution GIFs.", 600);
                 await Task.Delay(10);
-                await FFmpeg.RunGifski($" -r {currentFps.RoundToInt()} -W 4096 -Q {Config.GetInt("gifskiQ")} -q -o {Path.Combine(IOUtils.GetAppDataDir(), "frames-out.mp4")} \"" + Paths.framesOutPath + "/\"*.\"png\"");
+                string outpath = Path.Combine(IOUtils.GetAppDataDir(), "frames-out.mp4").Wrap();
+                await FFmpeg.RunGifski($" -r {fps.RoundToInt()} -W 4096 -Q {Config.GetInt("gifskiQ")} -q -o {outpath} \"{Paths.framesOutPath}/\"*.\"png\"");
                 f.Close();
             }
         }
 
         static void CopyBack (string path)
         {
+            if (!File.Exists(path))
+            {
+                Print("No video file was created!");
+                return;
+            }
+
             string filename = Path.GetFileNameWithoutExtension(currentInPath);
             string ext = Path.GetExtension(path);
             string outPath = "";
@@ -178,7 +185,7 @@ namespace Cupscale.UI
             }
             catch (Exception e)
             {
-                Logger.ErrorMessage("Failed to move video file to output folder.\nMake sure no other programs are accessing files in that folder.", e);
+                Logger.ErrorMessage("Failed to move video file to output folder.\nMake sure no other programs are accessing files in that folder.\n", e);
             }
         }
 

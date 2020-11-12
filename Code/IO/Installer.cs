@@ -179,6 +179,8 @@ namespace Cupscale.IO
 
 		public static void Uninstall (bool full)
         {
+			if (!Directory.Exists(IOUtils.GetAppDataDir()))
+				return;
             try
             {
 				if (full)
@@ -188,7 +190,7 @@ namespace Cupscale.IO
 			}
 			catch (Exception e)
             {
-				Logger.ErrorMessage("Failed to uninstall.\nClose Cupscale and try deleting %APPDATA%/Cupscale manually.", e);
+				Logger.ErrorMessage("Failed to uninstall.\nClose Cupscale and try deleting %APPDATA%/Cupscale manually.\n", e);
             }
 		}
 	}
