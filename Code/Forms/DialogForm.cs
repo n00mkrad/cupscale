@@ -28,6 +28,11 @@ namespace Cupscale.Forms
             mainLabel.Text = s;
         }
 
+        public string GetText ()
+        {
+            return mainLabel.Text;
+        }
+
         private async Task SelfDestruct (float time)
         {
             await Task.Delay((time * 1000f).RoundToInt());

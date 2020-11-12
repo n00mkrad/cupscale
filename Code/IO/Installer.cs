@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -95,10 +96,20 @@ namespace Cupscale.IO
 			path7za = Path.Combine(path, "7za.exe");
 			File.WriteAllBytes(path7za, Resources.x64_7za);
 
-			await DownloadAndInstall(exeFilesVersion, "esrgan.7z");
-			await DownloadAndInstall(exeFilesVersion, "esrgan-ncnn.7z");
-			await DownloadAndInstall(exeFilesVersion, "av.7z");
-			await DownloadAndInstall(exeFilesVersion, "shipped-files-version.txt", false);
+            try
+            {
+				await DownloadAndInstall(exeFilesVersion, "esrgan.7z");
+				await DownloadAndInstall(exeFilesVersion, "esrgan-ncnn.7z");
+				await DownloadAndInstall(exeFilesVersion, "av.7z");
+				await DownloadAndInstall(exeFilesVersion, "shipped-files-version.txt", false);
+			}
+            catch (Exception e)
+            {
+				MsgBox msg = Logger.ErrorMessage("Web Installer failed to run!\n", e);
+				while (DialogQueue.IsOpen(msg)) await Task.Delay(50);
+				Environment.Exit(1);
+				return;
+			}
 
 			dialog.Close();
 			Program.mainForm.Enabled = true;
@@ -106,27 +117,39 @@ namespace Cupscale.IO
 			Program.mainForm.BringToFront();
 		}
 
+		static DialogForm currentDlDialog;
+
 		static async Task DownloadAndInstall(int version, string filename, bool showDialog = true)
 		{
 			string savePath = Path.Combine(IOUtils.GetAppDataDir(), filename);
 			string url = $"https://dl.nmkd.de/cupscale/shippedfiles/{version}/{filename}";
 			Logger.Log($"[Installer] Downloading {url}");
 			var client = new WebClient();
-			DialogForm dialog = null;
-			if (showDialog)
-				dialog = new DialogForm($"Downloading {filename}...");
+			currentDlDialog = new DialogForm($"Downloading {filename}…");
+			sw.Restart();
+			client.DownloadProgressChanged += DownloadProgressChanged;
 			await client.DownloadFileTaskAsync(new Uri(url), savePath);
 			if(Path.GetExtension(filename).ToLower() == ".7z")		// Only run extractor if it's a 7z archive
             {
-				if (dialog != null)
-					dialog.ChangeText($"Installing {filename}...");
+				if (currentDlDialog != null)
+					currentDlDialog.ChangeText($"Installing {filename}...");
 				await UnSevenzip(Path.Combine(IOUtils.GetAppDataDir(), filename));
 			}
-			if(dialog != null)
-				dialog.Close();
+			if(currentDlDialog != null)
+				currentDlDialog.Close();
+			currentDlDialog = null;
 		}
 
-
+		static Stopwatch sw = new Stopwatch();
+		static void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+		{
+			if(sw.ElapsedMilliseconds > 500)
+            {
+				sw.Restart();
+				string newText = currentDlDialog.GetText().Split('…')[0] + "… " + e.ProgressPercentage + "%";
+				currentDlDialog.ChangeText(newText);
+			}
+		}
 
 		static async Task UnSevenzip (string path)
         {
