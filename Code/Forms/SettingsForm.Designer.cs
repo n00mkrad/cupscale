@@ -136,6 +136,10 @@
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.vidEnableAudio = new System.Windows.Forms.CheckBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -169,6 +173,7 @@
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             this.logPage.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabList1
@@ -915,7 +920,7 @@
             this.videoFormatsPage.Controls.Add(this.tableLayoutPanel5);
             this.videoFormatsPage.Name = "videoFormatsPage";
             this.videoFormatsPage.Size = new System.Drawing.Size(922, 469);
-            this.videoFormatsPage.Text = "Video Format Settings";
+            this.videoFormatsPage.Text = "Video Upscaling Settings";
             // 
             // tableLayoutPanel5
             // 
@@ -923,6 +928,7 @@
             this.tableLayoutPanel5.ColumnCount = 2;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Controls.Add(this.panel8, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.panel9, 0, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
@@ -1441,6 +1447,48 @@
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
             // 
+            // panel8
+            // 
+            this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel8.Controls.Add(this.vidEnableAudio);
+            this.panel8.Controls.Add(this.label43);
+            this.panel8.Controls.Add(this.label44);
+            this.panel8.Location = new System.Drawing.Point(464, 3);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(455, 463);
+            this.panel8.TabIndex = 5;
+            // 
+            // vidEnableAudio
+            // 
+            this.vidEnableAudio.AutoSize = true;
+            this.vidEnableAudio.Location = new System.Drawing.Point(220, 80);
+            this.vidEnableAudio.Name = "vidEnableAudio";
+            this.vidEnableAudio.Size = new System.Drawing.Size(15, 14);
+            this.vidEnableAudio.TabIndex = 21;
+            this.vidEnableAudio.UseVisualStyleBackColor = true;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(6, 80);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(133, 13);
+            this.label43.TabIndex = 2;
+            this.label43.Text = "Copy Audio From Input File";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label44.Location = new System.Drawing.Point(3, 4);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(157, 20);
+            this.label44.TabIndex = 1;
+            this.label44.Text = "Other Video Settings";
+            // 
             // SettingsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1496,6 +1544,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             this.logPage.ResumeLayout(false);
             this.logPage.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1608,5 +1658,9 @@
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.PictureBox pictureBox13;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.CheckBox vidEnableAudio;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Label label44;
     }
 }

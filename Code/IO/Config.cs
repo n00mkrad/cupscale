@@ -105,6 +105,7 @@ namespace Cupscale
 				"h265" => WriteDefault("h265", "False"),
 				"crf" => WriteDefault("crf", "18"),
 				"gifskiQ" => WriteDefault("gifskiQ", "100"),
+				"vidEnableAudio" => WriteDefault("vidEnableAudio", "True"),
 				_ => null, 
 			};
 		}

@@ -20,7 +20,7 @@ namespace Cupscale
             if (hdr) hdrStr = FFmpegStrings.hdrFilter;
             string deDupeStr = "";
             if (deDupe) deDupeStr = "-vf mpdecimate";
-            string args = "-i \"" + inputFile + "\" " + hdrStr + " -vsync 0 " + deDupeStr + " \"" + frameFolderPath + "/%04d.png\"";
+            string args = $"-i {inputFile.Wrap()} -compression_level 3 {hdrStr} -vsync 0 {deDupeStr} \"" + frameFolderPath + "/%04d.png\"";
             await FFmpeg.Run(args);
             await Task.Delay(1);
             if (delSrc)
@@ -47,7 +47,7 @@ namespace Cupscale
                 + " -crf " + crf + " -pix_fmt yuv420p -movflags +faststart -vf \"crop = trunc(iw / 2) * 2:trunc(ih / 2) * 2\"  -c:a copy \"" + inputDir + ".mp4\"";
             await FFmpeg.Run(args);
             if (delSrc)
-                DeleteSource(inputDir); // CHANGE CODE TO BE ABLE TO DELETE DIRECTORIES!!
+                DeleteSource(inputDir);
         }
 
         public static async Task FramesToOneFpsMp4(string inputDir, bool useH265, int crf, int loopTimes, string prefix, bool delSrc)
@@ -59,7 +59,7 @@ namespace Cupscale
                 + " -crf " + crf + " -pix_fmt yuv420p -movflags +faststart -vf \"crop = trunc(iw / 2) * 2:trunc(ih / 2) * 2\"  -c:a copy \"" + inputDir + ".mp4\"";
             await FFmpeg.Run(args);
             if (delSrc)
-                DeleteSource(inputDir); // CHANGE CODE TO BE ABLE TO DELETE DIRECTORIES!!
+                DeleteSource(inputDir);
         }
 
         public static async Task FramesToMp4Looped(string inputDir, bool useH265, int crf, int fps, int loopTimes, string prefix, bool delSrc)
@@ -71,7 +71,7 @@ namespace Cupscale
                 + " -crf " + crf + " -pix_fmt yuv420p -movflags +faststart -vf \"crop = trunc(iw / 2) * 2:trunc(ih / 2) * 2\"  -c:a copy \"" + inputDir + ".mp4\"";
             await FFmpeg.Run(args);
             if (delSrc)
-                DeleteSource(inputDir); // CHANGE CODE TO BE ABLE TO DELETE DIRECTORIES!!
+                DeleteSource(inputDir);
         }
 
         public static async void FramesToApng (string inputDir, bool opti, int fps, string prefix, bool delSrc)
@@ -82,7 +82,7 @@ namespace Cupscale
             string args = "-framerate " + fps + " -i \"" + inputDir + "\\" + prefix + "%0" + nums + "d.png\" -f apng -plays 0 " + filter + " \"" + inputDir + "-anim.png\"";
             await FFmpeg.Run(args);
             if (delSrc)
-                DeleteSource(inputDir); // CHANGE CODE TO BE ABLE TO DELETE DIRECTORIES!!
+                DeleteSource(inputDir);
         }
 
         public static async Task FramesToGif (string inputDir, bool opti, int fps, string prefix, bool delSrc)
@@ -93,7 +93,7 @@ namespace Cupscale
             string args = "-framerate " + fps + " -i \"" + inputDir + "\\" + prefix + "%0" + nums + "d.png\" -f gif " + filter + " \"" + inputDir + ".gif\"";
             await FFmpeg.Run(args);
             if (delSrc)
-                DeleteSource(inputDir); // CHANGE CODE TO BE ABLE TO DELETE DIRECTORIES!!
+                DeleteSource(inputDir);
         }
 
         public static async Task LoopVideo (string inputFile, int times, bool delSrc)
@@ -150,6 +150,21 @@ namespace Cupscale
                 DeleteSource(inputFile);
         }
 
+        public static async Task MergeAudio(string inputFile, string audioPath)    // https://superuser.com/a/277667
+        {
+            Logger.Log($"[FFCmds] Merging audio from {audioPath} into {inputFile}", true);
+            string tempPath = inputFile + "-temp.mp4";
+            string args = $" -i {inputFile.Wrap()} -i {audioPath.Wrap()} -map 0:v -map 1:a -c copy -strict -2 {tempPath.Wrap()}";
+            await FFmpeg.Run(args);
+            if (FFmpeg.lastOutputFfmpeg.Contains("Invalid data"))
+            {
+                Logger.Log("Failed to merge audio!");
+                return;
+            }
+            File.Delete(inputFile);
+            File.Move(tempPath, inputFile);
+        }
+
         public static float GetFramerate (string inputFile)
         {
             string args = $" -i {inputFile.Wrap()}";
@@ -170,9 +185,12 @@ namespace Cupscale
 
         static void DeleteSource (string path)
         {
-            Logger.Log("Deleting input file: " + path);
-            if (File.Exists(path))
+            Logger.Log("Deleting input file/dir: " + path);
+            if (!IOUtils.IsPathDirectory(path) && File.Exists(path))
                 File.Delete(path);
+
+            if (IOUtils.IsPathDirectory(path) && Directory.Exists(path))
+                Directory.Delete(path, true);
         }
     }
 }

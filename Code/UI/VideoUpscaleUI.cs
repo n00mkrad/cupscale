@@ -57,7 +57,7 @@ namespace Cupscale.UI
             titleLabel.Text = "Loaded " + currentInPath.Wrap();
         }
 
-        public static async Task Run ()
+        public static async Task Run(bool preprocess)
         {
             logBox.Clear();
             Print("Starting upscale of " + Path.GetFileName(currentInPath));
@@ -77,7 +77,7 @@ namespace Cupscale.UI
             await FFmpegCommands.VideoToFrames(currentInPath, Paths.imgInPath, false, false, false);
             int amountFrames = IOUtils.GetAmountOfCompatibleFiles(Paths.imgInPath, false);
             Print($"Done - Extracted  {amountFrames} frames.");
-            await PreprocessIfNeeded();
+            await PreprocessIfNeeded(preprocess);
             BatchUpscaleUI.LoadDir(Paths.imgInPath, true);
             Print("Upscaling frames...");
             await BatchUpscaleUI.Run(false, true, Paths.framesOutPath);
@@ -86,15 +86,16 @@ namespace Cupscale.UI
             BatchUpscaleUI.Reset();
             Print("Creating video from frames...");
             await CreateVideo();
-            Print($"Done creating video.");
+            Print("Done creating video.");
             CopyBack(Path.Combine(IOUtils.GetAppDataDir(), "frames-out.mp4"));
+            Print("Adding audio from source to output video...");
             IOUtils.ClearDir(Paths.imgInPath);
             IOUtils.ClearDir(Paths.framesOutPath);
             Program.mainForm.SetBusy(false);
-            Print("Done.");
+            Print("Finished.");
         }
 
-        static void LoadVideo ()
+        static void LoadVideo()
         {
             IOUtils.ClearDir(Paths.framesOutPath);
             fps = FFmpegCommands.GetFramerate(currentInPath);
@@ -102,14 +103,18 @@ namespace Cupscale.UI
             IOUtils.ClearDir(Paths.imgInPath);
         }
 
-        static async Task PreprocessIfNeeded ()
+        static async Task PreprocessIfNeeded(bool doPreprocess)
         {
-            if (!(ImageProcessing.preScaleMode == Upscale.ScaleMode.Percent && ImageProcessing.preScaleValue == 100))   // Skip if target scale is 100%
+            if (doPreprocess)   // Skip if target scale is 100%
             {
-                Print("Pre-Resizing is enabled - Preprocessing frames...");
+                Print("Preprocessing frames...");
                 await Task.Delay(10);
-                await ImageProcessing.PreProcessImages(Paths.imgInPath, false);
+                await ImageProcessing.PreProcessImages(Paths.imgInPath, !bool.Parse(Config.Get("alpha")));
                 Print("Done preprocessing.");
+            }
+            else
+            {
+                Print("Preprocessing is disabled, using raw extracted frames.");
             }
         }
 
@@ -131,7 +136,7 @@ namespace Cupscale.UI
             }
         }
 
-        static async Task CreateVideo ()
+        static async Task CreateVideo()
         {
             if (outputFormatBox.Text == Upscale.VidExportMode.MP4.ToStringTitleCase())
                 outputFormat = Upscale.VidExportMode.MP4;
@@ -145,9 +150,11 @@ namespace Cupscale.UI
                 DialogForm f = new DialogForm("Creating video from frames...", 300);
                 await Task.Delay(10);
                 await FFmpegCommands.FramesToMp4(Paths.framesOutPath, Config.GetBool("h265"), Config.GetInt("crf"), fps, "", false);
+                if (Config.GetBool("vidEnableAudio"))
+                    await FFmpegCommands.MergeAudio(Paths.framesOutPath + ".mp4", currentInPath);
                 f.Close();
             }
-                
+
             if (outputFormat == Upscale.VidExportMode.GIF)
             {
                 DialogForm f = new DialogForm("Creating GIF from frames...\nThis can take a while for high-resolution GIFs.", 600);
@@ -158,7 +165,7 @@ namespace Cupscale.UI
             }
         }
 
-        static void CopyBack (string path)
+        static void CopyBack(string path)
         {
             if (!File.Exists(path))
             {
@@ -189,10 +196,10 @@ namespace Cupscale.UI
             }
         }
 
-        static void RenameOutFiles ()
+        static void RenameOutFiles()
         {
             string[] frames = IOUtils.GetCompatibleFiles(Paths.framesOutPath, false);
-            foreach(string frame in frames)
+            foreach (string frame in frames)
             {
                 if (frame.Contains("-"))
                 {

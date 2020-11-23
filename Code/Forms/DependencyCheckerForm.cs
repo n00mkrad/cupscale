@@ -254,7 +254,7 @@ namespace Cupscale.Forms
         string GetEmbedPythonOutput ()
         {
             Process py = OSUtils.NewProcess(true);
-            py.StartInfo.Arguments = "\"/C\" " + EmbeddedPython.GetEmbedPyPath().Wrap() + " -V";
+            py.StartInfo.Arguments = "/C " + EmbeddedPython.GetEmbedPyPath().Wrap() + " -V";
             Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
             py.Start();
             py.WaitForExit();

@@ -8,8 +8,11 @@ namespace Cupscale
 {
     class FFmpeg
     {
+        public static string lastOutputFfmpeg;
+
         public static async Task Run(string args)
         {
+            lastOutputFfmpeg = "";
             Process ffmpeg = OSUtils.NewProcess(true);
             ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.esrganPath.Wrap() + " & ffmpeg.exe -hide_banner -loglevel warning -y -stats " + args;
             Logger.Log("Running ffmpeg...");
@@ -28,6 +31,7 @@ namespace Cupscale
         {
             string line = outLine.Data;
             if (outLine == null || line == null) return;
+            lastOutputFfmpeg = lastOutputFfmpeg + line + "\n";
             Logger.Log("[FFmpeg] " + line);
             if (line.ToLower().Contains("error"))
                 Program.ShowMessage("FFmpeg Error:\n\n" + line);

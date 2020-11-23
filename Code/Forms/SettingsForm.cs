@@ -61,6 +61,7 @@ namespace Cupscale.Forms
             Config.LoadGuiElement(crf);
             Config.LoadGuiElement(h265);
             Config.LoadGuiElement(gifskiQ);
+            Config.LoadGuiElement(vidEnableAudio);
             // Debug
             Config.LoadGuiElement(logIo);
             Config.LoadGuiElement(logStatus);
@@ -110,6 +111,7 @@ namespace Cupscale.Forms
             Config.SaveGuiElement(crf);
             Config.SaveGuiElement(h265);
             Config.SaveGuiElement(gifskiQ);
+            Config.SaveGuiElement(vidEnableAudio);
             // Debug
             Config.SaveGuiElement(logIo);
             Config.SaveGuiElement(logStatus);

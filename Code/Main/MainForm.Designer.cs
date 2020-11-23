@@ -184,6 +184,8 @@ namespace Cupscale.Main
             this.interpRbtn = new System.Windows.Forms.RadioButton();
             this.singleModelRbtn = new System.Windows.Forms.RadioButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label30 = new System.Windows.Forms.Label();
+            this.videoPreprocessMode = new System.Windows.Forms.ComboBox();
             this.mainTableLayoutPanel.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -830,6 +832,8 @@ namespace Cupscale.Main
             // 
             // panel39
             // 
+            this.panel39.Controls.Add(this.label30);
+            this.panel39.Controls.Add(this.videoPreprocessMode);
             this.panel39.Controls.Add(this.tableLayoutPanel12);
             this.panel39.Controls.Add(this.label34);
             this.panel39.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2429,6 +2433,35 @@ namespace Cupscale.Main
             this.singleModelRbtn.UseVisualStyleBackColor = true;
             this.singleModelRbtn.CheckedChanged += new System.EventHandler(this.singleModelRbtn_CheckedChanged);
             // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.ForeColor = System.Drawing.Color.White;
+            this.label30.Location = new System.Drawing.Point(5, 63);
+            this.label30.Margin = new System.Windows.Forms.Padding(8, 8, 8, 2);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(89, 15);
+            this.label30.TabIndex = 19;
+            this.label30.Text = "Pre-Processing:";
+            // 
+            // videoPreprocessMode
+            // 
+            this.videoPreprocessMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.videoPreprocessMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.videoPreprocessMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.videoPreprocessMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.videoPreprocessMode.ForeColor = System.Drawing.Color.White;
+            this.videoPreprocessMode.FormattingEnabled = true;
+            this.videoPreprocessMode.Items.AddRange(new object[] {
+            "Enabled - Fill Alpha If Needed, Resize If Enabled",
+            "Disabled - Skip Preprocessing."});
+            this.videoPreprocessMode.Location = new System.Drawing.Point(5, 82);
+            this.videoPreprocessMode.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.videoPreprocessMode.Name = "videoPreprocessMode";
+            this.videoPreprocessMode.Size = new System.Drawing.Size(255, 23);
+            this.videoPreprocessMode.TabIndex = 18;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2652,5 +2685,7 @@ namespace Cupscale.Main
         private Label label35;
         private ComboBox videoOutputFormat;
         private HTAlt.WinForms.HTButton cancelBtn;
+        private Label label30;
+        private ComboBox videoPreprocessMode;
     }
 }

@@ -143,7 +143,7 @@ namespace Cupscale.IO
 		static Stopwatch sw = new Stopwatch();
 		static void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
 		{
-			if(sw.ElapsedMilliseconds > 500)
+			if(sw.ElapsedMilliseconds > 250)
             {
 				sw.Restart();
 				string newText = currentDlDialog.GetText().Split('…')[0] + "… " + e.ProgressPercentage + "%";
