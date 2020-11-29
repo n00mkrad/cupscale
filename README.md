@@ -3,15 +3,21 @@ Image Upscaling GUI based on ESRGAN - **WORK IN PROGRESS**
 
 ![](https://i.imgur.com/tIRI1MO.png)
 
+## Credits:
+
+Based around [xinntao's ESRGAN](https://github.com/xinntao/ESRGAN) implemented via [Joey's Fork](https://github.com/JoeyBallentine/ESRGAN) or alternatively ata4's [esrgan-launcher](https://github.com/ata4/esrgan-launcher).
+
+AMD compatibility is made possibly thanks to BlueAmulet's [esrgan-ncnn-vulkan](https://github.com/BlueAmulet/realsr-ncnn-vulkan) based on nihui's [realsr-ncnn-vulkan](https://github.com/nihui/realsr-ncnn-vulkan) running on Tencent's [ncnn](https://github.com/Tencent/ncnn) framework.
+
 ## Download:
 
 [Get the latest release](https://github.com/n00mkrad/cupscale/releases)
 
 ## Installation:
 
-The application is currently portable. It's a single executable that you can run anywhere.
+The application is more or less portable. It's a single executable that you can run anywhere.
 
-It comes with an ESRGAN implementation, however, Python and all dependencies (PyTorch, opencv-python, tensorboardX) are required for ESRGAN to run on CUDA.
+Temporary files are stored in `%APPDATA%/Cupscale` by default. Launching the program with the `-portable` argument will store the files in the same directory as the executable instead, allowing for a fully portable installation.
 
 ## Supported AI Backends:
 
