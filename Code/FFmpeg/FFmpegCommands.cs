@@ -154,7 +154,7 @@ namespace Cupscale
         {
             Logger.Log($"[FFCmds] Merging audio from {audioPath} into {inputFile}", true);
             string tempPath = inputFile + "-temp.mp4";
-            string args = $" -i {inputFile.Wrap()} -i {audioPath.Wrap()} -map 0:v -map 1:a -c copy -strict -2 {tempPath.Wrap()}";
+            string args = $" -i {inputFile.Wrap()} -i {audioPath.Wrap()} -map 0:v -map 1:a? -c copy -strict -2 {tempPath.Wrap()}";
             await FFmpeg.Run(args);
             if (FFmpeg.lastOutputFfmpeg.Contains("Invalid data"))
             {
