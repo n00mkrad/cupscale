@@ -97,6 +97,11 @@ namespace Cupscale.UI
 			return (int)Math.Round(f);
         }
 
+		public static long RoundToLong(this float f)
+		{
+			return (long)Math.Round(f);
+		}
+
 		public static int Clamp (this int i, int min, int max)
         {
 			if (i < min)

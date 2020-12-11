@@ -467,10 +467,10 @@ namespace Cupscale
         public static bool HasEnoughDiskSpace(string path, float multiplier = 2.0f)
         {
             long requiredDiskSpace = 0;
-            if (IOUtils.IsPathDirectory(path))
-                requiredDiskSpace = (GetDirSize(new DirectoryInfo(path)) * multiplier).RoundToInt();
+            if (IsPathDirectory(path))
+                requiredDiskSpace = (GetDirSize(new DirectoryInfo(path)) * multiplier).RoundToLong();
             else
-                requiredDiskSpace = (new FileInfo(path).Length * multiplier).RoundToInt();
+                requiredDiskSpace = (new FileInfo(path).Length * multiplier).RoundToLong();
             int requiredDiskSpaceMb = (int)(requiredDiskSpace / 1024f / 1000f);
             long availDiskSpaceMb = IOUtils.GetDiskSpace(path);
             Logger.Log($"Disk space check for {path} with multiplier {multiplier} - {requiredDiskSpaceMb} MB needed, {availDiskSpaceMb} MB available");

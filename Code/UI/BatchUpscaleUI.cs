@@ -58,10 +58,12 @@ namespace Cupscale.UI
         public static void LoadImages(string[] imgs)
         {
             multiImgMode = true;
+            Logger.Log($"LoadImages - Loading {imgs.Length} images - multiImgMode: {multiImgMode}");
             outDir.Text = imgs[0].GetParentDir();
-            currentInDir = Paths.imgInPath;
+            currentInDir = null;
             currentParentDir = imgs[0].GetParentDir();
             currentInFiles = imgs;
+            Logger.Log($"currentInFiles amount 1: {currentInFiles.Length}");
             Program.lastDirPath = outDir.Text;
             FillFileList(imgs, false);
             TabSelected();
@@ -143,8 +145,9 @@ namespace Cupscale.UI
 
         public static async Task Run (bool preprocess, bool postProcess = true, string overrideOutDir = "")
         {
-            bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
-            bool useCpu = (Config.Get("cudaFallback").GetInt() == 1);
+            int cudaFallback = Config.Get("cudaFallback").GetInt();
+            bool useNcnn = (cudaFallback == 2 || cudaFallback == 3);
+            bool useCpu = (cudaFallback == 1);
 
             string imgOutDir = outDir.Text.Trim();
             if (!string.IsNullOrWhiteSpace(overrideOutDir)) imgOutDir = overrideOutDir;
@@ -154,9 +157,9 @@ namespace Cupscale.UI
                 Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
                 return;
             }
-            if (string.IsNullOrWhiteSpace(currentInDir))
+            if (string.IsNullOrWhiteSpace(currentInDir) && (currentInFiles == null || currentInFiles.Length < 1))
             {
-                Program.ShowMessage("No directory loaded.", "Error");
+                Program.ShowMessage("No directory or files loaded.", "Error");
                 return;
             }
             if (!IOUtils.HasEnoughDiskSpace(IOUtils.GetAppDataDir(), 2.0f))
@@ -169,6 +172,7 @@ namespace Cupscale.UI
             Program.mainForm.SetProgress(2f, "Loading images...");
             await Task.Delay(20);
             Directory.CreateDirectory(imgOutDir);
+            Logger.Log($"currentInFiles amount 2: {currentInFiles.Length} - copying using CopyCompatibleImagesToTemp()");
             await CopyCompatibleImagesToTemp();
             Program.mainForm.SetProgress(3f, "Pre-Processing...");
             if (preprocess)
