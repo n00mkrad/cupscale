@@ -731,5 +731,10 @@ namespace Cupscale.Main
         {
 			Program.KillEsrgan();
         }
+
+        private void patreonBtn_Click(object sender, EventArgs e)
+        {
+			Process.Start("https://patreon.com/n00mkrad");
+		}
     }
 }

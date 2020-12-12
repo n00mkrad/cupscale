@@ -74,6 +74,8 @@ namespace Cupscale.Main
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.label31 = new System.Windows.Forms.Label();
             this.panel39 = new System.Windows.Forms.Panel();
+            this.label30 = new System.Windows.Forms.Label();
+            this.videoPreprocessMode = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.videoOutPathBtn = new System.Windows.Forms.Button();
             this.videoOutDir = new System.Windows.Forms.TextBox();
@@ -85,6 +87,7 @@ namespace Cupscale.Main
             this.panel6 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.patreonBtn = new HTAlt.WinForms.HTButton();
             this.offlineInterpBtn = new HTAlt.WinForms.HTButton();
             this.htButton1 = new HTAlt.WinForms.HTButton();
             this.paypalBtn = new HTAlt.WinForms.HTButton();
@@ -184,8 +187,6 @@ namespace Cupscale.Main
             this.interpRbtn = new System.Windows.Forms.RadioButton();
             this.singleModelRbtn = new System.Windows.Forms.RadioButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label30 = new System.Windows.Forms.Label();
-            this.videoPreprocessMode = new System.Windows.Forms.ComboBox();
             this.mainTableLayoutPanel.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -843,6 +844,35 @@ namespace Cupscale.Main
             this.panel39.Size = new System.Drawing.Size(271, 691);
             this.panel39.TabIndex = 11;
             // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.ForeColor = System.Drawing.Color.White;
+            this.label30.Location = new System.Drawing.Point(5, 63);
+            this.label30.Margin = new System.Windows.Forms.Padding(8, 8, 8, 2);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(89, 15);
+            this.label30.TabIndex = 19;
+            this.label30.Text = "Pre-Processing:";
+            // 
+            // videoPreprocessMode
+            // 
+            this.videoPreprocessMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.videoPreprocessMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.videoPreprocessMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.videoPreprocessMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.videoPreprocessMode.ForeColor = System.Drawing.Color.White;
+            this.videoPreprocessMode.FormattingEnabled = true;
+            this.videoPreprocessMode.Items.AddRange(new object[] {
+            "Enabled - Fill Alpha If Needed, Resize If Enabled",
+            "Disabled - Skip Preprocessing."});
+            this.videoPreprocessMode.Location = new System.Drawing.Point(5, 82);
+            this.videoPreprocessMode.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.videoPreprocessMode.Name = "videoPreprocessMode";
+            this.videoPreprocessMode.Size = new System.Drawing.Size(255, 23);
+            this.videoPreprocessMode.TabIndex = 18;
+            // 
             // tableLayoutPanel12
             // 
             this.tableLayoutPanel12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -975,6 +1005,7 @@ namespace Cupscale.Main
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.patreonBtn);
             this.panel7.Controls.Add(this.offlineInterpBtn);
             this.panel7.Controls.Add(this.htButton1);
             this.panel7.Controls.Add(this.paypalBtn);
@@ -987,6 +1018,27 @@ namespace Cupscale.Main
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(320, 40);
             this.panel7.TabIndex = 8;
+            // 
+            // patreonBtn
+            // 
+            this.patreonBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.patreonBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.patreonBtn.ButtonImage = global::Cupscale.Properties.Resources.patreon256pxColored;
+            this.patreonBtn.DrawImage = true;
+            this.patreonBtn.FlatAppearance.BorderSize = 0;
+            this.patreonBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.patreonBtn.ForeColor = System.Drawing.Color.White;
+            this.patreonBtn.ImageIndex = 0;
+            this.patreonBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
+            this.patreonBtn.Location = new System.Drawing.Point(83, 6);
+            this.patreonBtn.Name = "patreonBtn";
+            this.patreonBtn.Size = new System.Drawing.Size(34, 34);
+            this.patreonBtn.TabIndex = 15;
+            this.patreonBtn.Text = " ";
+            this.toolTip1.SetToolTip(this.patreonBtn, "Donate :)");
+            this.patreonBtn.UseVisualStyleBackColor = false;
+            this.patreonBtn.Click += new System.EventHandler(this.patreonBtn_Click);
             // 
             // offlineInterpBtn
             // 
@@ -1042,7 +1094,7 @@ namespace Cupscale.Main
             this.paypalBtn.ForeColor = System.Drawing.Color.White;
             this.paypalBtn.ImageIndex = 0;
             this.paypalBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
-            this.paypalBtn.Location = new System.Drawing.Point(83, 6);
+            this.paypalBtn.Location = new System.Drawing.Point(43, 6);
             this.paypalBtn.Name = "paypalBtn";
             this.paypalBtn.Size = new System.Drawing.Size(34, 34);
             this.paypalBtn.TabIndex = 12;
@@ -2433,35 +2485,6 @@ namespace Cupscale.Main
             this.singleModelRbtn.UseVisualStyleBackColor = true;
             this.singleModelRbtn.CheckedChanged += new System.EventHandler(this.singleModelRbtn_CheckedChanged);
             // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.ForeColor = System.Drawing.Color.White;
-            this.label30.Location = new System.Drawing.Point(5, 63);
-            this.label30.Margin = new System.Windows.Forms.Padding(8, 8, 8, 2);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(89, 15);
-            this.label30.TabIndex = 19;
-            this.label30.Text = "Pre-Processing:";
-            // 
-            // videoPreprocessMode
-            // 
-            this.videoPreprocessMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.videoPreprocessMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.videoPreprocessMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.videoPreprocessMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.videoPreprocessMode.ForeColor = System.Drawing.Color.White;
-            this.videoPreprocessMode.FormattingEnabled = true;
-            this.videoPreprocessMode.Items.AddRange(new object[] {
-            "Enabled - Fill Alpha If Needed, Resize If Enabled",
-            "Disabled - Skip Preprocessing."});
-            this.videoPreprocessMode.Location = new System.Drawing.Point(5, 82);
-            this.videoPreprocessMode.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
-            this.videoPreprocessMode.Name = "videoPreprocessMode";
-            this.videoPreprocessMode.Size = new System.Drawing.Size(255, 23);
-            this.videoPreprocessMode.TabIndex = 18;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2687,5 +2710,6 @@ namespace Cupscale.Main
         private HTAlt.WinForms.HTButton cancelBtn;
         private Label label30;
         private ComboBox videoPreprocessMode;
+        private HTAlt.WinForms.HTButton patreonBtn;
     }
 }
