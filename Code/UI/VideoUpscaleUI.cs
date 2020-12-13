@@ -177,11 +177,18 @@ namespace Cupscale.UI
             string ext = Path.GetExtension(path);
             string outPath = "";
 
-            if (Upscale.overwriteMode == Upscale.Overwrite.No)
-                outPath = Path.Combine(outDir.Text.Trim(), filename + "-" + Program.lastModelName + ext);
-            else
-                outPath = Path.Combine(outDir.Text.Trim(), Path.GetFileName(currentInPath));
-
+            try
+            {
+                if (Upscale.overwriteMode == Upscale.Overwrite.No)
+                    outPath = Path.Combine(outDir.Text.Trim(), filename + "-" + Upscale.GetLastModelName() + ext);
+                else
+                    outPath = Path.Combine(outDir.Text.Trim(), Path.GetFileName(currentInPath));
+            }
+            catch (Exception e)
+            {
+                Logger.Log($"Path Combine Error: {e.Message} - Path.Combine(outDir.Text.Trim() = {outDir.Text.Trim()}, filename = {filename} + \"-\" + Program.lastModelName = {Program.lastModelName} + ext = {ext}");
+            }
+            
             outPath = Path.ChangeExtension(outPath, outputFormat.ToString().ToLower());
             Print("Moving output video to " + outPath + "...");
             try

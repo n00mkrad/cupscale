@@ -58,12 +58,10 @@ namespace Cupscale.UI
         public static void LoadImages(string[] imgs)
         {
             multiImgMode = true;
-            Logger.Log($"LoadImages - Loading {imgs.Length} images - multiImgMode: {multiImgMode}");
             outDir.Text = imgs[0].GetParentDir();
             currentInDir = null;
             currentParentDir = imgs[0].GetParentDir();
             currentInFiles = imgs;
-            Logger.Log($"currentInFiles amount 1: {currentInFiles.Length}");
             Program.lastDirPath = outDir.Text;
             FillFileList(imgs, false);
             TabSelected();
@@ -162,7 +160,7 @@ namespace Cupscale.UI
                 Program.ShowMessage("No directory or files loaded.", "Error");
                 return;
             }
-            if (!IOUtils.HasEnoughDiskSpace(IOUtils.GetAppDataDir(), 2.0f))
+            if (!IOUtils.HasEnoughDiskSpace(8192, imgOutDir.Substring(0, 2), 2.0f))
             {
                 Program.ShowMessage($"Not enough disk space on {IOUtils.GetAppDataDir().Substring(0, 3)} to store temporary files!", "Error");
                 return;
@@ -172,7 +170,6 @@ namespace Cupscale.UI
             Program.mainForm.SetProgress(2f, "Loading images...");
             await Task.Delay(20);
             Directory.CreateDirectory(imgOutDir);
-            Logger.Log($"currentInFiles amount 2: {currentInFiles.Length} - copying using CopyCompatibleImagesToTemp()");
             await CopyCompatibleImagesToTemp();
             Program.mainForm.SetProgress(3f, "Pre-Processing...");
             if (preprocess)

@@ -32,6 +32,7 @@ namespace Cupscale.Main
             {
                 Logger.Log("Overwrite mode - removing suffix from filenames");
                 IOUtils.ReplaceInFilenamesDir(Paths.imgOutPath, "-" + Program.lastModelName, "");
+                IOUtils.ReplaceInFilenamesDir(Paths.imgOutPath, "-" + GetLastModelName(), "");
             }
             else
             {
@@ -51,9 +52,14 @@ namespace Cupscale.Main
             {
                 string pathNoExt = Path.ChangeExtension(file.FullName, null);
                 string ext = Path.GetExtension(file.FullName);
-                File.Move(file.FullName, pathNoExt + "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+") + ext);
+                File.Move(file.FullName, pathNoExt + "-" + GetLastModelName() + ext);
                 await Task.Delay(1);
             }
+        }
+
+        public static string GetLastModelName ()
+        {
+            return Program.lastModelName.Replace(":", ".").Replace(">>", "+");
         }
 
         public static ModelData GetModelData()
@@ -145,7 +151,7 @@ namespace Cupscale.Main
                 string pathNoExt = Path.ChangeExtension(file, null);
                 string ext = Path.GetExtension(file);
 
-                newFilename = pathNoExt + "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+") + ext;
+                newFilename = pathNoExt + "-" + GetLastModelName() + ext;
                 File.Move(file, newFilename);
                 newFilename = IOUtils.RenameExtension(newFilename, "jpg", Config.Get("jpegExtension"));
 
