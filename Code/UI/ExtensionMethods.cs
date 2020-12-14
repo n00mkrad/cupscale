@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Security;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -109,6 +110,28 @@ namespace Cupscale.UI
 			if (i > max)
 				i = max;
 			return i;
+		}
+
+		public static string TrimWhitespaces(this string str)
+		{
+			if (str == null) return str;
+			var newString = new StringBuilder();
+			bool previousIsWhitespace = false;
+			for (int i = 0; i < str.Length; i++)
+			{
+				if (Char.IsWhiteSpace(str[i]))
+				{
+					if (previousIsWhitespace)
+						continue;
+					previousIsWhitespace = true;
+				}
+				else
+				{
+					previousIsWhitespace = false;
+				}
+				newString.Append(str[i]);
+			}
+			return newString.ToString();
 		}
 	}
 }

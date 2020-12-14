@@ -149,8 +149,7 @@ namespace Cupscale.OS
             string deviceStr = " --device cuda";
             if (Config.Get("cudaFallback").GetInt() == 1 || Config.Get("cudaFallback").GetInt() == 2) deviceStr = " --device cpu";
 
-            string opt = "/C";
-            if (stayOpen) opt = "/K";
+            string opt = stayOpen ? "/K" : "/C";
 
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
             cmd += $"{EmbeddedPython.GetPyCmd()} esrlmain.py {inpath}{outpath}{deviceStr} --tilesize {tilesize}{alphaStr}{modelArg}";
@@ -197,8 +196,7 @@ namespace Cupscale.OS
             inpath = inpath.Wrap();
             outpath = outpath.Wrap();
 
-            string alphaStr = "--alpha_mode 0";
-            if (alpha) alphaStr = $"--alpha_mode {Config.GetInt("joeyAlphaMode")}";
+            string alphaStr = alpha ? $"--alpha_mode {Config.GetInt("joeyAlphaMode")}" : "--alpha_mode 0";
 
             string deviceStr = "";
             if (Config.Get("cudaFallback").GetInt() == 1 || Config.Get("cudaFallback").GetInt() == 2) deviceStr = "--cpu";
@@ -212,11 +210,10 @@ namespace Cupscale.OS
                 case 4: seamStr = "--alpha_padding"; break;
             }
 
-            string opt = "/C";
-            if (stayOpen) opt = "/K";
+            string opt = stayOpen ? "/K" : "/C";
 
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
-            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {deviceStr} {seamStr} --tile_size {tilesize} {alphaStr} {modelArg}";
+            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {deviceStr} {seamStr} --tile_size {tilesize} {alphaStr} {modelArg}".TrimWhitespaces();
 
             Logger.Log("[CMD] " + cmd);
             Process esrganProcess = OSUtils.NewProcess(!showWindow);
@@ -261,7 +258,7 @@ namespace Cupscale.OS
                 Program.ShowMessage("Error occurred: \n\n" + data + "\n\nThe ESRGAN process was killed to avoid lock-ups.", "Error");
             }
 
-            if (data.Contains("out of memory"))
+            if (data.ToLower().Contains("out of memory"))
                 Program.ShowMessage("ESRGAN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
 
             if (data.Contains("Python was not found"))
@@ -275,6 +272,9 @@ namespace Cupscale.OS
 
             if (data.Contains("UnpicklingError"))
                 Program.ShowMessage("Failed to load model!", "Error");
+
+            if (PreviewUI.currentMode == PreviewUI.Mode.Interp && data.Contains("must match the size of tensor b"))
+                Program.ShowMessage("It seems like you tried to interpolate incompatible models!", "Error");
         }
 
         static string lastProgressString = "";
@@ -322,8 +322,7 @@ namespace Cupscale.OS
             //DialogForm dialog = new DialogForm("Loading ESRGAN-NCNN...\nThis should take 10-25 seconds.", 14);
             int scale = NcnnUtils.GetNcnnModelScale(currentNcnnModel);
 
-            string opt = "/C";
-            if (stayOpen) opt = "/K";
+            string opt = stayOpen ? "/K" : "/C";
 
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
             cmd += "esrgan-ncnn-vulkan.exe -i " + inpath + " -o " + outpath + " -m " + currentNcnnModel.Wrap() + " -s " + scale;
@@ -379,8 +378,7 @@ namespace Cupscale.OS
 
             Process py = OSUtils.NewProcess(!showWindow);
 
-            string opt = "/C";
-            if (stayOpen) opt = "/K";
+            string opt = stayOpen ? "/K" : "/C";
 
             string alphaStr = (mdl.interp / 100f).ToString("0.00").Replace(",", ".");
             string outPath = mdl.model1Path.GetParentDir();
