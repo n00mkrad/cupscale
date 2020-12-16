@@ -630,6 +630,8 @@ namespace Cupscale.Main
         private void tilesize_SelectedIndexChanged(object sender, EventArgs e)
         {
 			SaveEsrganOptions();
+			if(initialized && Config.GetInt("esrganVer") == 0)
+				Program.ShowMessage("Tiling is now automatic when using Joey's ESRGAN. The tile size option will soon be removed.");
         }
 
         private void alpha_CheckedChanged(object sender, EventArgs e)

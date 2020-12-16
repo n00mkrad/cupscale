@@ -35,7 +35,7 @@ namespace Cupscale.OS
                 }
                 else
                 {
-                    Program.mainForm.SetProgress(4f, "Starting ESRGAN...");
+                    Program.mainForm.SetProgress(2f, "Starting ESRGAN...");
                     File.Delete(Paths.progressLogfile);
                     string modelArg = GetModelArg(mdl, useJoey);
                     if (useJoey)
@@ -201,19 +201,19 @@ namespace Cupscale.OS
             string deviceStr = "";
             if (Config.Get("cudaFallback").GetInt() == 1 || Config.Get("cudaFallback").GetInt() == 2) deviceStr = "--cpu";
 
-            string seamStr = "";
+            string seamStr = "--seamless ";
             switch (Config.Get("seamlessMode").GetInt())
             {
-                case 1: seamStr = "--seamless"; break;
-                case 2: seamStr = "--mirror"; break;
-                case 3: seamStr = "--replicate"; break;
-                case 4: seamStr = "--alpha_padding"; break;
+                case 1: seamStr += "tile"; break;
+                case 2: seamStr += "mirror"; break;
+                case 3: seamStr += "replicate"; break;
+                case 4: seamStr += "alpha_pad"; break;
             }
 
             string opt = stayOpen ? "/K" : "/C";
 
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
-            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {deviceStr} {seamStr} --tile_size {tilesize} {alphaStr} {modelArg}".TrimWhitespaces();
+            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {deviceStr} {seamStr} {alphaStr} {modelArg}".TrimWhitespaces();
 
             Logger.Log("[CMD] " + cmd);
             Process esrganProcess = OSUtils.NewProcess(!showWindow);
@@ -290,6 +290,11 @@ namespace Cupscale.OS
             if (outStr == lastProgressString)
                 return;
             lastProgressString = outStr;
+            if(outStr.Contains("Applying model") || outStr.Contains("Upscaling..."))
+            {
+                Program.mainForm.SetProgress(5f, "Upscaling...");
+                return;
+            }
             string text = outStr.Replace("Tile ", "").Trim();
             try
             {
