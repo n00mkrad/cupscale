@@ -20,7 +20,8 @@ namespace Cupscale.OS
     internal class ESRGAN
     {
         public enum PreviewMode { None, Cutout, FullImage }
-        public enum Backend { CUDA, CPU, NCNN }
+        public enum Backend { CUDA, CPU, NCNN };
+        public static bool cacheTiling = false;
 
         public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, Backend backend, bool showTileProgress = true)
         {
@@ -198,8 +199,7 @@ namespace Cupscale.OS
 
             string alphaStr = alpha ? $"--alpha_mode {Config.GetInt("joeyAlphaMode")}" : "--alpha_mode 0";
 
-            string deviceStr = "";
-            if (Config.Get("cudaFallback").GetInt() == 1 || Config.Get("cudaFallback").GetInt() == 2) deviceStr = "--cpu";
+            string deviceStr = (Config.Get("cudaFallback").GetInt() == 1 || Config.Get("cudaFallback").GetInt() == 2) ? "--cpu" : "";
 
             string seamStr = "--seamless ";
             switch (Config.Get("seamlessMode").GetInt())
@@ -210,10 +210,12 @@ namespace Cupscale.OS
                 case 4: seamStr += "alpha_pad"; break;
             }
 
+            string cacheStr = cacheTiling ? "--cache_max_split_depth" : "";
+
             string opt = stayOpen ? "/K" : "/C";
 
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
-            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {deviceStr} {seamStr} {alphaStr} {modelArg}".TrimWhitespaces();
+            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {cacheStr} {deviceStr} {seamStr} {alphaStr} {modelArg}".TrimWhitespaces();
 
             Logger.Log("[CMD] " + cmd);
             Process esrganProcess = OSUtils.NewProcess(!showWindow);
