@@ -27,7 +27,7 @@ namespace Cupscale
             PreviewUI.sw.Stop();
             Program.mainForm.SetProgress(100f);
             inputCutoutPath = Path.Combine(Paths.previewPath, "preview.png.png");
-            outputCutoutPath = Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0];
+            outputCutoutPath = Directory.GetFiles(Paths.previewOutPath, "preview.*", SearchOption.AllDirectories)[0];
 
             Image sourceImg = ImgUtils.GetImage(Paths.tempImgPath);
             int scale = GetScale();

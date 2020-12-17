@@ -58,7 +58,7 @@ namespace Cupscale.OS
                     await ScalePreviewOutput();
                     Program.mainForm.SetProgress(100f, "Merging into preview...");
                     await Program.PutTaskDelay();
-                    Image outImg = ImgUtils.GetImage(Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);
+                    Image outImg = ImgUtils.GetImage(Directory.GetFiles(Paths.previewOutPath, "preview.*", SearchOption.AllDirectories)[0]);
                     Image inputImg = ImgUtils.GetImage(Paths.tempImgPath);
                     PreviewUI.previewImg.Image = outImg;
                     PreviewUI.currentOriginal = inputImg;

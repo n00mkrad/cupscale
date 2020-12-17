@@ -374,6 +374,22 @@ namespace Cupscale
             return onlyNumbersFilename.Length;
         }
 
+        public static bool TryDeleteIfExists(string path)      // Returns true if no exception occurs
+        {
+            try
+            {
+                if (path == null)
+                    return false;
+                DeleteIfExists(path);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.Log($"TryDeleteIfExists: Error trying to delete {path}: {e.Message}", true);
+                return false;
+            }
+        }
+
         public static void DeleteIfExists(string path)
         {
             if (File.Exists(path))

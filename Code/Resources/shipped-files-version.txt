@@ -1,3 +1,5 @@
+16	# fixed img writing again
+15	# fixed img writing for joey's esrgan
 14	# joey's esrgan update, auto-tiling
 13	# new h265 supporting ffmpeg exe
 12	# joey's esrgan update, fix chaining

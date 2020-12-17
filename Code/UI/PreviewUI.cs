@@ -179,7 +179,6 @@ namespace Cupscale.UI
             await ImageProcessing.PreProcessImages(Paths.previewPath, !bool.Parse(Config.Get("alpha")));
             string tilesize = Config.Get("tilesize");
             bool alpha = bool.Parse(Config.Get("alpha"));
-            bool allowNcnn = Config.Get("cudaFallback").GetInt() == 3;
 
             ESRGAN.Backend backend = ESRGAN.Backend.CUDA;
             if (Config.Get("cudaFallback").GetInt() == 1) backend = ESRGAN.Backend.CPU;

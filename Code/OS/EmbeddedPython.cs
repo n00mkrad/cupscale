@@ -40,8 +40,9 @@ namespace Cupscale.OS
 
         public static void Init()
         {
-            if (Config.GetInt("pythonRuntime") != 1) return;
+            if (!IsEnabled()) return;
             string shippedPath = Installer.path;
+            IOUtils.TryDeleteIfExists(Path.Combine(shippedPath, "py", "utils"));
             IOUtils.Copy(Path.Combine(shippedPath, "utils"), Path.Combine(shippedPath, "py", "utils"));
             File.Copy(Path.Combine(shippedPath, "esrlupscale.py"), Path.Combine(shippedPath, "py", "esrlupscale.py"), true);
             File.Copy(Path.Combine(shippedPath, "esrlmodel.py"), Path.Combine(shippedPath, "py", "esrlmodel.py"), true);
