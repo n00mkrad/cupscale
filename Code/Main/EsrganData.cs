@@ -26,7 +26,7 @@ namespace Cupscale
 
 		public static bool ModelExists (string modelName)
         {
-			string[] files = Directory.GetFiles("*.pth", Config.Get("modelPath"), SearchOption.AllDirectories);
+			string[] files = Directory.GetFiles("*.pth", Path.Combine(Config.Get("modelPath"), "models"), SearchOption.AllDirectories);
 			foreach(string modelFile in files)
             {
 				if (Path.GetFileNameWithoutExtension(modelFile) == modelName)
@@ -37,7 +37,7 @@ namespace Cupscale
 
 		public static void ReloadModelList()
 		{
-			string mdlPath = Config.Get("modelPath");
+			string mdlPath = Path.Combine(Config.Get("modelPath"), "models");
             if (!Directory.Exists(mdlPath))
             {
 				Logger.Log("[EsrganData] Model dir doesn't exist!");
