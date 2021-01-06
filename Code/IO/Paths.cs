@@ -21,17 +21,17 @@ namespace Cupscale.IO
 
 		public static void Init()
 		{
-			esrganPath = Path.Combine(IOUtils.GetAppDataDir(), "ShippedEsrgan");
-			previewPath = Path.Combine(IOUtils.GetAppDataDir(), "preview");
-			previewOutPath = Path.Combine(IOUtils.GetAppDataDir(), "preview-out");
-			imgInPath = Path.Combine(IOUtils.GetAppDataDir(), "img-in");
-			imgOutPath = Path.Combine(IOUtils.GetAppDataDir(), "img-out");
-			imgOutNcnnPath = Path.Combine(IOUtils.GetAppDataDir(), "img-out-ncnn");
-			tempImgPath = Path.Combine(IOUtils.GetAppDataDir(), "loaded-img", "temp.png");
-			clipboardFolderPath = Path.Combine(IOUtils.GetAppDataDir(), "clipboard");
-			presetsPath = Path.Combine(IOUtils.GetAppDataDir(), "model-presets");
-			compositionOut = Path.Combine(IOUtils.GetAppDataDir(), "composition");
-			framesOutPath = Path.Combine(IOUtils.GetAppDataDir(), "frames-out");
+			esrganPath = Path.Combine(Config.Get("modelPath"), "ShippedEsrgan");
+			previewPath = Path.Combine(Config.Get("modelPath"), "preview");
+			previewOutPath = Path.Combine(Config.Get("modelPath"), "preview-out");
+			imgInPath = Path.Combine(Config.Get("modelPath"), "img-in");
+			imgOutPath = Path.Combine(Config.Get("modelPath"), "img-out");
+			imgOutNcnnPath = Path.Combine(Config.Get("modelPath"), "img-out-ncnn");
+			tempImgPath = Path.Combine(Config.Get("modelPath"), "loaded-img", "temp.png");
+			clipboardFolderPath = Path.Combine(Config.Get("modelPath"), "clipboard");
+			presetsPath = Path.Combine(Config.Get("modelPath"), "model-presets");
+			compositionOut = Path.Combine(Config.Get("modelPath"), "composition");
+			framesOutPath = Path.Combine(Config.Get("modelPath"), "frames-out");
 			progressLogfile = Path.Combine(esrganPath, "prog");
 			Directory.CreateDirectory(previewPath);
 			Directory.CreateDirectory(previewOutPath);
