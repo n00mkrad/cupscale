@@ -26,7 +26,7 @@ namespace Cupscale.OS
         public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, Backend backend, bool showTileProgress = true)
         {
             Program.cancelled = false;      // Reset cancel flag
-            bool useJoey = Config.GetInt("esrganVer") == 0;
+            bool useJoey = true; //Config.GetInt("esrganVer") == 0;
             try
             {
                 if (backend == Backend.NCNN)
@@ -40,7 +40,7 @@ namespace Cupscale.OS
                     File.Delete(Paths.progressLogfile);
                     string modelArg = GetModelArg(mdl, useJoey);
                     if (useJoey)
-                        await RunJoey(inpath, outpath, modelArg, tilesize, alpha, showTileProgress);
+                        await RunJoey(inpath, outpath, modelArg, alpha, showTileProgress);
                     else
                         await Run(inpath, outpath, modelArg, tilesize, alpha, showTileProgress);
                 }
@@ -189,7 +189,7 @@ namespace Cupscale.OS
             File.Delete(Paths.progressLogfile);
         }
 
-        public static async Task RunJoey(string inpath, string outpath, string modelArg, string tilesize, bool alpha, bool showTileProgress)
+        public static async Task RunJoey(string inpath, string outpath, string modelArg, bool alpha, bool showTileProgress)
         {
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
@@ -197,25 +197,31 @@ namespace Cupscale.OS
             inpath = inpath.Wrap();
             outpath = outpath.Wrap();
 
-            string alphaStr = alpha ? $"--alpha_mode {Config.GetInt("alphaMode")}" : "--alpha_mode 0";
+            string alphaMode = alpha ? $"--alpha_mode {Config.GetInt("alphaMode")}" : "--alpha_mode 0";
 
-            string deviceStr = (Config.Get("cudaFallback").GetInt() == 1 || Config.Get("cudaFallback").GetInt() == 2) ? "--cpu" : "";
+            string alphaDepth = "";
+            if (Config.GetInt("alphaDepth") == 1) alphaDepth = "--binary_alpha";
+            if (Config.GetInt("alphaDepth") == 2) alphaDepth = "--ternary_alpha";
 
-            string seamStr = "--seamless ";
-            switch (Config.Get("seamlessMode").GetInt())
+            string cpu = (Config.GetInt("cudaFallback") == 1 || Config.GetInt("cudaFallback") == 2) ? "--cpu" : "";
+
+            string device = $"--device_id {Config.GetInt("gpuId")}";
+
+            string seam = "--seamless ";
+            switch (Config.GetInt("seamlessMode"))
             {
-                case 1: seamStr += "tile"; break;
-                case 2: seamStr += "mirror"; break;
-                case 3: seamStr += "replicate"; break;
-                case 4: seamStr += "alpha_pad"; break;
+                case 1: seam += "tile"; break;
+                case 2: seam += "mirror"; break;
+                case 3: seam += "replicate"; break;
+                case 4: seam += "alpha_pad"; break;
             }
 
-            string cacheStr = cacheTiling ? "--cache_max_split_depth" : "";
+            string cache = cacheTiling ? "--cache_max_split_depth" : "";
 
             string opt = stayOpen ? "/K" : "/C";
 
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
-            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {cacheStr} {deviceStr} {seamStr} {alphaStr} {modelArg}".TrimWhitespaces();
+            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {cache} {cpu} {device} {seam} {alphaMode} {alphaDepth} {modelArg}";
 
             Logger.Log("[CMD] " + cmd);
             Process esrganProcess = OSUtils.NewProcess(!showWindow);
@@ -319,9 +325,6 @@ namespace Cupscale.OS
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
 
-            inpath = inpath.Wrap();
-            outpath = outpath.Wrap();
-
             Program.mainForm.SetProgress(1f, "Converting model...");
             await NcnnUtils.ConvertNcnnModel(modelPath);
             Logger.Log("[ESRGAN] NCNN Model is ready: " + currentNcnnModel);
@@ -331,8 +334,8 @@ namespace Cupscale.OS
 
             string opt = stayOpen ? "/K" : "/C";
 
-            string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
-            cmd += "esrgan-ncnn-vulkan.exe -i " + inpath + " -o " + outpath + " -m " + currentNcnnModel.Wrap() + " -s " + scale;
+            string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & esrgan-ncnn-vulkan.exe -i {inpath} -o {outpath}" +
+                $" -g {Config.GetInt("gpuId")} -m " + currentNcnnModel.Wrap() + " -s " + scale;
             Logger.Log("[CMD] " + cmd);
 
             Process ncnnProcess = OSUtils.NewProcess(!showWindow);

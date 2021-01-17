@@ -1000,7 +1000,7 @@ namespace Cupscale.Main
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(364, 34);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Cupscale [Build 33 - 12/16/20]";
+            this.label5.Text = "Cupscale [Build 34 - 01/17/21]";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel7

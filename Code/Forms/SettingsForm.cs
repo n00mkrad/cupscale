@@ -39,11 +39,13 @@ namespace Cupscale.Forms
         {
             // ESRGAN/Cupscale
             Config.LoadComboxIndex(alphaMode);
+            Config.LoadComboxIndex(alphaDepth);
             Config.LoadComboxIndex(seamlessMode);
             Config.LoadGuiElement(modelPath);
             Config.LoadGuiElement(alphaBgColor);
             Config.LoadGuiElement(jpegExtension);
             Config.LoadComboxIndex(cudaFallback);
+            Config.LoadGuiElement(gpuId);
             Config.LoadComboxIndex(previewFormat);
             Config.LoadGuiElement(reloadImageBeforeUpscale);
             Config.LoadComboxIndex(pythonRuntime);
@@ -87,11 +89,13 @@ namespace Cupscale.Forms
             Clamp();
             // ESRGAN/Cupscale
             Config.SaveComboxIndex(alphaMode);
+            Config.SaveComboxIndex(alphaDepth);
             Config.SaveComboxIndex(seamlessMode);
             Config.SaveGuiElement(modelPath);
             Config.SaveGuiElement(alphaBgColor);
             Config.SaveGuiElement(jpegExtension);
             Config.SaveComboxIndex(cudaFallback);
+            Config.SaveGuiElement(gpuId);
             Config.SaveComboxIndex(previewFormat);
             Config.SaveGuiElement(reloadImageBeforeUpscale);
             Config.SaveComboxIndex(pythonRuntime);

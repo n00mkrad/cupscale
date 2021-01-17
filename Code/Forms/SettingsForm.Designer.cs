@@ -134,6 +134,13 @@
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.alphaMode = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.alphaDepth = new System.Windows.Forms.ComboBox();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.gpuId = new System.Windows.Forms.TextBox();
+            this.pictureBox14 = new System.Windows.Forms.PictureBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -166,6 +173,9 @@
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             this.logPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
             this.SuspendLayout();
             // 
             // tabList1
@@ -211,6 +221,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.pictureBox14);
+            this.panel7.Controls.Add(this.gpuId);
+            this.panel7.Controls.Add(this.label16);
+            this.panel7.Controls.Add(this.pictureBox2);
+            this.panel7.Controls.Add(this.pictureBox10);
+            this.panel7.Controls.Add(this.alphaDepth);
+            this.panel7.Controls.Add(this.label6);
             this.panel7.Controls.Add(this.alphaMode);
             this.panel7.Controls.Add(this.pythonRuntime);
             this.panel7.Controls.Add(this.label24);
@@ -265,7 +282,7 @@
             "Repeat: Mirror",
             "Padding: Extend",
             "Padding: Alpha"});
-            this.seamlessMode.Location = new System.Drawing.Point(220, 137);
+            this.seamlessMode.Location = new System.Drawing.Point(220, 167);
             this.seamlessMode.Margin = new System.Windows.Forms.Padding(8);
             this.seamlessMode.Name = "seamlessMode";
             this.seamlessMode.Size = new System.Drawing.Size(225, 21);
@@ -283,7 +300,7 @@
             "Always use CPU",
             "CPU for Preview, NCNN for Batch Processing",
             "Always use NCNN"});
-            this.cudaFallback.Location = new System.Drawing.Point(220, 167);
+            this.cudaFallback.Location = new System.Drawing.Point(220, 224);
             this.cudaFallback.Margin = new System.Windows.Forms.Padding(8);
             this.cudaFallback.Name = "cudaFallback";
             this.cudaFallback.Size = new System.Drawing.Size(225, 21);
@@ -294,7 +311,7 @@
             // 
             this.pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox6.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox6.Location = new System.Drawing.Point(94, 136);
+            this.pictureBox6.Location = new System.Drawing.Point(94, 166);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(22, 22);
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -305,7 +322,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(6, 140);
+            this.label22.Location = new System.Drawing.Point(6, 170);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(82, 13);
             this.label22.TabIndex = 14;
@@ -315,7 +332,7 @@
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox1.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox1.Location = new System.Drawing.Point(122, 166);
+            this.pictureBox1.Location = new System.Drawing.Point(122, 223);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(22, 22);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -325,7 +342,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 170);
+            this.label2.Location = new System.Drawing.Point(6, 227);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 13);
             this.label2.TabIndex = 6;
@@ -1402,6 +1419,89 @@
             this.alphaMode.Size = new System.Drawing.Size(225, 21);
             this.alphaMode.TabIndex = 22;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 140);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "Alpha Depth";
+            // 
+            // alphaDepth
+            // 
+            this.alphaDepth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.alphaDepth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.alphaDepth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.alphaDepth.ForeColor = System.Drawing.Color.White;
+            this.alphaDepth.FormattingEnabled = true;
+            this.alphaDepth.Items.AddRange(new object[] {
+            "Full (8-Bit)",
+            "Binary (1-Bit)",
+            "Ternary (2-Bit)"});
+            this.alphaDepth.Location = new System.Drawing.Point(220, 137);
+            this.alphaDepth.Margin = new System.Windows.Forms.Padding(8);
+            this.alphaDepth.Name = "alphaDepth";
+            this.alphaDepth.Size = new System.Drawing.Size(225, 21);
+            this.alphaDepth.TabIndex = 24;
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox10.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox10.Location = new System.Drawing.Point(82, 106);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox10.TabIndex = 26;
+            this.pictureBox10.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox10, "Enables support for upscaling transparency.\r\nMode 1 should work for most images, " +
+        "but if you are unhappy with the result, try 2 or 3.");
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox2.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox2.Location = new System.Drawing.Point(78, 136);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 27;
+            this.pictureBox2.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox2, "Color Depth of the alpha channel.\r\nUse Binary or Ternary for platforms and format" +
+        "s that have a limited alpha depth.\r\nFor example, GIFs or PSX sprites.");
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 200);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(83, 13);
+            this.label16.TabIndex = 28;
+            this.label16.Text = "GPU ID (CUDA)";
+            // 
+            // gpuId
+            // 
+            this.gpuId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.gpuId.ForeColor = System.Drawing.Color.White;
+            this.gpuId.Location = new System.Drawing.Point(220, 197);
+            this.gpuId.Name = "gpuId";
+            this.gpuId.Size = new System.Drawing.Size(225, 20);
+            this.gpuId.TabIndex = 29;
+            // 
+            // pictureBox14
+            // 
+            this.pictureBox14.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox14.Image = global::Cupscale.Properties.Resources.questmark;
+            this.pictureBox14.Location = new System.Drawing.Point(95, 196);
+            this.pictureBox14.Name = "pictureBox14";
+            this.pictureBox14.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox14.TabIndex = 30;
+            this.pictureBox14.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBox14, "Set which GPU will be used for upscaling.\r\n0 is the first device, 1 the second, a" +
+        "nd so on.");
+            // 
             // SettingsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1457,6 +1557,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             this.logPage.ResumeLayout(false);
             this.logPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1567,5 +1670,12 @@
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.ComboBox alphaMode;
+        private System.Windows.Forms.PictureBox pictureBox10;
+        private System.Windows.Forms.ComboBox alphaDepth;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.TextBox gpuId;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.PictureBox pictureBox14;
     }
 }
