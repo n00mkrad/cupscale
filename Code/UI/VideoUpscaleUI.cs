@@ -138,6 +138,8 @@ namespace Cupscale.UI
 
         static async Task CreateVideo()
         {
+            if (IOUtils.GetAmountOfFiles(Paths.framesOutPath, false) < 1) return;
+
             if (outputFormatBox.Text == Upscale.VidExportMode.MP4.ToStringTitleCase())
                 outputFormat = Upscale.VidExportMode.MP4;
             if (outputFormatBox.Text == Upscale.VidExportMode.GIF.ToStringTitleCase())
