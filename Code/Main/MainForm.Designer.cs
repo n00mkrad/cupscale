@@ -162,14 +162,11 @@ namespace Cupscale.Main
             this.leftSpacer3 = new System.Windows.Forms.Panel();
             this.panel32 = new System.Windows.Forms.Panel();
             this.esrganPanel = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.seamlessMode = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.alpha = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.tilesize = new System.Windows.Forms.ComboBox();
-            this.label24 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.leftSpacer4 = new System.Windows.Forms.Panel();
             this.panel36 = new System.Windows.Forms.Panel();
@@ -234,7 +231,6 @@ namespace Cupscale.Main
             this.compPanel.SuspendLayout();
             this.leftSpacer3.SuspendLayout();
             this.esrganPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.leftSpacer4.SuspendLayout();
             this.mdlPanel.SuspendLayout();
@@ -2127,38 +2123,22 @@ namespace Cupscale.Main
             // 
             this.esrganPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.esrganPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.esrganPanel.Controls.Add(this.pictureBox1);
             this.esrganPanel.Controls.Add(this.pictureBox6);
             this.esrganPanel.Controls.Add(this.seamlessMode);
             this.esrganPanel.Controls.Add(this.label2);
             this.esrganPanel.Controls.Add(this.alpha);
             this.esrganPanel.Controls.Add(this.label3);
-            this.esrganPanel.Controls.Add(this.tilesize);
-            this.esrganPanel.Controls.Add(this.label24);
             this.esrganPanel.Controls.Add(this.label29);
-            this.esrganPanel.Location = new System.Drawing.Point(3, 404);
+            this.esrganPanel.Location = new System.Drawing.Point(3, 434);
             this.esrganPanel.Name = "esrganPanel";
-            this.esrganPanel.Size = new System.Drawing.Size(361, 118);
+            this.esrganPanel.Size = new System.Drawing.Size(361, 88);
             this.esrganPanel.TabIndex = 6;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox1.Location = new System.Drawing.Point(82, 26);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 26;
-            this.pictureBox1.TabStop = false;
-            this.toolTip1.SetToolTip(this.pictureBox1, "Sets the size (in pixels on each axis) of the image tiles that are loaded into VR" +
-        "AM at once.\r\nReduce this if you run out of memory.\r\n");
             // 
             // pictureBox6
             // 
             this.pictureBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox6.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox6.Location = new System.Drawing.Point(92, 86);
+            this.pictureBox6.Location = new System.Drawing.Point(92, 56);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(22, 22);
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2181,7 +2161,7 @@ namespace Cupscale.Main
             "Repeat: Mirror",
             "Padding: Extend",
             "Padding: Alpha"});
-            this.seamlessMode.Location = new System.Drawing.Point(174, 87);
+            this.seamlessMode.Location = new System.Drawing.Point(174, 57);
             this.seamlessMode.Margin = new System.Windows.Forms.Padding(8);
             this.seamlessMode.Name = "seamlessMode";
             this.seamlessMode.Size = new System.Drawing.Size(177, 21);
@@ -2193,7 +2173,7 @@ namespace Cupscale.Main
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(4, 90);
+            this.label2.Location = new System.Drawing.Point(4, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 13);
             this.label2.TabIndex = 24;
@@ -2203,7 +2183,7 @@ namespace Cupscale.Main
             // 
             this.alpha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.alpha.AutoSize = true;
-            this.alpha.Location = new System.Drawing.Point(174, 62);
+            this.alpha.Location = new System.Drawing.Point(174, 32);
             this.alpha.Name = "alpha";
             this.alpha.Size = new System.Drawing.Size(15, 14);
             this.alpha.TabIndex = 23;
@@ -2215,47 +2195,11 @@ namespace Cupscale.Main
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(4, 60);
+            this.label3.Location = new System.Drawing.Point(4, 30);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 13);
+            this.label3.Size = new System.Drawing.Size(108, 13);
             this.label3.TabIndex = 22;
-            this.label3.Text = "Enable Alpha";
-            // 
-            // tilesize
-            // 
-            this.tilesize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tilesize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.tilesize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.tilesize.ForeColor = System.Drawing.Color.White;
-            this.tilesize.FormattingEnabled = true;
-            this.tilesize.Items.AddRange(new object[] {
-            "2048",
-            "1536",
-            "1024",
-            "768",
-            "512",
-            "384",
-            "256",
-            "192",
-            "128"});
-            this.tilesize.Location = new System.Drawing.Point(174, 27);
-            this.tilesize.Margin = new System.Windows.Forms.Padding(8);
-            this.tilesize.Name = "tilesize";
-            this.tilesize.Size = new System.Drawing.Size(177, 21);
-            this.tilesize.TabIndex = 21;
-            this.tilesize.SelectedIndexChanged += new System.EventHandler(this.tilesize_SelectedIndexChanged);
-            // 
-            // label24
-            // 
-            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label24.AutoSize = true;
-            this.label24.ForeColor = System.Drawing.Color.White;
-            this.label24.Location = new System.Drawing.Point(4, 30);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(72, 13);
-            this.label24.TabIndex = 20;
-            this.label24.Text = "Tile Size (HR)";
+            this.label3.Text = "Enable Transparency";
             // 
             // label29
             // 
@@ -2272,7 +2216,7 @@ namespace Cupscale.Main
             // 
             this.leftSpacer4.BackColor = System.Drawing.Color.Transparent;
             this.leftSpacer4.Controls.Add(this.panel36);
-            this.leftSpacer4.Location = new System.Drawing.Point(3, 381);
+            this.leftSpacer4.Location = new System.Drawing.Point(3, 411);
             this.leftSpacer4.Name = "leftSpacer4";
             this.leftSpacer4.Size = new System.Drawing.Size(361, 17);
             this.leftSpacer4.TabIndex = 11;
@@ -2306,7 +2250,7 @@ namespace Cupscale.Main
             this.mdlPanel.Controls.Add(this.label16);
             this.mdlPanel.Controls.Add(this.interpRbtn);
             this.mdlPanel.Controls.Add(this.singleModelRbtn);
-            this.mdlPanel.Location = new System.Drawing.Point(3, 117);
+            this.mdlPanel.Location = new System.Drawing.Point(3, 147);
             this.mdlPanel.Name = "mdlPanel";
             this.mdlPanel.Size = new System.Drawing.Size(361, 258);
             this.mdlPanel.TabIndex = 7;
@@ -2564,7 +2508,6 @@ namespace Cupscale.Main
             this.leftSpacer3.ResumeLayout(false);
             this.esrganPanel.ResumeLayout(false);
             this.esrganPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.leftSpacer4.ResumeLayout(false);
             this.mdlPanel.ResumeLayout(false);
@@ -2665,10 +2608,7 @@ namespace Cupscale.Main
         private Label label2;
         private CheckBox alpha;
         private Label label3;
-        private ComboBox tilesize;
-        private Label label24;
         private PictureBox pictureBox6;
-        private PictureBox pictureBox1;
         private Panel imgOptsPanel;
         private Label label25;
         private HTAlt.WinForms.HTButton openSourceFolderBtn;

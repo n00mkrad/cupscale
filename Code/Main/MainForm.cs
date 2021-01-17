@@ -616,14 +616,12 @@ namespace Cupscale.Main
 		public void SaveEsrganOptions ()
         {
 			if (!initialized) return;
-			Config.SaveGuiElement(tilesize);
 			Config.SaveGuiElement(alpha);
 			Config.SaveComboxIndex(seamlessMode);
 		}
 
 		public void LoadEsrganOptions ()
         {
-			Config.LoadGuiElement(tilesize);
 			Config.LoadGuiElement(alpha);
 			Config.LoadComboxIndex(seamlessMode);
 		}
