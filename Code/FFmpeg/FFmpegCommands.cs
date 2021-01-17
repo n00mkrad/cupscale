@@ -43,7 +43,7 @@ namespace Cupscale
             int nums = IOUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
             string enc = "libx264";
             if (useH265) enc = "libx265";
-            string args = " -framerate " + fps.RoundToInt() + " -i \"" + inputDir + "\\" + prefix + "%0" + nums + "d.png\" -c:v " + enc
+            string args = " -framerate " + fps.ToString().Replace(",", ".") + " -i \"" + inputDir + "\\" + prefix + "%0" + nums + "d.png\" -c:v " + enc
                 + " -crf " + crf + " -pix_fmt yuv420p -movflags +faststart -vf \"crop = trunc(iw / 2) * 2:trunc(ih / 2) * 2\"  -c:a copy \"" + inputDir + ".mp4\"";
             await FFmpeg.Run(args);
             if (delSrc)
