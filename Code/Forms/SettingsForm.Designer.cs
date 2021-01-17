@@ -34,22 +34,15 @@
             this.settingsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.pythonRuntime = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.seamlessMode = new System.Windows.Forms.ComboBox();
             this.cudaFallback = new System.Windows.Forms.ComboBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.esrganVer = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.alpha = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.tilesize = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.comparisonUseScaling = new System.Windows.Forms.ComboBox();
@@ -92,6 +85,10 @@
             this.label12 = new System.Windows.Forms.Label();
             this.videoFormatsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.vidEnableAudio = new System.Windows.Forms.CheckBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.pictureBox13 = new System.Windows.Forms.PictureBox();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
@@ -136,17 +133,12 @@
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.vidEnableAudio = new System.Windows.Forms.CheckBox();
-            this.label43 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
+            this.alphaMode = new System.Windows.Forms.ComboBox();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -160,6 +152,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             this.videoFormatsPage.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
@@ -173,7 +166,6 @@
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             this.logPage.SuspendLayout();
-            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabList1
@@ -219,40 +211,21 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.pictureBox10);
+            this.panel7.Controls.Add(this.alphaMode);
             this.panel7.Controls.Add(this.pythonRuntime);
             this.panel7.Controls.Add(this.label24);
             this.panel7.Controls.Add(this.seamlessMode);
             this.panel7.Controls.Add(this.cudaFallback);
             this.panel7.Controls.Add(this.pictureBox6);
             this.panel7.Controls.Add(this.label22);
-            this.panel7.Controls.Add(this.pictureBox2);
-            this.panel7.Controls.Add(this.label16);
-            this.panel7.Controls.Add(this.esrganVer);
             this.panel7.Controls.Add(this.pictureBox1);
             this.panel7.Controls.Add(this.label2);
-            this.panel7.Controls.Add(this.alpha);
             this.panel7.Controls.Add(this.label7);
-            this.panel7.Controls.Add(this.tilesize);
-            this.panel7.Controls.Add(this.label6);
             this.panel7.Controls.Add(this.label5);
             this.panel7.Location = new System.Drawing.Point(3, 3);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(455, 463);
             this.panel7.TabIndex = 4;
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox10.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox10.Location = new System.Drawing.Point(84, 136);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox10.TabIndex = 22;
-            this.pictureBox10.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox10, "Sets the size (in pixels on each axis) of the image tiles that are loaded into VR" +
-        "AM at once.\r\nReduce this if you run out of memory.");
             // 
             // pythonRuntime
             // 
@@ -264,7 +237,7 @@
             this.pythonRuntime.Items.AddRange(new object[] {
             "Use System Python",
             "Use Embedded Python If Available"});
-            this.pythonRuntime.Location = new System.Drawing.Point(220, 107);
+            this.pythonRuntime.Location = new System.Drawing.Point(220, 77);
             this.pythonRuntime.Margin = new System.Windows.Forms.Padding(8);
             this.pythonRuntime.Name = "pythonRuntime";
             this.pythonRuntime.Size = new System.Drawing.Size(225, 21);
@@ -273,7 +246,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(6, 110);
+            this.label24.Location = new System.Drawing.Point(6, 80);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(82, 13);
             this.label24.TabIndex = 20;
@@ -292,7 +265,7 @@
             "Repeat: Mirror",
             "Padding: Extend",
             "Padding: Alpha"});
-            this.seamlessMode.Location = new System.Drawing.Point(220, 197);
+            this.seamlessMode.Location = new System.Drawing.Point(220, 137);
             this.seamlessMode.Margin = new System.Windows.Forms.Padding(8);
             this.seamlessMode.Name = "seamlessMode";
             this.seamlessMode.Size = new System.Drawing.Size(225, 21);
@@ -310,7 +283,7 @@
             "Always use CPU",
             "CPU for Preview, NCNN for Batch Processing",
             "Always use NCNN"});
-            this.cudaFallback.Location = new System.Drawing.Point(220, 227);
+            this.cudaFallback.Location = new System.Drawing.Point(220, 167);
             this.cudaFallback.Margin = new System.Windows.Forms.Padding(8);
             this.cudaFallback.Name = "cudaFallback";
             this.cudaFallback.Size = new System.Drawing.Size(225, 21);
@@ -321,7 +294,7 @@
             // 
             this.pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox6.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox6.Location = new System.Drawing.Point(94, 196);
+            this.pictureBox6.Location = new System.Drawing.Point(94, 136);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(22, 22);
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -332,55 +305,17 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(6, 200);
+            this.label22.Location = new System.Drawing.Point(6, 140);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(82, 13);
             this.label22.TabIndex = 14;
             this.label22.Text = "Seamless Mode";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox2.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox2.Location = new System.Drawing.Point(102, 76);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 13;
-            this.pictureBox2.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox2, resources.GetString("pictureBox2.ToolTip"));
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 80);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(90, 13);
-            this.label16.TabIndex = 12;
-            this.label16.Text = "ESRGAN Version";
-            // 
-            // esrganVer
-            // 
-            this.esrganVer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.esrganVer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.esrganVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.esrganVer.ForeColor = System.Drawing.Color.White;
-            this.esrganVer.FormattingEnabled = true;
-            this.esrganVer.Items.AddRange(new object[] {
-            "Joey\'s ESRGAN Fork",
-            "esrgan-launcher [DEPRECATED]"});
-            this.esrganVer.Location = new System.Drawing.Point(220, 77);
-            this.esrganVer.Margin = new System.Windows.Forms.Padding(8);
-            this.esrganVer.Name = "esrganVer";
-            this.esrganVer.Size = new System.Drawing.Size(225, 21);
-            this.esrganVer.TabIndex = 11;
-            this.esrganVer.SelectedIndexChanged += new System.EventHandler(this.esrganVersion_SelectedIndexChanged);
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox1.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox1.Location = new System.Drawing.Point(122, 226);
+            this.pictureBox1.Location = new System.Drawing.Point(122, 166);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(22, 22);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -390,60 +325,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 230);
+            this.label2.Location = new System.Drawing.Point(6, 170);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "CUDA Fallback Mode";
             // 
-            // alpha
-            // 
-            this.alpha.AutoSize = true;
-            this.alpha.Location = new System.Drawing.Point(220, 170);
-            this.alpha.Name = "alpha";
-            this.alpha.Size = new System.Drawing.Size(15, 14);
-            this.alpha.TabIndex = 5;
-            this.alpha.UseVisualStyleBackColor = true;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 170);
+            this.label7.Location = new System.Drawing.Point(6, 110);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(70, 13);
             this.label7.TabIndex = 4;
             this.label7.Text = "Enable Alpha";
-            // 
-            // tilesize
-            // 
-            this.tilesize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.tilesize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.tilesize.ForeColor = System.Drawing.Color.White;
-            this.tilesize.FormattingEnabled = true;
-            this.tilesize.Items.AddRange(new object[] {
-            "2048",
-            "1536",
-            "1024",
-            "768",
-            "512",
-            "384",
-            "256",
-            "192",
-            "128"});
-            this.tilesize.Location = new System.Drawing.Point(220, 137);
-            this.tilesize.Margin = new System.Windows.Forms.Padding(8);
-            this.tilesize.Name = "tilesize";
-            this.tilesize.Size = new System.Drawing.Size(100, 21);
-            this.tilesize.TabIndex = 3;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 140);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 13);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Tile Size (HR)";
             // 
             // label5
             // 
@@ -937,6 +832,48 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(922, 469);
             this.tableLayoutPanel5.TabIndex = 4;
+            // 
+            // panel8
+            // 
+            this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel8.Controls.Add(this.vidEnableAudio);
+            this.panel8.Controls.Add(this.label43);
+            this.panel8.Controls.Add(this.label44);
+            this.panel8.Location = new System.Drawing.Point(464, 3);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(455, 463);
+            this.panel8.TabIndex = 5;
+            // 
+            // vidEnableAudio
+            // 
+            this.vidEnableAudio.AutoSize = true;
+            this.vidEnableAudio.Location = new System.Drawing.Point(220, 80);
+            this.vidEnableAudio.Name = "vidEnableAudio";
+            this.vidEnableAudio.Size = new System.Drawing.Size(15, 14);
+            this.vidEnableAudio.TabIndex = 21;
+            this.vidEnableAudio.UseVisualStyleBackColor = true;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(6, 80);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(133, 13);
+            this.label43.TabIndex = 2;
+            this.label43.Text = "Copy Audio From Input File";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label44.Location = new System.Drawing.Point(3, 4);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(157, 20);
+            this.label44.TabIndex = 1;
+            this.label44.Text = "Other Video Settings";
             // 
             // panel9
             // 
@@ -1447,47 +1384,23 @@
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
             // 
-            // panel8
+            // alphaMode
             // 
-            this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel8.Controls.Add(this.vidEnableAudio);
-            this.panel8.Controls.Add(this.label43);
-            this.panel8.Controls.Add(this.label44);
-            this.panel8.Location = new System.Drawing.Point(464, 3);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(455, 463);
-            this.panel8.TabIndex = 5;
-            // 
-            // vidEnableAudio
-            // 
-            this.vidEnableAudio.AutoSize = true;
-            this.vidEnableAudio.Location = new System.Drawing.Point(220, 80);
-            this.vidEnableAudio.Name = "vidEnableAudio";
-            this.vidEnableAudio.Size = new System.Drawing.Size(15, 14);
-            this.vidEnableAudio.TabIndex = 21;
-            this.vidEnableAudio.UseVisualStyleBackColor = true;
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(6, 80);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(133, 13);
-            this.label43.TabIndex = 2;
-            this.label43.Text = "Copy Audio From Input File";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.Location = new System.Drawing.Point(3, 4);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(157, 20);
-            this.label44.TabIndex = 1;
-            this.label44.Text = "Other Video Settings";
+            this.alphaMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.alphaMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.alphaMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.alphaMode.ForeColor = System.Drawing.Color.White;
+            this.alphaMode.FormattingEnabled = true;
+            this.alphaMode.Items.AddRange(new object[] {
+            "0 (Disabled)",
+            "1 (Differential Alpha)",
+            "2 (Separated Alpha)",
+            "3 (Channel Alpha)"});
+            this.alphaMode.Location = new System.Drawing.Point(220, 107);
+            this.alphaMode.Margin = new System.Windows.Forms.Padding(8);
+            this.alphaMode.Name = "alphaMode";
+            this.alphaMode.Size = new System.Drawing.Size(225, 21);
+            this.alphaMode.TabIndex = 22;
             // 
             // SettingsForm
             // 
@@ -1507,9 +1420,7 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
@@ -1526,6 +1437,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             this.videoFormatsPage.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
@@ -1544,8 +1457,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             this.logPage.ResumeLayout(false);
             this.logPage.PerformLayout();
-            this.panel8.ResumeLayout(false);
-            this.panel8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1561,10 +1472,7 @@
         private System.Windows.Forms.Button confAlphaBgColorBtn;
         private System.Windows.Forms.TextBox alphaBgColor;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.CheckBox alpha;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox tilesize;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.TextBox modelPath;
@@ -1586,9 +1494,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ComboBox esrganVer;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.ComboBox dxtMode;
         private System.Windows.Forms.ComboBox jpegExtension;
@@ -1644,7 +1549,6 @@
         private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.ComboBox comparisonUseScaling;
         private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.PictureBox pictureBox10;
         private Cyotek.Windows.Forms.TabListPage videoFormatsPage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Panel panel9;
@@ -1662,5 +1566,6 @@
         private System.Windows.Forms.CheckBox vidEnableAudio;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.ComboBox alphaMode;
     }
 }

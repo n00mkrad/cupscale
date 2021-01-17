@@ -197,7 +197,7 @@ namespace Cupscale.OS
             inpath = inpath.Wrap();
             outpath = outpath.Wrap();
 
-            string alphaStr = alpha ? $"--alpha_mode {Config.GetInt("joeyAlphaMode")}" : "--alpha_mode 0";
+            string alphaStr = alpha ? $"--alpha_mode {Config.GetInt("alphaMode")}" : "--alpha_mode 0";
 
             string deviceStr = (Config.Get("cudaFallback").GetInt() == 1 || Config.Get("cudaFallback").GetInt() == 2) ? "--cpu" : "";
 

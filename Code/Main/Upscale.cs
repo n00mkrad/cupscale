@@ -117,7 +117,7 @@ namespace Cupscale.Main
                 }
                 else
                 {
-                    Logger.ErrorMessage($"Failed to rename {Path.GetFileName(path)} and ran out of retries!", e);
+                    Logger.ErrorMessage($"Failed to move/rename '{Path.GetFileName(path)}' and ran out of retries!", e);
                 }
                 return;
             }
