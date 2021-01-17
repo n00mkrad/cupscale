@@ -93,7 +93,7 @@ namespace Cupscale.Main
             return mdl;
         }
 
-        public static async Task PostprocessingSingle (string path, bool dontResize = false, int retryCount = 10)
+        public static async Task PostprocessingSingle (string path, bool dontResize = false, int retryCount = 20)
         {
             string newPath = "";
             if (Path.GetExtension(path) != ".tmp")
@@ -110,10 +110,10 @@ namespace Cupscale.Main
                 Logger.Log("Failed to move/rename! " + e.Message + "\n" + e.StackTrace);
                 if(retryCount > 0)
                 {
-                    await Task.Delay(200);      // Wait 200ms and retry up to 10 times
+                    await Task.Delay(500);      // Wait and retry up to 20 times
                     int newRetryCount = retryCount - 1;
                     Logger.Log("Retrying - " + newRetryCount + " attempts left.");
-                    PostprocessingSingle(path, dontResize, newRetryCount);
+                    await PostprocessingSingle(path, dontResize, newRetryCount);
                 }
                 else
                 {
