@@ -334,7 +334,7 @@ namespace Cupscale.OS
 
             string opt = stayOpen ? "/K" : "/C";
 
-            string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & esrgan-ncnn-vulkan.exe -i {inpath} -o {outpath}" +
+            string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & esrgan-ncnn-vulkan.exe -i {inpath.Wrap()} -o {outpath.Wrap()}" +
                 $" -g {Config.GetInt("gpuId")} -m " + currentNcnnModel.Wrap() + " -s " + scale;
             Logger.Log("[CMD] " + cmd);
 
