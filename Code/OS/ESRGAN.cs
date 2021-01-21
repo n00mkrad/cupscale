@@ -21,12 +21,11 @@ namespace Cupscale.OS
     {
         public enum PreviewMode { None, Cutout, FullImage }
         public enum Backend { CUDA, CPU, NCNN };
-        public static bool cacheTiling = false;
+        //public static bool cacheTiling = false;
 
-        public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, string tilesize, bool alpha, PreviewMode mode, Backend backend, bool showTileProgress = true)
+        public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, bool cacheSplitDepth, bool alpha, PreviewMode mode, Backend backend, bool showTileProgress = true)
         {
             Program.cancelled = false;      // Reset cancel flag
-            bool useJoey = true; //Config.GetInt("esrganVer") == 0;
             try
             {
                 if (backend == Backend.NCNN)
@@ -38,11 +37,8 @@ namespace Cupscale.OS
                 {
                     Program.mainForm.SetProgress(2f, "Starting ESRGAN...");
                     File.Delete(Paths.progressLogfile);
-                    string modelArg = GetModelArg(mdl, useJoey);
-                    if (useJoey)
-                        await RunJoey(inpath, outpath, modelArg, alpha, showTileProgress);
-                    else
-                        await Run(inpath, outpath, modelArg, tilesize, alpha, showTileProgress);
+                    string modelArg = GetModelArg(mdl);
+                    await RunJoey(inpath, outpath, modelArg, cacheSplitDepth, alpha, showTileProgress);
                 }
 
                 if (mode == PreviewMode.Cutout)
@@ -97,7 +93,7 @@ namespace Cupscale.OS
             ImageProcessing.ResizeImagePost(img);
         }
 
-        public static string GetModelArg(ModelData mdl, bool joey)
+        public static string GetModelArg(ModelData mdl, bool joey = true)
         {
             string mdl1 = mdl.model1Path;
             string mdl2 = mdl.model2Path;
@@ -189,7 +185,7 @@ namespace Cupscale.OS
             File.Delete(Paths.progressLogfile);
         }
 
-        public static async Task RunJoey(string inpath, string outpath, string modelArg, bool alpha, bool showTileProgress)
+        public static async Task RunJoey(string inpath, string outpath, string modelArg, bool cacheSplitDepth, bool alpha, bool showTileProgress)
         {
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
@@ -216,7 +212,7 @@ namespace Cupscale.OS
                 case 4: seam += "alpha_pad"; break;
             }
 
-            string cache = cacheTiling ? "--cache_max_split_depth" : "";
+            string cache = cacheSplitDepth ? "--cache_max_split_depth" : "";
 
             string opt = stayOpen ? "/K" : "/C";
 
@@ -329,7 +325,6 @@ namespace Cupscale.OS
             await NcnnUtils.ConvertNcnnModel(modelPath);
             Logger.Log("[ESRGAN] NCNN Model is ready: " + currentNcnnModel);
             Program.mainForm.SetProgress(3f, "Loading ESRGAN-NCNN...");
-            //DialogForm dialog = new DialogForm("Loading ESRGAN-NCNN...\nThis should take 10-25 seconds.", 14);
             int scale = NcnnUtils.GetNcnnModelScale(currentNcnnModel);
 
             string opt = stayOpen ? "/K" : "/C";
@@ -340,18 +335,22 @@ namespace Cupscale.OS
 
             Process ncnnProcess = OSUtils.NewProcess(!showWindow);
             ncnnProcess.StartInfo.Arguments = cmd;
+
             if (!showWindow)
             {
                 ncnnProcess.OutputDataReceived += NcnnOutputHandler;
                 ncnnProcess.ErrorDataReceived += NcnnOutputHandler;
             }
+
             Program.currentEsrganProcess = ncnnProcess;
             ncnnProcess.Start();
+
             if (!showWindow)
             {
                 ncnnProcess.BeginOutputReadLine();
                 ncnnProcess.BeginErrorReadLine();
             }
+
             while (!ncnnProcess.HasExited)
                 await Task.Delay(50);
 
@@ -361,6 +360,7 @@ namespace Cupscale.OS
                 Program.mainForm.SetProgress(100f, "[ESRGAN] Post-Processing...");
                 PostProcessingQueue.Stop();
             }
+
             File.Delete(Paths.progressLogfile);
         }
 

@@ -61,26 +61,29 @@ namespace Cupscale.UI
         {
             logBox.Clear();
             Print("Starting upscale of " + Path.GetFileName(currentInPath));
+
             if (string.IsNullOrWhiteSpace(currentInPath) || !File.Exists(currentInPath))
             {
                 Program.ShowMessage("No valid file loaded.", "Error");
                 return;
             }
+
             if (!IOUtils.HasEnoughDiskSpace(IOUtils.GetAppDataDir(), 10.0f))
             {
                 Program.ShowMessage($"Not enough disk space on {IOUtils.GetAppDataDir().Substring(0, 3)} to store temporary files!", "Error");
                 return;
             }
+
             Program.mainForm.SetBusy(true);
             LoadVideo();
             Print("Extracting frames...");
             await FFmpegCommands.VideoToFrames(currentInPath, Paths.imgInPath, false, false, false);
             int amountFrames = IOUtils.GetAmountOfCompatibleFiles(Paths.imgInPath, false);
-            Print($"Done - Extracted  {amountFrames} frames.");
+            Print($"Done - Extracted {amountFrames} frames.");
             await PreprocessIfNeeded(preprocess);
             BatchUpscaleUI.LoadDir(Paths.imgInPath, true);
             Print("Upscaling frames...");
-            await BatchUpscaleUI.Run(false, true, Paths.framesOutPath);
+            await BatchUpscaleUI.Run(false, true, false, Paths.framesOutPath);
             RenameOutFiles();
             Print($"Done upscaling all frames.");
             BatchUpscaleUI.Reset();

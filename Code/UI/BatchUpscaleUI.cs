@@ -141,7 +141,7 @@ namespace Cupscale.UI
             fileList.AppendText(text);
         }
 
-        public static async Task Run (bool preprocess, bool postProcess = true, string overrideOutDir = "")
+        public static async Task Run (bool preprocess, bool postProcess = true, bool cacheSplitDepth = false, string overrideOutDir = "")
         {
             int cudaFallback = Config.Get("cudaFallback").GetInt();
             bool useNcnn = (cudaFallback == 2 || cudaFallback == 3);
@@ -186,7 +186,7 @@ namespace Cupscale.UI
             ESRGAN.Backend backend = ESRGAN.Backend.CUDA;
             if (useCpu) backend = ESRGAN.Backend.CPU;
             if (useNcnn) backend = ESRGAN.Backend.NCNN;
-            tasks.Add(ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, backend, false));
+            tasks.Add(ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, cacheSplitDepth, bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, backend, false));
             if (postProcess)
             {
                 tasks.Add(PostProcessingQueue.Update());

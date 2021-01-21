@@ -79,7 +79,7 @@ namespace Cupscale.UI
                 ESRGAN.Backend backend = ESRGAN.Backend.CUDA;
                 if (useCpu) backend = ESRGAN.Backend.CPU;
                 if (useNcnn) backend = ESRGAN.Backend.NCNN;
-                await ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, Config.Get("tilesize"), Config.GetBool("alpha"), ESRGAN.PreviewMode.None, backend);
+                await ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, false, Config.GetBool("alpha"), ESRGAN.PreviewMode.None, backend);
                 if (backend == ESRGAN.Backend.NCNN)
                     outImg = Directory.GetFiles(Paths.imgOutPath, "*.png*", SearchOption.AllDirectories)[0];
                 else
@@ -191,7 +191,7 @@ namespace Cupscale.UI
                 string mdl1 = Program.currentModel1;
                 if (string.IsNullOrWhiteSpace(mdl1)) return;
                 ModelData mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
-                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, tilesize, alpha, prevMode, backend);
+                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, false, alpha, prevMode, backend);
             }
             if (currentMode == Mode.Interp)
             {
@@ -199,7 +199,7 @@ namespace Cupscale.UI
                 string mdl2 = Program.currentModel2;
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
                 ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
-                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, tilesize, alpha, prevMode, backend);
+                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, false, alpha, prevMode, backend);
             }
             if (currentMode == Mode.Chain)
             {
@@ -207,12 +207,12 @@ namespace Cupscale.UI
                 string mdl2 = Program.currentModel2;
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
                 ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
-                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, tilesize, alpha, prevMode, backend);
+                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, false, alpha, prevMode, backend);
             }
             if (currentMode == Mode.Advanced)
             {
                 ModelData mdl = new ModelData(null, null, ModelData.ModelMode.Advanced);
-                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, tilesize, alpha, prevMode, backend);
+                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, false, alpha, prevMode, backend);
             }
             if (!Program.cancelled)
                 Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0.0")}s");

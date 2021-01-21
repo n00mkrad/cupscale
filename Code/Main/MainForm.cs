@@ -55,6 +55,7 @@ namespace Cupscale.Main
 			// Batch Upscale
 			UIHelpers.InitCombox(batchOutMode, 0);
 			UIHelpers.InitCombox(preprocessMode, 0);
+			UIHelpers.InitCombox(batchCacheSplitDepth, 0);
 			// Video Upscale
 			UIHelpers.InitCombox(videoPreprocessMode, 1);
 
@@ -376,10 +377,10 @@ namespace Cupscale.Main
 
 			if (Config.GetBool("reloadImageBeforeUpscale"))
 				ReloadImage();
+
 			UpdateResizeMode();
-			ESRGAN.cacheTiling = (htTabControl.SelectedIndex == 2);
 			if (htTabControl.SelectedIndex == 0) await PreviewUI.UpscaleImage();
-			if (htTabControl.SelectedIndex == 1) await BatchUpscaleUI.Run(preprocessMode.SelectedIndex == 0);
+			if (htTabControl.SelectedIndex == 1) await BatchUpscaleUI.Run(preprocessMode.SelectedIndex == 0, true, batchCacheSplitDepth.SelectedIndex == 1);
 			if (htTabControl.SelectedIndex == 2) await VideoUpscaleUI.Run(videoPreprocessMode.SelectedIndex == 0);
 		}
 
