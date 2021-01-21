@@ -53,6 +53,8 @@ namespace Cupscale.Main
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.label7 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.label24 = new System.Windows.Forms.Label();
+            this.batchCacheSplitDepth = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.selectOutPathBtn = new System.Windows.Forms.Button();
             this.batchOutDir = new System.Windows.Forms.TextBox();
@@ -184,8 +186,6 @@ namespace Cupscale.Main
             this.interpRbtn = new System.Windows.Forms.RadioButton();
             this.singleModelRbtn = new System.Windows.Forms.RadioButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label24 = new System.Windows.Forms.Label();
-            this.batchCacheSplitDepth = new System.Windows.Forms.ComboBox();
             this.mainTableLayoutPanel.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -555,6 +555,35 @@ namespace Cupscale.Main
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(271, 691);
             this.panel12.TabIndex = 11;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.ForeColor = System.Drawing.Color.White;
+            this.label24.Location = new System.Drawing.Point(8, 167);
+            this.label24.Margin = new System.Windows.Forms.Padding(8, 8, 8, 2);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(175, 15);
+            this.label24.TabIndex = 21;
+            this.label24.Text = "Auto-Tiling Mode: (CUDA Only)";
+            // 
+            // batchCacheSplitDepth
+            // 
+            this.batchCacheSplitDepth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.batchCacheSplitDepth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.batchCacheSplitDepth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.batchCacheSplitDepth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.batchCacheSplitDepth.ForeColor = System.Drawing.Color.White;
+            this.batchCacheSplitDepth.FormattingEnabled = true;
+            this.batchCacheSplitDepth.Items.AddRange(new object[] {
+            "Check Tile Size For Each Image",
+            "Cache Tile Size (If all images are the same size)"});
+            this.batchCacheSplitDepth.Location = new System.Drawing.Point(8, 186);
+            this.batchCacheSplitDepth.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.batchCacheSplitDepth.Name = "batchCacheSplitDepth";
+            this.batchCacheSplitDepth.Size = new System.Drawing.Size(255, 23);
+            this.batchCacheSplitDepth.TabIndex = 20;
             // 
             // tableLayoutPanel10
             // 
@@ -1000,7 +1029,7 @@ namespace Cupscale.Main
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(364, 34);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Cupscale [Build 34 - 01/17/21]";
+            this.label5.Text = "Cupscale 1.35.0 - 01/21/21";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel7
@@ -2432,35 +2461,6 @@ namespace Cupscale.Main
             this.singleModelRbtn.Text = "Use Single Model";
             this.singleModelRbtn.UseVisualStyleBackColor = true;
             this.singleModelRbtn.CheckedChanged += new System.EventHandler(this.singleModelRbtn_CheckedChanged);
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.ForeColor = System.Drawing.Color.White;
-            this.label24.Location = new System.Drawing.Point(8, 167);
-            this.label24.Margin = new System.Windows.Forms.Padding(8, 8, 8, 2);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(104, 15);
-            this.label24.TabIndex = 21;
-            this.label24.Text = "Auto-Tiling Mode:";
-            // 
-            // batchCacheSplitDepth
-            // 
-            this.batchCacheSplitDepth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.batchCacheSplitDepth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.batchCacheSplitDepth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.batchCacheSplitDepth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.batchCacheSplitDepth.ForeColor = System.Drawing.Color.White;
-            this.batchCacheSplitDepth.FormattingEnabled = true;
-            this.batchCacheSplitDepth.Items.AddRange(new object[] {
-            "Check Tile Size For Each Image",
-            "Cache Tile Size (If all images are the same size)"});
-            this.batchCacheSplitDepth.Location = new System.Drawing.Point(8, 186);
-            this.batchCacheSplitDepth.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
-            this.batchCacheSplitDepth.Name = "batchCacheSplitDepth";
-            this.batchCacheSplitDepth.Size = new System.Drawing.Size(255, 23);
-            this.batchCacheSplitDepth.TabIndex = 20;
             // 
             // MainForm
             // 
