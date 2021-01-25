@@ -39,7 +39,7 @@ namespace Cupscale.Forms
             }
             DirectoryInfo modelsDir = new DirectoryInfo(modelDir);
             BuildTree(modelsDir, modelTree.Nodes);
-            if (Config.GetBool("modelSelectAutoExpand", true))
+            if (Config.GetBool("modelSelectAutoExpand"))
                 modelTree.ExpandAll();
             else
                 modelTree.Nodes[0].Expand();

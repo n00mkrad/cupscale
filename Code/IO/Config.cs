@@ -68,7 +68,15 @@ namespace Cupscale
 
         public static bool GetBool(string key)
         {
-            return bool.Parse(Get(key));
+            try
+            {
+                return bool.Parse(Get(key));
+            }
+            catch (Exception e)
+            {
+                Logger.Log($"Failed to parse value of key '{key}' ('{Get(key)}') to bool: {e.Message} - Default to False");
+                return false;
+            }
         }
 
         public static bool GetBool(string key, bool defaultVal)
@@ -90,10 +98,12 @@ namespace Cupscale
 
         static void WriteIfDoesntExist(string key, string val)
         {
+            Logger.Log("WriteIfDoesntExist: " + key + " - " + val);
             foreach (string line in cachedLines)
                 if (line.Contains(key + "|"))
                     return;
             Set(key, val);
+            Logger.Log("WriteIfDoesntExist: Set()");
         }
 
         public enum Type { String, Int, Float, Bool }
@@ -125,6 +135,7 @@ namespace Cupscale
             if (key == "useMozJpeg") return WriteDefault(key, "True");
             if (key == "comparisonUseScaling") return WriteDefault(key, "0");
             if (key == "joeyAlphaMode") return WriteDefault(key, "1");
+            if (key == "modelSelectAutoExpand") return WriteDefault(key, "True");
             // Video
             if (key == "h265") return WriteDefault(key, "False");
             if (key == "crf") return WriteDefault(key, "18");
@@ -185,7 +196,7 @@ namespace Cupscale
 
         public static void LoadGuiElement(CheckBox checkbox)
         {
-            checkbox.Checked = bool.Parse(Get(checkbox.Name));
+            checkbox.Checked = GetBool(checkbox.Name);
         }
 
         public static void LoadComboxIndex(ComboBox comboBox)
