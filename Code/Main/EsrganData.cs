@@ -12,9 +12,9 @@ namespace Cupscale
 
 		public static void CheckModelDir()
 		{
-			if (Config.Get("modelPath") == null)
+			if (string.IsNullOrWhiteSpace(Config.Get("modelPath")))
 			{
-				Program.ShowMessage("Please set a model path in the settings.", "Notice");
+				Program.ShowMessage("Please set a model path in the settings.\nPoint it to the folder where you save your .pth model files.", "Notice");
 				new SettingsForm().ShowDialog();
 			}
 			else if (!Directory.Exists(Config.Get("modelPath")))

@@ -142,6 +142,7 @@ namespace Cupscale
             if (key == "gifskiQ") return WriteDefault(key, "100");
             if (key == "vidEnableAudio") return WriteDefault(key, "True");
 
+            if (type == Type.String) return WriteDefault(key, "");     // Write default string (empty)
             if (type == Type.Int || type == Type.Float) return WriteDefault(key, "0");     // Write default int/float (0)
             if (type == Type.Bool) return WriteDefault(key, "False");     // Write default bool (False)
             return WriteDefault(key, "0");
