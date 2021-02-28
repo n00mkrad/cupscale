@@ -68,7 +68,7 @@ namespace Cupscale.UI
                 return;
             }
 
-            if (!IOUtils.HasEnoughDiskSpace(IOUtils.GetAppDataDir(), 10.0f))
+            if (!IOUtils.HasEnoughDiskSpace(Paths.imgInPath, 3.0f))
             {
                 Program.ShowMessage($"Not enough disk space on {IOUtils.GetAppDataDir().Substring(0, 3)} to store temporary files!", "Error");
                 return;

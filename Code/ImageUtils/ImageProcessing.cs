@@ -1,7 +1,5 @@
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
-using System.Security.AccessControl;
 using System.Threading.Tasks;
 using Cupscale.Cupscale;
 using Cupscale.ImageUtils;
@@ -10,7 +8,6 @@ using Cupscale.Main;
 using Cupscale.Properties;
 using Cupscale.UI;
 using ImageMagick;
-using ImageMagick.Formats.Dds;
 using Paths = Cupscale.IO.Paths;
 
 namespace Cupscale

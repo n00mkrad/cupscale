@@ -36,15 +36,15 @@
     <PackageReference Include="CyotekImageBox" Version="1.2.1" />
     <PackageReference Include="CyotekTabList" Version="2.0.0" />
     <PackageReference Include="DdsFileTypePlusHack" Version="1.0.4" />
-    <PackageReference Include="Fody" Version="6.2.6">
+    <PackageReference Include="Fody" Version="6.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="HTAlt.WinForms" Version="0.1.6" />
-    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.22.0" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.23.1" />
     <PackageReference Include="MozJpegSharp" Version="1.0.27" />
-    <PackageReference Include="NvAPIWrapper.Net" Version="0.8.0.98" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.1" />
+    <PackageReference Include="NvAPIWrapper.Net" Version="0.8.1.101" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Magick.NET-Q16-AnyCPU" />
