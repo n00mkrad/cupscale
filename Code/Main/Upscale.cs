@@ -124,22 +124,33 @@ namespace Cupscale.Main
 
             path = newPath;
 
-            if (outputFormat.Text == ImgExportMode.PNG.ToStringTitleCase())
+            if (Program.lastUpscaleIsVideo || outputFormat.Text == ImgExportMode.PNG.ToStringTitleCase())
+            {
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Png50, dontResize);
+                return;
+            }
+                
             if (outputFormat.Text == ImgExportMode.SameAsSource.ToStringTitleCase())
                 await ImageProcessing.ConvertImageToOriginalFormat(path, true, false, dontResize);
+
             if (outputFormat.Text == ImgExportMode.JPEG.ToStringTitleCase())
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Jpeg, dontResize);
+
             if (outputFormat.Text == ImgExportMode.WEBP.ToStringTitleCase())
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.Weppy, dontResize);
+
             if (outputFormat.Text == ImgExportMode.BMP.ToStringTitleCase())
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.BMP, dontResize);
+
             if (outputFormat.Text == ImgExportMode.TGA.ToStringTitleCase())
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.TGA, dontResize);
+
             if (outputFormat.Text == ImgExportMode.DDS.ToStringTitleCase())
                 await ImageProcessing.PostProcessDDS(path);
+
             if (outputFormat.Text == ImgExportMode.GIF.ToStringTitleCase())
                 await ImageProcessing.PostProcessImage(path, ImageProcessing.Format.GIF, dontResize);
+
         }
 
         public static string FilenamePostprocess(string file)

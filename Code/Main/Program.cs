@@ -33,6 +33,7 @@ namespace Cupscale
         public static List<Form> currentTemporaryForms = new List<Form>();  // Temp forms that get closed when something gets cancelled
         public static List<MsgBox> openMessageBoxes = new List<MsgBox>();  // Temp forms that get closed when something gets cancelled
 
+        public static bool lastUpscaleIsVideo;
         public static Process currentEsrganProcess;
         public static bool cancelled = false;
 

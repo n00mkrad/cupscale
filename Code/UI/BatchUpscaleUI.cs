@@ -155,16 +155,19 @@ namespace Cupscale.UI
                 Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
                 return;
             }
+
             if (string.IsNullOrWhiteSpace(currentInDir) && (currentInFiles == null || currentInFiles.Length < 1))
             {
                 Program.ShowMessage("No directory or files loaded.", "Error");
                 return;
             }
-            if (!IOUtils.HasEnoughDiskSpace(8192, imgOutDir.Substring(0, 2), 2.0f))
+
+            if (!IOUtils.HasEnoughDiskSpace((int)(IOUtils.GetDirSize(Paths.imgInPath) / 1024 / 1024), imgOutDir.Substring(0, 2), 2.0f) )
             {
                 Program.ShowMessage($"Not enough disk space on {IOUtils.GetAppDataDir().Substring(0, 3)} to store temporary files!", "Error");
                 return;
             }
+
             Upscale.currentMode = Upscale.UpscaleMode.Batch;
             Program.mainForm.SetBusy(true);
             Program.mainForm.SetProgress(2f, "Loading images...");
@@ -172,10 +175,12 @@ namespace Cupscale.UI
             Directory.CreateDirectory(imgOutDir);
             await CopyCompatibleImagesToTemp();
             Program.mainForm.SetProgress(3f, "Pre-Processing...");
+
             if (preprocess)
                 await ImageProcessing.PreProcessImages(Paths.imgInPath, !bool.Parse(Config.Get("alpha")));
             else
                 IOUtils.AppendToFilenames(Paths.imgInPath, ".png");
+
             ModelData mdl = Upscale.GetModelData();
             GetProgress(Paths.imgOutPath, IOUtils.GetAmountOfFiles(Paths.imgInPath, true));
 
@@ -187,16 +192,19 @@ namespace Cupscale.UI
             if (useCpu) backend = ESRGAN.Backend.CPU;
             if (useNcnn) backend = ESRGAN.Backend.NCNN;
             tasks.Add(ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, cacheSplitDepth, bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, backend, false));
+            
             if (postProcess)
             {
                 tasks.Add(PostProcessingQueue.Update());
                 tasks.Add(PostProcessingQueue.ProcessQueue());
             }
+
             sw.Restart();
             await Task.WhenAll(tasks);
 
             if(!Program.cancelled)
                 Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0")}s");
+
             Program.mainForm.SetBusy(false);
         }
 

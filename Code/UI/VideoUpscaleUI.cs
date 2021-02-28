@@ -42,6 +42,7 @@ namespace Cupscale.UI
                 Program.ShowMessage("Not a supported video file!");
                 return;
             }
+
             currentInPath = path.Trim();
             currentParentDir = path.Trim().GetParentDir();
             outDir.Text = currentParentDir;
@@ -52,8 +53,10 @@ namespace Cupscale.UI
         public static void TabSelected()
         {
             Program.mainForm.SetButtonText("Upscale Video");
+
             if (string.IsNullOrWhiteSpace(currentInPath))
                 return;
+
             titleLabel.Text = "Loaded " + currentInPath.Wrap();
         }
 
@@ -65,12 +68,6 @@ namespace Cupscale.UI
             if (string.IsNullOrWhiteSpace(currentInPath) || !File.Exists(currentInPath))
             {
                 Program.ShowMessage("No valid file loaded.", "Error");
-                return;
-            }
-
-            if (!IOUtils.HasEnoughDiskSpace(Paths.imgInPath, 3.0f))
-            {
-                Program.ShowMessage($"Not enough disk space on {IOUtils.GetAppDataDir().Substring(0, 3)} to store temporary files!", "Error");
                 return;
             }
 

@@ -57,21 +57,25 @@ namespace Cupscale.UI
                 Program.ShowMessage("Please load an image first!", "Error");
                 return;
             }
+
             Program.mainForm.SetBusy(true);
             IOUtils.ClearDir(Paths.imgInPath);
             IOUtils.ClearDir(Paths.imgOutPath);
             Program.mainForm.SetProgress(3f, "Preprocessing...");
             string inImg = CopyImage();
+
             if (inImg == null)  // Try to copy/move image to input folder, return if failed
             {
                 Cancel("I/O Error");
                 return;
             }
+
             Upscale.currentMode = Upscale.UpscaleMode.Single;
             await ImageProcessing.PreProcessImage(inImg, !Config.GetBool("alpha"));
             ModelData mdl = Upscale.GetModelData();
             string outImg = null;
             sw.Restart();
+
             try
             {
                 bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
@@ -99,8 +103,10 @@ namespace Cupscale.UI
                     Program.ShowMessage("The upscale process seems to have exited before completion!", "Error");
                 Logger.ErrorMessage("An error occured during upscaling:", e);
             }
+
             if (!Program.cancelled)
                 Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0.0")}s");
+
             Program.mainForm.SetBusy(false);
         }
 

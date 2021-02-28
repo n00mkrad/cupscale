@@ -379,6 +379,8 @@ namespace Cupscale.Main
 				ReloadImage();
 
 			UpdateResizeMode();
+			Program.lastUpscaleIsVideo = htTabControl.SelectedIndex == 2;
+
 			if (htTabControl.SelectedIndex == 0) await PreviewUI.UpscaleImage();
 			if (htTabControl.SelectedIndex == 1) await BatchUpscaleUI.Run(preprocessMode.SelectedIndex == 0, true, batchCacheSplitDepth.SelectedIndex == 1);
 			if (htTabControl.SelectedIndex == 2) await VideoUpscaleUI.Run(videoPreprocessMode.SelectedIndex == 0);

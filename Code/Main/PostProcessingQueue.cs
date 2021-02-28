@@ -48,7 +48,6 @@ namespace Cupscale.Cupscale
             {
                 CheckNcnnOutput();
                 string[] outFiles = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories);
-                //Logger.Log("[Queue] Update() - " + outFiles.Length + " files in out folder");
                 foreach (string file in outFiles)
                 {
                     if (!outputFileQueue.Contains(file) && !processedFiles.Contains(file) && !outputFiles.Contains(file))
@@ -68,6 +67,7 @@ namespace Cupscale.Cupscale
                 return true;
             if (IOUtils.GetAmountOfFiles(Paths.imgOutNcnnPath, true) > 0)
                 return true;
+
             return false;
         }
 
@@ -76,6 +76,7 @@ namespace Cupscale.Cupscale
         public static async Task ProcessQueue ()
         {
             Stopwatch sw = new Stopwatch();
+
             while (run || AnyFilesLeft())
             {
                 if (outputFileQueue.Count > 0)
@@ -84,11 +85,13 @@ namespace Cupscale.Cupscale
                     Logger.Log("[Queue] Post-Processing " + Path.GetFileName(file));
                     sw.Restart();
                     await Upscale.PostprocessingSingle(file, false);
+
                     while (IOUtils.IsFileLocked(lastOutfile))
                     {
                         Logger.Log($"{file} appears to be locked - waiting 500ms...");
                         await Task.Delay(500);
                     }
+
                     string outFilename = Upscale.FilenamePostprocess(lastOutfile);
                     outputFiles.Add(outFilename);
                     Logger.Log("[Queue] Done Post-Processing " + Path.GetFileName(file) + " in " + sw.ElapsedMilliseconds + "ms");
@@ -98,6 +101,7 @@ namespace Cupscale.Cupscale
                         if (Upscale.overwriteMode == Upscale.Overwrite.Yes)
                         {
                             string suffixToRemove = "-" + Program.lastModelName.Replace(":", ".").Replace(">>", "+");
+
                             if (copyMode == CopyMode.KeepStructure)
                             {
                                 string combinedPath = currentOutPath + outFilename.Replace(Paths.imgOutPath, "");
@@ -108,6 +112,7 @@ namespace Cupscale.Cupscale
                             {
                                 File.Copy(outFilename, Path.Combine(currentOutPath, Path.GetFileName(outFilename).Replace(suffixToRemove, "")), true);
                             }
+
                             File.Delete(outFilename);
                         }
                         else
@@ -118,10 +123,12 @@ namespace Cupscale.Cupscale
                                 Directory.CreateDirectory(combinedPath.GetParentDir());
                                 File.Copy(outFilename, combinedPath, true);
                             }
+
                             if (copyMode == CopyMode.CopyToRoot)
                             {
                                 File.Copy(outFilename, Path.Combine(currentOutPath, Path.GetFileName(outFilename)), true);
                             }
+
                             File.Delete(outFilename);
                         }
                     }
@@ -132,6 +139,7 @@ namespace Cupscale.Cupscale
                     
                     BatchUpscaleUI.upscaledImages++;
                 }
+
                 await Task.Delay(200);
             }
         }
