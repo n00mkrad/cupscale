@@ -60,7 +60,7 @@ namespace Cupscale.Main
 			UIHelpers.InitCombox(videoPreprocessMode, 1);
 
 			await CheckInstallation();
-			EmbeddedPython.Init();
+			await EmbeddedPython.Init();
 
 			EsrganData.CheckModelDir();
 			EsrganData.ReloadModelList();

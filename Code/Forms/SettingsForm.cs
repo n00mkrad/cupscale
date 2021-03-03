@@ -73,7 +73,7 @@ namespace Cupscale.Forms
         {
             await Task.Delay(100);
             SaveSettings();
-            EmbeddedPython.Init();
+            await EmbeddedPython.Init();
             Program.mainForm.LoadEsrganOptions();
             if(Config.GetInt("pythonRuntime") == 1 && !File.Exists(EmbeddedPython.GetEmbedPyPath()))
             {

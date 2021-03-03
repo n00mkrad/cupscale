@@ -31,7 +31,7 @@ namespace Cupscale.OS
 				await RunConverter(modelPath);
 				string moveFrom = Path.Combine(Config.Get("esrganPath"), Path.ChangeExtension(modelName, null));
 				Logger.Log("Moving " + moveFrom + " to " + outPath);
-				IOUtils.Copy(moveFrom, outPath, "*", true);
+				await IOUtils.CopyDir(moveFrom, outPath, "*", true);
 				Directory.Delete(moveFrom, true);
 				dialog.Close();
 			}

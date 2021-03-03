@@ -38,12 +38,12 @@ namespace Cupscale.OS
             return Config.GetInt("pythonRuntime") == 1;
         }
 
-        public static void Init()
+        public static async Task Init()
         {
             if (!IsEnabled()) return;
             string shippedPath = Installer.path;
             IOUtils.TryDeleteIfExists(Path.Combine(shippedPath, "py", "utils"));
-            IOUtils.Copy(Path.Combine(shippedPath, "utils"), Path.Combine(shippedPath, "py", "utils"));
+            await IOUtils.CopyDir(Path.Combine(shippedPath, "utils"), Path.Combine(shippedPath, "py", "utils"));
             File.Copy(Path.Combine(shippedPath, "esrlupscale.py"), Path.Combine(shippedPath, "py", "esrlupscale.py"), true);
             File.Copy(Path.Combine(shippedPath, "esrlmodel.py"), Path.Combine(shippedPath, "py", "esrlmodel.py"), true);
             File.Copy(Path.Combine(shippedPath, "esrlrrdbnet.py"), Path.Combine(shippedPath, "py", "esrlrrdbnet.py"), true);
@@ -110,7 +110,7 @@ namespace Cupscale.OS
             RunCompact();
             Print("Done!");
             Config.Set("pythonRuntime", "1");
-            Init();
+            await Init();
             MsgBox msg2 = Program.ShowMessage("Installed embedded Python runtime and enabled it!\nIf you want to disable it, you can do so in the settings.", "Message");
             while (DialogQueue.IsOpen(msg2)) await Task.Delay(50);
             runBtn.Enabled = true;

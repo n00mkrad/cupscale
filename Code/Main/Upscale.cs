@@ -25,7 +25,7 @@ namespace Cupscale.Main
         public static Overwrite overwriteMode = Overwrite.No;
 
     public static async Task CopyImagesTo(string path)
-        {
+    {
             Program.lastOutputDir = path;
             Program.mainForm.AfterFirstUpscale();
             if (overwriteMode == Overwrite.Yes)
@@ -37,7 +37,7 @@ namespace Cupscale.Main
             {
                 Logger.Log("Overwrite is off - keeping suffix.");
             }
-            IOUtils.Copy(Paths.imgOutPath, path);
+            await IOUtils.CopyDir(Paths.imgOutPath, path);
             await Task.Delay(1);
             IOUtils.ClearDir(Paths.imgInPath);
             IOUtils.ClearDir(Paths.imgOutPath);

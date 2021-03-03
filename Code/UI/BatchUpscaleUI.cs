@@ -232,23 +232,18 @@ namespace Cupscale.UI
         static async Task CopyCompatibleImagesToTemp(bool move = false)
         {
             IOUtils.ClearDir(Paths.imgOutPath);
-
             Logger.Log("currentInDir: " + currentInDir + ", imgInPath: " + Paths.imgInPath);
+
             if (currentInDir == Paths.imgInPath)    // Skip if we are directly upscaling the img-in folder
                 return;
 
-            Logger.Log("Clearing imgInPath");
-
+            Logger.Log($"Clearing '{Paths.imgInPath}'");
             IOUtils.ClearDir(Paths.imgInPath);
+
             if (multiImgMode)
-            {
                 await CopyImages(currentInFiles);
-            }
             else
-            {
-                string[] files = IOUtils.GetCompatibleFiles(currentInDir, true);
-                await CopyImages(files, files.Length);
-            }
+                await IOUtils.CopyDir(currentInDir, Paths.imgInPath, "*", false, true);
         }
     }
 }

@@ -4,12 +4,14 @@ using ImageMagick;
 using PaintDotNet;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Cupscale
@@ -106,25 +108,36 @@ namespace Cupscale
             return true;
         }
 
-        public static void Copy(string sourceDir, string targetDir, string wildcard = "*", bool move = false, bool onlyCompatibles = false, string removeFromName = "")
+        public static async Task CopyDir(string sourceDir, string targetDir, string wildcard = "*", bool move = false, bool onlyCompatibles = false, string removeFromName = "")
         {
             Logger.Log("[IOUtils] Copying directory \"" + sourceDir + "\" to \"" + targetDir + "\" (Move: " + move + " - RemoveFromName: " + removeFromName + ")");
             Directory.CreateDirectory(targetDir);
             DirectoryInfo source = new DirectoryInfo(sourceDir);
             DirectoryInfo target = new DirectoryInfo(targetDir);
-            CopyWork(source, target, wildcard, move, onlyCompatibles, removeFromName);
+            Stopwatch sw = new Stopwatch();
+            sw.Restart();
+            await CopyWork(source, target, wildcard, move, onlyCompatibles, removeFromName, sw);
         }
 
-        private static void CopyWork(DirectoryInfo source, DirectoryInfo target, string wildcard, bool move, bool onlyCompatibles, string removeFromName)
+        private static async Task CopyWork(DirectoryInfo source, DirectoryInfo target, string wildcard, bool move, bool onlyCompatibles, string removeFromName, Stopwatch sw)
         {
             DirectoryInfo[] directories = source.GetDirectories();
+
             foreach (DirectoryInfo directoryInfo in directories)
-            {
-                CopyWork(directoryInfo, target.CreateSubdirectory(directoryInfo.Name), wildcard, move, onlyCompatibles, removeFromName);
-            }
+                await CopyWork(directoryInfo, target.CreateSubdirectory(directoryInfo.Name), wildcard, move, onlyCompatibles, removeFromName, sw);
+
             FileInfo[] files = source.GetFiles(wildcard);
+
             foreach (FileInfo fileInfo in files)
             {
+                if (sw.ElapsedMilliseconds > 100)
+                {
+                    await Task.Delay(1);
+                    sw.Restart();
+                }
+
+                Logger.Log("Checking if compatibleExtensions contains " + fileInfo.Extension.ToLower() + ": " + compatibleExtensions.Contains(fileInfo.Extension.ToLower()));
+
                 if (onlyCompatibles && !compatibleExtensions.Contains(fileInfo.Extension.ToLower()))
                     continue;
 
