@@ -123,6 +123,16 @@ namespace Cupscale.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap discordIcoColored {
+            get {
+                object obj = ResourceManager.GetObject("discordIcoColored", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap interp {
             get {
                 object obj = ResourceManager.GetObject("interp", resourceCulture);
@@ -182,17 +192,18 @@ namespace Cupscale.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 13	# new h265 supporting ffmpeg exe
+        ///   Looks up a localized string similar to 18	# fp16 support, removed esrgan-launcher
+        ///17	# no idea what changed but git said esrgan.7z changed
+        ///16	# fixed img writing again
+        ///15	# fixed img writing for joey&apos;s esrgan
+        ///14	# joey&apos;s esrgan update, auto-tiling
+        ///13	# new h265 supporting ffmpeg exe
         ///12	# joey&apos;s esrgan update, fix chaining
         ///11	# added joey&apos;s esrgan to fix seams with esrl code
         ///10	# added interp py script
         ///9	# fixed esrl output path
         ///8	# updated scripts to not log filename for error handling
-        ///7	# updated joey&apos;s esrgan code to commit 6b58c546938e3563e5c0419e4d6468e78e3736d7
-        ///6	# fixed esrgan-launcher buffer writing
-        ///5	# updated esrgan scripts to write image buffer to tmp file
-        ///4	# updated esrgan scripts
-        ///3	# updated esrlmain.py to fix chaining problem        /// [rest of string was truncated]&quot;;.
+        ///7	# updated joey&apos;s esrgan code to commit 6b58c546 [rest of string was truncated]&quot;;.
         /// </summary>
         public static string shipped_files_version {
             get {

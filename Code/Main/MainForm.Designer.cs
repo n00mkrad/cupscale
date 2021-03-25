@@ -89,6 +89,7 @@ namespace Cupscale.Main
             this.panel6 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.discordBtn = new HTAlt.WinForms.HTButton();
             this.patreonBtn = new HTAlt.WinForms.HTButton();
             this.offlineInterpBtn = new HTAlt.WinForms.HTButton();
             this.htButton1 = new HTAlt.WinForms.HTButton();
@@ -1029,11 +1030,12 @@ namespace Cupscale.Main
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(364, 34);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Cupscale 1.35.1 - 01/21/21";
+            this.label5.Text = "Cupscale 1.36.0 - 03/25/21";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.discordBtn);
             this.panel7.Controls.Add(this.patreonBtn);
             this.panel7.Controls.Add(this.offlineInterpBtn);
             this.panel7.Controls.Add(this.htButton1);
@@ -1048,6 +1050,27 @@ namespace Cupscale.Main
             this.panel7.Size = new System.Drawing.Size(320, 40);
             this.panel7.TabIndex = 8;
             // 
+            // discordBtn
+            // 
+            this.discordBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.discordBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.discordBtn.ButtonImage = global::Cupscale.Properties.Resources.discordIcoColored;
+            this.discordBtn.DrawImage = true;
+            this.discordBtn.FlatAppearance.BorderSize = 0;
+            this.discordBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.discordBtn.ForeColor = System.Drawing.Color.White;
+            this.discordBtn.ImageIndex = 0;
+            this.discordBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
+            this.discordBtn.Location = new System.Drawing.Point(83, 6);
+            this.discordBtn.Name = "discordBtn";
+            this.discordBtn.Size = new System.Drawing.Size(34, 34);
+            this.discordBtn.TabIndex = 16;
+            this.discordBtn.Text = " ";
+            this.toolTip1.SetToolTip(this.discordBtn, "Chat on Discord");
+            this.discordBtn.UseVisualStyleBackColor = false;
+            this.discordBtn.Click += new System.EventHandler(this.discordBtn_Click);
+            // 
             // patreonBtn
             // 
             this.patreonBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -1060,12 +1083,12 @@ namespace Cupscale.Main
             this.patreonBtn.ForeColor = System.Drawing.Color.White;
             this.patreonBtn.ImageIndex = 0;
             this.patreonBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
-            this.patreonBtn.Location = new System.Drawing.Point(83, 6);
+            this.patreonBtn.Location = new System.Drawing.Point(43, 6);
             this.patreonBtn.Name = "patreonBtn";
             this.patreonBtn.Size = new System.Drawing.Size(34, 34);
             this.patreonBtn.TabIndex = 15;
             this.patreonBtn.Text = " ";
-            this.toolTip1.SetToolTip(this.patreonBtn, "Donate :)");
+            this.toolTip1.SetToolTip(this.patreonBtn, "Become a Patron");
             this.patreonBtn.UseVisualStyleBackColor = false;
             this.patreonBtn.Click += new System.EventHandler(this.patreonBtn_Click);
             // 
@@ -1123,12 +1146,12 @@ namespace Cupscale.Main
             this.paypalBtn.ForeColor = System.Drawing.Color.White;
             this.paypalBtn.ImageIndex = 0;
             this.paypalBtn.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Stretch;
-            this.paypalBtn.Location = new System.Drawing.Point(43, 6);
+            this.paypalBtn.Location = new System.Drawing.Point(3, 6);
             this.paypalBtn.Name = "paypalBtn";
             this.paypalBtn.Size = new System.Drawing.Size(34, 34);
             this.paypalBtn.TabIndex = 12;
             this.paypalBtn.Text = " ";
-            this.toolTip1.SetToolTip(this.paypalBtn, "Donate :)");
+            this.toolTip1.SetToolTip(this.paypalBtn, "Donate via PayPal");
             this.paypalBtn.UseVisualStyleBackColor = false;
             this.paypalBtn.Click += new System.EventHandler(this.paypalBtn_Click);
             // 
@@ -2686,5 +2709,6 @@ namespace Cupscale.Main
         private HTAlt.WinForms.HTButton patreonBtn;
         private Label label24;
         private ComboBox batchCacheSplitDepth;
+        private HTAlt.WinForms.HTButton discordBtn;
     }
 }

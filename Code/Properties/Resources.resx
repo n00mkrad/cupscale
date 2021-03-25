@@ -117,11 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="seamlessTooltip" xml:space="preserve">
-    <value>Use "Tile" or "Mirror" for seamless/tiled textures.
-"Extend" will stretch the last pixel row on each side to avoid seams on the borders of the image.
-"Alpha" will surround the image with transparency to avoid pixels being squashed to the border of the image.</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="questmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\questmark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2478,17 +2473,25 @@
         AAAAAAAA
 </value>
   </data>
-  <data name="testStr" xml:space="preserve">
-    <value>This is a relatively long test string!\nIt even has a a second line. Hope this works.</value>
+  <data name="seamlessTooltip" xml:space="preserve">
+    <value>Use "Tile" or "Mirror" for seamless/tiled textures.
+"Extend" will stretch the last pixel row on each side to avoid seams on the borders of the image.
+"Alpha" will surround the image with transparency to avoid pixels being squashed to the border of the image.</value>
   </data>
   <data name="shipped_files_version" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\shipped-files-version.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="patreon256pxColored" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\patreon256pxColored.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="interp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\interp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="modelCompare" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\modelCompare.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="testStr" xml:space="preserve">
+    <value>This is a relatively long test string!\nIt even has a a second line. Hope this works.</value>
   </data>
   <data name="baseline_refresh_white_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\baseline_refresh_white_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2499,7 +2502,7 @@
   <data name="baseline_photo_library_white_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\baseline_photo_library_white_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="patreon256pxColored" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\patreon256pxColored.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="discordIcoColored" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\discordIcoColored.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

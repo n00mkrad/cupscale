@@ -21,6 +21,7 @@ namespace Cupscale.IO
 			exeFilesVersion = new StringReader(Resources.shipped_files_version).ReadLine().Split('#')[0].GetInt();
 			Logger.Log($"[Installer] Initializing - Exe Files Version is {exeFilesVersion}.");
 			path = Paths.esrganPath;
+
 			if (!InstallationIsValid())
 				await Install();
 			else

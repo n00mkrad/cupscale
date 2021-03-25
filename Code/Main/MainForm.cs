@@ -563,11 +563,6 @@ namespace Cupscale.Main
 				batchOutDir.Text = folderDialog.FileName;
 		}
 
-        private void paypalBtn_Click(object sender, EventArgs e)
-        {
-			Process.Start("https://www.paypal.com/paypalme/nmkd/10");
-		}
-
         private void htButton1_Click(object sender, EventArgs e)
         {
 			new DependencyCheckerForm().ShowDialog();
@@ -736,9 +731,19 @@ namespace Cupscale.Main
 			Program.KillEsrgan();
         }
 
-        private void patreonBtn_Click(object sender, EventArgs e)
+        private void paypalBtn_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.paypal.com/paypalme/nmkd/10");
+        }
+
+		private void patreonBtn_Click(object sender, EventArgs e)
         {
 			Process.Start("https://patreon.com/n00mkrad");
+		}
+
+        private void discordBtn_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://discord.gg/eJHD2NSJRe");
 		}
     }
 }
