@@ -45,6 +45,7 @@ namespace Cupscale.Forms
             Config.LoadGuiElement(alphaBgColor);
             Config.LoadGuiElement(jpegExtension);
             Config.LoadComboxIndex(cudaFallback);
+            Config.LoadGuiElement(useFp16);
             Config.LoadGuiElement(gpuId);
             Config.LoadComboxIndex(previewFormat);
             Config.LoadGuiElement(reloadImageBeforeUpscale);
@@ -96,6 +97,7 @@ namespace Cupscale.Forms
             Config.SaveGuiElement(alphaBgColor);
             Config.SaveGuiElement(jpegExtension);
             Config.SaveComboxIndex(cudaFallback);
+            Config.SaveGuiElement(useFp16);
             Config.SaveGuiElement(gpuId);
             Config.SaveComboxIndex(previewFormat);
             Config.SaveGuiElement(reloadImageBeforeUpscale);

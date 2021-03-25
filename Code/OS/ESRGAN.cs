@@ -7,6 +7,7 @@ using Upscale = Cupscale.Main.Upscale;
 using Cupscale.UI;
 using ImageMagick;
 using System;
+using System.CodeDom;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -38,7 +39,7 @@ namespace Cupscale.OS
                     Program.mainForm.SetProgress(2f, "Starting ESRGAN...");
                     File.Delete(Paths.progressLogfile);
                     string modelArg = GetModelArg(mdl);
-                    await RunJoey(inpath, outpath, modelArg, cacheSplitDepth, alpha, showTileProgress);
+                    await Run(inpath, outpath, modelArg, cacheSplitDepth, alpha, showTileProgress);
                 }
 
                 if (mode == PreviewMode.Cutout)
@@ -132,60 +133,7 @@ namespace Cupscale.OS
             return null;
         }
 
-        public static async Task Run(string inpath, string outpath, string modelArg, string tilesize, bool alpha, bool showTileProgress)
-        {
-            bool showWindow = Config.GetInt("cmdDebugMode") > 0;
-            bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
-
-            inpath = inpath.Wrap(true, true);
-            outpath = outpath.Wrap(true, true);
-
-            string alphaStr = " --noalpha";
-            if (alpha) alphaStr = "";
-
-            string deviceStr = " --device cuda";
-            if (Config.Get("cudaFallback").GetInt() == 1 || Config.Get("cudaFallback").GetInt() == 2) deviceStr = " --device cpu";
-
-            string opt = stayOpen ? "/K" : "/C";
-
-            string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
-            cmd += $"{EmbeddedPython.GetPyCmd()} esrlmain.py {inpath}{outpath}{deviceStr} --tilesize {tilesize}{alphaStr}{modelArg}";
-            Logger.Log("[CMD] " + cmd);
-            Process esrganProcess = new Process();
-            esrganProcess.StartInfo.UseShellExecute = showWindow;
-            esrganProcess.StartInfo.RedirectStandardOutput = !showWindow;
-            esrganProcess.StartInfo.RedirectStandardError = !showWindow;
-            esrganProcess.StartInfo.CreateNoWindow = !showWindow;
-            esrganProcess.StartInfo.FileName = "cmd.exe";
-            esrganProcess.StartInfo.Arguments = cmd;
-            if (!showWindow)
-            {
-                esrganProcess.OutputDataReceived += OutputHandler;
-                esrganProcess.ErrorDataReceived += OutputHandler;
-            }
-            Program.currentEsrganProcess = esrganProcess;
-            esrganProcess.Start();
-            if (!showWindow)
-            {
-                esrganProcess.BeginOutputReadLine();
-                esrganProcess.BeginErrorReadLine();
-            }
-            while (!esrganProcess.HasExited)
-            {
-                if (showTileProgress)
-                    await UpdateProgressFromFile();
-                await Task.Delay(50);
-            }
-            if (Main.Upscale.currentMode == Main.Upscale.UpscaleMode.Batch)
-            {
-                await Task.Delay(1000);
-                Program.mainForm.SetProgress(100f, "Post-Processing...");
-                PostProcessingQueue.Stop();
-            }
-            File.Delete(Paths.progressLogfile);
-        }
-
-        public static async Task RunJoey(string inpath, string outpath, string modelArg, bool cacheSplitDepth, bool alpha, bool showTileProgress)
+        public static async Task Run(string inpath, string outpath, string modelArg, bool cacheSplitDepth, bool alpha, bool showTileProgress)
         {
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
@@ -212,12 +160,14 @@ namespace Cupscale.OS
                 case 4: seam += "alpha_pad"; break;
             }
 
+            string fp16 = Config.GetBool("useFp16") ? "--fp16" : "";
+
             string cache = cacheSplitDepth ? "--cache_max_split_depth" : "";
 
             string opt = stayOpen ? "/K" : "/C";
 
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
-            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {cache} {cpu} {device} {seam} {alphaMode} {alphaDepth} {modelArg}";
+            cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {cache} {cpu} {device} {fp16} {seam} {alphaMode} {alphaDepth} {modelArg}";
 
             Logger.Log("[CMD] " + cmd);
             Process esrganProcess = OSUtils.NewProcess(!showWindow);

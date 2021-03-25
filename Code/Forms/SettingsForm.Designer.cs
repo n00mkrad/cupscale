@@ -53,6 +53,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.modelSelectAutoExpand = new System.Windows.Forms.CheckBox();
+            this.label35 = new System.Windows.Forms.Label();
             this.comparisonUseScaling = new System.Windows.Forms.ComboBox();
             this.label31 = new System.Windows.Forms.Label();
             this.reloadImageBeforeUpscale = new System.Windows.Forms.CheckBox();
@@ -141,8 +143,8 @@
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.modelSelectAutoExpand = new System.Windows.Forms.CheckBox();
-            this.label35 = new System.Windows.Forms.Label();
+            this.useFp16 = new System.Windows.Forms.CheckBox();
+            this.label36 = new System.Windows.Forms.Label();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -223,7 +225,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.useFp16);
             this.panel7.Controls.Add(this.pictureBox14);
+            this.panel7.Controls.Add(this.label36);
             this.panel7.Controls.Add(this.gpuId);
             this.panel7.Controls.Add(this.label16);
             this.panel7.Controls.Add(this.pictureBox2);
@@ -500,6 +504,24 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(455, 463);
             this.panel6.TabIndex = 3;
+            // 
+            // modelSelectAutoExpand
+            // 
+            this.modelSelectAutoExpand.AutoSize = true;
+            this.modelSelectAutoExpand.Location = new System.Drawing.Point(220, 260);
+            this.modelSelectAutoExpand.Name = "modelSelectAutoExpand";
+            this.modelSelectAutoExpand.Size = new System.Drawing.Size(15, 14);
+            this.modelSelectAutoExpand.TabIndex = 24;
+            this.modelSelectAutoExpand.UseVisualStyleBackColor = true;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(6, 260);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(172, 13);
+            this.label35.TabIndex = 23;
+            this.label35.Text = "Auto-Expand Model Selection Tree";
             // 
             // comparisonUseScaling
             // 
@@ -1506,23 +1528,23 @@
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
             // 
-            // modelSelectAutoExpand
+            // useFp16
             // 
-            this.modelSelectAutoExpand.AutoSize = true;
-            this.modelSelectAutoExpand.Location = new System.Drawing.Point(220, 260);
-            this.modelSelectAutoExpand.Name = "modelSelectAutoExpand";
-            this.modelSelectAutoExpand.Size = new System.Drawing.Size(15, 14);
-            this.modelSelectAutoExpand.TabIndex = 24;
-            this.modelSelectAutoExpand.UseVisualStyleBackColor = true;
+            this.useFp16.AutoSize = true;
+            this.useFp16.Location = new System.Drawing.Point(220, 254);
+            this.useFp16.Name = "useFp16";
+            this.useFp16.Size = new System.Drawing.Size(15, 14);
+            this.useFp16.TabIndex = 26;
+            this.useFp16.UseVisualStyleBackColor = true;
             // 
-            // label35
+            // label36
             // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(6, 260);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(172, 13);
-            this.label35.TabIndex = 23;
-            this.label35.Text = "Auto-Expand Model Selection Tree";
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(6, 254);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(185, 13);
+            this.label36.TabIndex = 25;
+            this.label36.Text = "RTX Fast Mode (FP16) - Experimental";
             // 
             // SettingsForm
             // 
@@ -1701,5 +1723,7 @@
         private System.Windows.Forms.PictureBox pictureBox14;
         private System.Windows.Forms.CheckBox modelSelectAutoExpand;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.CheckBox useFp16;
+        private System.Windows.Forms.Label label36;
     }
 }
