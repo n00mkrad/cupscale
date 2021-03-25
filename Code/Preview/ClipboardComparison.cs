@@ -14,6 +14,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Paths = Cupscale.IO.Paths;
 
 namespace Cupscale
 {
@@ -249,7 +250,7 @@ namespace Cupscale
 
             DialogForm dialogForm = new DialogForm("Creating comparison " + ext.ToUpper() + "...");
 
-            string tempPath = Path.Combine(IOUtils.GetAppDataDir(), "giftemp");
+            string tempPath = Path.Combine(Paths.GetDataPath(), "giftemp");
             string framesPath = Path.Combine(tempPath, "frames");
             IOUtils.ClearDir(tempPath);
             Directory.CreateDirectory(framesPath);

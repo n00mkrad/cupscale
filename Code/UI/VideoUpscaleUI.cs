@@ -87,7 +87,7 @@ namespace Cupscale.UI
             Print("Creating video from frames...");
             await CreateVideo();
             Print("Done creating video.");
-            CopyBack(Path.Combine(IOUtils.GetAppDataDir(), "frames-out.mp4"));
+            CopyBack(Path.Combine(Paths.GetDataPath(), "frames-out.mp4"));
             Print("Adding audio from source to output video...");
             IOUtils.ClearDir(Paths.imgInPath);
             IOUtils.ClearDir(Paths.framesOutPath);
@@ -161,7 +161,7 @@ namespace Cupscale.UI
             {
                 DialogForm f = new DialogForm("Creating GIF from frames...\nThis can take a while for high-resolution GIFs.", 600);
                 await Task.Delay(10);
-                string outpath = Path.Combine(IOUtils.GetAppDataDir(), "frames-out.mp4").Wrap();
+                string outpath = Path.Combine(Paths.GetDataPath(), "frames-out.mp4").Wrap();
                 await FFmpeg.RunGifski($" -r {fps.RoundToInt()} -W 4096 -Q {Config.GetInt("gifskiQ")} -q -o {outpath} \"{Paths.framesOutPath}/\"*.\"png\"");
                 f.Close();
             }

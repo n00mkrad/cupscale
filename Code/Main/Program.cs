@@ -44,21 +44,21 @@ namespace Cupscale
         {
             try
             {
-                string lockfile = Path.Combine(IOUtils.GetAppDataDir(), "lockfile");
+                string lockfile = Path.Combine(Paths.GetDataPath(), "lockfile");
                 File.Create(lockfile).Dispose();
                 FileStream fs = File.Open(lockfile, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
             }
             catch
             {
                 MessageBox.Show("Another instance of Cupscale seems to be running, accessing the following data folder:\n"
-                    + IOUtils.GetAppDataDir() + ".\n\nMultiple instance are only possible if they use different data folders.\n"
+                    + Paths.GetDataPath() + ".\n\nMultiple instance are only possible if they use different data folders.\n"
                     + "Starting Cupscale with \"-portable\" will use the current directory as data folder.", "Error");
                 return;
             }
 
             Application.SetCompatibleTextRenderingDefault(defaultValue: false);
             Application.EnableVisualStyles();
-            IOUtils.DeleteIfExists(Path.Combine(IOUtils.GetAppDataDir(), "sessionlog.txt"));
+            IOUtils.DeleteIfExists(Path.Combine(Paths.GetDataPath(), "sessionlog.txt"));
             Config.Init();
             Logger.Init();
             Paths.Init();
@@ -100,11 +100,11 @@ namespace Cupscale
                 IOUtils.ClearDir(Paths.imgOutPath);
                 IOUtils.ClearDir(Paths.imgOutNcnnPath);
                 IOUtils.ClearDir(Paths.tempImgPath.GetParentDir());
-                IOUtils.ClearDir(Path.Combine(IOUtils.GetAppDataDir(), "giftemp"));
+                IOUtils.ClearDir(Path.Combine(Paths.GetDataPath(), "giftemp"));
                 IOUtils.DeleteIfExists(Path.Combine(Paths.presetsPath, "lastUsed"));
                 IOUtils.ClearDir(Paths.compositionOut);
                 IOUtils.ClearDir(Paths.framesOutPath);
-                IOUtils.DeleteIfExists(Path.Combine(IOUtils.GetAppDataDir(), "frames-out.mp4"));
+                IOUtils.DeleteIfExists(Path.Combine(Paths.GetDataPath(), "frames-out.mp4"));
             }
             catch (Exception e)
             {

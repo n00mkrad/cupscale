@@ -18,7 +18,7 @@ namespace Cupscale
 
         public static void Init()
         {
-            configPath = Path.Combine(IOUtils.GetAppDataDir(), "config.ini");
+            configPath = Path.Combine(Paths.GetDataPath(), "config.ini");
 
             if (!File.Exists(configPath))
                 File.Create(configPath).Close();

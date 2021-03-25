@@ -1,3 +1,4 @@
+using System;
 using Cupscale.UI;
 using System.IO;
 
@@ -21,17 +22,17 @@ namespace Cupscale.IO
 
 		public static void Init()
 		{
-			esrganPath = Path.Combine(IOUtils.GetAppDataDir(), "ShippedEsrgan");
-			previewPath = Path.Combine(IOUtils.GetAppDataDir(), "preview");
-			previewOutPath = Path.Combine(IOUtils.GetAppDataDir(), "preview-out");
-			imgInPath = Path.Combine(IOUtils.GetAppDataDir(), "img-in");
-			imgOutPath = Path.Combine(IOUtils.GetAppDataDir(), "img-out");
-			imgOutNcnnPath = Path.Combine(IOUtils.GetAppDataDir(), "img-out-ncnn");
-			tempImgPath = Path.Combine(IOUtils.GetAppDataDir(), "loaded-img", "temp.png");
-			clipboardFolderPath = Path.Combine(IOUtils.GetAppDataDir(), "clipboard");
-			presetsPath = Path.Combine(IOUtils.GetAppDataDir(), "model-presets");
-			compositionOut = Path.Combine(IOUtils.GetAppDataDir(), "composition");
-			framesOutPath = Path.Combine(IOUtils.GetAppDataDir(), "frames-out");
+			esrganPath = Path.Combine(GetDataPath(), "ShippedEsrgan");
+			previewPath = Path.Combine(GetDataPath(), "preview");
+			previewOutPath = Path.Combine(GetDataPath(), "preview-out");
+			imgInPath = Path.Combine(GetDataPath(), "img-in");
+			imgOutPath = Path.Combine(GetDataPath(), "img-out");
+			imgOutNcnnPath = Path.Combine(GetDataPath(), "img-out-ncnn");
+			tempImgPath = Path.Combine(GetDataPath(), "loaded-img", "temp.png");
+			clipboardFolderPath = Path.Combine(GetDataPath(), "clipboard");
+			presetsPath = Path.Combine(GetDataPath(), "model-presets");
+			compositionOut = Path.Combine(GetDataPath(), "composition");
+			framesOutPath = Path.Combine(GetDataPath(), "frames-out");
 			progressLogfile = Path.Combine(esrganPath, "prog");
 			Directory.CreateDirectory(previewPath);
 			Directory.CreateDirectory(previewOutPath);
@@ -44,5 +45,29 @@ namespace Cupscale.IO
 			Directory.CreateDirectory(compositionOut);
 			Directory.CreateDirectory(framesOutPath);
 		}
-	}
+
+        public static string GetDataPath()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            path = Path.Combine(path, "Cupscale");
+
+            if (IOUtils.IsPortable())
+            {
+                if (!IOUtils.hasShownPortableInfo)
+                {
+                    Logger.Log("Running in portable mode. Data folder: " + Path.Combine(GetExeDir(), "CupscaleData"), false);
+                    IOUtils.hasShownPortableInfo = true;
+                }
+                path = Path.Combine(GetExeDir(), "CupscaleData");
+            }
+
+            Directory.CreateDirectory(path);
+            return path;
+        }
+
+        public static string GetExeDir()
+        {
+            return AppDomain.CurrentDomain.BaseDirectory;
+        }
+    }
 }

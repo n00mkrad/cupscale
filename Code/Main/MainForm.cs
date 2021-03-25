@@ -39,8 +39,15 @@ namespace Cupscale.Main
 
 		private async void MainForm_Load(object sender, EventArgs e)
 		{
+            if (!Directory.Exists(Path.Combine(Paths.GetExeDir(), "runtimes")) && Paths.GetExeDir().ToLower().Contains("temp"))
+            {
+                MessageBox.Show("You seem to be running Flowframes out of an archive.\nPlease extract the whole archive first!", "Error");
+                IOUtils.TryDeleteIfExists(Paths.GetDataPath());
+                Application.Exit();
+            }
+
 			// Left Panel
-            UIHelpers.InitCombox(prevClipboardTypeCombox, 0);
+			UIHelpers.InitCombox(prevClipboardTypeCombox, 0);
 			UIHelpers.InitCombox(preResizeScale, 1);
 			UIHelpers.InitCombox(preResizeMode, 0);
 			UIHelpers.FillEnumComboBox(preResizeFilter, typeof(Upscale.Filter), 0);

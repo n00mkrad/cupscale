@@ -67,7 +67,7 @@ namespace Cupscale.OS
             await Task.Delay(10);
 
             Print("Checking disk space before installation...");
-            float diskSpaceMb = IOUtils.GetDiskSpace(IOUtils.GetAppDataDir());
+            float diskSpaceMb = IOUtils.GetDiskSpace(Paths.GetDataPath());
             Print($"Available disk space on the current drive: {diskSpaceMb} MB.");
             if (diskSpaceMb < 5000)
             {

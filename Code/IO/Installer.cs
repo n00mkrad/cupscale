@@ -36,7 +36,7 @@ namespace Cupscale.IO
 			requiredDirs.Add(Path.Combine(path, "utils"));
 
 			List<string> requiredFiles = new List<string>();
-			requiredFiles.Add(Path.Combine(IOUtils.GetAppDataDir(), "shipped-files-version.txt"));
+			requiredFiles.Add(Path.Combine(Paths.GetDataPath(), "shipped-files-version.txt"));
 			requiredFiles.Add(Path.Combine(path, "upscale.py"));
 			requiredFiles.Add(Path.Combine(path, "ffmpeg.exe"));
 			requiredFiles.Add(Path.Combine(path, "esrgan-ncnn-vulkan.exe"));
@@ -63,7 +63,7 @@ namespace Cupscale.IO
 				}
 			}
 
-			int diskVersion = IOUtils.ReadLines(Path.Combine(IOUtils.GetAppDataDir(), "shipped-files-version.txt"))[0].Split('#')[0].GetInt();
+			int diskVersion = IOUtils.ReadLines(Path.Combine(Paths.GetDataPath(), "shipped-files-version.txt"))[0].Split('#')[0].GetInt();
 			if (exeFilesVersion != diskVersion)
             {
 				Logger.Log("[Installer] Installation invalid: Shipped file version mismatch - Executable is " + exeFilesVersion + ", installation is " + diskVersion);
@@ -119,7 +119,7 @@ namespace Cupscale.IO
 
 		static async Task DownloadAndInstall(int version, string filename, bool showDialog = true)
 		{
-			string savePath = Path.Combine(IOUtils.GetAppDataDir(), filename);
+			string savePath = Path.Combine(Paths.GetDataPath(), filename);
 			string url = $"https://dl.nmkd.de/cupscale/shippedfiles/{version}/{filename}";
 			Logger.Log($"[Installer] Downloading {url}");
 			var client = new WebClient();
@@ -131,7 +131,7 @@ namespace Cupscale.IO
             {
 				if (currentDlDialog != null)
 					currentDlDialog.ChangeText($"Installing {filename}...");
-				await UnSevenzip(Path.Combine(IOUtils.GetAppDataDir(), filename));
+				await UnSevenzip(Path.Combine(Paths.GetDataPath(), filename));
 			}
 			if(currentDlDialog != null)
 				currentDlDialog.Close();
@@ -155,7 +155,7 @@ namespace Cupscale.IO
 			await Task.Delay(20);
 			SevenZipNET.SevenZipExtractor.Path7za = path7za;
 			SevenZipNET.SevenZipExtractor extractor = new SevenZipNET.SevenZipExtractor(path);
-			extractor.ExtractAll(IOUtils.GetAppDataDir(), true, true);
+			extractor.ExtractAll(Paths.GetDataPath(), true, true);
 			File.Delete(path);
 			await Task.Delay(10);
 		}
@@ -177,12 +177,12 @@ namespace Cupscale.IO
 
 		public static void Uninstall (bool full)
         {
-			if (!Directory.Exists(IOUtils.GetAppDataDir()))
+			if (!Directory.Exists(Paths.GetDataPath()))
 				return;
             try
             {
 				if (full)
-					Directory.Delete(IOUtils.GetAppDataDir(), true);
+					Directory.Delete(Paths.GetDataPath(), true);
 				else
 					Directory.Delete(path, true);
 			}
