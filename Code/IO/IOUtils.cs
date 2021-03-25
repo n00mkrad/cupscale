@@ -43,8 +43,8 @@ namespace Cupscale
         {
             foreach (string arg in Environment.GetCommandLineArgs())
             {
-                if (arg == "-portable")
-                    return true;
+                if (arg == "-appdata")
+                    return false;
             }
             return false;
         }

@@ -22,6 +22,10 @@ namespace Cupscale.ImageUtils
                 File.WriteAllBytes(outPath, compressed);
                 Logger.Log("[MozJpeg] Written image to " + outPath);
             }
+            catch (TypeInitializationException e)
+            {
+                Logger.ErrorMessage($"MozJpeg Initialization Error: {e.InnerException.Message}\n", e);
+            }
             catch (Exception e)
             {
                 Logger.ErrorMessage("MozJpeg Error: ", e);
