@@ -36,10 +36,7 @@ namespace Cupscale.IO
 
 			List<string> requiredFiles = new List<string>();
 			requiredFiles.Add(Path.Combine(IOUtils.GetAppDataDir(), "shipped-files-version.txt"));
-			requiredFiles.Add(Path.Combine(path, "esrlmain.py"));
-			requiredFiles.Add(Path.Combine(path, "esrlupscale.py"));
-			requiredFiles.Add(Path.Combine(path, "esrlmodel.py"));
-			requiredFiles.Add(Path.Combine(path, "esrlrrdbnet.py"));
+			requiredFiles.Add(Path.Combine(path, "upscale.py"));
 			requiredFiles.Add(Path.Combine(path, "ffmpeg.exe"));
 			requiredFiles.Add(Path.Combine(path, "esrgan-ncnn-vulkan.exe"));
 			requiredFiles.Add(Path.Combine(path, "pth2ncnn.exe"));
