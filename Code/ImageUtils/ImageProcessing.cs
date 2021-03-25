@@ -85,7 +85,7 @@ namespace Cupscale
         public static async Task PreProcessImage(string path, bool fillAlpha)
         {
             MagickImage img = ImgUtils.GetMagickImage(path, true);
-            img.Quality = 20;
+            img.Quality = 10;
 
             Logger.Log("[ImgProc] Preprocessing " + path + " - Fill Alpha: " + fillAlpha);
 
@@ -133,7 +133,7 @@ namespace Cupscale
             if (format == Format.PngFast)
             {
                 img.Format = MagickFormat.Png32;
-                img.Quality = 20;
+                img.Quality = 10;
             }
             if (format == Format.Jpeg)
             {
@@ -267,7 +267,7 @@ namespace Cupscale
             if (format == Format.PngFast)
             {
                 img.Format = MagickFormat.Png;
-                img.Quality = 20;
+                img.Quality = 10;
             }
             if (format == Format.Jpeg)
             {

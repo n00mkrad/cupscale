@@ -46,7 +46,8 @@ namespace Cupscale
                 if (arg == "-appdata")
                     return false;
             }
-            return false;
+
+            return true;
         }
 
         public static string GetExeDir()

@@ -19,10 +19,10 @@ namespace Cupscale
         public static void Init()
         {
             configPath = Path.Combine(IOUtils.GetAppDataDir(), "config.ini");
+
             if (!File.Exists(configPath))
-            {
                 File.Create(configPath).Close();
-            }
+
             Reload();
         }
 
@@ -31,6 +31,7 @@ namespace Cupscale
             if (disable) return;
 
             string[] lines = File.ReadAllLines(configPath);
+
             for (int i = 0; i < lines.Length; i++)
             {
                 if (lines[i].Split('|')[0] == key)
@@ -41,6 +42,7 @@ namespace Cupscale
                     return;
                 }
             }
+
             List<string> list = lines.ToList();
             list.Add(key + "|" + value);
             File.WriteAllLines(configPath, list.ToArray());
@@ -63,6 +65,7 @@ namespace Cupscale
             {
                 Logger.Log($"Failed to get {key.Wrap()} from config! {e.Message}");
             }
+
             return null;
         }
 
@@ -93,15 +96,18 @@ namespace Cupscale
                 if (keyValuePair[0] == key)
                     return int.Parse(keyValuePair[1].Trim());
             }
+
             return int.Parse(WriteDefaultValIfExists(key, Type.Int).Trim());
         }
 
         static void WriteIfDoesntExist(string key, string val)
         {
             Logger.Log("WriteIfDoesntExist: " + key + " - " + val);
+
             foreach (string line in cachedLines)
                 if (line.Contains(key + "|"))
                     return;
+
             Set(key, val);
             Logger.Log("WriteIfDoesntExist: Set()");
         }
