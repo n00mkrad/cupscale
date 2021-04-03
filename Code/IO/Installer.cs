@@ -188,7 +188,7 @@ namespace Cupscale.IO
 			}
 			catch (Exception e)
             {
-				Logger.Log("Failed to uninstall.\nClose Cupscale and try deleting %APPDATA%/Cupscale manually. " + e.Message);
+				Logger.Log("Failed to uninstall.\nClose Cupscale and try deleting CupscaleData manually. " + e.Message);
             }
 		}
 	}

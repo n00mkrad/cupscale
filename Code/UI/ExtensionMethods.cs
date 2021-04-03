@@ -133,5 +133,10 @@ namespace Cupscale.UI
 			}
 			return newString.ToString();
 		}
+
+        public static string[] SplitIntoLines(this string str)
+        {
+            return Regex.Split(str, "\r\n|\r|\n");
+        }
 	}
 }

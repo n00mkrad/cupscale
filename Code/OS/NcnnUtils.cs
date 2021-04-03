@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ namespace Cupscale.OS
     class NcnnUtils
     {
 		static Process currentProcess;
+        public static string lastNcnnOutput;
 		static string ncnnDir = "";
 
 		public static async Task ConvertNcnnModel(string modelPath)
@@ -31,7 +33,11 @@ namespace Cupscale.OS
                     Logger.Log("Running model converter...");
                     DialogForm dialog = new DialogForm("Converting ESRGAN model to NCNN format...");
                     await RunConverter(modelPath);
-                    string moveFrom = Path.Combine(Paths.esrganPath, Path.ChangeExtension(modelName, null));
+
+                    if (lastNcnnOutput.Contains("Error:"))
+                        throw new Exception(lastNcnnOutput.SplitIntoLines().Where(x => x.Contains("Error:")).First());
+
+					string moveFrom = Path.Combine(Paths.esrganPath, Path.ChangeExtension(modelName, null));
                     Logger.Log("Moving " + moveFrom + " to " + outPath);
                     await IOUtils.CopyDir(moveFrom, outPath, "*", true);
                     Directory.Delete(moveFrom, true);
@@ -46,12 +52,13 @@ namespace Cupscale.OS
             }
             catch (Exception e)
             {
-				Logger.ErrorMessage("Failed to convert Pytorch model to NCNN format!", e);
+				Logger.ErrorMessage("Failed to convert Pytorch model to NCNN format! It might be incompatible.", e);
             }
         }
 
 		static async Task RunConverter(string modelPath)
-		{
+        {
+            lastNcnnOutput = "";
 			bool showWindow = Config.GetInt("cmdDebugMode") > 0;
 			bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
 
@@ -90,7 +97,8 @@ namespace Cupscale.OS
 
 			string data = output.Data;
 			Logger.Log("[NcnnUtils] Model Converter Output: " + data);
-		}
+            lastNcnnOutput += $"{data}\n";
+        }
 
 		public static int GetNcnnModelScale(string modelDir)
 		{

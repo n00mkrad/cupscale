@@ -81,7 +81,7 @@ namespace Cupscale
 
 		public static MsgBox ErrorMessage (string msg, Exception e)
         {
-			string text = $"{msg}\n{e.Message}\n\nStack Trace:\n{e.StackTrace}";
+			string text = $"{msg}\n\n{e.Message}\n\nStack Trace:\n{e.StackTrace}";
 			Clipboard.SetText(text);
 			Log(text);
 			return Program.ShowMessage(text + "\n\nThe error message was copied to the clipboard.", "Error");
