@@ -115,7 +115,6 @@ namespace Cupscale
         public enum Type { String, Int, Float, Bool }
         private static string WriteDefaultValIfExists(string key, Type type)
         {
-            if (key == "esrganPath") return WriteDefault(key, Installer.path);
             if (key == "esrganVer") return WriteDefault(key, "0");
             if (key == "tilesize") return WriteDefault(key, "1024");
             if (key == "alpha") return WriteDefault(key, "False");

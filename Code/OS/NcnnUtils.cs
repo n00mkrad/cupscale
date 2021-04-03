@@ -19,27 +19,35 @@ namespace Cupscale.OS
 
 		public static async Task ConvertNcnnModel(string modelPath)
         {
-			string modelName = Path.GetFileName(modelPath);
-			ncnnDir = Path.Combine(Config.Get("modelPath"), ".ncnn");
-			Directory.CreateDirectory(ncnnDir);
-			string outPath = Path.Combine(ncnnDir, Path.ChangeExtension(modelName, null));
-			Logger.Log("Checking for NCNN model: " + outPath);
-			if (IOUtils.GetAmountOfFiles(outPath, false) < 2)
+            try
             {
-				Logger.Log("Running model converter...");
-				DialogForm dialog = new DialogForm("Converting ESRGAN model to NCNN format...");
-				await RunConverter(modelPath);
-				string moveFrom = Path.Combine(Config.Get("esrganPath"), Path.ChangeExtension(modelName, null));
-				Logger.Log("Moving " + moveFrom + " to " + outPath);
-				await IOUtils.CopyDir(moveFrom, outPath, "*", true);
-				Directory.Delete(moveFrom, true);
-				dialog.Close();
-			}
-            else
+                string modelName = Path.GetFileName(modelPath);
+                ncnnDir = Path.Combine(Config.Get("modelPath"), ".ncnn");
+                Directory.CreateDirectory(ncnnDir);
+                string outPath = Path.Combine(ncnnDir, Path.ChangeExtension(modelName, null));
+                Logger.Log("Checking for NCNN model: " + outPath);
+                if (IOUtils.GetAmountOfFiles(outPath, false) < 2)
+                {
+                    Logger.Log("Running model converter...");
+                    DialogForm dialog = new DialogForm("Converting ESRGAN model to NCNN format...");
+                    await RunConverter(modelPath);
+                    string moveFrom = Path.Combine(Paths.esrganPath, Path.ChangeExtension(modelName, null));
+                    Logger.Log("Moving " + moveFrom + " to " + outPath);
+                    await IOUtils.CopyDir(moveFrom, outPath, "*", true);
+                    Directory.Delete(moveFrom, true);
+                    dialog.Close();
+                }
+                else
+                {
+                    Logger.Log("NCNN Model is cached - Skipping conversion.");
+                }
+
+                ESRGAN.currentNcnnModel = outPath;
+            }
+            catch (Exception e)
             {
-				Logger.Log("NCNN Model is cached - Skipping conversion.");
-			}
-			ESRGAN.currentNcnnModel = outPath;
+				Logger.ErrorMessage("Failed to convert Pytorch model to NCNN format!", e);
+            }
         }
 
 		static async Task RunConverter(string modelPath)
@@ -52,7 +60,7 @@ namespace Cupscale.OS
 			string opt = "/C";
 			if (stayOpen) opt = "/K";
 
-			string args = $"{opt} cd /D {Config.Get("esrganPath").Wrap()} & pth2ncnn.exe {modelPath}";
+			string args = $"{opt} cd /D {Paths.esrganPath.Wrap()} & pth2ncnn.exe {modelPath}";
 
 			Logger.Log("[CMD] " + args);
 			Process converterProc = OSUtils.NewProcess(!showWindow);

@@ -36,18 +36,18 @@ namespace Cupscale.ImageUtils
                 {
                     image = new MagickImage(path);      // Try reading DDS with IM, fall back to DdsFileTypePlusHack if it fails
                 }
-                catch
+                catch (Exception magickEx)
                 {
-                    Logger.Log("[ImgUtils] Failed to read DDS using Mackig.NET - Trying DdsFileTypePlusHack");
+                    Logger.Log($"[ImgUtils] Failed to read DDS using Magick.NET ({magickEx.Message}) - Trying DdsFileTypePlusHack");
                     try
                     {
                         Surface surface = DdsFile.Load(path);
                         image = ConvertToMagickImage(surface);
                         image.HasAlpha = DdsFile.HasTransparency(surface);
                     }
-                    catch (Exception e)
+                    catch (Exception ddsEx)
                     {
-                        Logger.ErrorMessage("[ImgUtils] This DDS format appears to be incompatible.", e);
+                        Logger.ErrorMessage("[ImgUtils] This DDS format appears to be incompatible.", ddsEx);
                         return null;
                     }
                 }
