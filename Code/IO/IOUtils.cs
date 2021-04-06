@@ -493,5 +493,28 @@ namespace Cupscale
                 return true;
             return false;
         }
+
+        public static string[] GetFilesSorted(string path, bool recursive = false, string pattern = "*")
+        {
+            SearchOption opt = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+            return Directory.GetFiles(path, pattern, opt).OrderBy(x => Path.GetFileName(x)).ToArray();
+        }
+
+        public static string[] GetFilesSorted(string path, string pattern = "*")
+        {
+            return GetFilesSorted(path, false, pattern);
+        }
+
+        public static string[] GetFilesSorted(string path)
+        {
+            return GetFilesSorted(path, false, "*");
+        }
+
+        public static FileInfo[] GetFileInfosSorted(string path, bool recursive = false, string pattern = "*")
+        {
+            SearchOption opt = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+            DirectoryInfo dir = new DirectoryInfo(path);
+            return dir.GetFiles(pattern, opt).OrderBy(x => x.Name).ToArray();
+        }
     }
 }

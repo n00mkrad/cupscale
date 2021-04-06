@@ -21,9 +21,6 @@ namespace Cupscale.Forms
         public ModelSelectForm(Button modelButton, int modelNumber)
         {
             InitializeComponent();
-            //Show(this);
-            //TopMost = true;
-            //CenterToScreen();
             modelBtn = modelButton;
             modelNo = modelNumber;
             SelectLastUsed();
@@ -32,13 +29,25 @@ namespace Cupscale.Forms
         private void ModelSelectForm_Load(object sender, EventArgs e)
         {
             string modelDir = Config.Get("modelPath");
+
             if (!Directory.Exists(modelDir))
             {
                 Program.ShowMessage("The saved model directory does not exist - Make sure you've set a models folder!");
+                Close();
                 return;
             }
+
+            if (IOUtils.GetAmountOfFiles(modelDir, true, "*.pth") < 1)
+            {
+                Program.ShowMessage($"The saved model directory does not contain any model (.pth) files!\n\nPlease put some models into '{modelDir}'.");
+                Close();
+                return;
+            }
+
+            ForceLowercaseExtensions(modelDir);
             DirectoryInfo modelsDir = new DirectoryInfo(modelDir);
             BuildTree(modelsDir, modelTree.Nodes);
+
             if (Config.GetBool("modelSelectAutoExpand"))
                 modelTree.ExpandAll();
             else
@@ -51,7 +60,7 @@ namespace Cupscale.Forms
                 return;
 
             while (modelTree.Nodes.Count < 1)
-                await Task.Delay(1);
+                await Task.Delay(100);
 
             if (string.IsNullOrWhiteSpace(Program.currentModel1))
                 modelTree.SelectedNode = modelTree.Nodes[0];
@@ -70,6 +79,15 @@ namespace Cupscale.Forms
             }
         }
 
+        private void ForceLowercaseExtensions(string path)
+        {
+            foreach (FileInfo file in IOUtils.GetFileInfosSorted(path, true, "*.*"))
+            {
+                if(file.Extension == ".PTH")
+                    file.MoveTo(Path.ChangeExtension(file.FullName, "pth"));
+            }
+        }
+
         private void BuildTree(DirectoryInfo directoryInfo, TreeNodeCollection addInMe)
         {
             TreeNode curNode = addInMe.Add(directoryInfo.Name);
@@ -79,6 +97,7 @@ namespace Cupscale.Forms
                 if (file.Extension == ".pth")    // Hide any other file extension
                     curNode.Nodes.Add(file.FullName, Path.ChangeExtension(file.Name, null));
             }
+
             foreach (DirectoryInfo subdir in directoryInfo.GetDirectories())
             {
                 if (subdir.GetFiles("*.pth", SearchOption.AllDirectories).Length > 0)     // Don't list folders that have no PTH files
