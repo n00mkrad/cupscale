@@ -86,12 +86,12 @@ namespace Cupscale.OS
                 return;
             Program.mainForm.SetProgress(1f, "[ESRGAN] Resizing preview output...");
             await Task.Delay(1);
-            //MagickImage img = ImgUtils.GetMagickImage(Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);
-            //MagickImage magickImage = ImageProcessing.ResizeImagePost(img);
-            //img = magickImage;
-            //img.Write(img.FileName);
-            string img = Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0];
-            ImageProcessing.ResizeImagePost(img);
+            MagickImage img = ImgUtils.GetMagickImage(Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);
+            MagickImage magickImage = ImageProcessing.ResizeImagePostMagick(img);
+            img = magickImage;
+            img.Write(img.FileName);
+            //string img = Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0];
+            //ImageProcessing.ResizeImagePost(img);
         }
 
         public static string GetModelArg(ModelData mdl, bool joey = true)

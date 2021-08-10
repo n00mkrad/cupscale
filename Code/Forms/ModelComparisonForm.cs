@@ -178,7 +178,10 @@ namespace Cupscale.Forms
                 filter = Upscale.Filter.NearestNeighbor;
             Logger.Log("Scaling image for composition...");
             await Task.Delay(1);
-            ImgSharpUtils.ResizeImageAdvanced(path, newWidth, Upscale.ScaleMode.PixelsWidth, filter, false);
+            MagickImage img = new MagickImage(path);
+            img = ImageProcessing.ResizeImageAdvancedMagick(img, newWidth, Upscale.ScaleMode.PixelsWidth, filter, false);
+            img.Write(path);
+            //ImgSharpUtils.ResizeImageAdvanced(path, newWidth, Upscale.ScaleMode.PixelsWidth, filter, false);
             AddText(path, text);
         }
 
