@@ -72,6 +72,7 @@ namespace Cupscale.Forms
             cutoutMode = cropMode.SelectedIndex == 1;
             if (cutoutMode)
             {
+                IOUtils.ClearDir(Paths.previewPath);
                 PreviewUI.SaveCurrentCutout();
                 currentSourcePath = Path.Combine(Paths.previewPath, "preview.png");
             }
