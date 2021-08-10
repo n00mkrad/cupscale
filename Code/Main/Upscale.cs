@@ -15,6 +15,8 @@ namespace Cupscale.Main
 {
     class Upscale
     {
+        public static AI currentAi = Networks.esrganCuda;
+
         public enum UpscaleMode { Preview, Single, Batch, Composition }
         public static UpscaleMode currentMode = UpscaleMode.Preview;
         public enum ImgExportMode { PNG, SameAsSource, JPEG, WEBP, BMP, TGA, DDS, GIF }
@@ -28,6 +30,7 @@ namespace Cupscale.Main
     {
             Program.lastOutputDir = path;
             Program.mainForm.AfterFirstUpscale();
+
             if (overwriteMode == Overwrite.Yes)
             {
                 Logger.Log("Overwrite mode - removing suffix from filenames");
@@ -37,6 +40,7 @@ namespace Cupscale.Main
             {
                 Logger.Log("Overwrite is off - keeping suffix.");
             }
+
             await IOUtils.CopyDir(Paths.imgOutPath, path);
             await Task.Delay(1);
             IOUtils.ClearDir(Paths.imgInPath);
@@ -47,6 +51,7 @@ namespace Cupscale.Main
         {
             DirectoryInfo d = new DirectoryInfo(path);
             FileInfo[] files = d.GetFiles("*", SearchOption.AllDirectories);
+
             foreach (FileInfo file in files)     // Remove PNG extensions
             {
                 string pathNoExt = Path.ChangeExtension(file.FullName, null);
@@ -71,6 +76,7 @@ namespace Cupscale.Main
                 if (string.IsNullOrWhiteSpace(mdl1)) return mdl;
                 mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
             }
+
             if (PreviewUI.currentMode == Mode.Interp)
             {
                 string mdl1 = Program.currentModel1;
@@ -78,6 +84,7 @@ namespace Cupscale.Main
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return mdl;
                 mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
             }
+
             if (PreviewUI.currentMode == Mode.Chain)
             {
                 string mdl1 = Program.currentModel1;
@@ -85,6 +92,7 @@ namespace Cupscale.Main
                 if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return mdl;
                 mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
             }
+
             if (PreviewUI.currentMode == Mode.Advanced)
             {
                 mdl = new ModelData(null, null, ModelData.ModelMode.Advanced);

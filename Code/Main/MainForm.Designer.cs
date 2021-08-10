@@ -186,6 +186,12 @@ namespace Cupscale.Main
             this.label16 = new System.Windows.Forms.Label();
             this.interpRbtn = new System.Windows.Forms.RadioButton();
             this.singleModelRbtn = new System.Windows.Forms.RadioButton();
+            this.leftSpacer5 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.aiPanel = new System.Windows.Forms.Panel();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.aiSelect = new System.Windows.Forms.ComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.mainTableLayoutPanel.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -237,6 +243,8 @@ namespace Cupscale.Main
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.leftSpacer4.SuspendLayout();
             this.mdlPanel.SuspendLayout();
+            this.leftSpacer5.SuspendLayout();
+            this.aiPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // leftPanel
@@ -1878,6 +1886,8 @@ namespace Cupscale.Main
             this.flowPanelLeft.Controls.Add(this.esrganPanel);
             this.flowPanelLeft.Controls.Add(this.leftSpacer4);
             this.flowPanelLeft.Controls.Add(this.mdlPanel);
+            this.flowPanelLeft.Controls.Add(this.leftSpacer5);
+            this.flowPanelLeft.Controls.Add(this.aiPanel);
             this.flowPanelLeft.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowPanelLeft.FlowDirection = System.Windows.Forms.FlowDirection.BottomUp;
             this.flowPanelLeft.Location = new System.Drawing.Point(3, 43);
@@ -2485,6 +2495,81 @@ namespace Cupscale.Main
             this.singleModelRbtn.UseVisualStyleBackColor = true;
             this.singleModelRbtn.CheckedChanged += new System.EventHandler(this.singleModelRbtn_CheckedChanged);
             // 
+            // leftSpacer5
+            // 
+            this.leftSpacer5.BackColor = System.Drawing.Color.Transparent;
+            this.leftSpacer5.Controls.Add(this.panel4);
+            this.leftSpacer5.Location = new System.Drawing.Point(3, 124);
+            this.leftSpacer5.Name = "leftSpacer5";
+            this.leftSpacer5.Size = new System.Drawing.Size(361, 17);
+            this.leftSpacer5.TabIndex = 13;
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.panel4.Location = new System.Drawing.Point(5, 5);
+            this.panel4.Margin = new System.Windows.Forms.Padding(5);
+            this.panel4.Name = "panel4";
+            this.panel4.Padding = new System.Windows.Forms.Padding(10);
+            this.panel4.Size = new System.Drawing.Size(350, 7);
+            this.panel4.TabIndex = 0;
+            // 
+            // aiPanel
+            // 
+            this.aiPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.aiPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.aiPanel.Controls.Add(this.label32);
+            this.aiPanel.Controls.Add(this.label33);
+            this.aiPanel.Controls.Add(this.aiSelect);
+            this.aiPanel.Location = new System.Drawing.Point(3, 66);
+            this.aiPanel.Name = "aiPanel";
+            this.aiPanel.Size = new System.Drawing.Size(361, 52);
+            this.aiPanel.TabIndex = 12;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.ForeColor = System.Drawing.Color.White;
+            this.label32.Location = new System.Drawing.Point(3, 4);
+            this.label32.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(17, 13);
+            this.label32.TabIndex = 2;
+            this.label32.Text = "AI";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.ForeColor = System.Drawing.Color.White;
+            this.label33.Location = new System.Drawing.Point(5, 23);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(99, 13);
+            this.label33.TabIndex = 6;
+            this.label33.Text = "AI Network To Run";
+            // 
+            // aiSelect
+            // 
+            this.aiSelect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.aiSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.aiSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.aiSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.aiSelect.ForeColor = System.Drawing.Color.White;
+            this.aiSelect.FormattingEnabled = true;
+            this.aiSelect.Items.AddRange(new object[] {
+            "ESRGAN (CUDA)",
+            "ESRGAN (NCNN)",
+            "Real-ESRGAN (NCNN)"});
+            this.aiSelect.Location = new System.Drawing.Point(116, 20);
+            this.aiSelect.Margin = new System.Windows.Forms.Padding(8);
+            this.aiSelect.Name = "aiSelect";
+            this.aiSelect.Size = new System.Drawing.Size(235, 21);
+            this.aiSelect.TabIndex = 5;
+            this.aiSelect.SelectedIndexChanged += new System.EventHandler(this.aiSelect_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2568,6 +2653,9 @@ namespace Cupscale.Main
             this.leftSpacer4.ResumeLayout(false);
             this.mdlPanel.ResumeLayout(false);
             this.mdlPanel.PerformLayout();
+            this.leftSpacer5.ResumeLayout(false);
+            this.aiPanel.ResumeLayout(false);
+            this.aiPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2710,5 +2798,11 @@ namespace Cupscale.Main
         private Label label24;
         private ComboBox batchCacheSplitDepth;
         private HTAlt.WinForms.HTButton discordBtn;
+        private Panel aiPanel;
+        private Label label32;
+        private Label label33;
+        private ComboBox aiSelect;
+        private Panel leftSpacer5;
+        private Panel panel4;
     }
 }

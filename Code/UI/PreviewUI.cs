@@ -80,11 +80,11 @@ namespace Cupscale.UI
             {
                 bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
                 bool useCpu = (Config.Get("cudaFallback").GetInt() == 1);
-                ESRGAN.Backend backend = ESRGAN.Backend.CUDA;
-                if (useCpu) backend = ESRGAN.Backend.CPU;
-                if (useNcnn) backend = ESRGAN.Backend.NCNN;
-                await ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, false, Config.GetBool("alpha"), ESRGAN.PreviewMode.None, backend);
-                if (backend == ESRGAN.Backend.NCNN)
+                ESRGAN.Backend backend = ESRGAN.Backend.Cuda;
+                if (useCpu) backend = ESRGAN.Backend.Cpu;
+                if (useNcnn) backend = ESRGAN.Backend.Ncnn;
+                await ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, false, Config.GetBool("alpha"), ESRGAN.PreviewMode.None);
+                if (backend == ESRGAN.Backend.Ncnn)
                     outImg = Directory.GetFiles(Paths.imgOutPath, "*.png*", SearchOption.AllDirectories)[0];
                 else
                     outImg = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories)[0];
@@ -124,14 +124,38 @@ namespace Cupscale.UI
             Program.mainForm.SetButtonText("Upscale And Save");
         }
 
-        public static bool HasValidModelSelection()
+        public static bool HasValidModelSelection(bool showErrorMsgsIfInvalid = true)
         {
-            bool valid = true;
-            if (model1.Enabled && !File.Exists(Program.currentModel1))
-                valid = false;
-            if (model2.Enabled && !File.Exists(Program.currentModel2))
-                valid = false;
-            return valid;
+            AI ai = Upscale.currentAi;
+
+            if(ai == Networks.esrganCuda)
+            {
+                bool valid = true;
+
+                if (model1.Enabled && !File.Exists(Program.currentModel1))
+                    valid = false;
+                if (model2.Enabled && !File.Exists(Program.currentModel2))
+                    valid = false;
+
+                if (!valid && showErrorMsgsIfInvalid)
+                    Program.ShowMessage("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
+
+                return valid;
+            }
+
+            if (ai == Networks.esrganNcnn)
+            {
+                bool valid = true;
+
+                valid = Program.mainForm.IsSingleModleMode();
+
+                if(!valid && showErrorMsgsIfInvalid)
+                    Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
+
+                return valid;
+            }
+
+            return true;
         }
 
         static string CopyImage()
@@ -153,15 +177,8 @@ namespace Cupscale.UI
         public static async void UpscalePreview(bool fullImage = false)
         {
             if (!HasValidModelSelection())
-            {
-                Program.ShowMessage("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
                 return;
-            }
-            if (Config.Get("cudaFallback").GetInt() == 3 && !Program.mainForm.HasValidNcnnModelSelection())
-            {
-                Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
-                return;
-            }
+
             Upscale.currentMode = Upscale.UpscaleMode.Preview;
             Program.mainForm.SetBusy(true);
             Program.mainForm.SetProgress(2f, "Preparing...");
@@ -172,6 +189,7 @@ namespace Cupscale.UI
             IOUtils.ClearDir(Paths.previewPath);
             IOUtils.ClearDir(Paths.previewOutPath);
             ESRGAN.PreviewMode prevMode = ESRGAN.PreviewMode.Cutout;
+
             if (fullImage)
             {
                 prevMode = ESRGAN.PreviewMode.FullImage;
@@ -181,47 +199,56 @@ namespace Cupscale.UI
             {
                 SaveCurrentCutout();
             }
+
             ClipboardComparison.originalPreview = (Bitmap)ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewPath, "*.png.*", SearchOption.AllDirectories)[0]);
             await ImageProcessing.PreProcessImages(Paths.previewPath, !bool.Parse(Config.Get("alpha")));
             string tilesize = Config.Get("tilesize");
             bool alpha = bool.Parse(Config.Get("alpha"));
 
-            ESRGAN.Backend backend = ESRGAN.Backend.CUDA;
-            if (Config.Get("cudaFallback").GetInt() == 1) backend = ESRGAN.Backend.CPU;
-            if (Config.Get("cudaFallback").GetInt() == 3) backend = ESRGAN.Backend.NCNN;
+            ESRGAN.Backend backend = ESRGAN.Backend.Cuda;
+            if (Config.Get("cudaFallback").GetInt() == 1) backend = ESRGAN.Backend.Cpu;
+            if (Config.Get("cudaFallback").GetInt() == 3) backend = ESRGAN.Backend.Ncnn;
 
             sw.Restart();
 
-            if (currentMode == Mode.Single)
+            ModelData mdl = new ModelData();
+
+            if (Upscale.currentAi.supportsModels)
             {
-                string mdl1 = Program.currentModel1;
-                if (string.IsNullOrWhiteSpace(mdl1)) return;
-                ModelData mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
-                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, false, alpha, prevMode, backend);
+                if (currentMode == Mode.Single)
+                {
+                    string mdl1 = Program.currentModel1;
+                    if (string.IsNullOrWhiteSpace(mdl1)) return;
+                    mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
+                }
+
+                if (currentMode == Mode.Interp)
+                {
+                    string mdl1 = Program.currentModel1;
+                    string mdl2 = Program.currentModel2;
+                    if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
+                    mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
+                }
+
+                if (currentMode == Mode.Chain)
+                {
+                    string mdl1 = Program.currentModel1;
+                    string mdl2 = Program.currentModel2;
+                    if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
+                    mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
+                }
+
+                if (currentMode == Mode.Advanced)
+                {
+                    mdl = new ModelData(null, null, ModelData.ModelMode.Advanced);
+                }
             }
-            if (currentMode == Mode.Interp)
-            {
-                string mdl1 = Program.currentModel1;
-                string mdl2 = Program.currentModel2;
-                if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
-                ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
-                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, false, alpha, prevMode, backend);
-            }
-            if (currentMode == Mode.Chain)
-            {
-                string mdl1 = Program.currentModel1;
-                string mdl2 = Program.currentModel2;
-                if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2)) return;
-                ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
-                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, false, alpha, prevMode, backend);
-            }
-            if (currentMode == Mode.Advanced)
-            {
-                ModelData mdl = new ModelData(null, null, ModelData.ModelMode.Advanced);
-                await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, false, alpha, prevMode, backend);
-            }
+
+            await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, false, alpha, prevMode);
+
             if (!Program.cancelled)
                 Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0.0")}s");
+            
             Program.mainForm.SetBusy(false);
         }
 

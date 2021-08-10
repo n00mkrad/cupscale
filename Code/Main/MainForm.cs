@@ -47,15 +47,16 @@ namespace Cupscale.Main
             }
 
 			// Left Panel
+			UIHelpers.InitCombox(aiSelect, 0);
 			UIHelpers.InitCombox(prevClipboardTypeCombox, 0);
-			UIHelpers.InitCombox(preResizeScale, 1);
-			UIHelpers.InitCombox(preResizeMode, 0);
 			UIHelpers.FillEnumComboBox(preResizeFilter, typeof(Upscale.Filter), 0);
 			// Right Panel
 			UIHelpers.InitCombox(prevOverwriteCombox, 0);
 			UIHelpers.InitCombox(imageOutputFormat, 0);
 			UIHelpers.FillEnumComboBox(imageOutputFormat, typeof(Upscale.ImgExportMode));
 			UIHelpers.FillEnumComboBox(videoOutputFormat, typeof(Upscale.VidExportMode));
+			UIHelpers.InitCombox(preResizeScale, 1);
+			UIHelpers.InitCombox(preResizeMode, 0);
 			UIHelpers.InitCombox(postResizeScale, 1);
 			UIHelpers.InitCombox(postResizeMode, 0);
 			UIHelpers.FillEnumComboBox(postResizeFilter, typeof(Upscale.Filter), 0);
@@ -369,14 +370,13 @@ namespace Cupscale.Main
 			if (Program.busy)
 				return;
 
-            if (!PreviewUI.HasValidModelSelection())
-            {
+			if(Upscale.currentAi == Networks.esrganCuda && !PreviewUI.HasValidModelSelection())
+			{
 				Program.ShowMessage("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
 				return;
-            }
+			}
 
-			bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
-			if (useNcnn && !Program.mainForm.HasValidNcnnModelSelection())
+			if (!PreviewUI.HasValidModelSelection())
 			{
 				Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
 				return;
@@ -406,12 +406,12 @@ namespace Cupscale.Main
 			ImageProcessing.preOnlyDownscale = preResizeOnlyDownscale.Checked;
 		}
 
-		public bool HasValidNcnnModelSelection ()
-        {
+		public bool IsSingleModleMode()
+		{
 			return singleModelRbtn.Checked;
 		}
 
-        private async void refreshPreviewFullBtn_Click(object sender, EventArgs e)
+		private async void refreshPreviewFullBtn_Click(object sender, EventArgs e)
         {
 			if (Config.GetBool("reloadImageBeforeUpscale"))
 				ReloadImage();
@@ -751,6 +751,13 @@ namespace Cupscale.Main
         private void discordBtn_Click(object sender, EventArgs e)
         {
             Process.Start("https://discord.gg/eJHD2NSJRe");
+		}
+
+        private void aiSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			if (aiSelect.SelectedIndex == 0) Upscale.currentAi = Networks.esrganCuda;
+			if (aiSelect.SelectedIndex == 1) Upscale.currentAi = Networks.esrganNcnn;
+			if (aiSelect.SelectedIndex == 2) Upscale.currentAi = Networks.realEsrganNcnn;
 		}
     }
 }

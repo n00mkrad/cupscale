@@ -16,6 +16,8 @@ using ImageMagick;
 using Win32Interop.Enums;
 using Paths = Cupscale.IO.Paths;
 
+[assembly: System.Windows.Media.DisableDpiAwareness] // Disable Dpi awareness in the application assembly.
+
 namespace Cupscale
 {
     internal static class Program
@@ -62,6 +64,7 @@ namespace Cupscale
             Config.Init();
             Logger.Init();
             Paths.Init();
+            Networks.Init();
             ResourceLimits.Memory = (ulong)Math.Round(ResourceLimits.Memory * 1.5f);
             Cleanup();
             Application.Run(new MainForm());

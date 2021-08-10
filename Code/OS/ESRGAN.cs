@@ -21,25 +21,32 @@ namespace Cupscale.OS
     internal class ESRGAN
     {
         public enum PreviewMode { None, Cutout, FullImage }
-        public enum Backend { CUDA, CPU, NCNN };
+        public enum Backend { Cuda, Cpu, Ncnn };
         //public static bool cacheTiling = false;
 
-        public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, bool cacheSplitDepth, bool alpha, PreviewMode mode, Backend backend, bool showTileProgress = true)
+        public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, bool cacheSplitDepth, bool alpha, PreviewMode mode, bool showTileProgress = true)
         {
             Program.cancelled = false;      // Reset cancel flag
             try
             {
-                if (backend == Backend.NCNN)
-                {
-                    Program.lastModelName = mdl.model1Name;
-                    await RunNcnn(inpath, outpath, mdl.model1Path);
-                }
-                else
+                if (Upscale.currentAi == Networks.esrganCuda)
                 {
                     Program.mainForm.SetProgress(2f, "Starting ESRGAN...");
                     File.Delete(Paths.progressLogfile);
                     string modelArg = GetModelArg(mdl);
                     await Run(inpath, outpath, modelArg, cacheSplitDepth, alpha, showTileProgress);
+                }
+
+                if (Upscale.currentAi == Networks.esrganNcnn)
+                {
+                    Program.lastModelName = mdl.model1Name;
+                    await RunNcnn(inpath, outpath, mdl.model1Path);
+                }
+
+                if (Upscale.currentAi == Networks.realEsrganNcnn)
+                {
+                    Program.lastModelName = "Real-ESRGAN";
+                    await RunRealEsrgan(inpath, outpath);
                 }
 
                 if (mode == PreviewMode.Cutout)
@@ -65,6 +72,7 @@ namespace Cupscale.OS
                     Program.mainForm.SetHasPreview(true);
                     //Program.mainForm.SetProgress(0f, "Done.");
                 }
+
             }
             catch (Exception e)
             {
@@ -244,7 +252,7 @@ namespace Cupscale.OS
             if (outStr == lastProgressString)
                 return;
             lastProgressString = outStr;
-            if(outStr.Contains("Applying model") || outStr.Contains("Upscaling..."))
+            if (outStr.Contains("Applying model") || outStr.Contains("Upscaling..."))
             {
                 Program.mainForm.SetProgress(5f, "Upscaling...");
                 return;
@@ -265,6 +273,8 @@ namespace Cupscale.OS
         }
 
         public static string currentNcnnModel = "";
+
+        #region ESRGAN NCNN
 
         public static async Task RunNcnn(string inpath, string outpath, string modelPath)
         {
@@ -321,17 +331,93 @@ namespace Cupscale.OS
 
             string data = output.Data;
             Logger.Log("[NCNN] " + data.Replace("\n", " ").Replace("\r", " "));
+
             if (data.Contains("failed"))
             {
                 Program.KillEsrgan();
-                Program.ShowMessage("Error occurred: \n\n" + data + "\n\nThe ESRGAN-NCNN process was killed to avoid lock-ups.", "Error");
+                Program.ShowMessage("Error occurred during upscaling: \n\n" + data + "\n\n", "Error");
             }
 
             if (data.Contains("vkAllocateMemory"))
                 Program.ShowMessage("ESRGAN-NCNN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
         }
 
-        public static string Interpolate (ModelData mdl)
+        #endregion
+
+        #region RealESRGAN
+
+        public static async Task RunRealEsrgan(string inpath, string outpath, string modelPath = "")
+        {
+            bool showWindow = Config.GetInt("cmdDebugMode") > 0;
+            bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
+
+            Program.mainForm.SetProgress(3f, "Loading RealESRGAN...");
+            //int scale = NcnnUtils.GetNcnnModelScale(currentNcnnModel);
+
+            string opt = stayOpen ? "/K" : "/C";
+
+            string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & realesrgan-ncnn-vulkan.exe -i {inpath.Wrap()} -o {outpath.Wrap()}" +
+                $" -g {Config.GetInt("gpuId")} -m realesrgan-models -s 4";
+            Logger.Log("[CMD] " + cmd);
+
+            Process proc = OSUtils.NewProcess(!showWindow);
+            proc.StartInfo.Arguments = cmd;
+
+            if (!showWindow)
+            {
+                proc.OutputDataReceived += RealEsrganOutputHandler;
+                proc.ErrorDataReceived += RealEsrganOutputHandler;
+            }
+
+            Program.currentEsrganProcess = proc;
+            proc.Start();
+
+            if (!showWindow)
+            {
+                proc.BeginOutputReadLine();
+                proc.BeginErrorReadLine();
+            }
+
+            while (!proc.HasExited)
+                await Task.Delay(50);
+
+            if (Upscale.currentMode == Upscale.UpscaleMode.Batch)
+            {
+                await Task.Delay(1000);
+                Program.mainForm.SetProgress(100f, "[ESRGAN] Post-Processing...");
+                PostProcessingQueue.Stop();
+            }
+
+            File.Delete(Paths.progressLogfile);
+        }
+
+        private static void RealEsrganOutputHandler(object sendingProcess, DataReceivedEventArgs output)
+        {
+            if (output == null || output.Data == null)
+                return;
+
+            string data = output.Data;
+            Logger.Log("[NCNN] " + data.Replace("\n", " ").Replace("\r", " "));
+
+            if (data.Trim().EndsWith("%"))
+            {
+                float percent = float.Parse(data.Replace("%", "").Replace(",", ".")) / 100f;
+                Program.mainForm.SetProgress(percent, $"Upscaling Tiles ({percent}%)");
+            }
+
+            if (data.Contains("failed"))
+            {
+                Program.KillEsrgan();
+                Program.ShowMessage("Error occurred during upscaling: \n\n" + data + "\n\n", "Error");
+            }
+
+            if (data.Contains("vkAllocateMemory"))
+                Program.ShowMessage("ESRGAN-NCNN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
+        }
+
+        #endregion
+
+        public static string Interpolate(ModelData mdl)
         {
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
@@ -347,7 +433,7 @@ namespace Cupscale.OS
 
             string cmd = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
             cmd += $"{EmbeddedPython.GetPyCmd()} interp.py {mdl.model1Path.Wrap()} {mdl.model2Path.Wrap()} {alphaStr} {outPath.Wrap()}";
-            
+
             py.StartInfo.Arguments = cmd;
             Logger.Log("[ESRGAN Interp] CMD: " + py.StartInfo.Arguments);
             py.Start();
