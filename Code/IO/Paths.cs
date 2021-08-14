@@ -6,7 +6,7 @@ namespace Cupscale.IO
 {
 	internal class Paths
 	{
-		public static string implementationsPath;
+		public static string binPath;
 		public static string previewPath;
 		public static string previewOutPath;
 		public static string imgInPath;
@@ -21,7 +21,7 @@ namespace Cupscale.IO
 
 		public static void Init()
 		{
-			implementationsPath = Path.Combine(GetDataPath(), "implementations");
+			binPath = Path.Combine(GetDataPath(), "bin");
 			previewPath = Path.Combine(GetDataPath(), "preview");
 			previewOutPath = Path.Combine(GetDataPath(), "preview-out");
 			imgInPath = Path.Combine(GetDataPath(), "img-in");

@@ -1,5 +1,6 @@
 ﻿using Cupscale.Forms;
 using Cupscale.ImageUtils;
+using Cupscale.Implementations;
 using Cupscale.IO;
 using Cupscale.UI;
 using System;
@@ -28,6 +29,7 @@ namespace Cupscale.OS
                 Directory.CreateDirectory(ncnnDir);
                 string outPath = Path.Combine(ncnnDir, Path.ChangeExtension(modelName, null));
                 Logger.Log("Checking for NCNN model: " + outPath);
+
                 if (IOUtils.GetAmountOfFiles(outPath, false) < 2)
                 {
                     Logger.Log("Running model converter...");
@@ -37,7 +39,7 @@ namespace Cupscale.OS
                     if (lastNcnnOutput.Contains("Error:"))
                         throw new Exception(lastNcnnOutput.SplitIntoLines().Where(x => x.Contains("Error:")).First());
 
-					string moveFrom = Path.Combine(Paths.implementationsPath, Path.ChangeExtension(modelName, null));
+					string moveFrom = Path.Combine(Paths.binPath, Path.ChangeExtension(modelName, null));
                     Logger.Log("Moving " + moveFrom + " to " + outPath);
                     await IOUtils.CopyDir(moveFrom, outPath, "*", true);
                     Directory.Delete(moveFrom, true);
@@ -48,7 +50,7 @@ namespace Cupscale.OS
                     Logger.Log("NCNN Model is cached - Skipping conversion.");
                 }
 
-                ESRGAN.currentNcnnModel = outPath;
+                EsrganNcnn.currentNcnnModel = outPath;
             }
             catch (Exception e)
             {
@@ -67,7 +69,7 @@ namespace Cupscale.OS
 			string opt = "/C";
 			if (stayOpen) opt = "/K";
 
-			string args = $"{opt} cd /D {Paths.implementationsPath.Wrap()} & pth2ncnn.exe {modelPath}";
+			string args = $"{opt} cd /D {Path.Combine(Paths.binPath, Implementations.Implementations.esrganNcnn.dir).Wrap()} & pth2ncnn.exe {modelPath}";
 
 			Logger.Log("[CMD] " + args);
 			Process converterProc = OSUtils.NewProcess(!showWindow);

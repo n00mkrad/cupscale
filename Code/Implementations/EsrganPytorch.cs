@@ -17,49 +17,13 @@ using Cupscale.OS;
 
 namespace Cupscale.Implementations
 {
-    class EsrganPytorch
+    class EsrganPytorch : ImplementationBase
     {
-        private static string ProgressLogFile { get => Path.Combine(Paths.implementationsPath, Implementations.esrganPytorch.dir); }
-
-        public static string GetModelArg(ModelData mdl)
-        {
-            string mdl1 = mdl.model1Path;
-            string mdl2 = mdl.model2Path;
-            ModelData.ModelMode mdlMode = mdl.mode;
-
-            if (mdlMode == ModelData.ModelMode.Single)
-            {
-                Program.lastModelName = mdl.model1Name;
-                return mdl1.Wrap(true, false);
-            }
-
-            if (mdlMode == ModelData.ModelMode.Interp)
-            {
-                int interpLeft = 100 - mdl.interp;
-                int interpRight = mdl.interp;
-
-                Program.lastModelName = mdl.model1Name + ":" + interpLeft + ":" + mdl.model2Name + ":" + interpRight;
-
-                return (mdl1 + ";" + interpLeft + "&" + mdl2 + ";" + interpRight).Wrap(true);
-            }
-
-            if (mdlMode == ModelData.ModelMode.Chain)
-            {
-                Program.lastModelName = mdl.model1Name + ">>" + mdl.model2Name;
-                return (mdl1 + ">" + mdl2).Wrap(true);
-            }
-
-            if (mdlMode == ModelData.ModelMode.Advanced)
-            {
-                Program.lastModelName = "Advanced";
-                return AdvancedModelSelection.GetArg();
-            }
-
-            return null;
-        }
+        private static string ProgressLogFile { get => Path.Combine(Paths.binPath, Implementations.esrganPytorch.dir, "prog"); }
 
         public static async Task Run(string inpath, string outpath, ModelData mdl, bool cacheSplitDepth, bool alpha, bool showTileProgress)
         {
+            Program.mainForm.SetProgress(2f, "Loading ESRGAN (Pytorch)...");
             File.Delete(ProgressLogFile);
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
@@ -89,7 +53,7 @@ namespace Cupscale.Implementations
             string fp16 = Config.GetBool("useFp16") ? "--fp16" : "";
             string cache = cacheSplitDepth ? "--cache_max_split_depth" : "";
             string opt = stayOpen ? "/K" : "/C";
-            string cmd = $"{opt} cd /D {Paths.implementationsPath.Wrap()} & ";
+            string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Implementations.esrganPytorch.dir).Wrap()} & ";
             cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {cache} {cpu} {device} {fp16} {seam} {alphaMode} {alphaDepth} {modelArg}";
             Logger.Log("[CMD] " + cmd);
             Process esrganProcess = OSUtils.NewProcess(!showWindow);
@@ -126,6 +90,43 @@ namespace Cupscale.Implementations
             }
 
             File.Delete(ProgressLogFile);
+        }
+
+        public static string GetModelArg(ModelData mdl)
+        {
+            string mdl1 = mdl.model1Path;
+            string mdl2 = mdl.model2Path;
+            ModelData.ModelMode mdlMode = mdl.mode;
+
+            if (mdlMode == ModelData.ModelMode.Single)
+            {
+                Program.lastModelName = mdl.model1Name;
+                return mdl1.Wrap(true, false);
+            }
+
+            if (mdlMode == ModelData.ModelMode.Interp)
+            {
+                int interpLeft = 100 - mdl.interp;
+                int interpRight = mdl.interp;
+
+                Program.lastModelName = mdl.model1Name + ":" + interpLeft + ":" + mdl.model2Name + ":" + interpRight;
+
+                return (mdl1 + ";" + interpLeft + "&" + mdl2 + ";" + interpRight).Wrap(true);
+            }
+
+            if (mdlMode == ModelData.ModelMode.Chain)
+            {
+                Program.lastModelName = mdl.model1Name + ">>" + mdl.model2Name;
+                return (mdl1 + ">" + mdl2).Wrap(true);
+            }
+
+            if (mdlMode == ModelData.ModelMode.Advanced)
+            {
+                Program.lastModelName = "Advanced";
+                return AdvancedModelSelection.GetArg();
+            }
+
+            return null;
         }
 
         private static void OutputHandler(object sendingProcess, DataReceivedEventArgs output)

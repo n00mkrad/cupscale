@@ -14,7 +14,7 @@ namespace Cupscale
         {
             lastOutputFfmpeg = "";
             Process ffmpeg = OSUtils.NewProcess(true);
-            ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.implementationsPath.Wrap() + " & ffmpeg.exe -hide_banner -loglevel warning -y -stats " + args;
+            ffmpeg.StartInfo.Arguments = $"/C cd /D {Paths.binPath.Wrap()} & ffmpeg.exe -hide_banner -loglevel warning -y -stats {args}";
             Logger.Log("Running ffmpeg...");
             Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
             ffmpeg.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
@@ -22,8 +22,10 @@ namespace Cupscale
             ffmpeg.Start();
             ffmpeg.BeginOutputReadLine();
             ffmpeg.BeginErrorReadLine();
+
             while (!ffmpeg.HasExited)
                 await Task.Delay(100);
+
             Logger.Log("Done running ffmpeg.");
         }
 
@@ -33,6 +35,7 @@ namespace Cupscale
             if (outLine == null || line == null) return;
             lastOutputFfmpeg = lastOutputFfmpeg + line + "\n";
             Logger.Log("[FFmpeg] " + line);
+
             if (line.ToLower().Contains("error"))
                 Program.ShowMessage("FFmpeg Error:\n\n" + line);
         }
@@ -40,7 +43,7 @@ namespace Cupscale
         public static async Task RunGifski (string args)
         {
             Process ffmpeg = OSUtils.NewProcess(true);
-            ffmpeg.StartInfo.Arguments = $"/C cd /D {Paths.implementationsPath.Wrap()} & gifski.exe {args}";
+            ffmpeg.StartInfo.Arguments = $"/C cd /D {Paths.binPath.Wrap()} & gifski.exe {args}";
             Logger.Log("Running gifski...");
             Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
             ffmpeg.OutputDataReceived += new DataReceivedEventHandler(OutputHandlerGifski);
@@ -48,8 +51,10 @@ namespace Cupscale
             ffmpeg.Start();
             ffmpeg.BeginOutputReadLine();
             ffmpeg.BeginErrorReadLine();
+
             while (!ffmpeg.HasExited)
                 await Task.Delay(100);
+
             Logger.Log("Done running gifski.");
         }
 
@@ -58,6 +63,7 @@ namespace Cupscale
             string line = outLine.Data;
             if (outLine == null || line == null) return;
             Logger.Log("[gifski] " + line);
+
             if (line.ToLower().Contains("error"))
                 Program.ShowMessage("Gifski Error:\n\n" + line);
         }
@@ -65,13 +71,15 @@ namespace Cupscale
         public static string RunAndGetOutput (string args)
         {
             Process ffmpeg = OSUtils.NewProcess(true);
-            ffmpeg.StartInfo.Arguments = "/C cd /D " + Paths.implementationsPath.Wrap() + " & ffmpeg.exe -hide_banner -y -stats " + args;
+            ffmpeg.StartInfo.Arguments = $"/C cd /D {Paths.binPath.Wrap()} & ffmpeg.exe -hide_banner -y -stats {args}";
             ffmpeg.Start();
             ffmpeg.WaitForExit();
             string output = ffmpeg.StandardOutput.ReadToEnd();
             string err = ffmpeg.StandardError.ReadToEnd();
+
             if (!string.IsNullOrWhiteSpace(err))
                 output = output + "\n" + err;
+
             return output;
         }
     }
