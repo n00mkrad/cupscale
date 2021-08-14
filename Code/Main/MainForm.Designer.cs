@@ -2559,10 +2559,6 @@ namespace Cupscale.Main
             this.aiSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aiSelect.ForeColor = System.Drawing.Color.White;
             this.aiSelect.FormattingEnabled = true;
-            this.aiSelect.Items.AddRange(new object[] {
-            "ESRGAN (CUDA)",
-            "ESRGAN (NCNN)",
-            "Real-ESRGAN (NCNN)"});
             this.aiSelect.Location = new System.Drawing.Point(116, 20);
             this.aiSelect.Margin = new System.Windows.Forms.Padding(8);
             this.aiSelect.Name = "aiSelect";

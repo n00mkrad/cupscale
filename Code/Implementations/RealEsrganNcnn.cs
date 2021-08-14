@@ -18,23 +18,33 @@ namespace Cupscale.Implementations
     {
         static readonly string exeName = "realesrgan-ncnn-vulkan.exe";
 
-        public static async Task Run(string inpath, string outpath, string modelPath = "")
+        public static async Task Run(string inpath, string outpath, ModelData mdl)
         {
             if (!CheckIfExeExists(Implementations.realEsrganNcnn, exeName))
                 return;
 
-            Program.lastModelName = "RealESRGAN";
+            string modelPath = mdl.model1Path;
+            Program.lastModelName = modelPath;
 
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
 
-            Program.mainForm.SetProgress(3f, "Loading RealESRGAN...");
-            //int scale = NcnnUtils.GetNcnnModelScale(currentNcnnModel);
+            Program.mainForm.SetProgress(1f, "Converting model...");
+            await NcnnUtils.ConvertNcnnModel(modelPath, "realesrgan-x*plus");
+            Logger.Log("[ESRGAN] NCNN Model is ready: " + NcnnUtils.currentNcnnModel);
+            Program.mainForm.SetProgress(3f, "Loading RealESRGAN (NCNN)...");
+            int scale = NcnnUtils.GetNcnnModelScale(NcnnUtils.currentNcnnModel);
+
+            if(scale != 4)
+            {
+                Program.ShowMessage($"Error: This implementation currently only supports 4x scale models.", "Error");
+                return;
+            }
 
             string opt = stayOpen ? "/K" : "/C";
 
             string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Implementations.realEsrganNcnn.dir).Wrap()} & {exeName} -i {inpath.Wrap()} -o {outpath.Wrap()}" +
-                $" -g {Config.GetInt("gpuId")} -m realesrgan-models -s 4";
+                $" -g {Config.GetInt("gpuId")} -m {NcnnUtils.currentNcnnModel.Wrap()} -s {scale}";
             Logger.Log("[CMD] " + cmd);
 
             Process proc = OSUtils.NewProcess(!showWindow);

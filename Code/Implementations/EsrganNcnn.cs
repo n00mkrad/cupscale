@@ -17,7 +17,6 @@ namespace Cupscale.Implementations
     class EsrganNcnn : ImplementationBase
     {
         static readonly string exeName = "esrgan-ncnn-vulkan.exe";
-        public static string currentNcnnModel = "";
 
         public static async Task Run(string inpath, string outpath, ModelData mdl)
         {
@@ -31,15 +30,15 @@ namespace Cupscale.Implementations
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
 
             Program.mainForm.SetProgress(1f, "Converting model...");
-            await NcnnUtils.ConvertNcnnModel(modelPath);
-            Logger.Log("[ESRGAN] NCNN Model is ready: " + currentNcnnModel);
-            Program.mainForm.SetProgress(3f, "Loading ESRGAN-NCNN...");
-            int scale = NcnnUtils.GetNcnnModelScale(currentNcnnModel);
+            await NcnnUtils.ConvertNcnnModel(modelPath, "x*");
+            Logger.Log("[ESRGAN] NCNN Model is ready: " + NcnnUtils.currentNcnnModel);
+            Program.mainForm.SetProgress(3f, "Loading ESRGAN (NCNN)...");
+            int scale = NcnnUtils.GetNcnnModelScale(NcnnUtils.currentNcnnModel);
 
             string opt = stayOpen ? "/K" : "/C";
 
             string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Implementations.esrganNcnn.dir).Wrap()} & {exeName} -i {inpath.Wrap()} -o {outpath.Wrap()}" +
-                $" -g {Config.GetInt("gpuId")} -m " + currentNcnnModel.Wrap() + " -s " + scale;
+                $" -g {Config.GetInt("gpuId")} -m {NcnnUtils.currentNcnnModel.Wrap()} -s {scale}";
             Logger.Log("[CMD] " + cmd);
 
             Process ncnnProcess = OSUtils.NewProcess(!showWindow);

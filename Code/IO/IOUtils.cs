@@ -515,5 +515,29 @@ namespace Cupscale
             DirectoryInfo dir = new DirectoryInfo(path);
             return dir.GetFiles(pattern, opt).OrderBy(x => x.Name).ToArray();
         }
+
+        /// <summary>
+		/// Easily rename a file without needing to specify the full move path
+		/// </summary>
+		public static bool RenameFile(string path, string newName, bool alsoRenameExtension = false)
+        {
+            try
+            {
+                string dir = Path.GetDirectoryName(path);
+                string ext = Path.GetExtension(path);
+                string movePath = Path.Combine(dir, newName);
+
+                if (!alsoRenameExtension)
+                    movePath += ext;
+
+                File.Move(path, movePath);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.Log($"Failed to rename '{path}' to '{newName}': {e.Message}", true);
+                return false;
+            }
+        }
     }
 }

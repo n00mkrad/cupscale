@@ -23,7 +23,7 @@ namespace Cupscale.Implementations
 
         public static async Task Run(string inpath, string outpath, ModelData mdl, bool cacheSplitDepth, bool alpha, bool showTileProgress)
         {
-            Program.mainForm.SetProgress(2f, "Loading ESRGAN (Pytorch)...");
+            Program.mainForm.SetProgress(3f, "Loading ESRGAN (Pytorch)...");
             File.Delete(ProgressLogFile);
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;

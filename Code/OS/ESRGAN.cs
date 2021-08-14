@@ -37,7 +37,7 @@ namespace Cupscale.OS
                     await EsrganNcnn.Run(inpath, outpath, mdl);
 
                 if (Upscale.currentAi == Implementations.Implementations.realEsrganNcnn)
-                    await RealEsrganNcnn.Run(inpath, outpath);
+                    await RealEsrganNcnn.Run(inpath, outpath, mdl);
 
                 if (mode == PreviewMode.Cutout)
                 {

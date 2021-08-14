@@ -79,6 +79,7 @@ namespace Cupscale.Main
 				Program.ShowMessage("Cupscale is running as administrator.\nThis will break Drag-n-Drop functionality.", "Warning");
 
 			LoadEsrganOptions();
+			InitImplementations();
 
 			flowPanelLeft.AutoScroll = false;
 			flowPanelLeft.HorizontalScroll.Maximum = 0;
@@ -107,6 +108,14 @@ namespace Cupscale.Main
 				await Task.Delay(100);
 			}
         }
+
+		void InitImplementations ()
+		{
+			foreach (Implementations.Implementation imp in Implementations.Implementations.implementations)
+				aiSelect.Items.Add(imp.name);
+
+			Config.LoadComboxIndex(aiSelect);
+		}
 
 		public async Task CheckInstallation ()
         {
@@ -225,22 +234,56 @@ namespace Cupscale.Main
 			new SettingsForm().ShowDialog();
         }
 
-        private void singleModelRbtn_CheckedChanged(object sender, EventArgs e)
-        {
+		private void singleModelRbtn_CheckedChanged(object sender, EventArgs e)
+		{
 			UpdateModelMode();
 		}
 
-        private void interpRbtn_CheckedChanged(object sender, EventArgs e)
-        {
+		private void interpRbtn_CheckedChanged(object sender, EventArgs e)
+		{
+			if(interpRbtn.Checked && !Upscale.currentAi.supportsInterp)
+            {
+				Program.ShowMessage("This implementation does not support model interpolation!");
+				SetRadioBtn(singleModelRbtn);
+				return;
+            }
+				
 			UpdateModelMode();
 		}
 
-        private void chainRbtn_CheckedChanged(object sender, EventArgs e)
-        {
+		private void chainRbtn_CheckedChanged(object sender, EventArgs e)
+		{
+			if (chainRbtn.Checked && !Upscale.currentAi.supportsChain)
+			{
+				Program.ShowMessage("This implementation does not support model chaining!");
+				SetRadioBtn(singleModelRbtn);
+				return;
+			}
+
 			UpdateModelMode();
 		}
 
-		public void UpdateModelMode()
+		private void advancedBtn_CheckedChanged(object sender, EventArgs e)
+		{
+			if (advancedBtn.Checked && (!Upscale.currentAi.supportsInterp && !Upscale.currentAi.supportsChain))
+			{
+				Program.ShowMessage("This implementation does not support model interpolatoin and chaining!");
+				SetRadioBtn(singleModelRbtn);
+				return;
+			}
+
+			UpdateModelMode();
+		}
+
+		private void SetRadioBtn (RadioButton btn)
+        {
+			singleModelRbtn.Checked = singleModelRbtn == btn;
+			interpRbtn.Checked = interpRbtn == btn;
+			chainRbtn.Checked = chainRbtn == btn;
+			advancedBtn.Checked = advancedBtn == btn;
+		}
+
+		private void UpdateModelMode(object sender = null, EventArgs e = null)
 		{
 			model1TreeBtn.Enabled = !advancedBtn.Checked;
 			model2TreeBtn.Enabled = (interpRbtn.Checked || chainRbtn.Checked);
@@ -520,11 +563,6 @@ namespace Cupscale.Main
 				PostProcessingQueue.copyMode = PostProcessingQueue.CopyMode.CopyToRoot;
 		}
 
-        private void advancedBtn_CheckedChanged(object sender, EventArgs e)
-        {
-			UpdateModelMode();
-		}
-
         private void advancedConfigureBtn_Click(object sender, EventArgs e)
         {
 			new AdvancedModelForm();
@@ -755,12 +793,11 @@ namespace Cupscale.Main
 
         private void aiSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
-			if (aiSelect.SelectedIndex == 0) Upscale.currentAi = Implementations.Implementations.esrganPytorch;
-			if (aiSelect.SelectedIndex == 1) Upscale.currentAi = Implementations.Implementations.esrganNcnn;
-			if (aiSelect.SelectedIndex == 2) Upscale.currentAi = Implementations.Implementations.realEsrganNcnn;
+			Upscale.currentAi = Implementations.Implementations.implementations[aiSelect.SelectedIndex];
+			Config.SaveComboxIndex(aiSelect);
 
 			mdlPanel.Enabled = Upscale.currentAi.supportsModels;
-			seamlessMode.Enabled = Upscale.currentAi == Implementations.Implementations.esrganPytorch || Upscale.currentAi == Implementations.Implementations.esrganNcnn;
+			seamlessMode.Enabled = Upscale.currentAi == Implementations.Implementations.esrganPytorch;
 		}
     }
 }

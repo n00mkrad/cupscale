@@ -16,11 +16,13 @@ namespace Cupscale.OS
 {
     class NcnnUtils
     {
-		static Process currentProcess;
+		public static string currentNcnnModel;
         public static string lastNcnnOutput;
+		static Process currentProcess;
 		static string ncnnDir = "";
+		private static string ConverterDir { get => Path.Combine(Paths.binPath, "pth2ncnn"); }
 
-		public static async Task ConvertNcnnModel(string modelPath)
+		public static async Task ConvertNcnnModel(string modelPath, string filenamePattern)
         {
             try
             {
@@ -39,7 +41,7 @@ namespace Cupscale.OS
                     if (lastNcnnOutput.Contains("Error:"))
                         throw new Exception(lastNcnnOutput.SplitIntoLines().Where(x => x.Contains("Error:")).First());
 
-					string moveFrom = Path.Combine(Paths.binPath, Path.ChangeExtension(modelName, null));
+					string moveFrom = Path.Combine(ConverterDir, Path.ChangeExtension(modelName, null));
                     Logger.Log("Moving " + moveFrom + " to " + outPath);
                     await IOUtils.CopyDir(moveFrom, outPath, "*", true);
                     Directory.Delete(moveFrom, true);
@@ -50,7 +52,10 @@ namespace Cupscale.OS
                     Logger.Log("NCNN Model is cached - Skipping conversion.");
                 }
 
-                EsrganNcnn.currentNcnnModel = outPath;
+				foreach(FileInfo file in IOUtils.GetFileInfosSorted(outPath).Where(f => f.Extension == ".bin" || f.Extension == ".param"))
+					IOUtils.RenameFile(file.FullName, filenamePattern.Replace("*", $"{file.Name.GetInt()}"));
+
+                currentNcnnModel = outPath;
             }
             catch (Exception e)
             {
@@ -69,23 +74,27 @@ namespace Cupscale.OS
 			string opt = "/C";
 			if (stayOpen) opt = "/K";
 
-			string args = $"{opt} cd /D {Path.Combine(Paths.binPath, Implementations.Implementations.esrganNcnn.dir).Wrap()} & pth2ncnn.exe {modelPath}";
+			string args = $"{opt} cd /D {ConverterDir.Wrap()} & pth2ncnn.exe {modelPath}";
 
 			Logger.Log("[CMD] " + args);
 			Process converterProc = OSUtils.NewProcess(!showWindow);
 			converterProc.StartInfo.Arguments = args;
+
 			if (!showWindow)
 			{
 				converterProc.OutputDataReceived += OutputHandler;
 				converterProc.ErrorDataReceived += OutputHandler;
 			}
+
 			currentProcess = converterProc;
 			converterProc.Start();
+
 			if (!showWindow)
 			{
 				converterProc.BeginOutputReadLine();
 				converterProc.BeginErrorReadLine();
 			}
+
 			while (!converterProc.HasExited)
 				await Task.Delay(100);
 		}
@@ -102,8 +111,16 @@ namespace Cupscale.OS
 
 		public static int GetNcnnModelScale(string modelDir)
 		{
-			string[] files = Directory.GetFiles(modelDir, "*.bin");
-			return Path.GetFileNameWithoutExtension(files[0]).GetInt();
+            try
+            {
+				string[] files = Directory.GetFiles(modelDir, "*.bin");
+				return Path.GetFileNameWithoutExtension(files[0]).GetInt();
+			}
+			catch (Exception e)
+            {
+				Logger.Log($"Failed to get NCNN model scale for dir '{modelDir}': {e.Message}");
+				return 4;
+            }
 		}
 	}
 }
