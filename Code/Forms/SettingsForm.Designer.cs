@@ -34,7 +34,9 @@
             this.settingsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.useFp16 = new System.Windows.Forms.CheckBox();
             this.pictureBox14 = new System.Windows.Forms.PictureBox();
+            this.label36 = new System.Windows.Forms.Label();
             this.gpuId = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -143,8 +145,6 @@
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.useFp16 = new System.Windows.Forms.CheckBox();
-            this.label36 = new System.Windows.Forms.Label();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -250,6 +250,15 @@
             this.panel7.Size = new System.Drawing.Size(455, 463);
             this.panel7.TabIndex = 4;
             // 
+            // useFp16
+            // 
+            this.useFp16.AutoSize = true;
+            this.useFp16.Location = new System.Drawing.Point(220, 254);
+            this.useFp16.Name = "useFp16";
+            this.useFp16.Size = new System.Drawing.Size(15, 14);
+            this.useFp16.TabIndex = 26;
+            this.useFp16.UseVisualStyleBackColor = true;
+            // 
             // pictureBox14
             // 
             this.pictureBox14.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -262,6 +271,15 @@
             this.pictureBox14.TabStop = false;
             this.toolTip.SetToolTip(this.pictureBox14, "Set which GPU will be used for upscaling.\r\n0 is the first device, 1 the second, a" +
         "nd so on.");
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(6, 254);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(106, 13);
+            this.label36.TabIndex = 25;
+            this.label36.Text = "Half Precision (FP16)";
             // 
             // gpuId
             // 
@@ -298,7 +316,7 @@
             // 
             this.pictureBox10.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox10.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox10.Location = new System.Drawing.Point(82, 106);
+            this.pictureBox10.Location = new System.Drawing.Point(163, 106);
             this.pictureBox10.Name = "pictureBox10";
             this.pictureBox10.Size = new System.Drawing.Size(22, 22);
             this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -460,9 +478,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 110);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(70, 13);
+            this.label7.Size = new System.Drawing.Size(151, 13);
             this.label7.TabIndex = 4;
-            this.label7.Text = "Enable Alpha";
+            this.label7.Text = "Alpha Mode (ESRGAN-CUDA)";
             // 
             // label5
             // 
@@ -1527,24 +1545,6 @@
             this.logTbox.Size = new System.Drawing.Size(922, 469);
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
-            // 
-            // useFp16
-            // 
-            this.useFp16.AutoSize = true;
-            this.useFp16.Location = new System.Drawing.Point(220, 254);
-            this.useFp16.Name = "useFp16";
-            this.useFp16.Size = new System.Drawing.Size(15, 14);
-            this.useFp16.TabIndex = 26;
-            this.useFp16.UseVisualStyleBackColor = true;
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(6, 254);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(185, 13);
-            this.label36.TabIndex = 25;
-            this.label36.Text = "RTX Fast Mode (FP16) - Experimental";
             // 
             // SettingsForm
             // 

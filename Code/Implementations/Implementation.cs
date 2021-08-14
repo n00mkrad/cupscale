@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cupscale.Main
+namespace Cupscale.Implementations
 {
-    class AI
+    class Implementation
     {
+        public string dir = "";
         public bool supportsModels = true;
     }
 }

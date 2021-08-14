@@ -185,9 +185,6 @@ namespace Cupscale.UI
                 PostProcessingQueue.Start(imgOutDir);
 
             List<Task> tasks = new List<Task>();
-            ESRGAN.Backend backend = ESRGAN.Backend.Cuda;
-            if (useCpu) backend = ESRGAN.Backend.Cpu;
-            if (useNcnn) backend = ESRGAN.Backend.Ncnn;
             tasks.Add(ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, cacheSplitDepth, bool.Parse(Config.Get("alpha")), ESRGAN.PreviewMode.None, false));
             
             if (postProcess)

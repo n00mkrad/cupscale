@@ -37,7 +37,7 @@ namespace Cupscale.OS
                     if (lastNcnnOutput.Contains("Error:"))
                         throw new Exception(lastNcnnOutput.SplitIntoLines().Where(x => x.Contains("Error:")).First());
 
-					string moveFrom = Path.Combine(Paths.esrganPath, Path.ChangeExtension(modelName, null));
+					string moveFrom = Path.Combine(Paths.implementationsPath, Path.ChangeExtension(modelName, null));
                     Logger.Log("Moving " + moveFrom + " to " + outPath);
                     await IOUtils.CopyDir(moveFrom, outPath, "*", true);
                     Directory.Delete(moveFrom, true);
@@ -67,7 +67,7 @@ namespace Cupscale.OS
 			string opt = "/C";
 			if (stayOpen) opt = "/K";
 
-			string args = $"{opt} cd /D {Paths.esrganPath.Wrap()} & pth2ncnn.exe {modelPath}";
+			string args = $"{opt} cd /D {Paths.implementationsPath.Wrap()} & pth2ncnn.exe {modelPath}";
 
 			Logger.Log("[CMD] " + args);
 			Process converterProc = OSUtils.NewProcess(!showWindow);
@@ -86,8 +86,6 @@ namespace Cupscale.OS
 			}
 			while (!converterProc.HasExited)
 				await Task.Delay(100);
-
-			File.Delete(Paths.progressLogfile);
 		}
 
 		private static void OutputHandler(object sendingProcess, DataReceivedEventArgs output)

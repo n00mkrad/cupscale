@@ -84,6 +84,7 @@ namespace Cupscale
             {
                 return false;
             }
+
             return true;
         }
 
@@ -114,8 +115,6 @@ namespace Cupscale
                     await Task.Delay(1);
                     sw.Restart();
                 }
-
-                Logger.Log("Checking if compatibleExtensions contains " + fileInfo.Extension.ToLower() + ": " + compatibleExtensions.Contains(fileInfo.Extension.ToLower()));
 
                 if (onlyCompatibles && !compatibleExtensions.Contains(fileInfo.Extension.ToLower()))
                     continue;

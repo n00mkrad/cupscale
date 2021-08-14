@@ -6,7 +6,7 @@ namespace Cupscale.IO
 {
 	internal class Paths
 	{
-		public static string esrganPath;
+		public static string implementationsPath;
 		public static string previewPath;
 		public static string previewOutPath;
 		public static string imgInPath;
@@ -18,11 +18,10 @@ namespace Cupscale.IO
 		public static string compositionOut;
 		public static string framesOutPath;
 		//public static string convertTempPath;
-		public static string progressLogfile;
 
 		public static void Init()
 		{
-			esrganPath = Path.Combine(GetDataPath(), "ShippedEsrgan");
+			implementationsPath = Path.Combine(GetDataPath(), "implementations");
 			previewPath = Path.Combine(GetDataPath(), "preview");
 			previewOutPath = Path.Combine(GetDataPath(), "preview-out");
 			imgInPath = Path.Combine(GetDataPath(), "img-in");
@@ -33,7 +32,6 @@ namespace Cupscale.IO
 			presetsPath = Path.Combine(GetDataPath(), "model-presets");
 			compositionOut = Path.Combine(GetDataPath(), "composition");
 			framesOutPath = Path.Combine(GetDataPath(), "frames-out");
-			progressLogfile = Path.Combine(esrganPath, "prog");
 			Directory.CreateDirectory(previewPath);
 			Directory.CreateDirectory(previewOutPath);
 			Directory.CreateDirectory(imgInPath);

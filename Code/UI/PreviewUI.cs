@@ -84,10 +84,9 @@ namespace Cupscale.UI
                 if (useCpu) backend = ESRGAN.Backend.Cpu;
                 if (useNcnn) backend = ESRGAN.Backend.Ncnn;
                 await ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, false, Config.GetBool("alpha"), ESRGAN.PreviewMode.None);
-                if (backend == ESRGAN.Backend.Ncnn)
-                    outImg = Directory.GetFiles(Paths.imgOutPath, "*.png*", SearchOption.AllDirectories)[0];
-                else
-                    outImg = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories)[0];
+
+                outImg = Directory.GetFiles(Paths.imgOutPath, "*.png*", SearchOption.AllDirectories)[0];
+
                 Program.mainForm.SetProgress(100f, "Post-Processing...");
                 await Task.Delay(50);
                 await Upscale.PostprocessingSingle(outImg, false);
@@ -126,9 +125,9 @@ namespace Cupscale.UI
 
         public static bool HasValidModelSelection(bool showErrorMsgsIfInvalid = true)
         {
-            AI ai = Upscale.currentAi;
+            Implementations.Implementation ai = Upscale.currentAi;
 
-            if(ai == Networks.esrganCuda)
+            if(ai == Implementations.Implementations.esrganPytorch)
             {
                 bool valid = true;
 
@@ -143,7 +142,7 @@ namespace Cupscale.UI
                 return valid;
             }
 
-            if (ai == Networks.esrganNcnn)
+            if (ai == Implementations.Implementations.esrganNcnn)
             {
                 bool valid = true;
 

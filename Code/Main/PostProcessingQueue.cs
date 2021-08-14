@@ -146,7 +146,7 @@ namespace Cupscale.Cupscale
 
         static void CheckNcnnOutput()
         {
-            foreach (string file in Directory.GetFiles(Paths.imgOutPath, "*.png.png", SearchOption.AllDirectories))   // Rename to tmp
+            foreach (string file in Directory.GetFiles(Paths.imgOutPath, "*.*.png", SearchOption.AllDirectories))   // Rename to tmp
             {
                 try
                 {

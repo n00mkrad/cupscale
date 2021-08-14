@@ -46,7 +46,7 @@ namespace Cupscale.ImageUtils
 			string opt = "/C";
 			if (stayOpen) opt = "/K";
 
-			string args = $"{opt} cd /D {Paths.esrganPath.Wrap()} & ";
+			string args = $"{opt} cd /D {Paths.implementationsPath.Wrap()} & ";
 			args += $"nvcompress.exe -{dxtMode} {alphaStr} {mipStr} {inpath.Wrap()} {outpath.Wrap()}";
 			Logger.Log("[CMD] " + args);
 			Process nvCompress = new Process();

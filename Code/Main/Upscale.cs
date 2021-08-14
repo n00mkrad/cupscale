@@ -15,7 +15,7 @@ namespace Cupscale.Main
 {
     class Upscale
     {
-        public static AI currentAi = Networks.esrganCuda;
+        public static Implementations.Implementation currentAi = Implementations.Implementations.esrganPytorch;
 
         public enum UpscaleMode { Preview, Single, Batch, Composition }
         public static UpscaleMode currentMode = UpscaleMode.Preview;
@@ -103,7 +103,11 @@ namespace Cupscale.Main
 
         public static async Task PostprocessingSingle (string path, bool dontResize = false, int retryCount = 20)
         {
+            if (!IOUtils.IsFileValid(path))
+                return;
+
             string newPath = "";
+
             if (Path.GetExtension(path) != ".tmp")
                 newPath = path.Substring(0, path.Length - 8);
             else
@@ -127,6 +131,7 @@ namespace Cupscale.Main
                 {
                     Logger.ErrorMessage($"Failed to move/rename '{Path.GetFileName(path)}' and ran out of retries!", e);
                 }
+
                 return;
             }
 

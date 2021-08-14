@@ -117,7 +117,7 @@ namespace Cupscale.Forms
 
         private void confirmBtn_Click(object sender, EventArgs e)
         {
-            Logger.Log("Advanced Model Arg: " + GetArg(Config.GetInt("esrganVer") == 0));
+            Logger.Log("Advanced Model Arg: " + GetArg());
             SavePreset("lastUsed");
             Close();
         }
