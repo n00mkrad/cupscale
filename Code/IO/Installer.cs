@@ -20,7 +20,7 @@ namespace Cupscale.IO
 		{
 			exeFilesVersion = new StringReader(Resources.shipped_files_version).ReadLine().Split('#')[0].GetInt();
 			Logger.Log($"[Installer] Initializing - Exe Files Version is {exeFilesVersion}.");
-			path = Paths.esrganPath;
+			path = Paths.implementationsPath;
 
 			if (!InstallationIsValid())
 				await Install();
@@ -127,14 +127,17 @@ namespace Cupscale.IO
 			sw.Restart();
 			client.DownloadProgressChanged += DownloadProgressChanged;
 			await client.DownloadFileTaskAsync(new Uri(url), savePath);
+
 			if(Path.GetExtension(filename).ToLower() == ".7z")		// Only run extractor if it's a 7z archive
             {
 				if (currentDlDialog != null)
 					currentDlDialog.ChangeText($"Installing {filename}...");
 				await UnSevenzip(Path.Combine(Paths.GetDataPath(), filename));
 			}
+
 			if(currentDlDialog != null)
 				currentDlDialog.Close();
+
 			currentDlDialog = null;
 		}
 
