@@ -24,7 +24,7 @@ namespace Cupscale.Implementations
                 return;
 
             string modelPath = mdl.model1Path;
-            Program.lastModelName = modelPath;
+            Program.lastModelName = mdl.model1Name;
 
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;

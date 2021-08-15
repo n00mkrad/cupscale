@@ -220,16 +220,28 @@ namespace Cupscale
 
         public static string RenameExtension(string filepath, string oldExt, string newExt)
         {
-            string targetPath = filepath;
-            FileInfo file = new FileInfo(filepath);
-            if (file.Extension.Replace(".", "") == oldExt.Replace(".", ""))
+            try
             {
-                targetPath = Path.ChangeExtension(file.FullName, newExt);
-                if (!File.Exists(targetPath))
-                    File.Delete(targetPath);
-                File.Move(file.FullName, targetPath);
+                string targetPath = filepath;
+                FileInfo file = new FileInfo(filepath);
+
+                if (file.Extension.Replace(".", "") == oldExt.Replace(".", ""))
+                {
+                    targetPath = Path.ChangeExtension(file.FullName, newExt);
+
+                    if (!File.Exists(targetPath))
+                        File.Delete(targetPath);
+
+                    File.Move(file.FullName, targetPath);
+                }
+
+                return targetPath;
             }
-            return targetPath;
+            catch (Exception e)
+            {
+                Logger.Log($"RenameExtension Error: {e.Message}\n{e.Message}");
+                return filepath;
+            }
         }
 
         public static void AppendToFilenames(string dir, string append, bool recursive = true, string wildcard = "*")

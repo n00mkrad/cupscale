@@ -175,8 +175,12 @@ namespace Cupscale.Main
                 string ext = Path.GetExtension(file);
 
                 newFilename = pathNoExt + "-" + GetLastModelName() + ext;
+                Logger.Log($"a");
+                Logger.Log($"Move {file} => {newFilename}");
                 File.Move(file, newFilename);
+                Logger.Log($"b");
                 newFilename = IOUtils.RenameExtension(newFilename, "jpg", Config.Get("jpegExtension"));
+                Logger.Log($"c");
 
                 return newFilename;
             }
