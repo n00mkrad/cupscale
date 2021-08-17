@@ -22,7 +22,6 @@ namespace Cupscale.OS
     internal class ESRGAN
     {
         public enum PreviewMode { None, Cutout, FullImage }
-        public enum Backend { Cuda, Cpu, Ncnn };
         //public static bool cacheTiling = false;
 
         public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, bool cacheSplitDepth, bool alpha, PreviewMode mode, bool showTileProgress = true)

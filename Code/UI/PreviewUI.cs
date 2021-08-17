@@ -78,14 +78,9 @@ namespace Cupscale.UI
 
             try
             {
-                bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
-                bool useCpu = (Config.Get("cudaFallback").GetInt() == 1);
-                ESRGAN.Backend backend = ESRGAN.Backend.Cuda;
-                if (useCpu) backend = ESRGAN.Backend.Cpu;
-                if (useNcnn) backend = ESRGAN.Backend.Ncnn;
                 await ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, false, Config.GetBool("alpha"), ESRGAN.PreviewMode.None);
 
-                outImg = Directory.GetFiles(Paths.imgOutPath, "*.png*", SearchOption.AllDirectories)[0];
+                outImg = Upscale.GetOutputImg();
 
                 Program.mainForm.SetProgress(100f, "Post-Processing...");
                 await Task.Delay(50);
@@ -199,14 +194,10 @@ namespace Cupscale.UI
                 SaveCurrentCutout();
             }
 
-            ClipboardComparison.originalPreview = (Bitmap)ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewPath, "*.png.*", SearchOption.AllDirectories)[0]);
+            ClipboardComparison.originalPreview = (Bitmap)ImgUtils.GetImage(Directory.GetFiles(Paths.previewPath, "*.png.*", SearchOption.AllDirectories)[0]);
             await ImageProcessing.PreProcessImages(Paths.previewPath, !bool.Parse(Config.Get("alpha")));
             string tilesize = Config.Get("tilesize");
             bool alpha = bool.Parse(Config.Get("alpha"));
-
-            ESRGAN.Backend backend = ESRGAN.Backend.Cuda;
-            if (Config.Get("cudaFallback").GetInt() == 1) backend = ESRGAN.Backend.Cpu;
-            if (Config.Get("cudaFallback").GetInt() == 3) backend = ESRGAN.Backend.Ncnn;
 
             sw.Restart();
 

@@ -18,11 +18,12 @@ namespace Cupscale.IO
 
 		public static async Task Init()
 		{
+			path = Paths.binPath;
+
 			return;	// NO LONGER USED, AT LEAST FOR NOW!!
 
 			exeFilesVersion = new StringReader(Resources.shipped_files_version).ReadLine().Split('#')[0].GetInt();
 			Logger.Log($"[Installer] Initializing - Exe Files Version is {exeFilesVersion}.");
-			path = Paths.binPath;
 
 			if (!InstallationIsValid())
 				await Install();

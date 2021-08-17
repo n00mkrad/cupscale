@@ -132,38 +132,35 @@ namespace Cupscale.Forms
                 Program.ShowMessage("Please load an image first!", "Error");
                 return;
             }
+
             Program.mainForm.SetBusy(true);
 
             Upscale.currentMode = Upscale.UpscaleMode.Composition;
             //await ImageProcessing.PreProcessImages(Paths.previewPath, !bool.Parse(Config.Get("alpha")));
             //if (cutoutMode)
                 //currentSourcePath += ".png";
+
             string outImg = null;
+
             try
             {
-                bool useNcnn = (Config.Get("cudaFallback").GetInt() == 2 || Config.Get("cudaFallback").GetInt() == 3);
-                bool useCpu = (Config.Get("cudaFallback").GetInt() == 1);
-                ESRGAN.Backend backend = ESRGAN.Backend.Cuda;
-                if (useCpu) backend = ESRGAN.Backend.Cpu;
-                if (useNcnn) backend = ESRGAN.Backend.Ncnn;
                 string inpath = Paths.previewPath;
                 if (fullImage) inpath = Paths.tempImgPath.GetParentDir();
                 await ESRGAN.DoUpscale(inpath, Paths.compositionOut, mdl, false, Config.GetBool("alpha"), ESRGAN.PreviewMode.None);
-                if (backend == ESRGAN.Backend.Ncnn)
-                    outImg = Directory.GetFiles(Paths.compositionOut, "*.png*", SearchOption.AllDirectories)[0];
-                else
-                    outImg = Directory.GetFiles(Paths.compositionOut, "*.tmp", SearchOption.AllDirectories)[0];
+                outImg = Directory.GetFiles(Paths.compositionOut, ".*.png*", SearchOption.AllDirectories)[0];
                 await Upscale.PostprocessingSingle(outImg, false);
                 await ProcessImage(PreviewUI.lastOutfile, mdl.model1Name);
                 IOUtils.TryCopy(PreviewUI.lastOutfile, Path.Combine(Paths.imgOutPath, $"{index}-{mdl.model1Name}.png"), true);
             }
             catch (Exception e)
             {
-                if (e.StackTrace.Contains("Index"))
+                if (e.Message.ToLower().Contains("index"))
                     Program.ShowMessage("The upscale process seems to have exited before completion!", "Error");
+
                 Logger.ErrorMessage("An error occured during upscaling:", e);
                 Program.mainForm.SetProgress(0f, "Cancelled.");
             }
+
             Program.mainForm.SetProgress(0, "Done.");
             Program.mainForm.SetBusy(false);
         }

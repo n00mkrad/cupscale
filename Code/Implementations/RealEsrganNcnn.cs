@@ -30,7 +30,7 @@ namespace Cupscale.Implementations
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
 
             Program.mainForm.SetProgress(1f, "Converting model...");
-            await NcnnUtils.ConvertNcnnModel(modelPath, "realesrgan-x*plus");
+            await NcnnUtils.ConvertNcnnModel(modelPath, "esrgan-x*");
             Logger.Log("[ESRGAN] NCNN Model is ready: " + NcnnUtils.currentNcnnModel);
             Program.mainForm.SetProgress(3f, "Loading RealESRGAN (NCNN)...");
             int scale = NcnnUtils.GetNcnnModelScale(NcnnUtils.currentNcnnModel);
@@ -42,9 +42,10 @@ namespace Cupscale.Implementations
             }
 
             string opt = stayOpen ? "/K" : "/C";
-
+            string tta = Config.GetBool("realEsrganNcnnTta") ? "-x" : "";
+            string ts = Config.GetInt("realEsrganNcnnTilesize") >= 32 ? $"-t {Config.GetInt("realEsrganNcnnTilesize")}" : "";
             string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Implementations.realEsrganNcnn.dir).Wrap()} & {exeName} -i {inpath.Wrap()} -o {outpath.Wrap()}" +
-                $" -g {Config.GetInt("gpuId")} -m {NcnnUtils.currentNcnnModel.Wrap()} -s {scale}";
+                $" -g {Config.GetInt("realEsrganNcnnGpus")} -m {NcnnUtils.currentNcnnModel.Wrap()} -n esrgan-x4 -s {scale} {tta} {ts}";
             Logger.Log("[CMD] " + cmd);
 
             Process proc = OSUtils.NewProcess(!showWindow);

@@ -32,28 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.tabList1 = new Cyotek.Windows.Forms.TabList();
             this.settingsPage = new Cyotek.Windows.Forms.TabListPage();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.useFp16 = new System.Windows.Forms.CheckBox();
-            this.pictureBox14 = new System.Windows.Forms.PictureBox();
-            this.label36 = new System.Windows.Forms.Label();
-            this.gpuId = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.alphaDepth = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.alphaMode = new System.Windows.Forms.ComboBox();
-            this.pythonRuntime = new System.Windows.Forms.ComboBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.seamlessMode = new System.Windows.Forms.ComboBox();
-            this.cudaFallback = new System.Windows.Forms.ComboBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.modelSelectAutoExpand = new System.Windows.Forms.CheckBox();
             this.label35 = new System.Windows.Forms.Label();
@@ -75,6 +53,56 @@
             this.label4 = new System.Windows.Forms.Label();
             this.alphaBgColor = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.aiPage = new Cyotek.Windows.Forms.TabListPage();
+            this.htTabControl1 = new HTAlt.WinForms.HTTabControl();
+            this.esrganPytorchTab = new System.Windows.Forms.TabPage();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.esrganPytorchMultiGpu = new System.Windows.Forms.CheckBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.esrganPytorchSeamlessMode = new System.Windows.Forms.ComboBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.esrganPytorchPythonRuntime = new System.Windows.Forms.ComboBox();
+            this.esrganPytorchCpu = new System.Windows.Forms.CheckBox();
+            this.esrganPytorchAlphaMode = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.esrganPytorchAlphaDepth = new System.Windows.Forms.ComboBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.esrganPytorchGpuId = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.esrganPytorchFp16 = new System.Windows.Forms.CheckBox();
+            this.esrganNcnnTab = new System.Windows.Forms.TabPage();
+            this.esrganNcnnTta = new System.Windows.Forms.CheckBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.esrganNcnnTilesize = new System.Windows.Forms.ComboBox();
+            this.label63 = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
+            this.label66 = new System.Windows.Forms.Label();
+            this.esrganNcnnGpu = new System.Windows.Forms.TextBox();
+            this.realEsrganNcnnTab = new System.Windows.Forms.TabPage();
+            this.realEsrganNcnnTta = new System.Windows.Forms.CheckBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.realEsrganNcnnTilesize = new System.Windows.Forms.ComboBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label61 = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
+            this.realEsrganNcnnGpus = new System.Windows.Forms.TextBox();
             this.formatsPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -147,17 +175,15 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.aiPage.SuspendLayout();
+            this.htTabControl1.SuspendLayout();
+            this.esrganPytorchTab.SuspendLayout();
+            this.esrganNcnnTab.SuspendLayout();
+            this.realEsrganNcnnTab.SuspendLayout();
             this.formatsPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -185,12 +211,13 @@
             // tabList1
             // 
             this.tabList1.Controls.Add(this.settingsPage);
+            this.tabList1.Controls.Add(this.aiPage);
             this.tabList1.Controls.Add(this.formatsPage);
             this.tabList1.Controls.Add(this.videoFormatsPage);
             this.tabList1.Controls.Add(this.resourceFilesPage);
             this.tabList1.Controls.Add(this.debugPage);
             this.tabList1.Controls.Add(this.logPage);
-            this.tabList1.ForeColor = System.Drawing.Color.White;
+            this.tabList1.ForeColor = System.Drawing.Color.DodgerBlue;
             this.tabList1.Location = new System.Drawing.Point(12, 12);
             this.tabList1.Name = "tabList1";
             this.tabList1.Size = new System.Drawing.Size(1080, 477);
@@ -198,305 +225,17 @@
             // 
             // settingsPage
             // 
-            this.settingsPage.Controls.Add(this.tableLayoutPanel3);
+            this.settingsPage.Controls.Add(this.panel6);
             this.settingsPage.Name = "settingsPage";
             this.settingsPage.Size = new System.Drawing.Size(922, 469);
             this.settingsPage.Text = "General Settings";
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.panel7, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.panel6, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(922, 469);
-            this.tableLayoutPanel3.TabIndex = 2;
-            // 
-            // panel7
-            // 
-            this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.useFp16);
-            this.panel7.Controls.Add(this.pictureBox14);
-            this.panel7.Controls.Add(this.label36);
-            this.panel7.Controls.Add(this.gpuId);
-            this.panel7.Controls.Add(this.label16);
-            this.panel7.Controls.Add(this.pictureBox2);
-            this.panel7.Controls.Add(this.pictureBox10);
-            this.panel7.Controls.Add(this.alphaDepth);
-            this.panel7.Controls.Add(this.label6);
-            this.panel7.Controls.Add(this.alphaMode);
-            this.panel7.Controls.Add(this.pythonRuntime);
-            this.panel7.Controls.Add(this.label24);
-            this.panel7.Controls.Add(this.seamlessMode);
-            this.panel7.Controls.Add(this.cudaFallback);
-            this.panel7.Controls.Add(this.pictureBox6);
-            this.panel7.Controls.Add(this.label22);
-            this.panel7.Controls.Add(this.pictureBox1);
-            this.panel7.Controls.Add(this.label2);
-            this.panel7.Controls.Add(this.label7);
-            this.panel7.Controls.Add(this.label5);
-            this.panel7.Location = new System.Drawing.Point(3, 3);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(455, 463);
-            this.panel7.TabIndex = 4;
-            // 
-            // useFp16
-            // 
-            this.useFp16.AutoSize = true;
-            this.useFp16.Location = new System.Drawing.Point(220, 254);
-            this.useFp16.Name = "useFp16";
-            this.useFp16.Size = new System.Drawing.Size(15, 14);
-            this.useFp16.TabIndex = 26;
-            this.useFp16.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox14
-            // 
-            this.pictureBox14.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox14.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox14.Location = new System.Drawing.Point(95, 196);
-            this.pictureBox14.Name = "pictureBox14";
-            this.pictureBox14.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox14.TabIndex = 30;
-            this.pictureBox14.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox14, "Set which GPU will be used for upscaling.\r\n0 is the first device, 1 the second, a" +
-        "nd so on.");
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(6, 254);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(106, 13);
-            this.label36.TabIndex = 25;
-            this.label36.Text = "Half Precision (FP16)";
-            // 
-            // gpuId
-            // 
-            this.gpuId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.gpuId.ForeColor = System.Drawing.Color.White;
-            this.gpuId.Location = new System.Drawing.Point(220, 197);
-            this.gpuId.Name = "gpuId";
-            this.gpuId.Size = new System.Drawing.Size(225, 20);
-            this.gpuId.TabIndex = 29;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 200);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(83, 13);
-            this.label16.TabIndex = 28;
-            this.label16.Text = "GPU ID (CUDA)";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox2.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox2.Location = new System.Drawing.Point(78, 136);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 27;
-            this.pictureBox2.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox2, "Color Depth of the alpha channel.\r\nUse Binary or Ternary for platforms and format" +
-        "s that have a limited alpha depth.\r\nFor example, GIFs or PSX sprites.");
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox10.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox10.Location = new System.Drawing.Point(163, 106);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox10.TabIndex = 26;
-            this.pictureBox10.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox10, "Enables support for upscaling transparency.\r\nMode 1 should work for most images, " +
-        "but if you are unhappy with the result, try 2 or 3.");
-            // 
-            // alphaDepth
-            // 
-            this.alphaDepth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.alphaDepth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.alphaDepth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.alphaDepth.ForeColor = System.Drawing.Color.White;
-            this.alphaDepth.FormattingEnabled = true;
-            this.alphaDepth.Items.AddRange(new object[] {
-            "Full (8-Bit)",
-            "Binary (1-Bit)",
-            "Ternary (2-Bit)"});
-            this.alphaDepth.Location = new System.Drawing.Point(220, 137);
-            this.alphaDepth.Margin = new System.Windows.Forms.Padding(8);
-            this.alphaDepth.Name = "alphaDepth";
-            this.alphaDepth.Size = new System.Drawing.Size(225, 21);
-            this.alphaDepth.TabIndex = 24;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 140);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 13);
-            this.label6.TabIndex = 23;
-            this.label6.Text = "Alpha Depth";
-            // 
-            // alphaMode
-            // 
-            this.alphaMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.alphaMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.alphaMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.alphaMode.ForeColor = System.Drawing.Color.White;
-            this.alphaMode.FormattingEnabled = true;
-            this.alphaMode.Items.AddRange(new object[] {
-            "0 (Disabled)",
-            "1 (Differential Alpha)",
-            "2 (Separated Alpha)",
-            "3 (Channel Alpha)"});
-            this.alphaMode.Location = new System.Drawing.Point(220, 107);
-            this.alphaMode.Margin = new System.Windows.Forms.Padding(8);
-            this.alphaMode.Name = "alphaMode";
-            this.alphaMode.Size = new System.Drawing.Size(225, 21);
-            this.alphaMode.TabIndex = 22;
-            // 
-            // pythonRuntime
-            // 
-            this.pythonRuntime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.pythonRuntime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.pythonRuntime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.pythonRuntime.ForeColor = System.Drawing.Color.White;
-            this.pythonRuntime.FormattingEnabled = true;
-            this.pythonRuntime.Items.AddRange(new object[] {
-            "Use System Python",
-            "Use Embedded Python If Available"});
-            this.pythonRuntime.Location = new System.Drawing.Point(220, 77);
-            this.pythonRuntime.Margin = new System.Windows.Forms.Padding(8);
-            this.pythonRuntime.Name = "pythonRuntime";
-            this.pythonRuntime.Size = new System.Drawing.Size(225, 21);
-            this.pythonRuntime.TabIndex = 21;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(6, 80);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(82, 13);
-            this.label24.TabIndex = 20;
-            this.label24.Text = "Python Runtime";
-            // 
-            // seamlessMode
-            // 
-            this.seamlessMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.seamlessMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.seamlessMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.seamlessMode.ForeColor = System.Drawing.Color.White;
-            this.seamlessMode.FormattingEnabled = true;
-            this.seamlessMode.Items.AddRange(new object[] {
-            "Off",
-            "Repeat: Tile",
-            "Repeat: Mirror",
-            "Padding: Extend",
-            "Padding: Alpha"});
-            this.seamlessMode.Location = new System.Drawing.Point(220, 167);
-            this.seamlessMode.Margin = new System.Windows.Forms.Padding(8);
-            this.seamlessMode.Name = "seamlessMode";
-            this.seamlessMode.Size = new System.Drawing.Size(225, 21);
-            this.seamlessMode.TabIndex = 19;
-            // 
-            // cudaFallback
-            // 
-            this.cudaFallback.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.cudaFallback.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cudaFallback.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cudaFallback.ForeColor = System.Drawing.Color.White;
-            this.cudaFallback.FormattingEnabled = true;
-            this.cudaFallback.Items.AddRange(new object[] {
-            "None (Use CUDA)",
-            "Always use CPU",
-            "CPU for Preview, NCNN for Batch Processing",
-            "Always use NCNN"});
-            this.cudaFallback.Location = new System.Drawing.Point(220, 224);
-            this.cudaFallback.Margin = new System.Windows.Forms.Padding(8);
-            this.cudaFallback.Name = "cudaFallback";
-            this.cudaFallback.Size = new System.Drawing.Size(225, 21);
-            this.cudaFallback.TabIndex = 18;
-            this.cudaFallback.SelectedIndexChanged += new System.EventHandler(this.cudaFallback_SelectedIndexChanged);
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox6.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox6.Location = new System.Drawing.Point(94, 166);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox6.TabIndex = 17;
-            this.pictureBox6.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBox6, resources.GetString("pictureBox6.ToolTip"));
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(6, 170);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(82, 13);
-            this.label22.TabIndex = 14;
-            this.label22.Text = "Seamless Mode";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox1.Image = global::Cupscale.Properties.Resources.questmark;
-            this.pictureBox1.Location = new System.Drawing.Point(122, 223);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 227);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "CUDA Fallback Mode";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 110);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(151, 13);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Alpha Mode (ESRGAN-CUDA)";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 4);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(141, 20);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "ESRGAN Settings";
             // 
             // panel6
             // 
             this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel6.Controls.Add(this.modelSelectAutoExpand);
             this.panel6.Controls.Add(this.label35);
@@ -518,9 +257,10 @@
             this.panel6.Controls.Add(this.label4);
             this.panel6.Controls.Add(this.alphaBgColor);
             this.panel6.Controls.Add(this.label9);
-            this.panel6.Location = new System.Drawing.Point(464, 3);
+            this.panel6.ForeColor = System.Drawing.Color.White;
+            this.panel6.Location = new System.Drawing.Point(3, 3);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(455, 463);
+            this.panel6.Size = new System.Drawing.Size(916, 463);
             this.panel6.TabIndex = 3;
             // 
             // modelSelectAutoExpand
@@ -745,6 +485,601 @@
             this.label9.TabIndex = 6;
             this.label9.Text = "Background Color";
             // 
+            // aiPage
+            // 
+            this.aiPage.Controls.Add(this.htTabControl1);
+            this.aiPage.Name = "aiPage";
+            this.aiPage.Size = new System.Drawing.Size(922, 469);
+            this.aiPage.Text = "AI Settings";
+            // 
+            // htTabControl1
+            // 
+            this.htTabControl1.AllowDrop = true;
+            this.htTabControl1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.htTabControl1.BorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.htTabControl1.Controls.Add(this.esrganPytorchTab);
+            this.htTabControl1.Controls.Add(this.esrganNcnnTab);
+            this.htTabControl1.Controls.Add(this.realEsrganNcnnTab);
+            this.htTabControl1.DisableClose = false;
+            this.htTabControl1.DisableDragging = false;
+            this.htTabControl1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.htTabControl1.HoverTabButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(176)))), ((int)(((byte)(239)))));
+            this.htTabControl1.HoverTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(151)))), ((int)(((byte)(234)))));
+            this.htTabControl1.HoverUnselectedTabButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
+            this.htTabControl1.Location = new System.Drawing.Point(3, 3);
+            this.htTabControl1.Name = "htTabControl1";
+            this.htTabControl1.Padding = new System.Drawing.Point(14, 4);
+            this.htTabControl1.SelectedIndex = 0;
+            this.htTabControl1.SelectedTabButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(151)))), ((int)(((byte)(234)))));
+            this.htTabControl1.SelectedTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.htTabControl1.Size = new System.Drawing.Size(916, 463);
+            this.htTabControl1.TabIndex = 44;
+            this.htTabControl1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.htTabControl1.UnderBorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.htTabControl1.UnselectedBorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.htTabControl1.UnselectedTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.htTabControl1.UpDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.htTabControl1.UpDownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(112)))));
+            // 
+            // esrganPytorchTab
+            // 
+            this.esrganPytorchTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
+            this.esrganPytorchTab.Controls.Add(this.label51);
+            this.esrganPytorchTab.Controls.Add(this.label38);
+            this.esrganPytorchTab.Controls.Add(this.label49);
+            this.esrganPytorchTab.Controls.Add(this.label7);
+            this.esrganPytorchTab.Controls.Add(this.esrganPytorchMultiGpu);
+            this.esrganPytorchTab.Controls.Add(this.label22);
+            this.esrganPytorchTab.Controls.Add(this.label50);
+            this.esrganPytorchTab.Controls.Add(this.esrganPytorchSeamlessMode);
+            this.esrganPytorchTab.Controls.Add(this.label48);
+            this.esrganPytorchTab.Controls.Add(this.label24);
+            this.esrganPytorchTab.Controls.Add(this.label47);
+            this.esrganPytorchTab.Controls.Add(this.esrganPytorchPythonRuntime);
+            this.esrganPytorchTab.Controls.Add(this.esrganPytorchCpu);
+            this.esrganPytorchTab.Controls.Add(this.esrganPytorchAlphaMode);
+            this.esrganPytorchTab.Controls.Add(this.label2);
+            this.esrganPytorchTab.Controls.Add(this.label6);
+            this.esrganPytorchTab.Controls.Add(this.label46);
+            this.esrganPytorchTab.Controls.Add(this.esrganPytorchAlphaDepth);
+            this.esrganPytorchTab.Controls.Add(this.label45);
+            this.esrganPytorchTab.Controls.Add(this.label16);
+            this.esrganPytorchTab.Controls.Add(this.label39);
+            this.esrganPytorchTab.Controls.Add(this.esrganPytorchGpuId);
+            this.esrganPytorchTab.Controls.Add(this.label5);
+            this.esrganPytorchTab.Controls.Add(this.label36);
+            this.esrganPytorchTab.Controls.Add(this.esrganPytorchFp16);
+            this.esrganPytorchTab.ForeColor = System.Drawing.Color.White;
+            this.esrganPytorchTab.Location = new System.Drawing.Point(4, 27);
+            this.esrganPytorchTab.Name = "esrganPytorchTab";
+            this.esrganPytorchTab.Padding = new System.Windows.Forms.Padding(3);
+            this.esrganPytorchTab.Size = new System.Drawing.Size(908, 432);
+            this.esrganPytorchTab.TabIndex = 0;
+            this.esrganPytorchTab.Text = "ESRGAN (Pytorch)";
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(456, 40);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(230, 15);
+            this.label51.TabIndex = 43;
+            this.label51.Text = "Which Python runtime to use for ESRGAN.";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label38.Location = new System.Drawing.Point(6, 10);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(266, 13);
+            this.label38.TabIndex = 31;
+            this.label38.Text = "ESRGAN (Pytorch) - By Xinntao, Fork by Joey";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(456, 190);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(365, 15);
+            this.label49.TabIndex = 42;
+            this.label49.Text = "Run on multiple GPUs. May not work with interpolation or chaining.";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 70);
+            this.label7.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(72, 15);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Alpha Mode";
+            // 
+            // esrganPytorchMultiGpu
+            // 
+            this.esrganPytorchMultiGpu.AutoSize = true;
+            this.esrganPytorchMultiGpu.Enabled = false;
+            this.esrganPytorchMultiGpu.Location = new System.Drawing.Point(220, 190);
+            this.esrganPytorchMultiGpu.Name = "esrganPytorchMultiGpu";
+            this.esrganPytorchMultiGpu.Size = new System.Drawing.Size(15, 14);
+            this.esrganPytorchMultiGpu.TabIndex = 41;
+            this.esrganPytorchMultiGpu.UseVisualStyleBackColor = true;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 130);
+            this.label22.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(89, 15);
+            this.label22.TabIndex = 14;
+            this.label22.Text = "Seamless Mode";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(6, 190);
+            this.label50.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(95, 15);
+            this.label50.TabIndex = 40;
+            this.label50.Text = "Multi-GPU (WIP)";
+            // 
+            // esrganPytorchSeamlessMode
+            // 
+            this.esrganPytorchSeamlessMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.esrganPytorchSeamlessMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.esrganPytorchSeamlessMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.esrganPytorchSeamlessMode.ForeColor = System.Drawing.Color.White;
+            this.esrganPytorchSeamlessMode.FormattingEnabled = true;
+            this.esrganPytorchSeamlessMode.Items.AddRange(new object[] {
+            "Off",
+            "Repeat: Tile",
+            "Repeat: Mirror",
+            "Padding: Extend Edges",
+            "Padding: Surround With Transparency"});
+            this.esrganPytorchSeamlessMode.Location = new System.Drawing.Point(220, 127);
+            this.esrganPytorchSeamlessMode.Margin = new System.Windows.Forms.Padding(8);
+            this.esrganPytorchSeamlessMode.Name = "esrganPytorchSeamlessMode";
+            this.esrganPytorchSeamlessMode.Size = new System.Drawing.Size(225, 23);
+            this.esrganPytorchSeamlessMode.TabIndex = 19;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(456, 250);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(355, 15);
+            this.label48.TabIndex = 39;
+            this.label48.Text = "Should speed up upscaling and consume less VRAM on RTX cards.";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(6, 40);
+            this.label24.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(93, 15);
+            this.label24.TabIndex = 20;
+            this.label24.Text = "Python Runtime";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(456, 220);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(394, 15);
+            this.label47.TabIndex = 38;
+            this.label47.Text = "Run on CPU instead of GPU. Extremely slow, only use if you have no GPU.";
+            // 
+            // esrganPytorchPythonRuntime
+            // 
+            this.esrganPytorchPythonRuntime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.esrganPytorchPythonRuntime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.esrganPytorchPythonRuntime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.esrganPytorchPythonRuntime.ForeColor = System.Drawing.Color.White;
+            this.esrganPytorchPythonRuntime.FormattingEnabled = true;
+            this.esrganPytorchPythonRuntime.Items.AddRange(new object[] {
+            "Use System Python",
+            "Use Embedded Python If Available"});
+            this.esrganPytorchPythonRuntime.Location = new System.Drawing.Point(220, 37);
+            this.esrganPytorchPythonRuntime.Margin = new System.Windows.Forms.Padding(8);
+            this.esrganPytorchPythonRuntime.Name = "esrganPytorchPythonRuntime";
+            this.esrganPytorchPythonRuntime.Size = new System.Drawing.Size(225, 23);
+            this.esrganPytorchPythonRuntime.TabIndex = 21;
+            // 
+            // esrganPytorchCpu
+            // 
+            this.esrganPytorchCpu.AutoSize = true;
+            this.esrganPytorchCpu.Location = new System.Drawing.Point(220, 220);
+            this.esrganPytorchCpu.Name = "esrganPytorchCpu";
+            this.esrganPytorchCpu.Size = new System.Drawing.Size(15, 14);
+            this.esrganPytorchCpu.TabIndex = 37;
+            this.esrganPytorchCpu.UseVisualStyleBackColor = true;
+            // 
+            // esrganPytorchAlphaMode
+            // 
+            this.esrganPytorchAlphaMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.esrganPytorchAlphaMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.esrganPytorchAlphaMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.esrganPytorchAlphaMode.ForeColor = System.Drawing.Color.White;
+            this.esrganPytorchAlphaMode.FormattingEnabled = true;
+            this.esrganPytorchAlphaMode.Items.AddRange(new object[] {
+            "0 (Disabled)",
+            "1 (Differential Alpha)",
+            "2 (Separated Alpha)",
+            "3 (Channel Alpha)"});
+            this.esrganPytorchAlphaMode.Location = new System.Drawing.Point(220, 67);
+            this.esrganPytorchAlphaMode.Margin = new System.Windows.Forms.Padding(8);
+            this.esrganPytorchAlphaMode.Name = "esrganPytorchAlphaMode";
+            this.esrganPytorchAlphaMode.Size = new System.Drawing.Size(225, 23);
+            this.esrganPytorchAlphaMode.TabIndex = 22;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 220);
+            this.label2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(64, 15);
+            this.label2.TabIndex = 36;
+            this.label2.Text = "CPU Mode";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 100);
+            this.label6.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(73, 15);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "Alpha Depth";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(456, 160);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(228, 15);
+            this.label46.TabIndex = 35;
+            this.label46.Text = "Set GPU to use. 0 is the first, 1 second, etc.";
+            // 
+            // esrganPytorchAlphaDepth
+            // 
+            this.esrganPytorchAlphaDepth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.esrganPytorchAlphaDepth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.esrganPytorchAlphaDepth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.esrganPytorchAlphaDepth.ForeColor = System.Drawing.Color.White;
+            this.esrganPytorchAlphaDepth.FormattingEnabled = true;
+            this.esrganPytorchAlphaDepth.Items.AddRange(new object[] {
+            "Full (8-Bit)",
+            "Binary (1-Bit)",
+            "Ternary (2-Bit)"});
+            this.esrganPytorchAlphaDepth.Location = new System.Drawing.Point(220, 97);
+            this.esrganPytorchAlphaDepth.Margin = new System.Windows.Forms.Padding(8);
+            this.esrganPytorchAlphaDepth.Name = "esrganPytorchAlphaDepth";
+            this.esrganPytorchAlphaDepth.Size = new System.Drawing.Size(225, 23);
+            this.esrganPytorchAlphaDepth.TabIndex = 24;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(456, 130);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(303, 15);
+            this.label45.TabIndex = 34;
+            this.label45.Text = "Apply effects to the border of the image to avoid seams.";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 160);
+            this.label16.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(44, 15);
+            this.label16.TabIndex = 28;
+            this.label16.Text = "GPU ID";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(456, 70);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(489, 15);
+            this.label39.TabIndex = 33;
+            this.label39.Text = "Mode 1 should work for most cases, but for some (like DDS textures) the others wo" +
+    "rk better.";
+            // 
+            // esrganPytorchGpuId
+            // 
+            this.esrganPytorchGpuId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.esrganPytorchGpuId.ForeColor = System.Drawing.Color.White;
+            this.esrganPytorchGpuId.Location = new System.Drawing.Point(220, 157);
+            this.esrganPytorchGpuId.Name = "esrganPytorchGpuId";
+            this.esrganPytorchGpuId.Size = new System.Drawing.Size(225, 23);
+            this.esrganPytorchGpuId.TabIndex = 29;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(456, 100);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(443, 15);
+            this.label5.TabIndex = 32;
+            this.label5.Text = "Color Depth of the alpha channel. Use Binary for 1-bit Alpha (GIFs, PSX Textures," +
+    " ...)";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(6, 250);
+            this.label36.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(116, 15);
+            this.label36.TabIndex = 25;
+            this.label36.Text = "Half Precision (FP16)";
+            // 
+            // esrganPytorchFp16
+            // 
+            this.esrganPytorchFp16.AutoSize = true;
+            this.esrganPytorchFp16.Location = new System.Drawing.Point(220, 250);
+            this.esrganPytorchFp16.Name = "esrganPytorchFp16";
+            this.esrganPytorchFp16.Size = new System.Drawing.Size(15, 14);
+            this.esrganPytorchFp16.TabIndex = 26;
+            this.esrganPytorchFp16.UseVisualStyleBackColor = true;
+            // 
+            // esrganNcnnTab
+            // 
+            this.esrganNcnnTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
+            this.esrganNcnnTab.Controls.Add(this.esrganNcnnTta);
+            this.esrganNcnnTab.Controls.Add(this.label52);
+            this.esrganNcnnTab.Controls.Add(this.label53);
+            this.esrganNcnnTab.Controls.Add(this.label55);
+            this.esrganNcnnTab.Controls.Add(this.label59);
+            this.esrganNcnnTab.Controls.Add(this.esrganNcnnTilesize);
+            this.esrganNcnnTab.Controls.Add(this.label63);
+            this.esrganNcnnTab.Controls.Add(this.label65);
+            this.esrganNcnnTab.Controls.Add(this.label66);
+            this.esrganNcnnTab.Controls.Add(this.esrganNcnnGpu);
+            this.esrganNcnnTab.ForeColor = System.Drawing.Color.White;
+            this.esrganNcnnTab.Location = new System.Drawing.Point(4, 27);
+            this.esrganNcnnTab.Name = "esrganNcnnTab";
+            this.esrganNcnnTab.Padding = new System.Windows.Forms.Padding(3);
+            this.esrganNcnnTab.Size = new System.Drawing.Size(908, 432);
+            this.esrganNcnnTab.TabIndex = 1;
+            this.esrganNcnnTab.Text = "ESRGAN (NCNN)";
+            // 
+            // esrganNcnnTta
+            // 
+            this.esrganNcnnTta.AutoSize = true;
+            this.esrganNcnnTta.Location = new System.Drawing.Point(220, 71);
+            this.esrganNcnnTta.Name = "esrganNcnnTta";
+            this.esrganNcnnTta.Size = new System.Drawing.Size(15, 14);
+            this.esrganNcnnTta.TabIndex = 69;
+            this.esrganNcnnTta.UseVisualStyleBackColor = true;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(456, 40);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(295, 15);
+            this.label52.TabIndex = 68;
+            this.label52.Text = "Higher tile size can be faster but will need more VRAM.";
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label53.Location = new System.Drawing.Point(6, 10);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(415, 13);
+            this.label53.TabIndex = 56;
+            this.label53.Text = "ESRGAN (NCNN) - By BlueAmulet, based on realsr-ncnn-vulkan by nihui";
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(6, 70);
+            this.label55.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(98, 15);
+            this.label55.TabIndex = 44;
+            this.label55.Text = "Enable TTA Mode";
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(6, 40);
+            this.label59.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(48, 15);
+            this.label59.TabIndex = 47;
+            this.label59.Text = "Tile Size";
+            // 
+            // esrganNcnnTilesize
+            // 
+            this.esrganNcnnTilesize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.esrganNcnnTilesize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.esrganNcnnTilesize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.esrganNcnnTilesize.ForeColor = System.Drawing.Color.White;
+            this.esrganNcnnTilesize.FormattingEnabled = true;
+            this.esrganNcnnTilesize.Items.AddRange(new object[] {
+            "Automatic (Recommended)",
+            "64",
+            "128",
+            "256",
+            "384",
+            "512"});
+            this.esrganNcnnTilesize.Location = new System.Drawing.Point(220, 37);
+            this.esrganNcnnTilesize.Margin = new System.Windows.Forms.Padding(8);
+            this.esrganNcnnTilesize.Name = "esrganNcnnTilesize";
+            this.esrganNcnnTilesize.Size = new System.Drawing.Size(225, 23);
+            this.esrganNcnnTilesize.TabIndex = 48;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(456, 100);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(154, 15);
+            this.label63.TabIndex = 60;
+            this.label63.Text = "GPU ID to use for upscaling.";
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(6, 100);
+            this.label65.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(44, 15);
+            this.label65.TabIndex = 54;
+            this.label65.Text = "GPU ID";
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(456, 70);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(385, 15);
+            this.label66.TabIndex = 58;
+            this.label66.Text = "Should increase quality slightly but will is very slow. Not recommended.";
+            // 
+            // esrganNcnnGpu
+            // 
+            this.esrganNcnnGpu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.esrganNcnnGpu.ForeColor = System.Drawing.Color.White;
+            this.esrganNcnnGpu.Location = new System.Drawing.Point(220, 97);
+            this.esrganNcnnGpu.Name = "esrganNcnnGpu";
+            this.esrganNcnnGpu.Size = new System.Drawing.Size(225, 23);
+            this.esrganNcnnGpu.TabIndex = 55;
+            // 
+            // realEsrganNcnnTab
+            // 
+            this.realEsrganNcnnTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
+            this.realEsrganNcnnTab.Controls.Add(this.realEsrganNcnnTta);
+            this.realEsrganNcnnTab.Controls.Add(this.label54);
+            this.realEsrganNcnnTab.Controls.Add(this.label56);
+            this.realEsrganNcnnTab.Controls.Add(this.label57);
+            this.realEsrganNcnnTab.Controls.Add(this.label58);
+            this.realEsrganNcnnTab.Controls.Add(this.realEsrganNcnnTilesize);
+            this.realEsrganNcnnTab.Controls.Add(this.label60);
+            this.realEsrganNcnnTab.Controls.Add(this.label61);
+            this.realEsrganNcnnTab.Controls.Add(this.label62);
+            this.realEsrganNcnnTab.Controls.Add(this.realEsrganNcnnGpus);
+            this.realEsrganNcnnTab.ForeColor = System.Drawing.Color.White;
+            this.realEsrganNcnnTab.Location = new System.Drawing.Point(4, 27);
+            this.realEsrganNcnnTab.Name = "realEsrganNcnnTab";
+            this.realEsrganNcnnTab.Padding = new System.Windows.Forms.Padding(3);
+            this.realEsrganNcnnTab.Size = new System.Drawing.Size(192, 69);
+            this.realEsrganNcnnTab.TabIndex = 2;
+            this.realEsrganNcnnTab.Text = "RealESRGAN (NCNN)";
+            // 
+            // realEsrganNcnnTta
+            // 
+            this.realEsrganNcnnTta.AutoSize = true;
+            this.realEsrganNcnnTta.Location = new System.Drawing.Point(220, 71);
+            this.realEsrganNcnnTta.Name = "realEsrganNcnnTta";
+            this.realEsrganNcnnTta.Size = new System.Drawing.Size(15, 14);
+            this.realEsrganNcnnTta.TabIndex = 79;
+            this.realEsrganNcnnTta.UseVisualStyleBackColor = true;
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(456, 40);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(295, 15);
+            this.label54.TabIndex = 78;
+            this.label54.Text = "Higher tile size can be faster but will need more VRAM.";
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label56.Location = new System.Drawing.Point(6, 10);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(423, 13);
+            this.label56.TabIndex = 75;
+            this.label56.Text = "Real-ESRGAN (NCNN) - By xinntao, based on realsr-ncnn-vulkan by nihui";
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(6, 70);
+            this.label57.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(98, 15);
+            this.label57.TabIndex = 70;
+            this.label57.Text = "Enable TTA Mode";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(6, 40);
+            this.label58.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(48, 15);
+            this.label58.TabIndex = 71;
+            this.label58.Text = "Tile Size";
+            // 
+            // realEsrganNcnnTilesize
+            // 
+            this.realEsrganNcnnTilesize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.realEsrganNcnnTilesize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.realEsrganNcnnTilesize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.realEsrganNcnnTilesize.ForeColor = System.Drawing.Color.White;
+            this.realEsrganNcnnTilesize.FormattingEnabled = true;
+            this.realEsrganNcnnTilesize.Items.AddRange(new object[] {
+            "Automatic (Recommended)",
+            "64",
+            "128",
+            "256",
+            "384",
+            "512"});
+            this.realEsrganNcnnTilesize.Location = new System.Drawing.Point(220, 37);
+            this.realEsrganNcnnTilesize.Margin = new System.Windows.Forms.Padding(8);
+            this.realEsrganNcnnTilesize.Name = "realEsrganNcnnTilesize";
+            this.realEsrganNcnnTilesize.Size = new System.Drawing.Size(225, 23);
+            this.realEsrganNcnnTilesize.TabIndex = 72;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(456, 100);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(293, 15);
+            this.label60.TabIndex = 77;
+            this.label60.Text = "Comma-separated list of GPU IDs to use for upscaling.";
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(6, 100);
+            this.label61.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(49, 15);
+            this.label61.TabIndex = 73;
+            this.label61.Text = "GPU IDs";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(456, 70);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(385, 15);
+            this.label62.TabIndex = 76;
+            this.label62.Text = "Should increase quality slightly but will is very slow. Not recommended.";
+            // 
+            // realEsrganNcnnGpus
+            // 
+            this.realEsrganNcnnGpus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.realEsrganNcnnGpus.ForeColor = System.Drawing.Color.White;
+            this.realEsrganNcnnGpus.Location = new System.Drawing.Point(220, 97);
+            this.realEsrganNcnnGpus.Name = "realEsrganNcnnGpus";
+            this.realEsrganNcnnGpus.Size = new System.Drawing.Size(225, 23);
+            this.realEsrganNcnnGpus.TabIndex = 74;
+            // 
             // formatsPage
             // 
             this.formatsPage.Controls.Add(this.tableLayoutPanel1);
@@ -773,10 +1108,12 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.flipTga);
             this.panel3.Controls.Add(this.label15);
             this.panel3.Controls.Add(this.label27);
+            this.panel3.ForeColor = System.Drawing.Color.White;
             this.panel3.Location = new System.Drawing.Point(464, 3);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(455, 463);
@@ -815,6 +1152,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.pictureBox8);
             this.panel1.Controls.Add(this.useMozJpeg);
@@ -829,6 +1167,7 @@
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label12);
+            this.panel1.ForeColor = System.Drawing.Color.White;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(455, 463);
@@ -1000,10 +1339,12 @@
             this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.vidEnableAudio);
             this.panel8.Controls.Add(this.label43);
             this.panel8.Controls.Add(this.label44);
+            this.panel8.ForeColor = System.Drawing.Color.White;
             this.panel8.Location = new System.Drawing.Point(464, 3);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(455, 463);
@@ -1042,6 +1383,7 @@
             this.panel9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel9.Controls.Add(this.pictureBox13);
             this.panel9.Controls.Add(this.pictureBox11);
@@ -1053,6 +1395,7 @@
             this.panel9.Controls.Add(this.label40);
             this.panel9.Controls.Add(this.label41);
             this.panel9.Controls.Add(this.label42);
+            this.panel9.ForeColor = System.Drawing.Color.White;
             this.panel9.Location = new System.Drawing.Point(3, 3);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(455, 463);
@@ -1189,12 +1532,14 @@
             this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.uninstallPyBtn);
             this.panel5.Controls.Add(this.installPyBtn);
             this.panel5.Controls.Add(this.label32);
             this.panel5.Controls.Add(this.label33);
             this.panel5.Controls.Add(this.label34);
+            this.panel5.ForeColor = System.Drawing.Color.White;
             this.panel5.Location = new System.Drawing.Point(464, 3);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(455, 463);
@@ -1268,6 +1613,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.uninstallFullBtn);
             this.panel2.Controls.Add(this.label18);
@@ -1278,6 +1624,7 @@
             this.panel2.Controls.Add(this.label19);
             this.panel2.Controls.Add(this.label20);
             this.panel2.Controls.Add(this.label21);
+            this.panel2.ForeColor = System.Drawing.Color.White;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(455, 463);
@@ -1406,7 +1753,7 @@
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tableLayoutPanel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.tableLayoutPanel4.ColumnCount = 2;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -1424,6 +1771,7 @@
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.pictureBox9);
             this.panel4.Controls.Add(this.cmdDebugMode);
@@ -1433,6 +1781,7 @@
             this.panel4.Controls.Add(this.label28);
             this.panel4.Controls.Add(this.label29);
             this.panel4.Controls.Add(this.label30);
+            this.panel4.ForeColor = System.Drawing.Color.White;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(455, 463);
@@ -1527,6 +1876,7 @@
             // logPage
             // 
             this.logPage.Controls.Add(this.logTbox);
+            this.logPage.ForeColor = System.Drawing.Color.White;
             this.logPage.Name = "logPage";
             this.logPage.Size = new System.Drawing.Size(922, 469);
             this.logPage.Text = "View Session Log";
@@ -1561,19 +1911,19 @@
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.tabList1.ResumeLayout(false);
             this.settingsPage.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.aiPage.ResumeLayout(false);
+            this.htTabControl1.ResumeLayout(false);
+            this.esrganPytorchTab.ResumeLayout(false);
+            this.esrganPytorchTab.PerformLayout();
+            this.esrganNcnnTab.ResumeLayout(false);
+            this.esrganNcnnTab.PerformLayout();
+            this.realEsrganNcnnTab.ResumeLayout(false);
+            this.realEsrganNcnnTab.PerformLayout();
             this.formatsPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
@@ -1614,20 +1964,15 @@
         private Cyotek.Windows.Forms.TabListPage settingsPage;
         private Cyotek.Windows.Forms.TabListPage logPage;
         private System.Windows.Forms.TextBox logTbox;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Button confAlphaBgColorBtn;
         private System.Windows.Forms.TextBox alphaBgColor;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.TextBox modelPath;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ColorDialog alphaBgColorDialog;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private Cyotek.Windows.Forms.TabListPage formatsPage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
@@ -1639,7 +1984,6 @@
         private System.Windows.Forms.CheckBox ddsEnableMips;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.ComboBox dxtMode;
@@ -1661,12 +2005,8 @@
         private System.Windows.Forms.Label label17;
         private HTAlt.WinForms.HTButton reinstallCleanBtn;
         private HTAlt.WinForms.HTButton reinstallOverwriteBtn;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.CheckBox reloadImageBeforeUpscale;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.ComboBox cudaFallback;
-        private System.Windows.Forms.ComboBox seamlessMode;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.CheckBox flipTga;
         private System.Windows.Forms.Label label15;
@@ -1682,8 +2022,6 @@
         private System.Windows.Forms.CheckBox logStatus;
         private System.Windows.Forms.ComboBox cmdDebugMode;
         private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.ComboBox pythonRuntime;
-        private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Panel panel5;
         private HTAlt.WinForms.HTButton uninstallPyBtn;
         private HTAlt.WinForms.HTButton installPyBtn;
@@ -1713,17 +2051,57 @@
         private System.Windows.Forms.CheckBox vidEnableAudio;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.ComboBox alphaMode;
-        private System.Windows.Forms.PictureBox pictureBox10;
-        private System.Windows.Forms.ComboBox alphaDepth;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.TextBox gpuId;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.PictureBox pictureBox14;
         private System.Windows.Forms.CheckBox modelSelectAutoExpand;
         private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.CheckBox useFp16;
+        private Cyotek.Windows.Forms.TabListPage aiPage;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.CheckBox esrganPytorchFp16;
         private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TextBox esrganPytorchGpuId;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox esrganPytorchAlphaDepth;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox esrganPytorchAlphaMode;
+        private System.Windows.Forms.ComboBox esrganPytorchPythonRuntime;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.ComboBox esrganPytorchSeamlessMode;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.CheckBox esrganPytorchCpu;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.CheckBox esrganPytorchMultiGpu;
+        private System.Windows.Forms.Label label50;
+        private HTAlt.WinForms.HTTabControl htTabControl1;
+        private System.Windows.Forms.TabPage esrganPytorchTab;
+        private System.Windows.Forms.TabPage esrganNcnnTab;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.ComboBox esrganNcnnTilesize;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.TextBox esrganNcnnGpu;
+        private System.Windows.Forms.CheckBox esrganNcnnTta;
+        private System.Windows.Forms.TabPage realEsrganNcnnTab;
+        private System.Windows.Forms.CheckBox realEsrganNcnnTta;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.ComboBox realEsrganNcnnTilesize;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.TextBox realEsrganNcnnGpus;
     }
 }

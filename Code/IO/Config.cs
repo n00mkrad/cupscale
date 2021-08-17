@@ -90,14 +90,7 @@ namespace Cupscale
 
         public static int GetInt(string key)
         {
-            for (int i = 0; i < cachedLines.Length; i++)
-            {
-                string[] keyValuePair = cachedLines[i].Split('|');
-                if (keyValuePair[0] == key)
-                    return int.Parse(keyValuePair[1].Trim());
-            }
-
-            return int.Parse(WriteDefaultValIfExists(key, Type.Int).Trim());
+            return Get(key, Type.Int).GetInt();
         }
 
         static void WriteIfDoesntExist(string key, string val)
@@ -141,6 +134,14 @@ namespace Cupscale
             if (key == "comparisonUseScaling") return WriteDefault(key, "0");
             if (key == "joeyAlphaMode") return WriteDefault(key, "1");
             if (key == "modelSelectAutoExpand") return WriteDefault(key, "True");
+            // ESRGAN Pytorch
+            if (key == "esrganPytorchAlphaMode") return WriteDefault(key, "1");
+            if (key == "esrganPytorchFp16") return WriteDefault(key, "True");
+            if (key == "esrganPytorchGpuId") return WriteDefault(key, "0");
+            // ESRGAN NCNN
+            if (key == "esrganNcnnGpu") return WriteDefault(key, "0");
+            // RealESRGAN NCNN
+            if (key == "realEsrganNcnnGpus") return WriteDefault(key, "auto");
             // Video
             if (key == "h265") return WriteDefault(key, "False");
             if (key == "crf") return WriteDefault(key, "18");

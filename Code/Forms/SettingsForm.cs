@@ -37,21 +37,35 @@ namespace Cupscale.Forms
 
         void LoadSettings()
         {
-            // ESRGAN/Cupscale
-            Config.LoadComboxIndex(alphaMode);
-            Config.LoadComboxIndex(alphaDepth);
-            Config.LoadComboxIndex(seamlessMode);
+            // General
             Config.LoadGuiElement(modelPath);
             Config.LoadGuiElement(alphaBgColor);
             Config.LoadGuiElement(jpegExtension);
-            Config.LoadComboxIndex(cudaFallback);
-            Config.LoadGuiElement(useFp16);
-            Config.LoadGuiElement(gpuId);
             Config.LoadComboxIndex(previewFormat);
             Config.LoadGuiElement(reloadImageBeforeUpscale);
-            Config.LoadComboxIndex(pythonRuntime);
             Config.LoadComboxIndex(comparisonUseScaling);
             Config.LoadGuiElement(modelSelectAutoExpand);
+
+            // ESRGAN Pytorch
+            Config.LoadComboxIndex(esrganPytorchPythonRuntime);
+            Config.LoadComboxIndex(esrganPytorchAlphaMode);
+            Config.LoadComboxIndex(esrganPytorchAlphaDepth);
+            Config.LoadComboxIndex(esrganPytorchSeamlessMode);
+            Config.LoadGuiElement(esrganPytorchGpuId);
+            Config.LoadGuiElement(esrganPytorchMultiGpu);
+            Config.LoadGuiElement(esrganPytorchCpu);
+            Config.LoadGuiElement(esrganPytorchFp16);
+
+            // ESRGAN NCNN
+            Config.LoadGuiElement(esrganNcnnTilesize);
+            Config.LoadGuiElement(esrganNcnnTta);
+            Config.LoadGuiElement(esrganNcnnGpu);
+
+            // RealESRGAN NCNN
+            Config.LoadGuiElement(realEsrganNcnnTilesize);
+            Config.LoadGuiElement(realEsrganNcnnTta);
+            Config.LoadGuiElement(realEsrganNcnnGpus);
+
             // Formats
             Config.LoadGuiElement(jpegQ);
             Config.LoadGuiElement(webpQ);
@@ -59,11 +73,13 @@ namespace Cupscale.Forms
             Config.LoadGuiElement(ddsEnableMips);
             Config.LoadGuiElement(flipTga);
             Config.LoadGuiElement(useMozJpeg);
+
             // Video
             Config.LoadGuiElement(crf);
             Config.LoadGuiElement(h265);
             Config.LoadGuiElement(gifskiQ);
             Config.LoadGuiElement(vidEnableAudio);
+
             // Debug
             Config.LoadGuiElement(logIo);
             Config.LoadGuiElement(logStatus);
@@ -76,7 +92,7 @@ namespace Cupscale.Forms
             SaveSettings();
             await EmbeddedPython.Init();
             Program.mainForm.LoadEsrganOptions();
-            if(Config.GetInt("pythonRuntime") == 1 && !File.Exists(EmbeddedPython.GetEmbedPyPath()))
+            if(Config.GetInt("esrganPytorchPythonRuntime") == 1 && !File.Exists(EmbeddedPython.GetEmbedPyPath()))
             {
                 MsgBox msg = Program.ShowMessage("You enabled the embedded Python runtime but haven't downloaded and installed it.\n" +
                     "You can download it in the Dependency Checker window.");
@@ -89,21 +105,36 @@ namespace Cupscale.Forms
         void SaveSettings()
         {
             Clamp();
-            // ESRGAN/Cupscale
-            Config.SaveComboxIndex(alphaMode);
-            Config.SaveComboxIndex(alphaDepth);
-            Config.SaveComboxIndex(seamlessMode);
+
+            // General
             Config.SaveGuiElement(modelPath);
             Config.SaveGuiElement(alphaBgColor);
             Config.SaveGuiElement(jpegExtension);
-            Config.SaveComboxIndex(cudaFallback);
-            Config.SaveGuiElement(useFp16);
-            Config.SaveGuiElement(gpuId);
             Config.SaveComboxIndex(previewFormat);
             Config.SaveGuiElement(reloadImageBeforeUpscale);
-            Config.SaveComboxIndex(pythonRuntime);
             Config.SaveComboxIndex(comparisonUseScaling);
             Config.SaveGuiElement(modelSelectAutoExpand);
+
+            // ESRGAN Pytorch
+            Config.SaveComboxIndex(esrganPytorchPythonRuntime);
+            Config.SaveComboxIndex(esrganPytorchAlphaMode);
+            Config.SaveComboxIndex(esrganPytorchAlphaDepth);
+            Config.SaveComboxIndex(esrganPytorchSeamlessMode);
+            Config.SaveGuiElement(esrganPytorchGpuId);
+            Config.SaveGuiElement(esrganPytorchMultiGpu);
+            Config.SaveGuiElement(esrganPytorchCpu);
+            Config.SaveGuiElement(esrganPytorchFp16);
+
+            // ESRGAN NCNN
+            Config.SaveGuiElement(esrganNcnnTilesize);
+            Config.SaveGuiElement(esrganNcnnTta);
+            Config.SaveGuiElement(esrganNcnnGpu);
+
+            // RealESRGAN NCNN
+            Config.SaveGuiElement(realEsrganNcnnTilesize);
+            Config.SaveGuiElement(realEsrganNcnnTta);
+            Config.SaveGuiElement(realEsrganNcnnGpus);
+
             // Formats
             Config.SaveGuiElement(jpegQ, true);
             Config.SaveGuiElement(webpQ, true);
@@ -112,10 +143,12 @@ namespace Cupscale.Forms
             Config.SaveGuiElement(flipTga);
             Config.SaveGuiElement(useMozJpeg);
             // Video
+
             Config.SaveGuiElement(crf);
             Config.SaveGuiElement(h265);
             Config.SaveGuiElement(gifskiQ);
             Config.SaveGuiElement(vidEnableAudio);
+
             // Debug
             Config.SaveGuiElement(logIo);
             Config.SaveGuiElement(logStatus);
@@ -189,14 +222,6 @@ namespace Cupscale.Forms
             Program.Quit();
         }
 
-        private void cudaFallback_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            //Program.ShowMessage("This only serves as a fallback mode.\nDon't use this if you have an Nvidia GPU.\n\n" +
-            //"The following features do not work with Vulkan/NCNN:\n- Model Interpolation\n- Model Chaining\n"
-            //+ "- Custom Tile Size (Uses Automatic Tile Size)", "Warning");
-        }
-
         private void installPyBtn_Click(object sender, EventArgs e)
         {
             new DependencyCheckerForm().ShowDialog();
@@ -213,8 +238,8 @@ namespace Cupscale.Forms
                 dialogForm.Close();
                 uninstallPyBtn.Enabled = false;
 
-                Config.Set("pythonRuntime", "0");
-                Config.LoadComboxIndex(pythonRuntime);
+                Config.Set("esrganPytorchPythonRuntime", "0");
+                Config.LoadComboxIndex(esrganPytorchPythonRuntime);
             }
             catch (Exception ex)
             {

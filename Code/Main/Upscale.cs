@@ -175,12 +175,9 @@ namespace Cupscale.Main
                 string ext = Path.GetExtension(file);
 
                 newFilename = pathNoExt + "-" + GetLastModelName() + ext;
-                Logger.Log($"a");
-                Logger.Log($"Move {file} => {newFilename}");
+                Logger.Log($"FilenamePostprocess: Moving {file} => {newFilename}");
                 File.Move(file, newFilename);
-                Logger.Log($"b");
                 newFilename = IOUtils.RenameExtension(newFilename, "jpg", Config.Get("jpegExtension"));
-                Logger.Log($"c");
 
                 return newFilename;
             }
@@ -189,6 +186,29 @@ namespace Cupscale.Main
                 Logger.ErrorMessage("Error during FilenamePostprocess(): ", e);
                 return null;
             }
+        }
+
+        public static string GetOutputImg ()
+        {
+            string outImg = "";
+
+            try
+            {
+                outImg = Directory.GetFiles(Paths.imgOutPath, "*.png", SearchOption.AllDirectories)[0];
+            }
+            catch
+            {
+                try
+                {
+                    outImg = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories)[0];
+                }
+                catch (Exception e)
+                {
+                    Logger.ErrorMessage("Error: Can't find upscaled output image! This probably means the AI implementation failed to run correctly.", e);
+                }
+            }
+
+            return outImg;
         }
     }
 }

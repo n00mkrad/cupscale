@@ -32,17 +32,17 @@ namespace Cupscale.Implementations
             inpath = inpath.Wrap();
             outpath = outpath.Wrap();
 
-            string alphaMode = alpha ? $"--alpha_mode {Config.GetInt("alphaMode")}" : "--alpha_mode 0";
+            string alphaMode = alpha ? $"--alpha_mode {Config.GetInt("esrganPytorchAlphaMode")}" : "--alpha_mode 0";
+
             string alphaDepth = "";
+            if (Config.GetInt("esrganPytorchAlphaDepth") == 1) alphaDepth = "--binary_alpha";
+            if (Config.GetInt("esrganPytorchAlphaDepth") == 2) alphaDepth = "--ternary_alpha";
 
-            if (Config.GetInt("alphaDepth") == 1) alphaDepth = "--binary_alpha";
-            if (Config.GetInt("alphaDepth") == 2) alphaDepth = "--ternary_alpha";
-
-            string cpu = (Config.GetInt("cudaFallback") == 1 || Config.GetInt("cudaFallback") == 2) ? "--cpu" : "";
-            string device = $"--device_id {Config.GetInt("gpuId")}";
+            string cpu = (Config.GetBool("esrganPytorchCpu")) ? "--cpu" : "";
+            string device = $"--device_id {Config.GetInt("esrganPytorchGpuId")}";
             string seam = "";
 
-            switch (Config.GetInt("seamlessMode"))
+            switch (Config.GetInt("esrganPytorchSeamlessMode"))
             {
                 case 1: seam = "--seamless tile"; break;
                 case 2: seam = "--seamless mirror"; break;
@@ -50,7 +50,7 @@ namespace Cupscale.Implementations
                 case 4: seam = "--seamless alpha_pad"; break;
             }
 
-            string fp16 = Config.GetBool("useFp16") ? "--fp16" : "";
+            string fp16 = Config.GetBool("esrganPytorchFp16") ? "--fp16" : "";
             string cache = cacheSplitDepth ? "--cache_max_split_depth" : "";
             string opt = stayOpen ? "/K" : "/C";
             string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Implementations.esrganPytorch.dir).Wrap()} & ";

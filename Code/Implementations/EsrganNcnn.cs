@@ -34,11 +34,11 @@ namespace Cupscale.Implementations
             Logger.Log("[ESRGAN] NCNN Model is ready: " + NcnnUtils.currentNcnnModel);
             Program.mainForm.SetProgress(3f, "Loading ESRGAN (NCNN)...");
             int scale = NcnnUtils.GetNcnnModelScale(NcnnUtils.currentNcnnModel);
-
             string opt = stayOpen ? "/K" : "/C";
-
+            string tta = Config.GetBool("esrganNcnnTta") ? "-x" : "";
+            string ts = Config.GetInt("esrganNcnnTilesize") >= 32 ? $"-t {Config.GetInt("esrganNcnnTilesize")}" : "";
             string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Implementations.esrganNcnn.dir).Wrap()} & {exeName} -i {inpath.Wrap()} -o {outpath.Wrap()}" +
-                $" -g {Config.GetInt("gpuId")} -m {NcnnUtils.currentNcnnModel.Wrap()} -s {scale}";
+                $" -g {Config.GetInt("esrganNcnnGpu")} -m {NcnnUtils.currentNcnnModel.Wrap()} -s {scale} {tta} {ts}";
             Logger.Log("[CMD] " + cmd);
 
             Process ncnnProcess = OSUtils.NewProcess(!showWindow);

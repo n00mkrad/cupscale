@@ -24,19 +24,28 @@ namespace Cupscale.UI
 
 		public static int GetInt(this string str)
 		{
-			return int.Parse(TrimNumbers(str));
+			if (str.Length < 1 || str == null)
+				return 0;
+
+			try
+			{
+				return int.Parse(str.TrimNumbers());
+			}
+			catch (Exception e)
+			{
+				Logger.Log("Failed to parse \"" + str + "\" to int: " + e.Message);
+				return 0;
+			}
 		}
 
 		public static int GetInt(this TextBox textbox)
 		{
-            try { return int.Parse(textbox.Text.TrimNumbers()); }
-            catch { return 0; }
+			return textbox.Text.GetInt();
 		}
 
 		public static int GetInt(this ComboBox combobox)
 		{
-			try { return int.Parse(combobox.Text.TrimNumbers()); }
-			catch { return 0; }
+			return combobox.Text.GetInt();
 		}
 
 		public static string GetParentDir (this string path)
