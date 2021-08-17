@@ -54,7 +54,7 @@
             this.alphaBgColor = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.aiPage = new Cyotek.Windows.Forms.TabListPage();
-            this.htTabControl1 = new HTAlt.WinForms.HTTabControl();
+            this.aiSettingsTabControl = new HTAlt.WinForms.HTTabControl();
             this.esrganPytorchTab = new System.Windows.Forms.TabPage();
             this.label51 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
@@ -180,7 +180,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.aiPage.SuspendLayout();
-            this.htTabControl1.SuspendLayout();
+            this.aiSettingsTabControl.SuspendLayout();
             this.esrganPytorchTab.SuspendLayout();
             this.esrganNcnnTab.SuspendLayout();
             this.realEsrganNcnnTab.SuspendLayout();
@@ -487,39 +487,38 @@
             // 
             // aiPage
             // 
-            this.aiPage.Controls.Add(this.htTabControl1);
+            this.aiPage.Controls.Add(this.aiSettingsTabControl);
             this.aiPage.Name = "aiPage";
             this.aiPage.Size = new System.Drawing.Size(922, 469);
             this.aiPage.Text = "AI Settings";
             // 
-            // htTabControl1
+            // aiSettingsTabControl
             // 
-            this.htTabControl1.AllowDrop = true;
-            this.htTabControl1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.htTabControl1.BorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.htTabControl1.Controls.Add(this.esrganPytorchTab);
-            this.htTabControl1.Controls.Add(this.esrganNcnnTab);
-            this.htTabControl1.Controls.Add(this.realEsrganNcnnTab);
-            this.htTabControl1.DisableClose = false;
-            this.htTabControl1.DisableDragging = false;
-            this.htTabControl1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.htTabControl1.HoverTabButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(176)))), ((int)(((byte)(239)))));
-            this.htTabControl1.HoverTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(151)))), ((int)(((byte)(234)))));
-            this.htTabControl1.HoverUnselectedTabButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
-            this.htTabControl1.Location = new System.Drawing.Point(3, 3);
-            this.htTabControl1.Name = "htTabControl1";
-            this.htTabControl1.Padding = new System.Drawing.Point(14, 4);
-            this.htTabControl1.SelectedIndex = 0;
-            this.htTabControl1.SelectedTabButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(151)))), ((int)(((byte)(234)))));
-            this.htTabControl1.SelectedTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.htTabControl1.Size = new System.Drawing.Size(916, 463);
-            this.htTabControl1.TabIndex = 44;
-            this.htTabControl1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.htTabControl1.UnderBorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
-            this.htTabControl1.UnselectedBorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
-            this.htTabControl1.UnselectedTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
-            this.htTabControl1.UpDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
-            this.htTabControl1.UpDownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(112)))));
+            this.aiSettingsTabControl.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.aiSettingsTabControl.BorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.aiSettingsTabControl.Controls.Add(this.esrganPytorchTab);
+            this.aiSettingsTabControl.Controls.Add(this.esrganNcnnTab);
+            this.aiSettingsTabControl.Controls.Add(this.realEsrganNcnnTab);
+            this.aiSettingsTabControl.DisableClose = true;
+            this.aiSettingsTabControl.DisableDragging = true;
+            this.aiSettingsTabControl.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.aiSettingsTabControl.HoverTabButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(176)))), ((int)(((byte)(239)))));
+            this.aiSettingsTabControl.HoverTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(151)))), ((int)(((byte)(234)))));
+            this.aiSettingsTabControl.HoverUnselectedTabButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
+            this.aiSettingsTabControl.Location = new System.Drawing.Point(3, 3);
+            this.aiSettingsTabControl.Name = "aiSettingsTabControl";
+            this.aiSettingsTabControl.Padding = new System.Drawing.Point(14, 4);
+            this.aiSettingsTabControl.SelectedIndex = 0;
+            this.aiSettingsTabControl.SelectedTabButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(151)))), ((int)(((byte)(234)))));
+            this.aiSettingsTabControl.SelectedTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.aiSettingsTabControl.Size = new System.Drawing.Size(916, 463);
+            this.aiSettingsTabControl.TabIndex = 44;
+            this.aiSettingsTabControl.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.aiSettingsTabControl.UnderBorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.aiSettingsTabControl.UnselectedBorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.aiSettingsTabControl.UnselectedTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.aiSettingsTabControl.UpDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.aiSettingsTabControl.UpDownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(112)))));
             // 
             // esrganPytorchTab
             // 
@@ -941,9 +940,9 @@
             this.label66.AutoSize = true;
             this.label66.Location = new System.Drawing.Point(456, 70);
             this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(385, 15);
+            this.label66.Size = new System.Drawing.Size(373, 15);
             this.label66.TabIndex = 58;
-            this.label66.Text = "Should increase quality slightly but will is very slow. Not recommended.";
+            this.label66.Text = "Increases quality slightly but is roughly 5x slower. Not recommended.";
             // 
             // esrganNcnnGpu
             // 
@@ -971,7 +970,7 @@
             this.realEsrganNcnnTab.Location = new System.Drawing.Point(4, 27);
             this.realEsrganNcnnTab.Name = "realEsrganNcnnTab";
             this.realEsrganNcnnTab.Padding = new System.Windows.Forms.Padding(3);
-            this.realEsrganNcnnTab.Size = new System.Drawing.Size(192, 69);
+            this.realEsrganNcnnTab.Size = new System.Drawing.Size(908, 432);
             this.realEsrganNcnnTab.TabIndex = 2;
             this.realEsrganNcnnTab.Text = "RealESRGAN (NCNN)";
             // 
@@ -999,9 +998,9 @@
             this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label56.Location = new System.Drawing.Point(6, 10);
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(423, 13);
+            this.label56.Size = new System.Drawing.Size(425, 13);
             this.label56.TabIndex = 75;
-            this.label56.Text = "Real-ESRGAN (NCNN) - By xinntao, based on realsr-ncnn-vulkan by nihui";
+            this.label56.Text = "Real-ESRGAN (NCNN) - By Xinntao, based on realsr-ncnn-vulkan by nihui";
             // 
             // label57
             // 
@@ -1067,9 +1066,9 @@
             this.label62.AutoSize = true;
             this.label62.Location = new System.Drawing.Point(456, 70);
             this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(385, 15);
+            this.label62.Size = new System.Drawing.Size(373, 15);
             this.label62.TabIndex = 76;
-            this.label62.Text = "Should increase quality slightly but will is very slow. Not recommended.";
+            this.label62.Text = "Increases quality slightly but is roughly 5x slower. Not recommended.";
             // 
             // realEsrganNcnnGpus
             // 
@@ -1917,7 +1916,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.aiPage.ResumeLayout(false);
-            this.htTabControl1.ResumeLayout(false);
+            this.aiSettingsTabControl.ResumeLayout(false);
             this.esrganPytorchTab.ResumeLayout(false);
             this.esrganPytorchTab.PerformLayout();
             this.esrganNcnnTab.ResumeLayout(false);
@@ -2079,7 +2078,7 @@
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.CheckBox esrganPytorchMultiGpu;
         private System.Windows.Forms.Label label50;
-        private HTAlt.WinForms.HTTabControl htTabControl1;
+        private HTAlt.WinForms.HTTabControl aiSettingsTabControl;
         private System.Windows.Forms.TabPage esrganPytorchTab;
         private System.Windows.Forms.TabPage esrganNcnnTab;
         private System.Windows.Forms.Label label52;
