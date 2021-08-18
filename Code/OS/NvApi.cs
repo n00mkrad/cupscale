@@ -52,7 +52,7 @@ namespace Cupscale.OS
             return string.Join(", ", gpuList.Select(x => x.FullName));
         }
 
-        public static bool HasAmpereOrNewer()
+        public static bool HasAmpereOrNewer()   // To detect if newer Pytorch version is needed
         {
             foreach (PhysicalGPU gpu in gpuList)
             {

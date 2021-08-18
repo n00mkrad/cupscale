@@ -40,10 +40,16 @@ namespace Cupscale.OS
 
         public static async Task Init()
         {
-            if (!IsEnabled()) return;
+            if (!IsEnabled())
+                return;
+
             string shippedPath = Installer.path;
-            IOUtils.TryDeleteIfExists(Path.Combine(shippedPath, "py", "utils"));
-            await IOUtils.CopyDir(Path.Combine(shippedPath, "utils"), Path.Combine(shippedPath, "py", "utils"));
+
+            if (Directory.Exists(Path.Combine(shippedPath, "py")))
+            {
+                IOUtils.TryDeleteIfExists(Path.Combine(shippedPath, "py", "utils"));
+                await IOUtils.CopyDir(Path.Combine(shippedPath, Implementations.Implementations.esrganPytorch.dir, "utils"), Path.Combine(shippedPath, "py", "utils"));
+            }
         }
 
         static TextBox logBox;
@@ -66,6 +72,7 @@ namespace Cupscale.OS
             Print("Checking disk space before installation...");
             float diskSpaceMb = IOUtils.GetDiskSpace(Paths.GetDataPath());
             Print($"Available disk space on the current drive: {diskSpaceMb} MB.");
+
             if (diskSpaceMb < 5000)
             {
                 Print("Not enough disk space on the current drive!");
@@ -76,10 +83,13 @@ namespace Cupscale.OS
             IOUtils.DeleteIfExists(downloadPath);
             await Task.Delay(10);
 
+            string url = NvApi.HasAmpereOrNewer() ? Paths.pythonAmpereUrl : Paths.pythonTuringUrl;
+            Logger.Log($"Downloading embedded Python from '{url}'");
+
             Print("Downloading compressed python runtime...");
             var client = new WebClient();
             client.DownloadProgressChanged += DownloadProgressChanged;
-            client.DownloadFileAsync(new Uri("https://dl.nmkd.de/ai/python/py.7z"), downloadPath);
+            client.DownloadFileAsync(new Uri(url), downloadPath);
             client.DownloadFileCompleted += DoneDownloading;
         }
 
@@ -92,16 +102,26 @@ namespace Cupscale.OS
         {
             Print("Done downloading!");
             Print("Extracting...");
+
             if (Directory.Exists(extractPath))
                 IOUtils.ClearDir(extractPath);
+
             List<Task> tasks = new List<Task>();
             isExtracting = true;
             tasks.Add(CheckDownloadedFileSizeAsync());
             tasks.Add(ExtractAsync());
             await Task.WhenAll(tasks);
+
+            if(Directory.Exists(Path.Combine(Installer.path, "FlowframesData")))
+            {
+                DirectoryInfo parentDir = new DirectoryInfo(Path.Combine(Installer.path, "FlowframesData", "pkgs"));
+                DirectoryInfo dir = parentDir.GetDirectories().First();
+                dir.MoveTo(extractPath);
+            }
+
             Print("Done extracting files.");
             MsgBox msg = Program.ShowMessage("The Python files will now be compressed to reduce the amount of storage space needed " +
-                "from 2.4 GB to 1.6 GB.\nThis can take a few minutes.", "Message");
+                "by about 40%.\nThis can take a few minutes.", "Message");
             while (DialogQueue.IsOpen(msg)) await Task.Delay(50);
             Print("Compressing files...");
             RunCompact();
@@ -116,8 +136,7 @@ namespace Cupscale.OS
         static void RunCompact ()
         {
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
-            string opt = "/C";
-            if (stayOpen) opt = "/K";
+            string opt = stayOpen ? "/K" : "/C";
             Process compact = OSUtils.NewProcess(false);
             compact.StartInfo.Arguments = $"{opt} compact /C /S:{extractPath.Wrap()}";
             compact.Start();
