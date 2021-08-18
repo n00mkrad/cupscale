@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -41,6 +42,7 @@ namespace Cupscale.Forms
             {
                 Program.ShowMessage($"The saved model directory does not contain any model (.pth) files!\n\nPlease put some models into '{modelDir}'.");
                 Close();
+                Process.Start("explorer.exe", Config.Get("modelPath"));
                 return;
             }
 
@@ -109,12 +111,16 @@ namespace Cupscale.Forms
         {
             selectedModel = modelTree.SelectedNode.Name;
             string modelName = Path.GetFileNameWithoutExtension(selectedModel);
+
             if (modelBtn != null)
                 modelBtn.Text = modelName;
-            if (modelNo == 1)   // idk if this could be less hardcoded?
-                Program.currentModel1 = selectedModel;
-            if (modelNo == 2)
-                Program.currentModel2 = selectedModel;
+
+            if (modelNo == 1) Program.currentModel1 = selectedModel;
+            if (modelNo == 2) Program.currentModel2 = selectedModel;
+
+            Config.Set("lastMdl1", Program.currentModel1);
+            Config.Set("lastMdl2", Program.currentModel2);
+
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -137,6 +143,7 @@ namespace Cupscale.Forms
                 if(confirmBtn.Enabled)
                     confirmBtn_Click(null, null);
             }
+
             if (e.KeyChar == (char)Keys.Escape)
             {
                 e.Handled = true;
@@ -148,12 +155,15 @@ namespace Cupscale.Forms
         {
             selectedModel = "";
             modelBtn.Text = "None";
-            if (modelNo == 1)   // idk if this could be less hardcoded?
-                Program.currentModel1 = null;
-            if (modelNo == 2)
-                Program.currentModel2 = null;
+            if (modelNo == 1) Program.currentModel1 = null;
+            if (modelNo == 2) Program.currentModel2 = null;
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void openFolderBtn_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Config.Get("modelPath"));
         }
     }
 }

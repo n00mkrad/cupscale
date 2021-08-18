@@ -7,6 +7,7 @@ namespace Cupscale.IO
 	internal class Paths
 	{
 		public static string binPath;
+		public static string defaultModelPath;
 		public static string previewPath;
 		public static string previewOutPath;
 		public static string imgInPath;
@@ -17,30 +18,42 @@ namespace Cupscale.IO
 		public static string presetsPath;
 		public static string compositionOut;
 		public static string framesOutPath;
-		//public static string convertTempPath;
 
 		public static void Init()
 		{
 			binPath = Path.Combine(GetDataPath(), "bin");
+
+			defaultModelPath = Path.Combine(GetDataPath(), "models");
+			Directory.CreateDirectory(defaultModelPath);
+
 			previewPath = Path.Combine(GetDataPath(), "preview");
-			previewOutPath = Path.Combine(GetDataPath(), "preview-out");
-			imgInPath = Path.Combine(GetDataPath(), "img-in");
-			imgOutPath = Path.Combine(GetDataPath(), "img-out");
-			imgOutNcnnPath = Path.Combine(GetDataPath(), "img-out-ncnn");
-			tempImgPath = Path.Combine(GetDataPath(), "loaded-img", "temp.png");
-			clipboardFolderPath = Path.Combine(GetDataPath(), "clipboard");
-			presetsPath = Path.Combine(GetDataPath(), "model-presets");
-			compositionOut = Path.Combine(GetDataPath(), "composition");
-			framesOutPath = Path.Combine(GetDataPath(), "frames-out");
 			Directory.CreateDirectory(previewPath);
+
+			previewOutPath = Path.Combine(GetDataPath(), "preview-out");
 			Directory.CreateDirectory(previewOutPath);
+
+			imgInPath = Path.Combine(GetDataPath(), "img-in");
 			Directory.CreateDirectory(imgInPath);
+
+			imgOutPath = Path.Combine(GetDataPath(), "img-out");
 			Directory.CreateDirectory(imgOutPath);
+
+			imgOutNcnnPath = Path.Combine(GetDataPath(), "img-out-ncnn");
 			Directory.CreateDirectory(imgOutNcnnPath);
+
+			tempImgPath = Path.Combine(GetDataPath(), "loaded-img", "temp.png");
 			Directory.CreateDirectory(tempImgPath.GetParentDir());
+
+			clipboardFolderPath = Path.Combine(GetDataPath(), "clipboard");
 			Directory.CreateDirectory(clipboardFolderPath);
+
+			presetsPath = Path.Combine(GetDataPath(), "model-presets");
 			Directory.CreateDirectory(presetsPath);
+
+			compositionOut = Path.Combine(GetDataPath(), "composition");
 			Directory.CreateDirectory(compositionOut);
+
+			framesOutPath = Path.Combine(GetDataPath(), "frames-out");
 			Directory.CreateDirectory(framesOutPath);
 		}
 

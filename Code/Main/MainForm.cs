@@ -80,6 +80,7 @@ namespace Cupscale.Main
 
 			LoadEsrganOptions();
 			InitImplementations();
+			LoadLastUsedModels();
 
 			flowPanelLeft.AutoScroll = false;
 			flowPanelLeft.HorizontalScroll.Maximum = 0;
@@ -115,6 +116,25 @@ namespace Cupscale.Main
 				aiSelect.Items.Add(imp.name);
 
 			Config.LoadComboxIndex(aiSelect);
+		}
+
+		void LoadLastUsedModels ()
+        {
+			string mdl1 = Config.Get("lastMdl1");
+
+            if (File.Exists(mdl1))
+            {
+				Program.currentModel1 = mdl1;
+				model1TreeBtn.Text = Path.GetFileNameWithoutExtension(Program.currentModel1);
+			}
+
+			string mdl2 = Config.Get("lastMdl2");
+
+			if (File.Exists(mdl2))
+            {
+				Program.currentModel2 = mdl2;
+				model2TreeBtn.Text = Path.GetFileNameWithoutExtension(Program.currentModel2);
+			}
 		}
 
 		public async Task CheckInstallation ()
