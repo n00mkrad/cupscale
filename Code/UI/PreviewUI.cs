@@ -122,10 +122,20 @@ namespace Cupscale.UI
         public static bool HasValidModelSelection(bool showErrorMsgsIfInvalid = true)
         {
             Implementations.Implementation ai = Upscale.currentAi;
+            bool ncnn = ai == Implementations.Imps.esrganNcnn || ai == Implementations.Imps.realEsrganNcnn;
 
-            if(ai == Implementations.Imps.esrganPytorch)
+            if (ai == Implementations.Imps.esrganPytorch)
             {
                 bool valid = true;
+
+                if (NcnnUtils.IsDirNcnnModel(Program.currentModel1) || NcnnUtils.IsDirNcnnModel(Program.currentModel2))
+                    valid = false;  // NCNN models not compatible with pytorch
+
+                if (!valid && showErrorMsgsIfInvalid)
+                {
+                    Program.ShowMessage("Invalid model selection - You have selected one or more models that are not compatible with this implementation!", "Error");
+                    return false;
+                }
 
                 if (model1.Enabled && !File.Exists(Program.currentModel1))
                     valid = false;
@@ -138,14 +148,18 @@ namespace Cupscale.UI
                 return valid;
             }
 
-            if (ai == Implementations.Imps.esrganNcnn)
+            if (ncnn)
             {
                 bool valid = true;
 
-                valid = Program.mainForm.IsSingleModleMode();
+                if (!Program.mainForm.IsSingleModleMode())
+                    valid = false;
 
-                if(!valid && showErrorMsgsIfInvalid)
+                if (!valid && showErrorMsgsIfInvalid)
+                {
                     Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
+                    return false;
+                }
 
                 return valid;
             }

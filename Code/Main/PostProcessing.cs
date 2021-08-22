@@ -13,17 +13,17 @@ namespace Cupscale.Main
 {
     class PostProcessing
     {
-        public static async Task PostprocessingSingle(string path, bool dontResize = false, int retryCount = 20)
+        public static async Task PostprocessingSingle(string path, bool dontResize = false, int retryCount = 20, bool trimPngExt = true)
         {
             if (!IoUtils.IsFileValid(path))
                 return;
 
             string newPath = "";
 
-            if (Path.GetExtension(path) != ".tmp")
-                newPath = path.Substring(0, path.Length - 8);
-            else
+            if (trimPngExt)
                 newPath = path.Substring(0, path.Length - 4);
+
+            Logger.Log($"PostProc: Trimmed filename from '{Path.GetFileName(path)}' to '{Path.GetFileName(newPath)}'");
 
             try
             {
@@ -31,7 +31,7 @@ namespace Cupscale.Main
             }
             catch (Exception e)     // An I/O error can appear if the file is still locked by python (?)
             {
-                Logger.Log("Failed to move/rename! " + e.Message + "\n" + e.StackTrace);
+                Logger.Log($"Failed to move/rename! ('{path}' => '{newPath}') {e.Message}\n{e.StackTrace}");
 
                 if (retryCount > 0)
                 {

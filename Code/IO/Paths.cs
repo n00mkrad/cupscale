@@ -23,6 +23,8 @@ namespace Cupscale.IO
 		public static readonly string pythonTuringUrl = "https://dl.nmkd-hz.de/flowframes/setupfiles/py-tu/v1/py-tu.7z";
 		public static readonly string pythonAmpereUrl = "https://dl.nmkd-hz.de/flowframes/setupfiles/py-amp/v1/py-amp.7z";
 
+		public static readonly string ncnnMdlDir = ".ncnn-models";
+
 		public static void Init()
 		{
 			binPath = Path.Combine(GetDataPath(), "bin");

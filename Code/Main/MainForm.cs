@@ -122,7 +122,7 @@ namespace Cupscale.Main
         {
 			string mdl1 = Config.Get("lastMdl1");
 
-            if (File.Exists(mdl1))
+            if (File.Exists(mdl1) || (mdl1.EndsWith(".ncnn") && Directory.Exists(mdl1)))
             {
 				Program.currentModel1 = mdl1;
 				model1TreeBtn.Text = Path.GetFileNameWithoutExtension(Program.currentModel1);
@@ -130,8 +130,8 @@ namespace Cupscale.Main
 
 			string mdl2 = Config.Get("lastMdl2");
 
-			if (File.Exists(mdl2))
-            {
+			if (File.Exists(mdl2) || (mdl2.EndsWith(".ncnn") && Directory.Exists(mdl2)))
+			{
 				Program.currentModel2 = mdl2;
 				model2TreeBtn.Text = Path.GetFileNameWithoutExtension(Program.currentModel2);
 			}
@@ -145,6 +145,7 @@ namespace Cupscale.Main
 
 		float lastProg;
 		string lastStatus = "";
+
 		public void SetProgress(float prog, string statusText = "")
 		{
 			if(prog >= 0 && lastProg != prog)
@@ -433,15 +434,15 @@ namespace Cupscale.Main
 			if (Program.busy)
 				return;
 
-			if(Upscale.currentAi == Implementations.Imps.esrganPytorch && !PreviewUi.HasValidModelSelection())
-			{
-				Program.ShowMessage("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
-				return;
-			}
+			//if(Upscale.currentAi == Implementations.Imps.esrganPytorch && !PreviewUi.HasValidModelSelection())
+			//{
+			//	Program.ShowMessage("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
+			//	return;
+			//}
 
 			if (!PreviewUi.HasValidModelSelection())
 			{
-				Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
+				//Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
 				return;
 			}
 

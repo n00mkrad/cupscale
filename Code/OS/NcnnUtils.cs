@@ -24,8 +24,16 @@ namespace Cupscale.OS
 
 		public static async Task ConvertNcnnModel(string modelPath, string filenamePattern)
         {
+			Logger.Log($"ConvertNcnnModel: {modelPath}");
+
             try
             {
+                if (IsDirNcnnModel(modelPath))
+                {
+					currentNcnnModel = modelPath;
+					return;
+				}
+
                 string modelName = Path.GetFileName(modelPath);
                 ncnnDir = Path.Combine(Config.Get("modelPath"), ".ncnn-models");
                 Directory.CreateDirectory(ncnnDir);
@@ -108,6 +116,32 @@ namespace Cupscale.OS
 			Logger.Log("[NcnnUtils] Model Converter Output: " + data);
             lastNcnnOutput += $"{data}\n";
         }
+
+		public static bool IsDirNcnnModel (string path, bool requireSuffix = true, bool noMoreThanTwoFiles = false)
+        {
+            try
+            {
+				if (!IoUtils.IsPathDirectory(path))
+					return false;
+
+				DirectoryInfo dir = new DirectoryInfo(path);
+				bool suffixValid = dir.Name.EndsWith(".ncnn");
+				bool filesValid = dir.GetFiles("*.bin").Length == 1 && dir.GetFiles("*.param").Length == 1;
+
+				if (noMoreThanTwoFiles && dir.GetFiles("*").Length > 2)
+					filesValid = false;
+
+				if (requireSuffix && !suffixValid)
+					return false;
+
+				return filesValid;
+			}
+			catch(Exception e)
+            {
+				Logger.Log($"IsDirNcnnModel Exception: {e.Message}. Defaulting to false.");
+				return false;
+            }
+		}
 
 		public static int GetNcnnModelScale(string modelDir)
 		{

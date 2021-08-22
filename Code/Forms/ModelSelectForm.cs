@@ -1,4 +1,5 @@
 ﻿using Cupscale.IO;
+using Cupscale.OS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -85,25 +86,37 @@ namespace Cupscale.Forms
         {
             foreach (FileInfo file in IoUtils.GetFileInfosSorted(path, true, "*.*"))
             {
-                if(file.Extension == ".PTH")
+                if (file.Extension == ".PTH")
                     file.MoveTo(Path.ChangeExtension(file.FullName, "pth"));
             }
         }
 
-        private void BuildTree(DirectoryInfo directoryInfo, TreeNodeCollection addInMe)
+        private void BuildTree(DirectoryInfo directoryInfo, TreeNodeCollection nodeCollection)
         {
-            TreeNode curNode = addInMe.Add(directoryInfo.Name);
+            TreeNode currNode = nodeCollection.Add(directoryInfo.Name);
 
             foreach (FileInfo file in directoryInfo.GetFiles())
             {
                 if (file.Extension == ".pth")    // Hide any other file extension
-                    curNode.Nodes.Add(file.FullName, Path.ChangeExtension(file.Name, null));
+                    currNode.Nodes.Add(file.FullName, Path.ChangeExtension(file.Name, null));
             }
 
-            foreach (DirectoryInfo subdir in directoryInfo.GetDirectories())
+            foreach (DirectoryInfo subDir in directoryInfo.GetDirectories())
             {
-                if (subdir.GetFiles("*.pth", SearchOption.AllDirectories).Length > 0)     // Don't list folders that have no PTH files
-                    BuildTree(subdir, curNode.Nodes);
+                bool isNcnnModel = NcnnUtils.IsDirNcnnModel(subDir.FullName);
+
+                if (isNcnnModel)
+                    currNode.Nodes.Add(subDir.FullName, subDir.Name.Substring(0, subDir.Name.Length - 5));
+
+                bool hasAnyPthFiles = subDir.GetFiles("*.pth", SearchOption.AllDirectories).Length > 0;
+                bool hasAnyBinFiles = subDir.GetFiles("*.bin", SearchOption.AllDirectories).Length > 0;
+                bool hasAnyParamFiles = subDir.GetFiles("*.param", SearchOption.AllDirectories).Length > 0;
+
+                if (isNcnnModel || subDir.Name.StartsWith("."))
+                    continue;   // Don't add this folder to the tree if it's a model, not a dir with more models
+
+                if (hasAnyPthFiles || hasAnyBinFiles || hasAnyParamFiles)     // Don't list folders that have no model files
+                    BuildTree(subDir, currNode.Nodes);
             }
         }
 
@@ -132,7 +145,7 @@ namespace Cupscale.Forms
 
         private void modelTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            confirmBtn.Enabled = (Path.GetExtension(modelTree.SelectedNode.Name) == ".pth");
+            confirmBtn.Enabled = (Path.GetExtension(modelTree.SelectedNode.Name) == ".pth" || modelTree.SelectedNode.Name.EndsWith(".ncnn"));
         }
 
         private void ModelSelectForm_KeyPress(object sender, KeyPressEventArgs e)
@@ -140,7 +153,7 @@ namespace Cupscale.Forms
             if (e.KeyChar == (char)Keys.Enter)
             {
                 e.Handled = true;
-                if(confirmBtn.Enabled)
+                if (confirmBtn.Enabled)
                     confirmBtn_Click(null, null);
             }
 

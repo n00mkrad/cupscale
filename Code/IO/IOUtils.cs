@@ -77,15 +77,34 @@ namespace Cupscale
         public static bool IsFileValid(string path)
         {
             if (path == null)
-            {
                 return false;
-            }
+
             if (!File.Exists(path))
-            {
                 return false;
-            }
 
             return true;
+        }
+
+        public static bool IsDirValid(string path)
+        {
+            if (path == null)
+                return false;
+
+            if (!Directory.Exists(path))
+                return false;
+
+            return true;
+        }
+
+        public static bool IsPathValid(string path)
+        {
+            if (path == null)
+                return false;
+
+            if (IsPathDirectory(path))
+                return IsDirValid(path);
+            else
+                return IsFileValid(path);
         }
 
         public static async Task CopyDir(string sourceDir, string targetDir, string wildcard = "*", bool move = false, bool onlyCompatibles = false, string removeFromName = "")

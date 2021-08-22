@@ -68,6 +68,7 @@ namespace Cupscale.Forms
                 Program.ShowMessage("No image loaded!", "Error");
                 return;
             }
+
             Enabled = false;
             cutoutMode = cropMode.SelectedIndex == 1;
             if (cutoutMode)
@@ -80,20 +81,28 @@ namespace Cupscale.Forms
             {
                 currentSourcePath = Paths.tempImgPath;
             }
+
             string[] lines = Regex.Split(modelPathsBox.Text, "\r\n|\r|\n");
+
             if(comparisonMode.SelectedIndex == 0)
             {
                 string outpath = Path.Combine(Paths.imgOutPath, "!Original.png");
                 await ImageProcessing.ConvertImage(currentSourcePath, GetSaveFormat(), false, ImageProcessing.ExtMode.UseNew, false, outpath);
                 await ProcessImage(outpath, "Original");
             }
+
             for (int i = 0; i < lines.Length; i++)
             {
-                if (!File.Exists(lines[i]))
+                if (!IoUtils.IsPathValid(lines[i]))
+                {
+                    Logger.Log($"ModelComparisonForm: Path '{lines[i]}' is not valid, skipping upscale with this model!");
                     continue;
+                }
+
                 ModelData mdl = new ModelData(lines[i], null, ModelData.ModelMode.Single);
                 await DoUpscale(i, mdl, !cutoutMode);
             }
+
             bool vert = compositionMode.SelectedIndex == 1;
             MagickImage merged = ImgUtils.MergeImages(Directory.GetFiles(Paths.imgOutPath, "*.png", SearchOption.AllDirectories), vert, true);
             string mergedPath = Path.Combine(Paths.imgOutPath, Path.GetFileNameWithoutExtension(Program.lastImgPath) + "-composition");
@@ -108,10 +117,13 @@ namespace Cupscale.Forms
         static ImageProcessing.Format GetSaveFormat()
         {
             ImageProcessing.Format saveFormat = ImageProcessing.Format.PngFast;
+
             if (Config.GetInt("previewFormat") == 1)
                 saveFormat = ImageProcessing.Format.Jpeg;
+
             if (Config.GetInt("previewFormat") == 2)
                 saveFormat = ImageProcessing.Format.Weppy;
+
             return saveFormat;
         }
 
@@ -148,17 +160,13 @@ namespace Cupscale.Forms
                 if (fullImage) inpath = Paths.tempImgPath.GetParentDir();
                 await Upscale.Run(inpath, Paths.compositionOut, mdl, false, Config.GetBool("alpha"), PreviewUi.PreviewMode.None);
                 outImg = Directory.GetFiles(Paths.compositionOut, "*.png", SearchOption.AllDirectories)[0];
-                await PostProcessing.PostprocessingSingle(outImg, false);
+                await PostProcessing.PostprocessingSingle(outImg, false, 10, false);
                 await ProcessImage(PreviewUi.lastOutfile, mdl.model1Name);
                 IoUtils.TryCopy(PreviewUi.lastOutfile, Path.Combine(Paths.imgOutPath, $"{index}-{mdl.model1Name}.png"), true);
             }
             catch (Exception e)
             {
                 if (Program.canceled) return;
-
-                if (e.Message.ToLower().Contains("index"))
-                    Program.ShowMessage("The upscale process seems to have exited before completion!", "Error");
-
                 Program.Cancel($"An error occured: {e.Message}");
             }
 
