@@ -92,6 +92,7 @@ namespace Cupscale.Forms
             SaveSettings();
             await EmbeddedPython.Init();
             Program.mainForm.LoadEsrganOptions();
+
             if(Config.GetInt("esrganPytorchPythonRuntime") == 1 && !File.Exists(EmbeddedPython.GetEmbedPyPath()))
             {
                 MsgBox msg = Program.ShowMessage("You enabled the embedded Python runtime but haven't downloaded and installed it.\n" +
