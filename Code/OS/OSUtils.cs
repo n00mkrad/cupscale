@@ -54,28 +54,33 @@ namespace Cupscale.OS
             return SetStartInfo(proc, hidden, filename);
         }
 
+        public static void KillProcessTree(Process proc)
+        {
+            if (proc != null)
+                KillProcessTree(proc.Id);
+        }
+
         public static void KillProcessTree(int pid)
         {
-            ManagementObjectSearcher processSearcher = new ManagementObjectSearcher
-              ("Select * From Win32_Process Where ParentProcessID=" + pid);
-            ManagementObjectCollection processCollection = processSearcher.Get();
-
             try
             {
+                ManagementObjectSearcher processSearcher = new ManagementObjectSearcher ("Select * From Win32_Process Where ParentProcessID=" + pid);
+                ManagementObjectCollection processCollection = processSearcher.Get();
+
                 Process proc = Process.GetProcessById(pid);
                 if (!proc.HasExited) proc.Kill();
-            }
-            catch (ArgumentException)
-            {
-                // Process already exited.
-            }
 
-            if (processCollection != null)
-            {
-                foreach (ManagementObject mo in processCollection)
+                if (processCollection != null)
                 {
-                    KillProcessTree(Convert.ToInt32(mo["ProcessID"])); //kill child processes(also kills childrens of childrens etc.)
+                    foreach (ManagementObject mo in processCollection)
+                    {
+                        KillProcessTree(Convert.ToInt32(mo["ProcessID"])); //kill child processes(also kills childrens of childrens etc.)
+                    }
                 }
+            }
+            catch
+            {
+                // has probably exited already
             }
         }
     }

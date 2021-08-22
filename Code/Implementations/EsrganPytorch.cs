@@ -61,11 +61,11 @@ namespace Cupscale.Implementations
 
             if (!showWindow)
             {
-                esrganProcess.OutputDataReceived += OutputHandler;
-                esrganProcess.ErrorDataReceived += OutputHandler;
+                esrganProcess.OutputDataReceived += (sender, outLine) => { OutputHandler(outLine.Data, false); };
+                esrganProcess.ErrorDataReceived += (sender, outLine) => { OutputHandler(outLine.Data, true); };
             }
 
-            Program.currentEsrganProcess = esrganProcess;
+            Program.lastImpProcess = esrganProcess;
             esrganProcess.Start();
 
             if (!showWindow)
@@ -134,7 +134,7 @@ namespace Cupscale.Implementations
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
 
-            Process py = OsUtils.NewProcess(!showWindow);
+            Process proc = OsUtils.NewProcess(!showWindow);
 
             string opt = stayOpen ? "/K" : "/C";
             string alphaStr = (mdl.interp / 100f).ToString("0.00").Replace(",", ".");
@@ -145,12 +145,12 @@ namespace Cupscale.Implementations
             string cmd = $"{opt} cd /D {Paths.GetAiDir(Imps.esrganPytorch).Wrap()} & ";
             cmd += $"{EmbeddedPython.GetPyCmd()} interp.py {mdl.model1Path.Wrap()} {mdl.model2Path.Wrap()} {alphaStr} {outPath.Wrap()}";
 
-            py.StartInfo.Arguments = cmd;
-            Logger.Log("[ESRGAN Interp] CMD: " + py.StartInfo.Arguments);
-            py.Start();
-            py.WaitForExit();
-            string output = py.StandardOutput.ReadToEnd();
-            string err = py.StandardError.ReadToEnd();
+            proc.StartInfo.Arguments = cmd;
+            Logger.Log("[ESRGAN Interp] CMD: " + proc.StartInfo.Arguments);
+            proc.Start();
+            proc.WaitForExit();
+            string output = proc.StandardOutput.ReadToEnd();
+            string err = proc.StandardError.ReadToEnd();
             if (!string.IsNullOrWhiteSpace(err)) output += "\n" + err;
             Logger.Log("[ESRGAN Interp] Output: " + output);
 
@@ -160,37 +160,15 @@ namespace Cupscale.Implementations
             return outPath;
         }
 
-        private static void OutputHandler(object sendingProcess, DataReceivedEventArgs output)
+        private static void OutputHandler(string line, bool error)
         {
-            if (output == null || output.Data == null)
+            if (string.IsNullOrWhiteSpace(line) || line.Length < 3)
                 return;
 
-            string data = output.Data;
-            Logger.Log("[Python] " + data);
+            Logger.Log("[Python] " + line.Replace("\n", " ").Replace("\r", " "));
 
-            if (data.ToLower().Contains("error"))
-            {
-                Program.KillEsrgan();
-                Program.ShowMessage("Error occurred: \n\n" + data + "\n\n", "Error");
-            }
-
-            if (data.ToLower().Contains("out of memory"))
-                Program.ShowMessage("ESRGAN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
-
-            if (data.Contains("Python was not found"))
-                Program.ShowMessage("Python was not found. Make sure you have a working Python 3 installation.", "Error");
-
-            if (data.Contains("ModuleNotFoundError"))
-                Program.ShowMessage("You are missing ESRGAN Python dependencies. Make sure Pytorch and cv2 (opencv-python) are installed.", "Error");
-
-            if (data.Contains("RRDBNet"))
-                Program.ShowMessage("Model appears to be incompatible!", "Error");
-
-            if (data.Contains("UnpicklingError"))
-                Program.ShowMessage("Failed to load model!", "Error");
-
-            if (PreviewUi.currentMode == PreviewUi.MdlMode.Interp && (data.Contains("must match the size of tensor b") || data.Contains("KeyError: 'model.")))
-                Program.ShowMessage("It seems like you tried to interpolate incompatible models!", "Error");
+            if (error)
+                GeneralOutputHandler.HandleImpErrorMsgs(line, Imps.esrganPytorch);
         }
 
         static string lastProgressString = "";

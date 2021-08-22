@@ -41,51 +41,44 @@ namespace Cupscale.Implementations
                 $" -g {Config.GetInt("esrganNcnnGpu")} -m {NcnnUtils.currentNcnnModel.Wrap()} -s {scale} {tta} {ts}";
             Logger.Log("[CMD] " + cmd);
 
-            Process ncnnProcess = OsUtils.NewProcess(!showWindow);
-            ncnnProcess.StartInfo.Arguments = cmd;
+            Process proc = OsUtils.NewProcess(!showWindow);
+            proc.StartInfo.Arguments = cmd;
 
             if (!showWindow)
             {
-                ncnnProcess.OutputDataReceived += NcnnOutputHandler;
-                ncnnProcess.ErrorDataReceived += NcnnOutputHandler;
+                proc.OutputDataReceived += (sender, outLine) => { OutputHandler(outLine.Data, false); };
+                proc.ErrorDataReceived += (sender, outLine) => { OutputHandler(outLine.Data, true); };
             }
 
-            Program.currentEsrganProcess = ncnnProcess;
-            ncnnProcess.Start();
+            Program.lastImpProcess = proc;
+            proc.Start();
 
             if (!showWindow)
             {
-                ncnnProcess.BeginOutputReadLine();
-                ncnnProcess.BeginErrorReadLine();
+                proc.BeginOutputReadLine();
+                proc.BeginErrorReadLine();
             }
 
-            while (!ncnnProcess.HasExited)
+            while (!proc.HasExited)
                 await Task.Delay(50);
 
             if (Upscale.currentMode == Upscale.UpscaleMode.Batch)
             {
                 await Task.Delay(1000);
-                Program.mainForm.SetProgress(100f, "[ESRGAN] Post-Processing...");
+                Program.mainForm.SetProgress(100f, "Post-Processing...");
                 PostProcessingQueue.Stop();
             }
         }
 
-        private static void NcnnOutputHandler(object sendingProcess, DataReceivedEventArgs output)
+        private static void OutputHandler(string line, bool error)
         {
-            if (output == null || output.Data == null)
+            if (string.IsNullOrWhiteSpace(line) || line.Length < 6)
                 return;
 
-            string data = output.Data;
-            Logger.Log("[NCNN] " + data.Replace("\n", " ").Replace("\r", " "));
+            Logger.Log("[NCNN] " + line.Replace("\n", " ").Replace("\r", " "));
 
-            if (data.Contains("failed"))
-            {
-                Program.KillEsrgan();
-                Program.ShowMessage("Error occurred during upscaling: \n\n" + data + "\n\n", "Error");
-            }
-
-            if (data.Contains("vkAllocateMemory"))
-                Program.ShowMessage("ESRGAN-NCNN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
+            if(error)
+                GeneralOutputHandler.HandleImpErrorMsgs(line, Imps.esrganNcnn);
         }
     }
 }

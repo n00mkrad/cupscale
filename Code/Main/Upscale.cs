@@ -35,14 +35,16 @@ namespace Cupscale.Main
 
             try
             {
-                if (Upscale.currentAi == Imps.esrganPytorch)
+                if (currentAi == Imps.esrganPytorch)
                     await EsrganPytorch.Run(inpath, outpath, mdl, cacheSplitDepth, alpha, showTileProgress);
 
-                if (Upscale.currentAi == Imps.esrganNcnn)
+                if (currentAi == Imps.esrganNcnn)
                     await EsrganNcnn.Run(inpath, outpath, mdl);
 
-                if (Upscale.currentAi == Imps.realEsrganNcnn)
+                if (currentAi == Imps.realEsrganNcnn)
                     await RealEsrganNcnn.Run(inpath, outpath, mdl);
+
+                if (Program.canceled) return;
 
                 if (mode == PreviewUi.PreviewMode.Cutout)
                 {
@@ -206,5 +208,7 @@ namespace Cupscale.Main
 
             return outImg;
         }
+
+        
     }
 }

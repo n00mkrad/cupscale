@@ -53,11 +53,11 @@ namespace Cupscale.Implementations
 
             if (!showWindow)
             {
-                proc.OutputDataReceived += RealEsrganOutputHandler;
-                proc.ErrorDataReceived += RealEsrganOutputHandler;
+                proc.OutputDataReceived += (sender, outLine) => { OutputHandler(outLine.Data, false); };
+                proc.ErrorDataReceived += (sender, outLine) => { OutputHandler(outLine.Data, true); };
             }
 
-            Program.currentEsrganProcess = proc;
+            Program.lastImpProcess = proc;
             proc.Start();
 
             if (!showWindow)
@@ -72,36 +72,29 @@ namespace Cupscale.Implementations
             if (Upscale.currentMode == Upscale.UpscaleMode.Batch)
             {
                 await Task.Delay(1000);
-                Program.mainForm.SetProgress(100f, "[ESRGAN] Post-Processing...");
+                Program.mainForm.SetProgress(100f, "Post-Processing...");
                 PostProcessingQueue.Stop();
             }
 
         }
 
-        private static void RealEsrganOutputHandler(object sendingProcess, DataReceivedEventArgs output)
+        private static void OutputHandler(string line, bool error)
         {
-            if (output == null || output.Data == null)
+            if (string.IsNullOrWhiteSpace(line) || line.Length < 6)
                 return;
 
-            string data = output.Data;
-            Logger.Log("[NCNN] " + data.Replace("\n", " ").Replace("\r", " "));
+            Logger.Log("[NCNN] " + line.Replace("\n", " ").Replace("\r", " "));
 
             bool showTileProgress = Upscale.currentMode == Upscale.UpscaleMode.Preview || Upscale.currentMode == Upscale.UpscaleMode.Single;
 
-            if (showTileProgress && data.Trim().EndsWith("%"))
+            if (showTileProgress && line.Trim().EndsWith("%"))
             {
-                float percent = float.Parse(data.Replace("%", "").Replace(",", ".")) / 100f;
+                float percent = float.Parse(line.Replace("%", "").Replace(",", ".")) / 100f;
                 Program.mainForm.SetProgress(percent, $"Upscaling Tiles ({percent}%)");
             }
 
-            if (data.Contains("failed"))
-            {
-                Program.KillEsrgan();
-                Program.ShowMessage("Error occurred during upscaling: \n\n" + data + "\n\n", "Error");
-            }
-
-            if (data.Contains("vkAllocateMemory"))
-                Program.ShowMessage("ESRGAN-NCNN ran out of memory. Try reducing the tile size and avoid running programs in the background (especially games) that take up your VRAM.", "Error");
+            if (error)
+                GeneralOutputHandler.HandleImpErrorMsgs(line, Imps.realEsrganNcnn);
         }
     }
 }

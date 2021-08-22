@@ -139,9 +139,6 @@ namespace Cupscale.Forms
             Program.mainForm.SetBusy(true);
 
             Upscale.currentMode = Upscale.UpscaleMode.Composition;
-            //await ImageProcessing.PreProcessImages(Paths.previewPath, !bool.Parse(Config.Get("alpha")));
-            //if (cutoutMode)
-                //currentSourcePath += ".png";
 
             string outImg = null;
 
@@ -150,18 +147,19 @@ namespace Cupscale.Forms
                 string inpath = Paths.previewPath;
                 if (fullImage) inpath = Paths.tempImgPath.GetParentDir();
                 await Upscale.Run(inpath, Paths.compositionOut, mdl, false, Config.GetBool("alpha"), PreviewUi.PreviewMode.None);
-                outImg = Directory.GetFiles(Paths.compositionOut, ".*.png*", SearchOption.AllDirectories)[0];
+                outImg = Directory.GetFiles(Paths.compositionOut, "*.png", SearchOption.AllDirectories)[0];
                 await PostProcessing.PostprocessingSingle(outImg, false);
                 await ProcessImage(PreviewUi.lastOutfile, mdl.model1Name);
                 IoUtils.TryCopy(PreviewUi.lastOutfile, Path.Combine(Paths.imgOutPath, $"{index}-{mdl.model1Name}.png"), true);
             }
             catch (Exception e)
             {
+                if (Program.canceled) return;
+
                 if (e.Message.ToLower().Contains("index"))
                     Program.ShowMessage("The upscale process seems to have exited before completion!", "Error");
 
-                Logger.ErrorMessage("An error occured during upscaling:", e);
-                Program.mainForm.SetProgress(0f, "Cancelled.");
+                Program.Cancel($"An error occured: {e.Message}");
             }
 
             Program.mainForm.SetProgress(0, "Done.");

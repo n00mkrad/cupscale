@@ -20,12 +20,22 @@ namespace Cupscale.OS
 {
     class EmbeddedPython
     {
-        public static string GetPyCmd()
+        public static string GetPyCmd(bool cancelIfFileMissing = false)
         {
             if (IsEnabled())
-                return GetEmbedPyPath().Wrap();
-            else
-                return "python";
+            {
+                if (File.Exists(GetEmbedPyPath()))
+                {
+                    return GetEmbedPyPath().Wrap();
+                }
+                else
+                {
+                    Program.Cancel($"Can't find embedded python executable! Are you sure it's installed?");
+                    return "";
+                }
+            }
+                
+            return "python";
         }
 
         public static string GetEmbedPyPath()

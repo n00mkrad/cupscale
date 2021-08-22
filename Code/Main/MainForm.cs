@@ -105,7 +105,7 @@ namespace Cupscale.Main
 					await Task.Delay(100);
 					continue;
 				}
-				cancelBtn.Visible = (Program.busy && Program.currentEsrganProcess != null && !Program.currentEsrganProcess.HasExited);
+				cancelBtn.Visible = (Program.busy && Program.lastImpProcess != null && !Program.lastImpProcess.HasExited);
 				await Task.Delay(100);
 			}
         }
@@ -794,7 +794,7 @@ namespace Cupscale.Main
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-			Program.KillEsrgan();
+			Program.Cancel();
         }
 
         private void paypalBtn_Click(object sender, EventArgs e)

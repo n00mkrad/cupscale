@@ -36,7 +36,7 @@ namespace Cupscale
         public static List<MsgBox> openMessageBoxes = new List<MsgBox>();  // Temp forms that get closed when something gets cancelled
 
         public static bool lastUpscaleIsVideo;
-        public static Process currentEsrganProcess;
+        public static Process lastImpProcess;
         public static bool canceled = false;
 
         public static bool busy;
@@ -70,12 +70,17 @@ namespace Cupscale
             Application.Run(new MainForm());
         }
 
-        public static void KillEsrgan (bool cleanup = true)
+        public static void Cancel (string reason = "", bool cleanup = true)
         {
-            if (currentEsrganProcess == null || currentEsrganProcess.HasExited)
-                return;
             canceled = true;
-            OsUtils.KillProcessTree(currentEsrganProcess.Id);
+            OsUtils.KillProcessTree(lastImpProcess);
+
+            mainForm.SetProgress(0, "Canceled.");
+            mainForm.SetBusy(false);
+
+            if (reason.Trim().Length > 0)
+                ShowMessage(reason);
+
             if (cleanup)
             {
                 IoUtils.ClearDir(Paths.imgInPath);
