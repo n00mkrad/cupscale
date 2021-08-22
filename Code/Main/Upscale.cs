@@ -166,6 +166,8 @@ namespace Cupscale.Main
 
         public static string FilenamePostprocess(string file)
         {
+            if (Program.canceled) return null;
+
             try
             {
                 string newFilename = file;

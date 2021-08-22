@@ -80,9 +80,8 @@ namespace Cupscale.UI
             try
             {
                 await Upscale.Run(Paths.imgInPath, Paths.imgOutPath, mdl, false, Config.GetBool("alpha"), PreviewUi.PreviewMode.None);
-
+                if (Program.canceled) return;
                 outImg = Upscale.GetOutputImg();
-
                 Program.mainForm.SetProgress(100f, "Post-Processing...");
                 await Task.Delay(50);
                 await PostProcessing.PostprocessingSingle(outImg, false);

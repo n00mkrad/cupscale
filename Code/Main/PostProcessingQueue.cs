@@ -79,7 +79,7 @@ namespace Cupscale.Cupscale
         {
             Stopwatch sw = new Stopwatch();
 
-            while (run || AnyFilesLeft())
+            while (!Program.canceled && (run || AnyFilesLeft()))
             {
                 if (outputFileQueue.Count > 0)
                 {
