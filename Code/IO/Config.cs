@@ -195,6 +195,9 @@ namespace Cupscale
         public static void LoadGuiElement(ComboBox comboBox)
         {
             comboBox.Text = Get(comboBox.Name);
+
+            if (comboBox.DropDownStyle == ComboBoxStyle.DropDownList && comboBox.SelectedIndex < 0)
+                comboBox.SelectedIndex = 0;
         }
 
         public static void LoadGuiElement(TextBox textbox)
