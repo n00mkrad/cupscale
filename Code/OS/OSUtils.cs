@@ -7,7 +7,7 @@ using System.Management;
 
 namespace Cupscale.OS
 {
-    class OSUtils
+    class OsUtils
     {
         public static bool IsUserAdministrator()
         {

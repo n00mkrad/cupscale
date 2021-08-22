@@ -37,7 +37,7 @@ namespace Cupscale.UI
 
         public static void LoadFile(string path)
         {
-            if (!IOUtils.videoExtensions.Contains(Path.GetExtension(path).ToLower()))
+            if (!IoUtils.videoExtensions.Contains(Path.GetExtension(path).ToLower()))
             {
                 Program.ShowMessage("Not a supported video file!");
                 return;
@@ -75,7 +75,7 @@ namespace Cupscale.UI
             LoadVideo();
             Print("Extracting frames...");
             await FFmpegCommands.VideoToFrames(currentInPath, Paths.imgInPath, false, false, false);
-            int amountFrames = IOUtils.GetAmountOfCompatibleFiles(Paths.imgInPath, false);
+            int amountFrames = IoUtils.GetAmountOfCompatibleFiles(Paths.imgInPath, false);
             Print($"Done - Extracted {amountFrames} frames.");
             await PreprocessIfNeeded(preprocess);
             BatchUpscaleUI.LoadDir(Paths.imgInPath, true);
@@ -89,18 +89,18 @@ namespace Cupscale.UI
             Print("Done creating video.");
             CopyBack(Path.Combine(Paths.GetDataPath(), "frames-out.mp4"));
             Print("Adding audio from source to output video...");
-            IOUtils.ClearDir(Paths.imgInPath);
-            IOUtils.ClearDir(Paths.framesOutPath);
+            IoUtils.ClearDir(Paths.imgInPath);
+            IoUtils.ClearDir(Paths.framesOutPath);
             Program.mainForm.SetBusy(false);
             Print("Finished.");
         }
 
         static void LoadVideo()
         {
-            IOUtils.ClearDir(Paths.framesOutPath);
+            IoUtils.ClearDir(Paths.framesOutPath);
             fps = FFmpegCommands.GetFramerate(currentInPath);
             Print("Detected frame rate of video as " + fps);
-            IOUtils.ClearDir(Paths.imgInPath);
+            IoUtils.ClearDir(Paths.imgInPath);
         }
 
         static async Task PreprocessIfNeeded(bool doPreprocess)
@@ -124,7 +124,7 @@ namespace Cupscale.UI
             {
                 Print("Post-Resizing is enabled - Postprocessing frames...");
                 await Task.Delay(10);
-                string[] imgs = IOUtils.GetCompatibleFiles(Paths.imgOutPath, false, "*.png");
+                string[] imgs = IoUtils.GetCompatibleFiles(Paths.imgOutPath, false, "*.png");
                 int i = 0;
                 foreach (string img in imgs)
                 {
@@ -138,7 +138,7 @@ namespace Cupscale.UI
 
         static async Task CreateVideo()
         {
-            if (IOUtils.GetAmountOfFiles(Paths.framesOutPath, false) < 1) return;
+            if (IoUtils.GetAmountOfFiles(Paths.framesOutPath, false) < 1) return;
 
             if (outputFormatBox.Text == Upscale.VidExportMode.MP4.ToStringTitleCase())
                 outputFormat = Upscale.VidExportMode.MP4;
@@ -207,7 +207,7 @@ namespace Cupscale.UI
 
         static void RenameOutFiles()
         {
-            string[] frames = IOUtils.GetCompatibleFiles(Paths.framesOutPath, false);
+            string[] frames = IoUtils.GetCompatibleFiles(Paths.framesOutPath, false);
             foreach (string frame in frames)
             {
                 if (frame.Contains("-"))

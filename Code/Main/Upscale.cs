@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using static Cupscale.UI.PreviewUI;
+using static Cupscale.UI.PreviewUi;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Cupscale.Main
@@ -34,17 +34,17 @@ namespace Cupscale.Main
             if (overwriteMode == Overwrite.Yes)
             {
                 Logger.Log("Overwrite mode - removing suffix from filenames");
-                IOUtils.ReplaceInFilenamesDir(Paths.imgOutPath, "-" + GetLastModelName(), "");
+                IoUtils.ReplaceInFilenamesDir(Paths.imgOutPath, "-" + GetLastModelName(), "");
             }
             else
             {
                 Logger.Log("Overwrite is off - keeping suffix.");
             }
 
-            await IOUtils.CopyDir(Paths.imgOutPath, path);
+            await IoUtils.CopyDir(Paths.imgOutPath, path);
             await Task.Delay(1);
-            IOUtils.ClearDir(Paths.imgInPath);
-            IOUtils.ClearDir(Paths.imgOutPath);
+            IoUtils.ClearDir(Paths.imgInPath);
+            IoUtils.ClearDir(Paths.imgOutPath);
         }
 
         public static async Task AddModelSuffix(string path)
@@ -70,14 +70,14 @@ namespace Cupscale.Main
         {
             ModelData mdl = new ModelData();
 
-            if (PreviewUI.currentMode == Mode.Single)
+            if (PreviewUi.currentMode == Mode.Single)
             {
                 string mdl1 = Program.currentModel1;
                 if (string.IsNullOrWhiteSpace(mdl1)) return mdl;
                 mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
             }
 
-            if (PreviewUI.currentMode == Mode.Interp)
+            if (PreviewUi.currentMode == Mode.Interp)
             {
                 string mdl1 = Program.currentModel1;
                 string mdl2 = Program.currentModel2;
@@ -85,7 +85,7 @@ namespace Cupscale.Main
                 mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
             }
 
-            if (PreviewUI.currentMode == Mode.Chain)
+            if (PreviewUi.currentMode == Mode.Chain)
             {
                 string mdl1 = Program.currentModel1;
                 string mdl2 = Program.currentModel2;
@@ -93,7 +93,7 @@ namespace Cupscale.Main
                 mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
             }
 
-            if (PreviewUI.currentMode == Mode.Advanced)
+            if (PreviewUi.currentMode == Mode.Advanced)
             {
                 mdl = new ModelData(null, null, ModelData.ModelMode.Advanced);
             }
@@ -112,7 +112,7 @@ namespace Cupscale.Main
                 newFilename = pathNoExt + "-" + GetLastModelName() + ext;
                 Logger.Log($"FilenamePostprocess: Moving {file} => {newFilename}");
                 File.Move(file, newFilename);
-                newFilename = IOUtils.RenameExtension(newFilename, "jpg", Config.Get("jpegExtension"));
+                newFilename = IoUtils.RenameExtension(newFilename, "jpg", Config.Get("jpegExtension"));
 
                 return newFilename;
             }

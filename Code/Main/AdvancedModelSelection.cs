@@ -59,7 +59,7 @@ namespace Cupscale.Main
             if (!File.Exists(path))
                 return false;
 
-            string[] saveDataLines = IOUtils.ReadLines(path);
+            string[] saveDataLines = IoUtils.ReadLines(path);
             foreach(string line in saveDataLines)
             {
                 string[] keyValuePair = line.Split('|');

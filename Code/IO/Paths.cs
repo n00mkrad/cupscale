@@ -66,12 +66,12 @@ namespace Cupscale.IO
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             path = Path.Combine(path, "Cupscale");
 
-            if (IOUtils.IsPortable())
+            if (IoUtils.IsPortable())
             {
-                if (!IOUtils.hasShownPortableInfo)
+                if (!IoUtils.hasShownPortableInfo)
                 {
                     Logger.Log("Running in portable mode. Data folder: " + Path.Combine(GetExeDir(), "CupscaleData"), false);
-                    IOUtils.hasShownPortableInfo = true;
+                    IoUtils.hasShownPortableInfo = true;
                 }
                 path = Path.Combine(GetExeDir(), "CupscaleData");
             }

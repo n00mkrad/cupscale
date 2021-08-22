@@ -13,7 +13,7 @@ namespace Cupscale
         public static async Task Run(string args)
         {
             lastOutputFfmpeg = "";
-            Process ffmpeg = OSUtils.NewProcess(true);
+            Process ffmpeg = OsUtils.NewProcess(true);
             ffmpeg.StartInfo.Arguments = $"/C cd /D {Paths.binPath.Wrap()} & ffmpeg.exe -hide_banner -loglevel warning -y -stats {args}";
             Logger.Log("Running ffmpeg...");
             Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
@@ -42,7 +42,7 @@ namespace Cupscale
 
         public static async Task RunGifski (string args)
         {
-            Process ffmpeg = OSUtils.NewProcess(true);
+            Process ffmpeg = OsUtils.NewProcess(true);
             ffmpeg.StartInfo.Arguments = $"/C cd /D {Paths.binPath.Wrap()} & gifski.exe {args}";
             Logger.Log("Running gifski...");
             Logger.Log("cmd.exe " + ffmpeg.StartInfo.Arguments);
@@ -70,7 +70,7 @@ namespace Cupscale
 
         public static string RunAndGetOutput (string args)
         {
-            Process ffmpeg = OSUtils.NewProcess(true);
+            Process ffmpeg = OsUtils.NewProcess(true);
             ffmpeg.StartInfo.Arguments = $"/C cd /D {Paths.binPath.Wrap()} & ffmpeg.exe -hide_banner -y -stats {args}";
             ffmpeg.Start();
             ffmpeg.WaitForExit();

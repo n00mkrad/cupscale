@@ -10,7 +10,7 @@ using Cyotek.Windows.Forms;
 
 namespace Cupscale
 {
-	internal class UIHelpers
+	internal class UiHelpers
 	{
 		public static void InitCombox(ComboBox box, int index)
 		{

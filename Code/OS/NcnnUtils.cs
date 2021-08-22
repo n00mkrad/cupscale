@@ -32,7 +32,7 @@ namespace Cupscale.OS
                 string outPath = Path.Combine(ncnnDir, Path.ChangeExtension(modelName, null));
                 Logger.Log("Checking for NCNN model: " + outPath);
 
-                if (IOUtils.GetAmountOfFiles(outPath, false) < 2)
+                if (IoUtils.GetAmountOfFiles(outPath, false) < 2)
                 {
                     Logger.Log("Running model converter...");
                     DialogForm dialog = new DialogForm("Converting ESRGAN model to NCNN format...");
@@ -43,7 +43,7 @@ namespace Cupscale.OS
 
 					string moveFrom = Path.Combine(ConverterDir, Path.ChangeExtension(modelName, null));
                     Logger.Log("Moving " + moveFrom + " to " + outPath);
-                    await IOUtils.CopyDir(moveFrom, outPath, "*", true);
+                    await IoUtils.CopyDir(moveFrom, outPath, "*", true);
                     Directory.Delete(moveFrom, true);
                     dialog.Close();
                 }
@@ -52,8 +52,8 @@ namespace Cupscale.OS
                     Logger.Log("NCNN Model is cached - Skipping conversion.");
                 }
 
-				foreach(FileInfo file in IOUtils.GetFileInfosSorted(outPath).Where(f => f.Extension == ".bin" || f.Extension == ".param"))
-					IOUtils.RenameFile(file.FullName, filenamePattern.Replace("*", $"{file.Name.GetInt()}"));
+				foreach(FileInfo file in IoUtils.GetFileInfosSorted(outPath).Where(f => f.Extension == ".bin" || f.Extension == ".param"))
+					IoUtils.RenameFile(file.FullName, filenamePattern.Replace("*", $"{file.Name.GetInt()}"));
 
                 currentNcnnModel = outPath;
             }
@@ -77,7 +77,7 @@ namespace Cupscale.OS
 			string args = $"{opt} cd /D {ConverterDir.Wrap()} & pth2ncnn.exe {modelPath}";
 
 			Logger.Log("[CMD] " + args);
-			Process converterProc = OSUtils.NewProcess(!showWindow);
+			Process converterProc = OsUtils.NewProcess(!showWindow);
 			converterProc.StartInfo.Arguments = args;
 
 			if (!showWindow)

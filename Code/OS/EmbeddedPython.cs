@@ -47,8 +47,8 @@ namespace Cupscale.OS
 
             if (Directory.Exists(Path.Combine(shippedPath, "py")))
             {
-                IOUtils.TryDeleteIfExists(Path.Combine(shippedPath, "py", "utils"));
-                await IOUtils.CopyDir(Path.Combine(shippedPath, Implementations.Imps.esrganPytorch.dir, "utils"), Path.Combine(shippedPath, "py", "utils"));
+                IoUtils.TryDeleteIfExists(Path.Combine(shippedPath, "py", "utils"));
+                await IoUtils.CopyDir(Path.Combine(shippedPath, Implementations.Imps.esrganPytorch.dir, "utils"), Path.Combine(shippedPath, "py", "utils"));
             }
         }
 
@@ -70,7 +70,7 @@ namespace Cupscale.OS
             await Task.Delay(10);
 
             Print("Checking disk space before installation...");
-            float diskSpaceMb = IOUtils.GetDiskSpace(Paths.GetDataPath());
+            float diskSpaceMb = IoUtils.GetDiskSpace(Paths.GetDataPath());
             Print($"Available disk space on the current drive: {diskSpaceMb} MB.");
 
             if (diskSpaceMb < 5000)
@@ -80,7 +80,7 @@ namespace Cupscale.OS
                 return;
             }
 
-            IOUtils.DeleteIfExists(downloadPath);
+            IoUtils.DeleteIfExists(downloadPath);
             await Task.Delay(10);
 
             string url = NvApi.HasAmpereOrNewer() ? Paths.pythonAmpereUrl : Paths.pythonTuringUrl;
@@ -104,7 +104,7 @@ namespace Cupscale.OS
             Print("Extracting...");
 
             if (Directory.Exists(extractPath))
-                IOUtils.ClearDir(extractPath);
+                IoUtils.ClearDir(extractPath);
 
             List<Task> tasks = new List<Task>();
             isExtracting = true;
@@ -137,7 +137,7 @@ namespace Cupscale.OS
         {
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
             string opt = stayOpen ? "/K" : "/C";
-            Process compact = OSUtils.NewProcess(false);
+            Process compact = OsUtils.NewProcess(false);
             compact.StartInfo.Arguments = $"{opt} compact /C /S:{extractPath.Wrap()}";
             compact.Start();
             Thread.Sleep(100);  // <-- ugly hack https://stackoverflow.com/a/1016863/14274419
@@ -180,7 +180,7 @@ namespace Cupscale.OS
                     {
                         if (Directory.Exists(extractPath))
                         {
-                            long currentBytes = IOUtils.GetDirSize(extractPath, true);
+                            long currentBytes = IoUtils.GetDirSize(extractPath, true);
                             int mb = (int)(currentBytes / 1024f / 1000f);
                             Print("Installed " + mb + " MB of 2500", true);
                         }

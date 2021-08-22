@@ -40,7 +40,7 @@ namespace Cupscale
 
         public static async Task FramesToMp4 (string inputDir, bool useH265, int crf, float fps, string prefix, bool delSrc)
         {
-            int nums = IOUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
+            int nums = IoUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
             string enc = "libx264";
             if (useH265) enc = "libx265";
             string args = " -framerate " + fps.ToString().Replace(",", ".") + " -i \"" + inputDir + "\\" + prefix + "%0" + nums + "d.png\" -c:v " + enc
@@ -52,7 +52,7 @@ namespace Cupscale
 
         public static async Task FramesToOneFpsMp4(string inputDir, bool useH265, int crf, int loopTimes, string prefix, bool delSrc)
         {
-            int nums = IOUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
+            int nums = IoUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
             string enc = "libx264";
             if (useH265) enc = "libx265";
             string args = " -framerate 1 -stream_loop " + loopTimes + " -i \"" + inputDir + "\\" + prefix + "%0" + nums + "d.png\" -c:v " + enc + " -r 30"
@@ -64,7 +64,7 @@ namespace Cupscale
 
         public static async Task FramesToMp4Looped(string inputDir, bool useH265, int crf, int fps, int loopTimes, string prefix, bool delSrc)
         {
-            int nums = IOUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
+            int nums = IoUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
             string enc = "libx264";
             if (useH265) enc = "libx265";
             string args = " -framerate " + fps + " -stream_loop " + loopTimes + " -i \"" + inputDir + "\\" + prefix + "%0" + nums + "d.png\" -c:v " + enc
@@ -76,7 +76,7 @@ namespace Cupscale
 
         public static async void FramesToApng (string inputDir, bool opti, int fps, string prefix, bool delSrc)
         {
-            int nums = IOUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
+            int nums = IoUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
             string filter = "";
             if(opti) filter = "-vf \"split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse\"";
             string args = "-framerate " + fps + " -i \"" + inputDir + "\\" + prefix + "%0" + nums + "d.png\" -f apng -plays 0 " + filter + " \"" + inputDir + "-anim.png\"";
@@ -87,7 +87,7 @@ namespace Cupscale
 
         public static async Task FramesToGif (string inputDir, bool opti, int fps, string prefix, bool delSrc)
         {
-            int nums = IOUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
+            int nums = IoUtils.GetFilenameCounterLength(Directory.GetFiles(inputDir, "*.png")[0], prefix);
             string filter = "";
             if (opti) filter = "-vf \"split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse\"";
             string args = "-framerate " + fps + " -i \"" + inputDir + "\\" + prefix + "%0" + nums + "d.png\" -f gif " + filter + " \"" + inputDir + ".gif\"";
@@ -186,10 +186,10 @@ namespace Cupscale
         static void DeleteSource (string path)
         {
             Logger.Log("Deleting input file/dir: " + path);
-            if (!IOUtils.IsPathDirectory(path) && File.Exists(path))
+            if (!IoUtils.IsPathDirectory(path) && File.Exists(path))
                 File.Delete(path);
 
-            if (IOUtils.IsPathDirectory(path) && Directory.Exists(path))
+            if (IoUtils.IsPathDirectory(path) && Directory.Exists(path))
                 Directory.Delete(path, true);
         }
     }

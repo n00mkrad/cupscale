@@ -252,7 +252,7 @@ namespace Cupscale
 
             string tempPath = Path.Combine(Paths.GetDataPath(), "giftemp");
             string framesPath = Path.Combine(tempPath, "frames");
-            IOUtils.ClearDir(tempPath);
+            IoUtils.ClearDir(tempPath);
             Directory.CreateDirectory(framesPath);
 
             resultPreview = (Bitmap)ImgUtils.GetImage(Directory.GetFiles(IO.Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);

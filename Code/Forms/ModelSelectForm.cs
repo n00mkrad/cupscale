@@ -38,7 +38,7 @@ namespace Cupscale.Forms
                 return;
             }
 
-            if (IOUtils.GetAmountOfFiles(modelDir, true, "*.pth") < 1)
+            if (IoUtils.GetAmountOfFiles(modelDir, true, "*.pth") < 1)
             {
                 Program.ShowMessage($"The saved model directory does not contain any model (.pth) files!\n\nPlease put some models into '{modelDir}'.");
                 Close();
@@ -83,7 +83,7 @@ namespace Cupscale.Forms
 
         private void ForceLowercaseExtensions(string path)
         {
-            foreach (FileInfo file in IOUtils.GetFileInfosSorted(path, true, "*.*"))
+            foreach (FileInfo file in IoUtils.GetFileInfosSorted(path, true, "*.*"))
             {
                 if(file.Extension == ".PTH")
                     file.MoveTo(Path.ChangeExtension(file.FullName, "pth"));

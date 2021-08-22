@@ -15,7 +15,7 @@ namespace Cupscale.Main
     {
         public static async Task PostprocessingSingle(string path, bool dontResize = false, int retryCount = 20)
         {
-            if (!IOUtils.IsFileValid(path))
+            if (!IoUtils.IsFileValid(path))
                 return;
 
             string newPath = "";
@@ -49,7 +49,7 @@ namespace Cupscale.Main
             }
 
             path = newPath;
-            string format = PreviewUI.outputFormat.Text;
+            string format = PreviewUi.outputFormat.Text;
 
             if (Program.lastUpscaleIsVideo || format == Upscale.ImgExportMode.PNG.ToStringTitleCase())
             {

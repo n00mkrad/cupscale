@@ -32,7 +32,7 @@ namespace Cupscale.Cupscale
             outputFileQueue.Clear();
             processedFiles.Clear();
             outputFiles.Clear();
-            IOUtils.ClearDir(Paths.imgOutNcnnPath);
+            IoUtils.ClearDir(Paths.imgOutNcnnPath);
             run = true;
         }
 
@@ -65,9 +65,9 @@ namespace Cupscale.Cupscale
 
         static bool AnyFilesLeft ()
         {
-            if (IOUtils.GetAmountOfFiles(Paths.imgOutPath, true) > 0)
+            if (IoUtils.GetAmountOfFiles(Paths.imgOutPath, true) > 0)
                 return true;
-            if (IOUtils.GetAmountOfFiles(Paths.imgOutNcnnPath, true) > 0)
+            if (IoUtils.GetAmountOfFiles(Paths.imgOutNcnnPath, true) > 0)
                 return true;
 
             return false;
@@ -88,7 +88,7 @@ namespace Cupscale.Cupscale
                     sw.Restart();
                     await PostProcessing.PostprocessingSingle(file, false);
 
-                    while (IOUtils.IsFileLocked(lastOutfile))
+                    while (IoUtils.IsFileLocked(lastOutfile))
                     {
                         Logger.Log($"{file} appears to be locked - waiting 500ms...");
                         await Task.Delay(500);

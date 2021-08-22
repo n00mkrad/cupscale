@@ -27,13 +27,13 @@ namespace Cupscale.Forms
 
         private void InterpForm_Load(object sender, EventArgs e)
         {
-            interpSlider.Value = PreviewUI.interpValue / 5;
+            interpSlider.Value = PreviewUi.interpValue / 5;
             UpdateLabels();
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            PreviewUI.interpValue = interpSlider.Value * 5;
+            PreviewUi.interpValue = interpSlider.Value * 5;
             Close();
         }
 

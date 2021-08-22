@@ -31,10 +31,10 @@ namespace Cupscale.Forms
 
         private void ModelComparisonForm_Load(object sender, EventArgs e)
         {
-            UIHelpers.InitCombox(compositionMode, 0);
-            UIHelpers.InitCombox(comparisonMode, 0);
-            UIHelpers.InitCombox(scaleFactor, 2);
-            UIHelpers.InitCombox(cropMode, 0);
+            UiHelpers.InitCombox(compositionMode, 0);
+            UiHelpers.InitCombox(comparisonMode, 0);
+            UiHelpers.InitCombox(scaleFactor, 2);
+            UiHelpers.InitCombox(cropMode, 0);
 
             if (ModelComparisonTool.compositionModeComboxIndex >= 0)
                 compositionMode.SelectedIndex = ModelComparisonTool.compositionModeComboxIndex;
@@ -63,7 +63,7 @@ namespace Cupscale.Forms
 
         private async void runBtn_Click(object sender, EventArgs e)
         {
-            if(PreviewUI.previewImg.Image == null || !File.Exists(Paths.tempImgPath))
+            if(PreviewUi.previewImg.Image == null || !File.Exists(Paths.tempImgPath))
             {
                 Program.ShowMessage("No image loaded!", "Error");
                 return;
@@ -72,8 +72,8 @@ namespace Cupscale.Forms
             cutoutMode = cropMode.SelectedIndex == 1;
             if (cutoutMode)
             {
-                IOUtils.ClearDir(Paths.previewPath);
-                PreviewUI.SaveCurrentCutout();
+                IoUtils.ClearDir(Paths.previewPath);
+                PreviewUi.SaveCurrentCutout();
                 currentSourcePath = Path.Combine(Paths.previewPath, "preview.png");
             }
             else
@@ -100,7 +100,7 @@ namespace Cupscale.Forms
             mergedPath = Path.ChangeExtension(mergedPath, GetSaveExt());
             merged.Write(mergedPath);
             await Upscale.CopyImagesTo(Program.lastImgPath.GetParentDir());
-            IOUtils.ClearDir(Paths.previewPath);
+            IoUtils.ClearDir(Paths.previewPath);
             Enabled = true;
             Program.ShowMessage("Saved model composition to " + Program.lastImgPath.GetParentDir() + "\\" + Path.GetFileName(mergedPath), "Message");
         }
@@ -127,7 +127,7 @@ namespace Cupscale.Forms
 
         async Task DoUpscale (int index, ModelData mdl, bool fullImage)
         {
-            if (PreviewUI.previewImg.Image == null)
+            if (PreviewUi.previewImg.Image == null)
             {
                 Program.ShowMessage("Please load an image first!", "Error");
                 return;
@@ -149,8 +149,8 @@ namespace Cupscale.Forms
                 await ESRGAN.DoUpscale(inpath, Paths.compositionOut, mdl, false, Config.GetBool("alpha"), ESRGAN.PreviewMode.None);
                 outImg = Directory.GetFiles(Paths.compositionOut, ".*.png*", SearchOption.AllDirectories)[0];
                 await PostProcessing.PostprocessingSingle(outImg, false);
-                await ProcessImage(PreviewUI.lastOutfile, mdl.model1Name);
-                IOUtils.TryCopy(PreviewUI.lastOutfile, Path.Combine(Paths.imgOutPath, $"{index}-{mdl.model1Name}.png"), true);
+                await ProcessImage(PreviewUi.lastOutfile, mdl.model1Name);
+                IoUtils.TryCopy(PreviewUi.lastOutfile, Path.Combine(Paths.imgOutPath, $"{index}-{mdl.model1Name}.png"), true);
             }
             catch (Exception e)
             {

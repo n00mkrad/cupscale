@@ -56,7 +56,7 @@ namespace Cupscale.Implementations
             string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Imps.esrganPytorch.dir).Wrap()} & ";
             cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {cache} {cpu} {device} {fp16} {seam} {alphaMode} {alphaDepth} {modelArg}";
             Logger.Log("[CMD] " + cmd);
-            Process esrganProcess = OSUtils.NewProcess(!showWindow);
+            Process esrganProcess = OsUtils.NewProcess(!showWindow);
             esrganProcess.StartInfo.Arguments = cmd;
 
             if (!showWindow)
@@ -134,7 +134,7 @@ namespace Cupscale.Implementations
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
 
-            Process py = OSUtils.NewProcess(!showWindow);
+            Process py = OsUtils.NewProcess(!showWindow);
 
             string opt = stayOpen ? "/K" : "/C";
             string alphaStr = (mdl.interp / 100f).ToString("0.00").Replace(",", ".");
@@ -189,7 +189,7 @@ namespace Cupscale.Implementations
             if (data.Contains("UnpicklingError"))
                 Program.ShowMessage("Failed to load model!", "Error");
 
-            if (PreviewUI.currentMode == PreviewUI.Mode.Interp && (data.Contains("must match the size of tensor b") || data.Contains("KeyError: 'model.")))
+            if (PreviewUi.currentMode == PreviewUi.Mode.Interp && (data.Contains("must match the size of tensor b") || data.Contains("KeyError: 'model.")))
                 Program.ShowMessage("It seems like you tried to interpolate incompatible models!", "Error");
         }
 
@@ -202,7 +202,7 @@ namespace Cupscale.Implementations
             if (!File.Exists(progressLogFile))
                 return;
 
-            string[] lines = IOUtils.ReadLines(progressLogFile);
+            string[] lines = IoUtils.ReadLines(progressLogFile);
 
             if (lines.Length < 1)
                 return;

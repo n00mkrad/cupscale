@@ -66,7 +66,7 @@ namespace Cupscale.IO
 				}
 			}
 
-			int diskVersion = IOUtils.ReadLines(Path.Combine(Paths.GetDataPath(), "shipped-files-version.txt"))[0].Split('#')[0].GetInt();
+			int diskVersion = IoUtils.ReadLines(Path.Combine(Paths.GetDataPath(), "shipped-files-version.txt"))[0].Split('#')[0].GetInt();
 			if (exeFilesVersion != diskVersion)
             {
 				Logger.Log("[Installer] Installation invalid: Shipped file version mismatch - Executable is " + exeFilesVersion + ", installation is " + diskVersion);
@@ -84,7 +84,7 @@ namespace Cupscale.IO
 			DialogForm dialog = new DialogForm("Installing resources...\nThis only needs to be done once.");
 			await Task.Delay(20);
 
-			if (IOUtils.GetDirSize(path) > 0)
+			if (IoUtils.GetDirSize(path) > 0)
 			{
 				Logger.Log("[Installer] {path} is not 0 bytes - removing everything there to ensure a clean install.");
 				dialog.ChangeText("Uninstalling older files...");

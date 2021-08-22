@@ -48,7 +48,7 @@ namespace Cupscale.Implementations
                 $" -g {Config.GetInt("realEsrganNcnnGpus")} -m {NcnnUtils.currentNcnnModel.Wrap()} -n esrgan-x4 -s {scale} {tta} {ts}";
             Logger.Log("[CMD] " + cmd);
 
-            Process proc = OSUtils.NewProcess(!showWindow);
+            Process proc = OsUtils.NewProcess(!showWindow);
             proc.StartInfo.Arguments = cmd;
 
             if (!showWindow)

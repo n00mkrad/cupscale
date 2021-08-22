@@ -14,7 +14,7 @@ using Cupscale.ImageUtils;
 using System.Diagnostics;
 using Cupscale.OS;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using static Cupscale.UI.PreviewUI;
+using static Cupscale.UI.PreviewUi;
 using System.Linq;
 using System.Security.RightsManagement;
 
@@ -30,7 +30,7 @@ namespace Cupscale.Main
 		{
 			CheckForIllegalCrossThreadCalls = false;
 			InitializeComponent();
-			PreviewUI.Init(previewImg, model1TreeBtn, model2TreeBtn, imageOutputFormat, prevOverwriteCombox);
+			PreviewUi.Init(previewImg, model1TreeBtn, model2TreeBtn, imageOutputFormat, prevOverwriteCombox);
 			BatchUpscaleUI.Init(batchOutDir, batchFileList, batchDirLabel);
 			VideoUpscaleUI.Init(videoOutDir, videoLogBox, videoPathLabel, videoOutputFormat);
 			Program.mainForm = this;
@@ -42,30 +42,30 @@ namespace Cupscale.Main
             if (!Directory.Exists(Path.Combine(Paths.GetExeDir(), "runtimes")) && Paths.GetExeDir().ToLower().Contains("temp"))
             {
                 MessageBox.Show("You seem to be running Flowframes out of an archive.\nPlease extract the whole archive first!", "Error");
-                IOUtils.TryDeleteIfExists(Paths.GetDataPath());
+                IoUtils.TryDeleteIfExists(Paths.GetDataPath());
                 Application.Exit();
             }
 
 			// Left Panel
-			UIHelpers.InitCombox(aiSelect, 0);
-			UIHelpers.InitCombox(prevClipboardTypeCombox, 0);
-			UIHelpers.FillEnumComboBox(preResizeFilter, typeof(Upscale.Filter), 0);
+			UiHelpers.InitCombox(aiSelect, 0);
+			UiHelpers.InitCombox(prevClipboardTypeCombox, 0);
+			UiHelpers.FillEnumComboBox(preResizeFilter, typeof(Upscale.Filter), 0);
 			// Right Panel
-			UIHelpers.InitCombox(prevOverwriteCombox, 0);
-			UIHelpers.InitCombox(imageOutputFormat, 0);
-			UIHelpers.FillEnumComboBox(imageOutputFormat, typeof(Upscale.ImgExportMode));
-			UIHelpers.FillEnumComboBox(videoOutputFormat, typeof(Upscale.VidExportMode));
-			UIHelpers.InitCombox(preResizeScale, 1);
-			UIHelpers.InitCombox(preResizeMode, 0);
-			UIHelpers.InitCombox(postResizeScale, 1);
-			UIHelpers.InitCombox(postResizeMode, 0);
-			UIHelpers.FillEnumComboBox(postResizeFilter, typeof(Upscale.Filter), 0);
+			UiHelpers.InitCombox(prevOverwriteCombox, 0);
+			UiHelpers.InitCombox(imageOutputFormat, 0);
+			UiHelpers.FillEnumComboBox(imageOutputFormat, typeof(Upscale.ImgExportMode));
+			UiHelpers.FillEnumComboBox(videoOutputFormat, typeof(Upscale.VidExportMode));
+			UiHelpers.InitCombox(preResizeScale, 1);
+			UiHelpers.InitCombox(preResizeMode, 0);
+			UiHelpers.InitCombox(postResizeScale, 1);
+			UiHelpers.InitCombox(postResizeMode, 0);
+			UiHelpers.FillEnumComboBox(postResizeFilter, typeof(Upscale.Filter), 0);
 			// Batch Upscale
-			UIHelpers.InitCombox(batchOutMode, 0);
-			UIHelpers.InitCombox(preprocessMode, 0);
-			UIHelpers.InitCombox(batchCacheSplitDepth, 0);
+			UiHelpers.InitCombox(batchOutMode, 0);
+			UiHelpers.InitCombox(preprocessMode, 0);
+			UiHelpers.InitCombox(batchCacheSplitDepth, 0);
 			// Video Upscale
-			UIHelpers.InitCombox(videoPreprocessMode, 1);
+			UiHelpers.InitCombox(videoPreprocessMode, 1);
 
 			await CheckInstallation();
 			await EmbeddedPython.Init();
@@ -75,7 +75,7 @@ namespace Cupscale.Main
 
 			NvApi.Init();
 
-			if (OSUtils.IsUserAdministrator())
+			if (OsUtils.IsUserAdministrator())
 				Program.ShowMessage("Cupscale is running as administrator.\nThis will break Drag-n-Drop functionality.", "Warning");
 
 			LoadEsrganOptions();
@@ -246,7 +246,7 @@ namespace Cupscale.Main
 
         void UpdatePreviewInfo ()
         {
-            PreviewUI.UpdatePreviewLabels(prevZoomLabel, prevSizeLabel, prevCutoutLabel);
+            PreviewUi.UpdatePreviewLabels(prevZoomLabel, prevSizeLabel, prevCutoutLabel);
         }
 
         private void settingsBtn_Click(object sender, EventArgs e)
@@ -309,16 +309,16 @@ namespace Cupscale.Main
 			model2TreeBtn.Enabled = (interpRbtn.Checked || chainRbtn.Checked);
 			interpConfigureBtn.Visible = interpRbtn.Checked;
 			advancedConfigureBtn.Visible = advancedBtn.Checked;
-			if (singleModelRbtn.Checked) PreviewUI.currentMode = PreviewUI.Mode.Single;
-			if (interpRbtn.Checked) PreviewUI.currentMode = PreviewUI.Mode.Interp;
-			if (chainRbtn.Checked) PreviewUI.currentMode = PreviewUI.Mode.Chain;
-			if (advancedBtn.Checked) PreviewUI.currentMode = PreviewUI.Mode.Advanced;
+			if (singleModelRbtn.Checked) PreviewUi.currentMode = PreviewUi.Mode.Single;
+			if (interpRbtn.Checked) PreviewUi.currentMode = PreviewUi.Mode.Interp;
+			if (chainRbtn.Checked) PreviewUi.currentMode = PreviewUi.Mode.Chain;
+			if (advancedBtn.Checked) PreviewUi.currentMode = PreviewUi.Mode.Advanced;
 		}
 
         private void interpConfigureBtn_Click(object sender, EventArgs e)
         {
 			
-			if (!PreviewUI.HasValidModelSelection())
+			if (!PreviewUi.HasValidModelSelection())
             {
 				Program.ShowMessage("Please select two models for interpolation.", "Message");
 				return;
@@ -343,9 +343,9 @@ namespace Cupscale.Main
 		async Task LoadImages (string [] files)
         {
 			Logger.Log("[MainUI] Dropped " + files.Length + " file(s), files[0] = " + files[0]);
-			IOUtils.ClearDir(Paths.tempImgPath.GetParentDir());
+			IoUtils.ClearDir(Paths.tempImgPath.GetParentDir());
 			string path = files[0];
-			if (IOUtils.IsPathDirectory(path))
+			if (IoUtils.IsPathDirectory(path))
 			{
 				htTabControl.SelectedIndex = 1;
 				BatchUpscaleUI.LoadDir(path);
@@ -361,8 +361,8 @@ namespace Cupscale.Main
 			htTabControl.SelectedIndex = 0;
 			previewImg.Text = "";
 			SetProgress(0f, "Loading image...");
-			PreviewUI.ResetCachedImages();
-			if (!PreviewUI.DroppedImageIsValid(path))
+			PreviewUi.ResetCachedImages();
+			if (!PreviewUi.DroppedImageIsValid(path))
             {
 				SetProgress(0f, "Ready.");
 				await Task.Delay(1);
@@ -411,7 +411,7 @@ namespace Cupscale.Main
 				bool fillAlpha = !bool.Parse(Config.Get("alpha"));
 				await ImageProcessing.ConvertImage(path, ImageProcessing.Format.PngRaw, fillAlpha, ImageProcessing.ExtMode.UseNew, false, Paths.tempImgPath, true);
 				previewImg.Image = ImgUtils.GetImage(Paths.tempImgPath);
-				PreviewUI.currentScale = 1;
+				PreviewUi.currentScale = 1;
 				previewImg.ZoomToFit();
 				lastZoom = previewImg.Zoom;
 			}
@@ -433,13 +433,13 @@ namespace Cupscale.Main
 			if (Program.busy)
 				return;
 
-			if(Upscale.currentAi == Implementations.Imps.esrganPytorch && !PreviewUI.HasValidModelSelection())
+			if(Upscale.currentAi == Implementations.Imps.esrganPytorch && !PreviewUi.HasValidModelSelection())
 			{
 				Program.ShowMessage("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
 				return;
 			}
 
-			if (!PreviewUI.HasValidModelSelection())
+			if (!PreviewUi.HasValidModelSelection())
 			{
 				Program.ShowMessage("Invalid model selection - NCNN does not support interpolation or chaining.", "Error");
 				return;
@@ -451,7 +451,7 @@ namespace Cupscale.Main
 			UpdateResizeMode();
 			Program.lastUpscaleIsVideo = htTabControl.SelectedIndex == 2;
 
-			if (htTabControl.SelectedIndex == 0) await PreviewUI.UpscaleImage();
+			if (htTabControl.SelectedIndex == 0) await PreviewUi.UpscaleImage();
 			if (htTabControl.SelectedIndex == 1) await BatchUpscaleUI.Run(preprocessMode.SelectedIndex == 0, true, batchCacheSplitDepth.SelectedIndex == 1);
 			if (htTabControl.SelectedIndex == 2) await VideoUpscaleUI.Run(videoPreprocessMode.SelectedIndex == 0);
 		}
@@ -479,13 +479,13 @@ namespace Cupscale.Main
 			if (Config.GetBool("reloadImageBeforeUpscale"))
 				ReloadImage();
 			UpdateResizeMode();
-			PreviewUI.UpscalePreview(true);
+			PreviewUi.UpscalePreview(true);
 		}
 
         private void refreshPreviewCutoutBtn_Click(object sender, EventArgs e)
         {
 			UpdateResizeMode();
-			PreviewUI.UpscalePreview();
+			PreviewUi.UpscalePreview();
 		}
 
         private void copyCompToClipboardBtn_Click(object sender, EventArgs e)
@@ -521,7 +521,7 @@ namespace Cupscale.Main
 			previewImg.Image = resetState.image;
 			previewImg.Zoom = resetState.zoom;
 			previewImg.AutoScrollPosition = resetState.autoScrollPosition;		// This doesn't work correctly :/
-			PreviewUI.ResetCachedImages();
+			PreviewUi.ResetCachedImages();
 			resetImageOnMove = false;
 		}
 
@@ -540,7 +540,7 @@ namespace Cupscale.Main
 
         private void openOutFolderBtn_Click(object sender, EventArgs e)
         {
-			PreviewUI.OpenLastOutputFolder();
+			PreviewUi.OpenLastOutputFolder();
         }
 
 		public void AfterFirstUpscale ()
@@ -569,8 +569,8 @@ namespace Cupscale.Main
 			string outPath = Path.ChangeExtension(Program.lastImgPath, null) + "[temp]" + ext + ".png";
 			previewImg.Image.Save(outPath);
 			await PostProcessing.PostprocessingSingle(outPath, true);
-			string outFilename = Upscale.FilenamePostprocess(PreviewUI.lastOutfile);
-			string finalPath = IOUtils.ReplaceInFilename(outFilename, "[temp]", "");
+			string outFilename = Upscale.FilenamePostprocess(PreviewUi.lastOutfile);
+			string finalPath = IoUtils.ReplaceInFilename(outFilename, "[temp]", "");
 			loadingForm.Close();
 			Program.ShowMessage("Saved to " + finalPath + ".", "Message");
 		}
@@ -636,7 +636,7 @@ namespace Cupscale.Main
 
         private async void offlineInterpBtn_Click(object sender, EventArgs e)
         {
-			if (PreviewUI.currentMode == Mode.Interp)
+			if (PreviewUi.currentMode == Mode.Interp)
 			{
                 try
                 {
@@ -733,7 +733,7 @@ namespace Cupscale.Main
             }
 			lastTabIndex = htTabControl.SelectedIndex;
 			videoOutputFormat.Visible = false;
-			if (htTabControl.SelectedIndex == 0) PreviewUI.TabSelected();
+			if (htTabControl.SelectedIndex == 0) PreviewUi.TabSelected();
 			if (htTabControl.SelectedIndex == 1) BatchUpscaleUI.TabSelected();
 			if (htTabControl.SelectedIndex == 2)
 			{

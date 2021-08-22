@@ -60,7 +60,7 @@ namespace Cupscale
 
             Application.SetCompatibleTextRenderingDefault(defaultValue: false);
             Application.EnableVisualStyles();
-            IOUtils.DeleteIfExists(Path.Combine(Paths.GetDataPath(), "sessionlog.txt"));
+            IoUtils.DeleteIfExists(Path.Combine(Paths.GetDataPath(), "sessionlog.txt"));
             Config.Init();
             Logger.Init();
             Paths.Init();
@@ -75,12 +75,12 @@ namespace Cupscale
             if (currentEsrganProcess == null || currentEsrganProcess.HasExited)
                 return;
             canceled = true;
-            OSUtils.KillProcessTree(currentEsrganProcess.Id);
+            OsUtils.KillProcessTree(currentEsrganProcess.Id);
             if (cleanup)
             {
-                IOUtils.ClearDir(Paths.imgInPath);
-                IOUtils.ClearDir(Paths.imgOutPath);
-                IOUtils.ClearDir(Paths.imgOutNcnnPath);
+                IoUtils.ClearDir(Paths.imgInPath);
+                IoUtils.ClearDir(Paths.imgOutPath);
+                IoUtils.ClearDir(Paths.imgOutNcnnPath);
             }
         }
 
@@ -96,18 +96,18 @@ namespace Cupscale
         {
             try
             {
-                IOUtils.ClearDir(Paths.previewPath);
-                IOUtils.ClearDir(Paths.previewOutPath);
-                IOUtils.ClearDir(Paths.clipboardFolderPath);
-                IOUtils.ClearDir(Paths.imgInPath);
-                IOUtils.ClearDir(Paths.imgOutPath);
-                IOUtils.ClearDir(Paths.imgOutNcnnPath);
-                IOUtils.ClearDir(Paths.tempImgPath.GetParentDir());
-                IOUtils.ClearDir(Path.Combine(Paths.GetDataPath(), "giftemp"));
-                IOUtils.DeleteIfExists(Path.Combine(Paths.presetsPath, "lastUsed"));
-                IOUtils.ClearDir(Paths.compositionOut);
-                IOUtils.ClearDir(Paths.framesOutPath);
-                IOUtils.DeleteIfExists(Path.Combine(Paths.GetDataPath(), "frames-out.mp4"));
+                IoUtils.ClearDir(Paths.previewPath);
+                IoUtils.ClearDir(Paths.previewOutPath);
+                IoUtils.ClearDir(Paths.clipboardFolderPath);
+                IoUtils.ClearDir(Paths.imgInPath);
+                IoUtils.ClearDir(Paths.imgOutPath);
+                IoUtils.ClearDir(Paths.imgOutNcnnPath);
+                IoUtils.ClearDir(Paths.tempImgPath.GetParentDir());
+                IoUtils.ClearDir(Path.Combine(Paths.GetDataPath(), "giftemp"));
+                IoUtils.DeleteIfExists(Path.Combine(Paths.presetsPath, "lastUsed"));
+                IoUtils.ClearDir(Paths.compositionOut);
+                IoUtils.ClearDir(Paths.framesOutPath);
+                IoUtils.DeleteIfExists(Path.Combine(Paths.GetDataPath(), "frames-out.mp4"));
             }
             catch (Exception e)
             {

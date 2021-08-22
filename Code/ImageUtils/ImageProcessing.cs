@@ -191,7 +191,7 @@ namespace Cupscale
             if (File.Exists(outPath))
             {
                 if (Logger.doLogIo) Logger.Log("[ImgProc] File exists at - making sure it doesn't have readonly flag");
-                IOUtils.RemoveReadonlyFlag(outPath);
+                IoUtils.RemoveReadonlyFlag(outPath);
             }
 
             bool inPathIsOutPath = outPath.ToLower() == path.ToLower();
@@ -209,7 +209,7 @@ namespace Cupscale
                 File.Delete(path);
             }
             img.Dispose();
-            IOUtils.RemoveReadonlyFlag(outPath);
+            IoUtils.RemoveReadonlyFlag(outPath);
             await Task.Delay(1);
         }
 
@@ -330,7 +330,7 @@ namespace Cupscale
                 PostProcessingQueue.lastOutfile = outPath;
 
             if (Upscale.currentMode == Upscale.UpscaleMode.Single || Upscale.currentMode == Upscale.UpscaleMode.Composition)
-                PreviewUI.lastOutfile = outPath;
+                PreviewUi.lastOutfile = outPath;
 
             if (magick)
             {
@@ -364,7 +364,7 @@ namespace Cupscale
                 PostProcessingQueue.lastOutfile = outPath;
 
             if (Upscale.currentMode == Upscale.UpscaleMode.Single || Upscale.currentMode == Upscale.UpscaleMode.Composition)
-                PreviewUI.lastOutfile = outPath;
+                PreviewUi.lastOutfile = outPath;
 
             if (outPath.ToLower() != path.ToLower())
             {

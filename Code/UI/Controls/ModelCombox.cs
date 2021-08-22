@@ -42,7 +42,7 @@ namespace System.Windows.Forms
             // if (!IsRunning())
             //    return;
             base.OnDropDown(e);
-            Cupscale.UIHelpers.FillModelComboBox(this, false);
+            Cupscale.UiHelpers.FillModelComboBox(this, false);
         }
 
         /*

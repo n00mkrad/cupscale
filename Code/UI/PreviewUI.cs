@@ -17,7 +17,7 @@ using Paths = Cupscale.IO.Paths;
 
 namespace Cupscale.UI
 {
-    internal class PreviewUI
+    internal class PreviewUi
     {
         public enum Mode { Single, Interp, Chain, Advanced }
         public static Mode currentMode;
@@ -59,8 +59,8 @@ namespace Cupscale.UI
             }
 
             Program.mainForm.SetBusy(true);
-            IOUtils.ClearDir(Paths.imgInPath);
-            IOUtils.ClearDir(Paths.imgOutPath);
+            IoUtils.ClearDir(Paths.imgInPath);
+            IoUtils.ClearDir(Paths.imgOutPath);
             Program.mainForm.SetProgress(3f, "Preprocessing...");
             string inImg = CopyImage();
 
@@ -179,15 +179,15 @@ namespace Cupscale.UI
             Program.mainForm.resetState = new Cupscale.PreviewState(previewImg.Image, previewImg.Zoom, previewImg.AutoScrollPosition);
             await Task.Delay(20);
             ResetCachedImages();
-            IOUtils.ClearDir(Paths.imgInPath);
-            IOUtils.ClearDir(Paths.previewPath);
-            IOUtils.ClearDir(Paths.previewOutPath);
+            IoUtils.ClearDir(Paths.imgInPath);
+            IoUtils.ClearDir(Paths.previewPath);
+            IoUtils.ClearDir(Paths.previewOutPath);
             ESRGAN.PreviewMode prevMode = ESRGAN.PreviewMode.Cutout;
 
             if (fullImage)
             {
                 prevMode = ESRGAN.PreviewMode.FullImage;
-                if (!IOUtils.TryCopy(Paths.tempImgPath, Path.Combine(Paths.previewPath, "preview.png"), true)) return;
+                if (!IoUtils.TryCopy(Paths.tempImgPath, Path.Combine(Paths.previewPath, "preview.png"), true)) return;
             }
             else
             {
@@ -259,7 +259,7 @@ namespace Cupscale.UI
 
         public static void SaveCurrentCutout()
         {
-            UIHelpers.ReplaceImageAtSameScale(previewImg, ImgUtils.GetImage(Paths.tempImgPath));
+            UiHelpers.ReplaceImageAtSameScale(previewImg, ImgUtils.GetImage(Paths.tempImgPath));
             string path = Path.Combine(Paths.previewPath, "preview.png");
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             GetCurrentRegion().Save(path);
