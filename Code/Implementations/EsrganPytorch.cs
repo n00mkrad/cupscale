@@ -129,6 +129,37 @@ namespace Cupscale.Implementations
             return null;
         }
 
+        public static string Interpolate(ModelData mdl)
+        {
+            bool showWindow = Config.GetInt("cmdDebugMode") > 0;
+            bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
+
+            Process py = OSUtils.NewProcess(!showWindow);
+
+            string opt = stayOpen ? "/K" : "/C";
+            string alphaStr = (mdl.interp / 100f).ToString("0.00").Replace(",", ".");
+            string outPath = mdl.model1Path.GetParentDir();
+            string filename = $"{mdl.model1Name}-{mdl.model2Name}-interp{alphaStr}.pth";
+            outPath = Path.Combine(outPath, filename);
+
+            string cmd = $"{opt} cd /D {Paths.GetAiDir(Imps.esrganPytorch).Wrap()} & ";
+            cmd += $"{EmbeddedPython.GetPyCmd()} interp.py {mdl.model1Path.Wrap()} {mdl.model2Path.Wrap()} {alphaStr} {outPath.Wrap()}";
+
+            py.StartInfo.Arguments = cmd;
+            Logger.Log("[ESRGAN Interp] CMD: " + py.StartInfo.Arguments);
+            py.Start();
+            py.WaitForExit();
+            string output = py.StandardOutput.ReadToEnd();
+            string err = py.StandardError.ReadToEnd();
+            if (!string.IsNullOrWhiteSpace(err)) output += "\n" + err;
+            Logger.Log("[ESRGAN Interp] Output: " + output);
+
+            if (output.ToLower().Contains("error"))
+                throw new Exception("Interpolation Error - Output:\n" + output);
+
+            return outPath;
+        }
+
         private static void OutputHandler(object sendingProcess, DataReceivedEventArgs output)
         {
             if (output == null || output.Data == null)

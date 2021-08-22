@@ -647,7 +647,7 @@ namespace Cupscale.Main
 					ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
 					DialogForm loadingForm = new DialogForm("Interpolating...");
 					await Task.Delay(50);
-					string outPath = ESRGAN.Interpolate(mdl);
+					string outPath = Implementations.EsrganPytorch.Interpolate(mdl);
 					loadingForm.Close();
 					Program.ShowMessage("Saved interpolated model to:\n\n" + outPath);
 				}
