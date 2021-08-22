@@ -6,6 +6,7 @@ namespace Cupscale.IO
 {
 	internal class Paths
 	{
+
 		public static string binPath;
 		public static string defaultModelPath;
 		public static string previewPath;
@@ -82,6 +83,11 @@ namespace Cupscale.IO
         public static string GetExeDir()
         {
             return AppDomain.CurrentDomain.BaseDirectory;
+        }
+
+		public static string GetAiDir (Implementations.Implementation impl)
+        {
+			return Path.Combine(binPath, impl.dir);
         }
     }
 }

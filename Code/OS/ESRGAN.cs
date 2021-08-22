@@ -29,13 +29,13 @@ namespace Cupscale.OS
 
             try
             {
-                if (Upscale.currentAi == Implementations.Implementations.esrganPytorch)
+                if (Upscale.currentAi == Implementations.Imps.esrganPytorch)
                     await EsrganPytorch.Run(inpath, outpath, mdl, cacheSplitDepth, alpha, showTileProgress);
 
-                if (Upscale.currentAi == Implementations.Implementations.esrganNcnn)
+                if (Upscale.currentAi == Implementations.Imps.esrganNcnn)
                     await EsrganNcnn.Run(inpath, outpath, mdl);
 
-                if (Upscale.currentAi == Implementations.Implementations.realEsrganNcnn)
+                if (Upscale.currentAi == Implementations.Imps.realEsrganNcnn)
                     await RealEsrganNcnn.Run(inpath, outpath, mdl);
 
                 if (mode == PreviewMode.Cutout)
@@ -110,7 +110,7 @@ namespace Cupscale.OS
             string filename = $"{mdl.model1Name}-{mdl.model2Name}-interp{alphaStr}.pth";
             outPath = Path.Combine(outPath, filename);
 
-            string cmd = $"{opt} cd /D {Paths.binPath.Wrap()} & ";
+            string cmd = $"{opt} cd /D {Paths.GetAiDir(Implementations.Imps.esrganPytorch).Wrap()} & ";
             cmd += $"{EmbeddedPython.GetPyCmd()} interp.py {mdl.model1Path.Wrap()} {mdl.model2Path.Wrap()} {alphaStr} {outPath.Wrap()}";
 
             py.StartInfo.Arguments = cmd;

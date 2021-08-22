@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Cupscale.Implementations
 {
-    class Implementations
+    class Imps
     {
-        public static List<Implementation> implementations = new List<Implementation>();
+        public static List<Implementation> impList = new List<Implementation>();
 
         public static Implementation esrganPytorch = new Implementation
         { name="ESRGAN (Pytorch)", dir = "esrgan-pytorch", supportsInterp = true, supportsChain = true };
@@ -21,10 +21,10 @@ namespace Cupscale.Implementations
 
         public static void Init()
         {
-            implementations.Clear();
-            implementations.Add(esrganPytorch);
-            implementations.Add(esrganNcnn);
-            implementations.Add(realEsrganNcnn);
+            impList.Clear();
+            impList.Add(esrganPytorch);
+            impList.Add(esrganNcnn);
+            impList.Add(realEsrganNcnn);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Cupscale.Main
 {
     class Upscale
     {
-        public static Implementations.Implementation currentAi = Implementations.Implementations.esrganPytorch;
+        public static Implementations.Implementation currentAi = Implementations.Imps.esrganPytorch;
 
         public enum UpscaleMode { Preview, Single, Batch, Composition }
         public static UpscaleMode currentMode = UpscaleMode.Preview;

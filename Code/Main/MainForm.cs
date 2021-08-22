@@ -112,7 +112,7 @@ namespace Cupscale.Main
 
 		void InitImplementations ()
 		{
-			foreach (Implementations.Implementation imp in Implementations.Implementations.implementations)
+			foreach (Implementations.Implementation imp in Implementations.Imps.impList)
 				aiSelect.Items.Add(imp.name);
 
 			Config.LoadComboxIndex(aiSelect);
@@ -433,7 +433,7 @@ namespace Cupscale.Main
 			if (Program.busy)
 				return;
 
-			if(Upscale.currentAi == Implementations.Implementations.esrganPytorch && !PreviewUI.HasValidModelSelection())
+			if(Upscale.currentAi == Implementations.Imps.esrganPytorch && !PreviewUI.HasValidModelSelection())
 			{
 				Program.ShowMessage("Invalid model selection.\nMake sure you have selected a model and that the file still exists.", "Error");
 				return;
@@ -814,11 +814,11 @@ namespace Cupscale.Main
 
         private void aiSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
-			Upscale.currentAi = Implementations.Implementations.implementations[aiSelect.SelectedIndex];
+			Upscale.currentAi = Implementations.Imps.impList[aiSelect.SelectedIndex];
 			Config.SaveComboxIndex(aiSelect);
 
 			mdlPanel.Enabled = Upscale.currentAi.supportsModels;
-			seamlessMode.Enabled = Upscale.currentAi == Implementations.Implementations.esrganPytorch;
+			seamlessMode.Enabled = Upscale.currentAi == Implementations.Imps.esrganPytorch;
 		}
     }
 }

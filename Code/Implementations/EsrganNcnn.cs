@@ -20,7 +20,7 @@ namespace Cupscale.Implementations
 
         public static async Task Run(string inpath, string outpath, ModelData mdl)
         {
-            if (!CheckIfExeExists(Implementations.esrganNcnn, exeName))
+            if (!CheckIfExeExists(Imps.esrganNcnn, exeName))
                 return;
 
             string modelPath = mdl.model1Path;
@@ -37,7 +37,7 @@ namespace Cupscale.Implementations
             string opt = stayOpen ? "/K" : "/C";
             string tta = Config.GetBool("esrganNcnnTta") ? "-x" : "";
             string ts = Config.GetInt("esrganNcnnTilesize") >= 32 ? $"-t {Config.GetInt("esrganNcnnTilesize")}" : "";
-            string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Implementations.esrganNcnn.dir).Wrap()} & {exeName} -i {inpath.Wrap()} -o {outpath.Wrap()}" +
+            string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Imps.esrganNcnn.dir).Wrap()} & {exeName} -i {inpath.Wrap()} -o {outpath.Wrap()}" +
                 $" -g {Config.GetInt("esrganNcnnGpu")} -m {NcnnUtils.currentNcnnModel.Wrap()} -s {scale} {tta} {ts}";
             Logger.Log("[CMD] " + cmd);
 

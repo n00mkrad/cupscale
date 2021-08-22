@@ -19,7 +19,7 @@ namespace Cupscale.Implementations
 {
     class EsrganPytorch : ImplementationBase
     {
-        private static string ProgressLogFile { get => Path.Combine(Paths.binPath, Implementations.esrganPytorch.dir, "prog"); }
+        private static string ProgressLogFile { get => Path.Combine(Paths.binPath, Imps.esrganPytorch.dir, "prog"); }
 
         public static async Task Run(string inpath, string outpath, ModelData mdl, bool cacheSplitDepth, bool alpha, bool showTileProgress)
         {
@@ -53,7 +53,7 @@ namespace Cupscale.Implementations
             string fp16 = Config.GetBool("esrganPytorchFp16") ? "--fp16" : "";
             string cache = cacheSplitDepth ? "--cache_max_split_depth" : "";
             string opt = stayOpen ? "/K" : "/C";
-            string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Implementations.esrganPytorch.dir).Wrap()} & ";
+            string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Imps.esrganPytorch.dir).Wrap()} & ";
             cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {cache} {cpu} {device} {fp16} {seam} {alphaMode} {alphaDepth} {modelArg}";
             Logger.Log("[CMD] " + cmd);
             Process esrganProcess = OSUtils.NewProcess(!showWindow);

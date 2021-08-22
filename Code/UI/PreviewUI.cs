@@ -122,7 +122,7 @@ namespace Cupscale.UI
         {
             Implementations.Implementation ai = Upscale.currentAi;
 
-            if(ai == Implementations.Implementations.esrganPytorch)
+            if(ai == Implementations.Imps.esrganPytorch)
             {
                 bool valid = true;
 
@@ -137,7 +137,7 @@ namespace Cupscale.UI
                 return valid;
             }
 
-            if (ai == Implementations.Implementations.esrganNcnn)
+            if (ai == Implementations.Imps.esrganNcnn)
             {
                 bool valid = true;
 

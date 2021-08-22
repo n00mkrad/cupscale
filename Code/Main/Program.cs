@@ -64,7 +64,7 @@ namespace Cupscale
             Config.Init();
             Logger.Init();
             Paths.Init();
-            Implementations.Implementations.Init();
+            Implementations.Imps.Init();
             ResourceLimits.Memory = (ulong)Math.Round(ResourceLimits.Memory * 1.5f);
             Cleanup();
             Application.Run(new MainForm());
