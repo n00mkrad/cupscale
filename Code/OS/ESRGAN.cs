@@ -40,7 +40,7 @@ namespace Cupscale.OS
 
                 if (mode == PreviewMode.Cutout)
                 {
-                    await ScalePreviewOutput();
+                    await PreviewUI.ScalePreviewOutput();
                     Program.mainForm.SetProgress(100f, "Merging into preview...");
                     await Program.PutTaskDelay();
                     PreviewMerger.Merge();
@@ -49,7 +49,7 @@ namespace Cupscale.OS
 
                 if (mode == PreviewMode.FullImage)
                 {
-                    await ScalePreviewOutput();
+                    await PreviewUI.ScalePreviewOutput();
                     Program.mainForm.SetProgress(100f, "Merging into preview...");
                     await Program.PutTaskDelay();
                     Image outImg = ImgUtils.GetImage(Directory.GetFiles(Paths.previewOutPath, "preview.*", SearchOption.AllDirectories)[0]);
@@ -79,21 +79,6 @@ namespace Cupscale.OS
                 Logger.Log("[ESRGAN] Upscaling Error: " + e.Message + "\n" + e.StackTrace);
             }
 
-        }
-
-        public static async Task ScalePreviewOutput()
-        {
-            if (ImageProcessing.postScaleMode == Upscale.ScaleMode.Percent && ImageProcessing.postScaleValue == 100)   // Skip if target scale is 100%)
-                return;
-
-            Program.mainForm.SetProgress(1f, "[ESRGAN] Resizing preview output...");
-            await Task.Delay(1);
-            MagickImage img = ImgUtils.GetMagickImage(Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);
-            MagickImage magickImage = ImageProcessing.ResizeImagePostMagick(img);
-            img = magickImage;
-            img.Write(img.FileName);
-            //string img = Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0];
-            //ImageProcessing.ResizeImagePost(img);
         }
     }
 }
