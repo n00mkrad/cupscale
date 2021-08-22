@@ -37,7 +37,7 @@ namespace Cupscale
 
         public static bool lastUpscaleIsVideo;
         public static Process currentEsrganProcess;
-        public static bool cancelled = false;
+        public static bool canceled = false;
 
         public static bool busy;
 
@@ -74,7 +74,7 @@ namespace Cupscale
         {
             if (currentEsrganProcess == null || currentEsrganProcess.HasExited)
                 return;
-            cancelled = true;
+            canceled = true;
             OSUtils.KillProcessTree(currentEsrganProcess.Id);
             if (cleanup)
             {

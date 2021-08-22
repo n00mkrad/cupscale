@@ -259,20 +259,24 @@ namespace Cupscale
 
             if (format == Format.Source)
                 newExt = Path.GetExtension(path).Replace(".", "");
+
             if (format == Format.Png50)
             {
                 img.Format = MagickFormat.Png;
                 img.Quality = 50;
             }
+
             if (format == Format.PngFast)
             {
                 img.Format = MagickFormat.Png;
                 img.Quality = 10;
             }
+
             if (format == Format.Jpeg)
             {
                 newExt = "jpg";
                 int q = Config.GetInt("jpegQ");
+
                 if (Config.GetBool("useMozJpeg"))
                 {
                     MozJpeg.Encode(path, GetOutPath(path, newExt, ExtMode.UseNew, ""), q);
@@ -284,6 +288,7 @@ namespace Cupscale
                     img.Quality = q;
                 }
             }
+
             if (format == Format.Weppy)
             {
                 img.Format = MagickFormat.WebP;
@@ -292,22 +297,26 @@ namespace Cupscale
                     img.Settings.SetDefine(MagickFormat.WebP, "lossless", true);
                 newExt = "webp";
             }
+
             if (format == Format.BMP)
             {
                 img.Format = MagickFormat.Bmp;
                 newExt = "bmp";
             }
+
             if (format == Format.TGA)
             {
                 img.Format = MagickFormat.Tga;
                 newExt = "tga";
             }
+
             if (format == Format.DDS)
             {
                 magick = false;
                 newExt = "tga";
                 await NvCompress.PngToDds(path, GetOutPath(path, newExt, ExtMode.UseNew, ""));
             }
+
             if (format == Format.GIF)
             {
                 img.Format = MagickFormat.Gif;

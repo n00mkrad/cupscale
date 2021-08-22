@@ -22,11 +22,11 @@ namespace Cupscale.OS
     internal class ESRGAN
     {
         public enum PreviewMode { None, Cutout, FullImage }
-        //public static bool cacheTiling = false;
 
         public static async Task DoUpscale(string inpath, string outpath, ModelData mdl, bool cacheSplitDepth, bool alpha, PreviewMode mode, bool showTileProgress = true)
         {
-            Program.cancelled = false;      // Reset cancel flag
+            Program.canceled = false;      // Reset cancel flag
+
             try
             {
                 if (Upscale.currentAi == Implementations.Implementations.esrganPytorch)
@@ -46,6 +46,7 @@ namespace Cupscale.OS
                     PreviewMerger.Merge();
                     Program.mainForm.SetHasPreview(true);
                 }
+
                 if (mode == PreviewMode.FullImage)
                 {
                     await ScalePreviewOutput();
@@ -66,12 +67,15 @@ namespace Cupscale.OS
             catch (Exception e)
             {
                 Program.mainForm.SetProgress(0f, "Cancelled.");
-                if (Program.cancelled)
+
+                if (Program.canceled)
                     return;
+
                 if (e.Message.Contains("No such file"))
                     Program.ShowMessage("An error occured during upscaling.\nThe upscale process seems to have exited before completion!", "Error");
                 else
                     Program.ShowMessage("An error occured during upscaling.", "Error");
+
                 Logger.Log("[ESRGAN] Upscaling Error: " + e.Message + "\n" + e.StackTrace);
             }
 

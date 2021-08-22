@@ -27,7 +27,7 @@ namespace Cupscale.OS
             try
             {
                 string modelName = Path.GetFileName(modelPath);
-                ncnnDir = Path.Combine(Config.Get("modelPath"), ".ncnn");
+                ncnnDir = Path.Combine(Config.Get("modelPath"), ".ncnn-models");
                 Directory.CreateDirectory(ncnnDir);
                 string outPath = Path.Combine(ncnnDir, Path.ChangeExtension(modelName, null));
                 Logger.Log("Checking for NCNN model: " + outPath);

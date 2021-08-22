@@ -196,7 +196,7 @@ namespace Cupscale.UI
             sw.Restart();
             await Task.WhenAll(tasks);
 
-            if(!Program.cancelled)
+            if(!Program.canceled)
                 Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0")}s");
 
             Program.mainForm.SetBusy(false);

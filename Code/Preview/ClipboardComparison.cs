@@ -128,7 +128,7 @@ namespace Cupscale
                 {
                     if (Config.GetInt("comparisonUseScaling") == 1)
                         originalPreview = (Bitmap)ImgUtils.GetImage(Path.Combine(IO.Paths.previewPath, "preview.png.png"));
-                    resultPreview = (Bitmap)ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp"));
+                    resultPreview = (Bitmap)ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.png"));
                 }
             }
             catch
@@ -310,7 +310,8 @@ namespace Cupscale
 
         public static async void OnlyResult (bool saveToFile)
         {
-            Image outputImage = ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.tmp"));
+            Image outputImage = ImgUtils.GetImage(Path.Combine(IO.Paths.previewOutPath, "preview.png.png"));
+
             try
             {
                 if (saveToFile)

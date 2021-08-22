@@ -48,6 +48,7 @@ namespace Cupscale.Cupscale
             {
                 CheckNcnnOutput();
                 string[] outFiles = Directory.GetFiles(Paths.imgOutPath, "*.tmp", SearchOption.AllDirectories);
+
                 foreach (string file in outFiles)
                 {
                     if (!outputFileQueue.Contains(file) && !processedFiles.Contains(file) && !outputFiles.Contains(file))
@@ -57,6 +58,7 @@ namespace Cupscale.Cupscale
                         Logger.Log("[Queue] Enqueued " + Path.GetFileName(file));
                     }
                 }
+
                 await Task.Delay(1000);
             }
         }
@@ -84,7 +86,7 @@ namespace Cupscale.Cupscale
                     string file = outputFileQueue.Dequeue();
                     Logger.Log("[Queue] Post-Processing " + Path.GetFileName(file));
                     sw.Restart();
-                    await Upscale.PostprocessingSingle(file, false);
+                    await PostProcessing.PostprocessingSingle(file, false);
 
                     while (IOUtils.IsFileLocked(lastOutfile))
                     {

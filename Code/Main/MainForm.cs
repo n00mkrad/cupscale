@@ -566,9 +566,9 @@ namespace Cupscale.Main
 			await Task.Delay(50);
 			Upscale.currentMode = Upscale.UpscaleMode.Single;
 			string ext = Path.GetExtension(Program.lastImgPath);
-			string outPath = Path.ChangeExtension(Program.lastImgPath, null) + "[temp]" + ext + ".tmp";
+			string outPath = Path.ChangeExtension(Program.lastImgPath, null) + "[temp]" + ext + ".png";
 			previewImg.Image.Save(outPath);
-			await Upscale.PostprocessingSingle(outPath, true);
+			await PostProcessing.PostprocessingSingle(outPath, true);
 			string outFilename = Upscale.FilenamePostprocess(PreviewUI.lastOutfile);
 			string finalPath = IOUtils.ReplaceInFilename(outFilename, "[temp]", "");
 			loadingForm.Close();
@@ -579,6 +579,7 @@ namespace Cupscale.Main
         {
 			if (batchOutMode.SelectedIndex == 0)
 				PostProcessingQueue.copyMode = PostProcessingQueue.CopyMode.KeepStructure;
+
 			if (batchOutMode.SelectedIndex == 1)
 				PostProcessingQueue.copyMode = PostProcessingQueue.CopyMode.CopyToRoot;
 		}

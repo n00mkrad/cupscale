@@ -148,7 +148,7 @@ namespace Cupscale.Forms
                 if (fullImage) inpath = Paths.tempImgPath.GetParentDir();
                 await ESRGAN.DoUpscale(inpath, Paths.compositionOut, mdl, false, Config.GetBool("alpha"), ESRGAN.PreviewMode.None);
                 outImg = Directory.GetFiles(Paths.compositionOut, ".*.png*", SearchOption.AllDirectories)[0];
-                await Upscale.PostprocessingSingle(outImg, false);
+                await PostProcessing.PostprocessingSingle(outImg, false);
                 await ProcessImage(PreviewUI.lastOutfile, mdl.model1Name);
                 IOUtils.TryCopy(PreviewUI.lastOutfile, Path.Combine(Paths.imgOutPath, $"{index}-{mdl.model1Name}.png"), true);
             }

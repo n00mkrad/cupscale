@@ -84,21 +84,21 @@ namespace Cupscale.UI
 
                 Program.mainForm.SetProgress(100f, "Post-Processing...");
                 await Task.Delay(50);
-                await Upscale.PostprocessingSingle(outImg, false);
+                await PostProcessing.PostprocessingSingle(outImg, false);
                 string outFilename = Upscale.FilenamePostprocess(lastOutfile);
                 await Upscale.CopyImagesTo(Path.GetDirectoryName(Program.lastImgPath));
             }
             catch (Exception e)
             {
                 Program.mainForm.SetProgress(0f, "Cancelled.");
-                if (Program.cancelled)
+                if (Program.canceled)
                     return;
                 if (e.StackTrace.Contains("Index"))
                     Program.ShowMessage("The upscale process seems to have exited before completion!", "Error");
                 Logger.ErrorMessage("An error occured during upscaling:", e);
             }
 
-            if (!Program.cancelled)
+            if (!Program.canceled)
                 Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0.0")}s");
 
             Program.mainForm.SetBusy(false);
@@ -236,7 +236,7 @@ namespace Cupscale.UI
 
             await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, false, alpha, prevMode);
 
-            if (!Program.cancelled)
+            if (!Program.canceled)
                 Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0.0")}s");
             
             Program.mainForm.SetBusy(false);
