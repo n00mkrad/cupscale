@@ -409,7 +409,7 @@ namespace Cupscale
             img.FilterType = FilterType.Mitchell;
             if (filter == Upscale.Filter.Bicubic)
                 img.FilterType = FilterType.Catrom;
-            if (filter == Upscale.Filter.NearestNeighbor)
+            if (filter == Upscale.Filter.Nearest)
                 img.FilterType = FilterType.Point;
 
             bool heightLonger = img.Height > img.Width;

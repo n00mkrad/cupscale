@@ -19,8 +19,9 @@ namespace Cupscale.UI
 {
     internal class PreviewUi
     {
-        public enum Mode { Single, Interp, Chain, Advanced }
-        public static Mode currentMode;
+        public enum PreviewMode { None, Cutout, FullImage }
+        public enum MdlMode { Single, Interp, Chain, Advanced }
+        public static MdlMode currentMode;
         public static ImageBox previewImg;
 
         public static Button model1;
@@ -78,7 +79,7 @@ namespace Cupscale.UI
 
             try
             {
-                await ESRGAN.DoUpscale(Paths.imgInPath, Paths.imgOutPath, mdl, false, Config.GetBool("alpha"), ESRGAN.PreviewMode.None);
+                await Upscale.Run(Paths.imgInPath, Paths.imgOutPath, mdl, false, Config.GetBool("alpha"), PreviewUi.PreviewMode.None);
 
                 outImg = Upscale.GetOutputImg();
 
@@ -182,11 +183,11 @@ namespace Cupscale.UI
             IoUtils.ClearDir(Paths.imgInPath);
             IoUtils.ClearDir(Paths.previewPath);
             IoUtils.ClearDir(Paths.previewOutPath);
-            ESRGAN.PreviewMode prevMode = ESRGAN.PreviewMode.Cutout;
+            PreviewUi.PreviewMode prevMode = PreviewUi.PreviewMode.Cutout;
 
             if (fullImage)
             {
-                prevMode = ESRGAN.PreviewMode.FullImage;
+                prevMode = PreviewUi.PreviewMode.FullImage;
                 if (!IoUtils.TryCopy(Paths.tempImgPath, Path.Combine(Paths.previewPath, "preview.png"), true)) return;
             }
             else
@@ -205,14 +206,14 @@ namespace Cupscale.UI
 
             if (Upscale.currentAi.supportsModels)
             {
-                if (currentMode == Mode.Single)
+                if (currentMode == MdlMode.Single)
                 {
                     string mdl1 = Program.currentModel1;
                     if (string.IsNullOrWhiteSpace(mdl1)) return;
                     mdl = new ModelData(mdl1, null, ModelData.ModelMode.Single);
                 }
 
-                if (currentMode == Mode.Interp)
+                if (currentMode == MdlMode.Interp)
                 {
                     string mdl1 = Program.currentModel1;
                     string mdl2 = Program.currentModel2;
@@ -220,7 +221,7 @@ namespace Cupscale.UI
                     mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
                 }
 
-                if (currentMode == Mode.Chain)
+                if (currentMode == MdlMode.Chain)
                 {
                     string mdl1 = Program.currentModel1;
                     string mdl2 = Program.currentModel2;
@@ -228,13 +229,13 @@ namespace Cupscale.UI
                     mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Chain);
                 }
 
-                if (currentMode == Mode.Advanced)
+                if (currentMode == MdlMode.Advanced)
                 {
                     mdl = new ModelData(null, null, ModelData.ModelMode.Advanced);
                 }
             }
 
-            await ESRGAN.DoUpscale(Paths.previewPath, Paths.previewOutPath, mdl, false, alpha, prevMode);
+            await Upscale.Run(Paths.previewPath, Paths.previewOutPath, mdl, false, alpha, prevMode);
 
             if (!Program.canceled)
                 Program.mainForm.SetProgress(0, $"Done - Upscaling took {(sw.ElapsedMilliseconds / 1000f).ToString("0.0")}s");

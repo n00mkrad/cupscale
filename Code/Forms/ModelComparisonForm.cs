@@ -118,10 +118,13 @@ namespace Cupscale.Forms
         static string GetSaveExt ()
         {
             string ext = "png";
+
             if (Config.GetInt("previewFormat") == 1)
                 ext = "jpg";
+
             if (Config.GetInt("previewFormat") == 2)
                 ext = "webp";
+
             return ext;
         }
 
@@ -146,7 +149,7 @@ namespace Cupscale.Forms
             {
                 string inpath = Paths.previewPath;
                 if (fullImage) inpath = Paths.tempImgPath.GetParentDir();
-                await ESRGAN.DoUpscale(inpath, Paths.compositionOut, mdl, false, Config.GetBool("alpha"), ESRGAN.PreviewMode.None);
+                await Upscale.Run(inpath, Paths.compositionOut, mdl, false, Config.GetBool("alpha"), PreviewUi.PreviewMode.None);
                 outImg = Directory.GetFiles(Paths.compositionOut, ".*.png*", SearchOption.AllDirectories)[0];
                 await PostProcessing.PostprocessingSingle(outImg, false);
                 await ProcessImage(PreviewUi.lastOutfile, mdl.model1Name);
@@ -171,11 +174,8 @@ namespace Cupscale.Forms
             Image source = ImgUtils.GetImage(currentSourcePath);
             int newWidth = source.Width * scale;
             Logger.Log($"int newWidth ({newWidth}) = source.Width({source.Width}) * scale({scale});");
-            Upscale.Filter filter = Upscale.Filter.Bicubic;
-            if(Program.currentFilter == FilterType.Point)
-                filter = Upscale.Filter.NearestNeighbor;
+            Upscale.Filter filter = (Program.currentFilter == FilterType.Point) ? Upscale.Filter.Nearest : Upscale.Filter.Bicubic;
             Logger.Log("Scaling image for composition...");
-            await Task.Delay(1);
             MagickImage img = new MagickImage(path);
             img = ImageProcessing.ResizeImageAdvancedMagick(img, newWidth, Upscale.ScaleMode.PixelsWidth, filter, false);
             img.Write(path);

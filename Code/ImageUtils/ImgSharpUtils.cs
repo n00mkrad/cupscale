@@ -48,7 +48,7 @@ namespace Cupscale.ImageUtils
             resampler = KnownResamplers.MitchellNetravali;
             if (filter == Upscale.Filter.Bicubic)
                 resampler = KnownResamplers.Bicubic;
-            if (filter == Upscale.Filter.NearestNeighbor)
+            if (filter == Upscale.Filter.Nearest)
                 resampler = KnownResamplers.NearestNeighbor;
 
             bool heightLonger = img.Height > img.Width;

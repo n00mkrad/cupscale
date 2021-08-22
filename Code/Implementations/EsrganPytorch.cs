@@ -189,7 +189,7 @@ namespace Cupscale.Implementations
             if (data.Contains("UnpicklingError"))
                 Program.ShowMessage("Failed to load model!", "Error");
 
-            if (PreviewUi.currentMode == PreviewUi.Mode.Interp && (data.Contains("must match the size of tensor b") || data.Contains("KeyError: 'model.")))
+            if (PreviewUi.currentMode == PreviewUi.MdlMode.Interp && (data.Contains("must match the size of tensor b") || data.Contains("KeyError: 'model.")))
                 Program.ShowMessage("It seems like you tried to interpolate incompatible models!", "Error");
         }
 

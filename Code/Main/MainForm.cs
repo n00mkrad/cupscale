@@ -309,10 +309,10 @@ namespace Cupscale.Main
 			model2TreeBtn.Enabled = (interpRbtn.Checked || chainRbtn.Checked);
 			interpConfigureBtn.Visible = interpRbtn.Checked;
 			advancedConfigureBtn.Visible = advancedBtn.Checked;
-			if (singleModelRbtn.Checked) PreviewUi.currentMode = PreviewUi.Mode.Single;
-			if (interpRbtn.Checked) PreviewUi.currentMode = PreviewUi.Mode.Interp;
-			if (chainRbtn.Checked) PreviewUi.currentMode = PreviewUi.Mode.Chain;
-			if (advancedBtn.Checked) PreviewUi.currentMode = PreviewUi.Mode.Advanced;
+			if (singleModelRbtn.Checked) PreviewUi.currentMode = PreviewUi.MdlMode.Single;
+			if (interpRbtn.Checked) PreviewUi.currentMode = PreviewUi.MdlMode.Interp;
+			if (chainRbtn.Checked) PreviewUi.currentMode = PreviewUi.MdlMode.Chain;
+			if (advancedBtn.Checked) PreviewUi.currentMode = PreviewUi.MdlMode.Advanced;
 		}
 
         private void interpConfigureBtn_Click(object sender, EventArgs e)
@@ -636,7 +636,7 @@ namespace Cupscale.Main
 
         private async void offlineInterpBtn_Click(object sender, EventArgs e)
         {
-			if (PreviewUi.currentMode == Mode.Interp)
+			if (PreviewUi.currentMode == MdlMode.Interp)
 			{
                 try
                 {
