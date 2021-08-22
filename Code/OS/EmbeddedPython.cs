@@ -35,7 +35,7 @@ namespace Cupscale.OS
 
         public static bool IsEnabled()
         {
-            return Config.GetInt("pythonRuntime") == 1;
+            return Config.GetInt("esrganPytorchPythonRuntime") == 1;
         }
 
         public static async Task Init()
