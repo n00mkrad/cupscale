@@ -30,6 +30,7 @@ namespace Cupscale.OS
             {
                 if (IsDirNcnnModel(modelPath))
                 {
+					ApplyFilenamePattern(modelPath, filenamePattern);
 					currentNcnnModel = modelPath;
 					return;
 				}
@@ -60,9 +61,7 @@ namespace Cupscale.OS
                     Logger.Log("NCNN Model is cached - Skipping conversion.");
                 }
 
-				foreach(FileInfo file in IoUtils.GetFileInfosSorted(outPath).Where(f => f.Extension == ".bin" || f.Extension == ".param"))
-					IoUtils.RenameFile(file.FullName, filenamePattern.Replace("*", $"{file.Name.GetInt()}"));
-
+				ApplyFilenamePattern(outPath, filenamePattern);
                 currentNcnnModel = outPath;
             }
             catch (Exception e)
@@ -70,6 +69,12 @@ namespace Cupscale.OS
 				Logger.ErrorMessage("Failed to convert Pytorch model to NCNN format! It might be incompatible.", e);
             }
         }
+
+		static void ApplyFilenamePattern(string path, string pattern)
+        {
+			foreach (FileInfo file in IoUtils.GetFileInfosSorted(path).Where(f => f.Extension == ".bin" || f.Extension == ".param"))
+				IoUtils.RenameFile(file.FullName, pattern.Replace("*", $"{file.Name.GetInt()}"));
+		}
 
 		static async Task RunConverter(string modelPath)
         {
