@@ -54,6 +54,8 @@ namespace Cupscale.OS
 
         public static bool HasAmpereOrNewer()   // To detect if newer Pytorch version is needed
         {
+            return false; // TODO: REMOVE ME
+
             foreach (PhysicalGPU gpu in gpuList)
             {
                 Architecture arch = GetArch(gpu);

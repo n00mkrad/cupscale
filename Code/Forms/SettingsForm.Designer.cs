@@ -148,16 +148,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.uninstallFullBtn = new HTAlt.WinForms.HTButton();
-            this.label18 = new System.Windows.Forms.Label();
-            this.uninstallResBtn = new HTAlt.WinForms.HTButton();
-            this.label17 = new System.Windows.Forms.Label();
-            this.reinstallCleanBtn = new HTAlt.WinForms.HTButton();
-            this.reinstallOverwriteBtn = new HTAlt.WinForms.HTButton();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
             this.debugPage = new Cyotek.Windows.Forms.TabListPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -200,7 +190,6 @@
             this.resourceFilesPage.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel5.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.debugPage.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -494,6 +483,7 @@
             // 
             // aiSettingsTabControl
             // 
+            this.aiSettingsTabControl.AllowDrop = true;
             this.aiSettingsTabControl.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.aiSettingsTabControl.BorderTabLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.aiSettingsTabControl.Controls.Add(this.esrganPytorchTab);
@@ -844,7 +834,7 @@
             this.esrganNcnnTab.Location = new System.Drawing.Point(4, 27);
             this.esrganNcnnTab.Name = "esrganNcnnTab";
             this.esrganNcnnTab.Padding = new System.Windows.Forms.Padding(3);
-            this.esrganNcnnTab.Size = new System.Drawing.Size(908, 432);
+            this.esrganNcnnTab.Size = new System.Drawing.Size(192, 69);
             this.esrganNcnnTab.TabIndex = 1;
             this.esrganNcnnTab.Text = "ESRGAN (NCNN)";
             // 
@@ -970,7 +960,7 @@
             this.realEsrganNcnnTab.Location = new System.Drawing.Point(4, 27);
             this.realEsrganNcnnTab.Name = "realEsrganNcnnTab";
             this.realEsrganNcnnTab.Padding = new System.Windows.Forms.Padding(3);
-            this.realEsrganNcnnTab.Size = new System.Drawing.Size(908, 432);
+            this.realEsrganNcnnTab.Size = new System.Drawing.Size(192, 69);
             this.realEsrganNcnnTab.TabIndex = 2;
             this.realEsrganNcnnTab.Text = "RealESRGAN (NCNN)";
             // 
@@ -1517,7 +1507,6 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.panel5, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.panel2, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -1539,7 +1528,7 @@
             this.panel5.Controls.Add(this.label33);
             this.panel5.Controls.Add(this.label34);
             this.panel5.ForeColor = System.Drawing.Color.White;
-            this.panel5.Location = new System.Drawing.Point(464, 3);
+            this.panel5.Location = new System.Drawing.Point(3, 3);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(455, 463);
             this.panel5.TabIndex = 5;
@@ -1607,142 +1596,6 @@
             this.label34.TabIndex = 1;
             this.label34.Text = "Embedded Python Runtime";
             // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.uninstallFullBtn);
-            this.panel2.Controls.Add(this.label18);
-            this.panel2.Controls.Add(this.uninstallResBtn);
-            this.panel2.Controls.Add(this.label17);
-            this.panel2.Controls.Add(this.reinstallCleanBtn);
-            this.panel2.Controls.Add(this.reinstallOverwriteBtn);
-            this.panel2.Controls.Add(this.label19);
-            this.panel2.Controls.Add(this.label20);
-            this.panel2.Controls.Add(this.label21);
-            this.panel2.ForeColor = System.Drawing.Color.White;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(455, 463);
-            this.panel2.TabIndex = 4;
-            // 
-            // uninstallFullBtn
-            // 
-            this.uninstallFullBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.uninstallFullBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.uninstallFullBtn.FlatAppearance.BorderSize = 0;
-            this.uninstallFullBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.uninstallFullBtn.ForeColor = System.Drawing.Color.White;
-            this.uninstallFullBtn.Location = new System.Drawing.Point(245, 165);
-            this.uninstallFullBtn.Margin = new System.Windows.Forms.Padding(8);
-            this.uninstallFullBtn.Name = "uninstallFullBtn";
-            this.uninstallFullBtn.Size = new System.Drawing.Size(200, 22);
-            this.uninstallFullBtn.TabIndex = 19;
-            this.uninstallFullBtn.Text = "Uninstall All Files";
-            this.uninstallFullBtn.UseVisualStyleBackColor = false;
-            this.uninstallFullBtn.Click += new System.EventHandler(this.uninstallFullBtn_Click);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 170);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(153, 13);
-            this.label18.TabIndex = 18;
-            this.label18.Text = "Uninstall Including Settings File";
-            // 
-            // uninstallResBtn
-            // 
-            this.uninstallResBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.uninstallResBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.uninstallResBtn.FlatAppearance.BorderSize = 0;
-            this.uninstallResBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.uninstallResBtn.ForeColor = System.Drawing.Color.White;
-            this.uninstallResBtn.Location = new System.Drawing.Point(245, 135);
-            this.uninstallResBtn.Margin = new System.Windows.Forms.Padding(8);
-            this.uninstallResBtn.Name = "uninstallResBtn";
-            this.uninstallResBtn.Size = new System.Drawing.Size(200, 22);
-            this.uninstallResBtn.TabIndex = 17;
-            this.uninstallResBtn.Text = "Uninstall Resources";
-            this.uninstallResBtn.UseVisualStyleBackColor = false;
-            this.uninstallResBtn.Click += new System.EventHandler(this.uninstallResBtn_Click);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 140);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(188, 13);
-            this.label17.TabIndex = 16;
-            this.label17.Text = "Uninstall (Cupscale will exit afterwards)";
-            // 
-            // reinstallCleanBtn
-            // 
-            this.reinstallCleanBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.reinstallCleanBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.reinstallCleanBtn.FlatAppearance.BorderSize = 0;
-            this.reinstallCleanBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reinstallCleanBtn.ForeColor = System.Drawing.Color.White;
-            this.reinstallCleanBtn.Location = new System.Drawing.Point(245, 105);
-            this.reinstallCleanBtn.Margin = new System.Windows.Forms.Padding(8);
-            this.reinstallCleanBtn.Name = "reinstallCleanBtn";
-            this.reinstallCleanBtn.Size = new System.Drawing.Size(200, 22);
-            this.reinstallCleanBtn.TabIndex = 15;
-            this.reinstallCleanBtn.Text = "Clean Reinstall";
-            this.reinstallCleanBtn.UseVisualStyleBackColor = false;
-            this.reinstallCleanBtn.Click += new System.EventHandler(this.reinstallCleanBtn_Click);
-            // 
-            // reinstallOverwriteBtn
-            // 
-            this.reinstallOverwriteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.reinstallOverwriteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.reinstallOverwriteBtn.FlatAppearance.BorderSize = 0;
-            this.reinstallOverwriteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reinstallOverwriteBtn.ForeColor = System.Drawing.Color.White;
-            this.reinstallOverwriteBtn.Location = new System.Drawing.Point(245, 75);
-            this.reinstallOverwriteBtn.Margin = new System.Windows.Forms.Padding(8);
-            this.reinstallOverwriteBtn.Name = "reinstallOverwriteBtn";
-            this.reinstallOverwriteBtn.Size = new System.Drawing.Size(200, 22);
-            this.reinstallOverwriteBtn.TabIndex = 14;
-            this.reinstallOverwriteBtn.Text = "Reinstall";
-            this.reinstallOverwriteBtn.UseVisualStyleBackColor = false;
-            this.reinstallOverwriteBtn.Click += new System.EventHandler(this.reinstallOverwriteBtn_Click);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 110);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(160, 13);
-            this.label19.TabIndex = 4;
-            this.label19.Text = "Re-Install Resource Files (Clean)";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(6, 80);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(178, 13);
-            this.label20.TabIndex = 2;
-            this.label20.Text = "Re-Install Resource Files (Overwrite)";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(3, 4);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(115, 20);
-            this.label21.TabIndex = 1;
-            this.label21.Text = "Resource Files";
-            // 
             // debugPage
             // 
             this.debugPage.Controls.Add(this.tableLayoutPanel4);
@@ -1752,7 +1605,7 @@
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
+            this.tableLayoutPanel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.tableLayoutPanel4.ColumnCount = 2;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -1944,8 +1797,6 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.debugPage.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -1994,16 +1845,6 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private Cyotek.Windows.Forms.TabListPage resourceFilesPage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label21;
-        private HTAlt.WinForms.HTButton uninstallFullBtn;
-        private System.Windows.Forms.Label label18;
-        private HTAlt.WinForms.HTButton uninstallResBtn;
-        private System.Windows.Forms.Label label17;
-        private HTAlt.WinForms.HTButton reinstallCleanBtn;
-        private HTAlt.WinForms.HTButton reinstallOverwriteBtn;
         private System.Windows.Forms.CheckBox reloadImageBeforeUpscale;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Panel panel3;

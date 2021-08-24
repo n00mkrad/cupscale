@@ -136,7 +136,7 @@ namespace Cupscale.OS
             Print("Compressing files...");
             RunCompact();
             Print("Done!");
-            Config.Set("pythonRuntime", "1");
+            Config.Set("esrganPytorchPythonRuntime", "1");
             await Init();
             MsgBox msg2 = Program.ShowMessage("Installed embedded Python runtime and enabled it!\nIf you want to disable it, you can do so in the settings.", "Message");
             while (DialogQueue.IsOpen(msg2)) await Task.Delay(50);

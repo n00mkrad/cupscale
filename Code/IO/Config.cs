@@ -109,31 +109,23 @@ namespace Cupscale
         private static string WriteDefaultValIfExists(string key, Type type)
         {
             if (key == "modelPath") return WriteDefault(key, Paths.defaultModelPath);
-            if (key == "esrganVer") return WriteDefault(key, "0");
             if (key == "tilesize") return WriteDefault(key, "1024");
             if (key == "alpha") return WriteDefault(key, "False");
             if (key == "alphaMode") return WriteDefault(key, "1");
             if (key == "alphaDepth") return WriteDefault(key, "0");
-            if (key == "seamlessMode") return WriteDefault(key, "0");
             if (key == "alphaBgColor") return WriteDefault(key, "000000FF");
             if (key == "jpegExtension") return WriteDefault(key, "jpg");
             if (key == "jpegQ") return WriteDefault(key, "95");
             if (key == "webpQ") return WriteDefault(key, "95");
             if (key == "dxtMode") return WriteDefault(key, "BC1 (DXT1)");
             if (key == "ddsEnableMips") return WriteDefault(key, "True");
-            if (key == "previewFormat") return WriteDefault(key, "0");
-            if (key == "cudaFallback") return WriteDefault(key, "0");
             if (key == "gpuId") return WriteDefault(key, "0");
             if (key == "reloadImageBeforeUpscale") return WriteDefault(key, "False");
             if (key == "cmdDebug") return WriteDefault(key, "False");
             if (key == "flipTga") return WriteDefault(key, "True");
             if (key == "logIo") return WriteDefault(key, "False");
             if (key == "logStatus") return WriteDefault(key, "False");
-            if (key == "cmdDebugMode") return WriteDefault(key, "0");
-            if (key == "pythonRuntime") return WriteDefault(key, "0");
             if (key == "useMozJpeg") return WriteDefault(key, "True");
-            if (key == "comparisonUseScaling") return WriteDefault(key, "0");
-            if (key == "joeyAlphaMode") return WriteDefault(key, "1");
             if (key == "modelSelectAutoExpand") return WriteDefault(key, "True");
             // ESRGAN Pytorch
             if (key == "esrganPytorchAlphaMode") return WriteDefault(key, "1");
