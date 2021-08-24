@@ -1,13 +1,13 @@
 # Cupscale
-Image Upscaling GUI based on ESRGAN - **WORK IN PROGRESS**
+Image Upscaling GUI based on ESRGAN
 
-![](https://i.imgur.com/tIRI1MO.png)
+![](https://i.imgur.com/ntIuSrv.png)
 
 ## Credits:
 
-Based around [xinntao's ESRGAN](https://github.com/xinntao/ESRGAN) implemented via [Joey's Fork](https://github.com/JoeyBallentine/ESRGAN) or alternatively ata4's [esrgan-launcher](https://github.com/ata4/esrgan-launcher).
+Based around [xinntao's ESRGAN](https://github.com/xinntao/ESRGAN) implemented via [Joey's Fork](https://github.com/JoeyBallentine/ESRGAN).
 
-AMD/Intel GPU compatibility is possible thanks to BlueAmulet's [esrgan-ncnn-vulkan](https://github.com/BlueAmulet/realsr-ncnn-vulkan) based on nihui's [realsr-ncnn-vulkan](https://github.com/nihui/realsr-ncnn-vulkan) running on Tencent's [ncnn](https://github.com/Tencent/ncnn) framework.
+AMD/Intel GPU compatibility is possible thanks to BlueAmulet's [esrgan-ncnn-vulkan](https://github.com/BlueAmulet/realsr-ncnn-vulkan) based on nihui's [realsr-ncnn-vulkan](https://github.com/nihui/realsr-ncnn-vulkan) running on Tencent's [ncnn](https://github.com/Tencent/ncnn) framework, as well as [xinntao's Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN).
 
 ## Download:
 
@@ -17,7 +17,7 @@ AMD/Intel GPU compatibility is possible thanks to BlueAmulet's [esrgan-ncnn-vulk
 
 The application is more or less portable. It's a single executable that you can run anywhere.
 
-Temporary files are stored in `%APPDATA%/Cupscale` by default. Launching the program with the `-portable` argument will store the files in the same directory as the executable instead, allowing for a fully portable installation.
+Temporary files are stored in the installation directory by default, which is why you shouldn't install the application in protected locations like Program Files.
 
 ## Supported AI Backends:
 
