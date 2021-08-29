@@ -13,7 +13,6 @@ namespace Cupscale.IO
 		public static string previewOutPath;
 		public static string imgInPath;
 		public static string imgOutPath;
-		public static string imgOutNcnnPath;
 		public static string tempImgPath;
 		public static string clipboardFolderPath;
 		public static string presetsPath;
@@ -43,9 +42,6 @@ namespace Cupscale.IO
 
 			imgOutPath = Path.Combine(GetDataPath(), "img-out");
 			Directory.CreateDirectory(imgOutPath);
-
-			imgOutNcnnPath = Path.Combine(GetDataPath(), "img-out-ncnn");
-			Directory.CreateDirectory(imgOutNcnnPath);
 
 			tempImgPath = Path.Combine(GetDataPath(), "loaded-img", "temp.png");
 			Directory.CreateDirectory(tempImgPath.GetParentDir());

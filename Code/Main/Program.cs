@@ -85,7 +85,6 @@ namespace Cupscale
             {
                 IoUtils.ClearDir(Paths.imgInPath);
                 IoUtils.ClearDir(Paths.imgOutPath);
-                IoUtils.ClearDir(Paths.imgOutNcnnPath);
             }
         }
 
@@ -106,7 +105,6 @@ namespace Cupscale
                 IoUtils.ClearDir(Paths.clipboardFolderPath);
                 IoUtils.ClearDir(Paths.imgInPath);
                 IoUtils.ClearDir(Paths.imgOutPath);
-                IoUtils.ClearDir(Paths.imgOutNcnnPath);
                 IoUtils.ClearDir(Paths.tempImgPath.GetParentDir());
                 IoUtils.ClearDir(Path.Combine(Paths.GetDataPath(), "giftemp"));
                 IoUtils.DeleteIfExists(Path.Combine(Paths.presetsPath, "lastUsed"));

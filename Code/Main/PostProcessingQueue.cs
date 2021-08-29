@@ -32,7 +32,7 @@ namespace Cupscale.Cupscale
             outputFileQueue.Clear();
             processedFiles.Clear();
             outputFiles.Clear();
-            IoUtils.ClearDir(Paths.imgOutNcnnPath);
+            IoUtils.ClearDir(Paths.imgOutPath);
             run = true;
         }
 
@@ -66,8 +66,6 @@ namespace Cupscale.Cupscale
         static bool AnyFilesLeft ()
         {
             if (IoUtils.GetAmountOfFiles(Paths.imgOutPath, true) > 0)
-                return true;
-            if (IoUtils.GetAmountOfFiles(Paths.imgOutNcnnPath, true) > 0)
                 return true;
 
             return false;
