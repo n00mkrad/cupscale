@@ -62,6 +62,12 @@ namespace Cupscale.Main
                     Program.Cancel("It seems like you tried to load or interpolate incompatible models!");
                     errored = true;
                 }
+
+                if (log.Contains("not implemented for 'Half'"))
+                {
+                    Program.Cancel("A half-precision problem occured. Try to run this implementation without half-precision enabled.");
+                    errored = true;
+                }
             }
 
             //if (!errored && log.Contains("failed"))

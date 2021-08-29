@@ -38,7 +38,7 @@ namespace Cupscale.Implementations
             if (Config.GetInt("esrganPytorchAlphaDepth") == 1) alphaDepth = "--binary_alpha";
             if (Config.GetInt("esrganPytorchAlphaDepth") == 2) alphaDepth = "--ternary_alpha";
 
-            string cpu = (Config.GetBool("esrganPytorchCpu")) ? "--cpu" : "";
+            string cpu = Config.GetBool("esrganPytorchCpu") ? "--cpu" : "";
             string device = $"--device_id {Config.GetInt("esrganPytorchGpuId")}";
             string seam = "";
 
@@ -50,7 +50,7 @@ namespace Cupscale.Implementations
                 case 4: seam = "--seamless alpha_pad"; break;
             }
 
-            string fp16 = Config.GetBool("esrganPytorchFp16") ? "--fp16" : "";
+            string fp16 = (!Config.GetBool("esrganPytorchCpu") && Config.GetBool("esrganPytorchFp16")) ? "--fp16" : "";
             string cache = cacheSplitDepth ? "--cache_max_split_depth" : "";
             string opt = stayOpen ? "/K" : "/C";
             string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Imps.esrganPytorch.dir).Wrap()} & ";
