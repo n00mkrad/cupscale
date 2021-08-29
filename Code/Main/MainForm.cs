@@ -652,7 +652,9 @@ namespace Cupscale.Main
 					await Task.Delay(50);
 					string outPath = await Implementations.EsrganPytorch.Interpolate(mdl);
 					loadingForm.Close();
-					Program.ShowMessage("Saved interpolated model to:\n\n" + outPath);
+
+					if (File.Exists(outPath))
+						Program.ShowMessage("Saved interpolated model to:\n\n" + outPath);
 				}
 				catch (Exception interpException)
                 {
