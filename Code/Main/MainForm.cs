@@ -16,7 +16,6 @@ using Cupscale.OS;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using static Cupscale.UI.PreviewUi;
 using System.Linq;
-using System.Security.RightsManagement;
 
 namespace Cupscale.Main
 {
@@ -94,6 +93,14 @@ namespace Cupscale.Main
 
 			initialized = true;
 			BusyCheckLoop();
+			Task.Run(() => AsyncChecks());
+		}
+
+		async Task AsyncChecks()
+		{
+			await LoadPatronListCsv(previewImg);
+			previewImg.Text = "Drag And Drop An Image Or A Folder Into This Area.\n\n\n\n\n\nThanks to the following patrons for " +
+				"supporting my projects:\n\n" + previewImg.Text;
 		}
 
 		public async void BusyCheckLoop ()

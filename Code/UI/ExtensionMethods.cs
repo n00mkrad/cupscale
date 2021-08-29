@@ -147,5 +147,13 @@ namespace Cupscale.UI
         {
             return Regex.Split(str, "\r\n|\r|\n");
         }
+
+		public static string Trunc(this string inStr, int maxChars, bool addEllipsis = true)
+		{
+			string str = inStr.Length <= maxChars ? inStr : inStr.Substring(0, maxChars);
+			if (addEllipsis && inStr.Length > maxChars)
+				str += "…";
+			return str;
+		}
 	}
 }

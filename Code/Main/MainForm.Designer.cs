@@ -433,7 +433,7 @@ namespace Cupscale.Main
             this.previewImg.Size = new System.Drawing.Size(554, 813);
             this.previewImg.TabIndex = 0;
             this.previewImg.TabStop = false;
-            this.previewImg.Text = "Drag And Drop An Image Or A Folder Into This Area";
+            this.previewImg.Text = "Drag And Drop An Image Or A Folder Into This Area.";
             this.previewImg.Zoomed += new System.EventHandler<Cyotek.Windows.Forms.ImageBoxZoomEventArgs>(this.previewImg_Zoomed);
             this.previewImg.Click += new System.EventHandler(this.previewImg_Click);
             this.previewImg.DragDrop += new System.Windows.Forms.DragEventHandler(this.previewImg_DragDrop);
