@@ -643,12 +643,14 @@ namespace Cupscale.Main
                 {
 					string mdl1 = Program.currentModel1;
 					string mdl2 = Program.currentModel2;
+
 					if (string.IsNullOrWhiteSpace(mdl1) || string.IsNullOrWhiteSpace(mdl2))
 						return;
+
 					ModelData mdl = new ModelData(mdl1, mdl2, ModelData.ModelMode.Interp, interpValue);
 					DialogForm loadingForm = new DialogForm("Interpolating...");
 					await Task.Delay(50);
-					string outPath = Implementations.EsrganPytorch.Interpolate(mdl);
+					string outPath = await Implementations.EsrganPytorch.Interpolate(mdl);
 					loadingForm.Close();
 					Program.ShowMessage("Saved interpolated model to:\n\n" + outPath);
 				}
@@ -666,13 +668,15 @@ namespace Cupscale.Main
 
         private void previewImg_Click(object sender, EventArgs e)
         {
-			MouseEventArgs me = (MouseEventArgs)e;
-			if (me.Button == MouseButtons.Right)
+			MouseEventArgs mouseEventArgs = (MouseEventArgs)e;
+
+			if (mouseEventArgs.Button == MouseButtons.Right)
             {
 				CommonOpenFileDialog fileDialog = new CommonOpenFileDialog();
 				fileDialog.InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
 				fileDialog.IsFolderPicker = false;
 				fileDialog.Multiselect = true;
+
 				if (fileDialog.ShowDialog() == CommonFileDialogResult.Ok)
 					LoadImages(fileDialog.FileNames.ToArray());
 			}

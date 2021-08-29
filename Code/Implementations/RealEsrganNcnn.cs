@@ -94,7 +94,7 @@ namespace Cupscale.Implementations
             }
 
             if (error)
-                GeneralOutputHandler.HandleImpErrorMsgs(line, Imps.realEsrganNcnn);
+                GeneralOutputHandler.HandleImpErrorMsgs(line, GeneralOutputHandler.ProcessType.Ncnn);
         }
     }
 }

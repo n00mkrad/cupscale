@@ -78,7 +78,7 @@ namespace Cupscale.Implementations
             Logger.Log("[NCNN] " + line.Replace("\n", " ").Replace("\r", " "));
 
             if(error)
-                GeneralOutputHandler.HandleImpErrorMsgs(line, Imps.esrganNcnn);
+                GeneralOutputHandler.HandleImpErrorMsgs(line, GeneralOutputHandler.ProcessType.Ncnn);
         }
     }
 }

@@ -9,11 +9,13 @@ namespace Cupscale.Main
 {
     class GeneralOutputHandler
     {
-        public static void HandleImpErrorMsgs(string log, Implementations.Implementation imp = null)
+        public enum ProcessType { Generic, Python, Ncnn }
+
+        public static void HandleImpErrorMsgs(string log, ProcessType processType = ProcessType.Generic)
         {
             bool errored = false;
 
-            if (imp == Implementations.Imps.esrganNcnn || imp == Implementations.Imps.realEsrganNcnn)
+            if (processType == ProcessType.Ncnn)
             {
                 if (!errored && log.Contains("vkAllocateMemory"))
                 {
@@ -21,10 +23,9 @@ namespace Cupscale.Main
                         "running programs in the background (especially games) that take up your VRAM.");
                     errored = true;
                 }
-
             }
 
-            if (imp == Implementations.Imps.esrganPytorch)
+            if (processType == ProcessType.Python)
             {
                 if (log.ToLower().Contains("out of memory"))
                 {
@@ -56,18 +57,18 @@ namespace Cupscale.Main
                     errored = true;
                 }
 
-                if (PreviewUi.currentMode == PreviewUi.MdlMode.Interp && (log.Contains("must match the size of tensor b") || log.Contains("KeyError: 'model.")))
+                if (log.Contains("must match the size of tensor") || log.Contains("KeyError: 'model.") || log.Contains("KeyError: 'conv_first.weight'"))
                 {
-                    Program.Cancel("It seems like you tried to interpolate incompatible models!");
+                    Program.Cancel("It seems like you tried to load or interpolate incompatible models!");
                     errored = true;
                 }
             }
 
-            if (!errored && log.Contains("failed"))
-            {
-                Program.Cancel($"Error occurred while running AI implementation: \n\n{log}\n\n");
-                errored = true;
-            }
+            //if (!errored && log.Contains("failed"))
+            //{
+            //    Program.Cancel($"Error occurred while running AI implementation: \n\n{log}\n\n");
+            //    errored = true;
+            //}
 
             if (errored)
                 Program.Cancel();

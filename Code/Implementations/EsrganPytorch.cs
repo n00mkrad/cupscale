@@ -56,25 +56,25 @@ namespace Cupscale.Implementations
             string cmd = $"{opt} cd /D {Path.Combine(Paths.binPath, Imps.esrganPytorch.dir).Wrap()} & ";
             cmd += $"{EmbeddedPython.GetPyCmd()} upscale.py --input {inpath} --output {outpath} {cache} {cpu} {device} {fp16} {seam} {alphaMode} {alphaDepth} {modelArg}";
             Logger.Log("[CMD] " + cmd);
-            Process esrganProcess = OsUtils.NewProcess(!showWindow);
-            esrganProcess.StartInfo.Arguments = cmd;
+            Process proc = OsUtils.NewProcess(!showWindow);
+            proc.StartInfo.Arguments = cmd;
 
             if (!showWindow)
             {
-                esrganProcess.OutputDataReceived += (sender, outLine) => { OutputHandler(outLine.Data, false); };
-                esrganProcess.ErrorDataReceived += (sender, outLine) => { OutputHandler(outLine.Data, true); };
+                proc.OutputDataReceived += (sender, outLine) => { OutputHandler(outLine.Data, false); };
+                proc.ErrorDataReceived += (sender, outLine) => { OutputHandler(outLine.Data, true); };
             }
 
-            Program.lastImpProcess = esrganProcess;
-            esrganProcess.Start();
+            Program.lastImpProcess = proc;
+            proc.Start();
 
             if (!showWindow)
             {
-                esrganProcess.BeginOutputReadLine();
-                esrganProcess.BeginErrorReadLine();
+                proc.BeginOutputReadLine();
+                proc.BeginErrorReadLine();
             }
 
-            while (!esrganProcess.HasExited)
+            while (!proc.HasExited)
             {
                 if (showTileProgress)
                     await UpdateProgressFromFile();
@@ -129,7 +129,7 @@ namespace Cupscale.Implementations
             return null;
         }
 
-        public static string Interpolate(ModelData mdl)
+        public static async Task<string> Interpolate(ModelData mdl)
         {
             bool showWindow = Config.GetInt("cmdDebugMode") > 0;
             bool stayOpen = Config.GetInt("cmdDebugMode") == 2;
@@ -147,15 +147,31 @@ namespace Cupscale.Implementations
 
             proc.StartInfo.Arguments = cmd;
             Logger.Log("[ESRGAN Interp] CMD: " + proc.StartInfo.Arguments);
-            proc.Start();
-            proc.WaitForExit();
-            string output = proc.StandardOutput.ReadToEnd();
-            string err = proc.StandardError.ReadToEnd();
-            if (!string.IsNullOrWhiteSpace(err)) output += "\n" + err;
-            Logger.Log("[ESRGAN Interp] Output: " + output);
 
-            if (output.ToLower().Contains("error"))
-                throw new Exception("Interpolation Error - Output:\n" + output);
+            if (!showWindow)
+            {
+                proc.OutputDataReceived += (sender, outLine) => { OutputHandler(outLine.Data, false); };
+                proc.ErrorDataReceived += (sender, outLine) => { OutputHandler(outLine.Data, true); };
+            }
+
+            proc.Start();
+
+            if (!showWindow)
+            {
+                proc.BeginOutputReadLine();
+                proc.BeginErrorReadLine();
+            }
+
+            while (!proc.HasExited)
+                await Task.Delay(50);
+
+            //string output = proc.StandardOutput.ReadToEnd();
+            //string err = proc.StandardError.ReadToEnd();
+            //if (!string.IsNullOrWhiteSpace(err)) output += "\n" + err;
+            //Logger.Log("[ESRGAN Interp] Output: " + output);
+            //
+            //if (output.ToLower().Contains("error"))
+            //    throw new Exception("Interpolation Error - Output:\n" + output);
 
             return outPath;
         }
@@ -168,7 +184,7 @@ namespace Cupscale.Implementations
             Logger.Log("[Python] " + line.Replace("\n", " ").Replace("\r", " "));
 
             if (error)
-                GeneralOutputHandler.HandleImpErrorMsgs(line, Imps.esrganPytorch);
+                GeneralOutputHandler.HandleImpErrorMsgs(line, GeneralOutputHandler.ProcessType.Python);
         }
 
         static string lastProgressString = "";
