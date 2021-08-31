@@ -23,6 +23,13 @@ namespace Cupscale.Main
                         "running programs in the background (especially games) that take up your VRAM.");
                     errored = true;
                 }
+
+                if (!errored && log.Contains("vkWaitForFences"))
+                {
+                    Program.Cancel("NCNN crashed!\nMake sure your GPU drivers are up to date, try reducing the tile size and avoid " +
+                        "running programs in the background (especially games) that take up your VRAM.");
+                    errored = true;
+                }
             }
 
             if (processType == ProcessType.Python)
