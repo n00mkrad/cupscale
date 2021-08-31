@@ -264,10 +264,10 @@ namespace Cupscale.UI
             if (ImageProcessing.postScaleMode == Upscale.ScaleMode.Percent && ImageProcessing.postScaleValue == 100)   // Skip if target scale is 100%)
                 return;
 
-            Program.mainForm.SetProgress(1f, "[ESRGAN] Resizing preview output...");
+            Program.mainForm.SetProgress(1f, "Resizing preview output...");
             await Task.Delay(1);
             MagickImage img = ImgUtils.GetMagickImage(Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0]);
-            MagickImage magickImage = ImageProcessing.ResizeImagePostMagick(img);
+            MagickImage magickImage = ImageProcessing.ResizeImagePost(img);
             img = magickImage;
             img.Write(img.FileName);
             //string img = Directory.GetFiles(Paths.previewOutPath, "*.png.*", SearchOption.AllDirectories)[0];

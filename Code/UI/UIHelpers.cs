@@ -35,13 +35,23 @@ namespace Cupscale
 			}
 		}
 
-		public static void FillEnumComboBox(ComboBox box, Type type, int defaultIndex = 0)
+		public static void FillComboBoxWithList(ComboBox box, Type type, int defaultIndex = 0)
 		{
 			box.Items.Clear();
-			foreach (string format in Enum.GetNames(type))
-			{
-				box.Items.Add(format.TitleCase());
-			}
+
+			foreach (string item in Enum.GetNames(type))
+				box.Items.Add(item.TitleCase());
+
+			InitCombox(box, defaultIndex);
+		}
+
+		public static void FillComboBoxWithList(ComboBox box, List<string> list, int defaultIndex = 0)
+		{
+			box.Items.Clear();
+
+			foreach (string item in list)
+				box.Items.Add(item);
+
 			InitCombox(box, defaultIndex);
 		}
 

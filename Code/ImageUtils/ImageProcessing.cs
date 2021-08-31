@@ -16,12 +16,12 @@ namespace Cupscale
     {
         public enum Format { Source, Png50, PngFast, PngRaw, Jpeg, Weppy, BMP, TGA, DDS, GIF }
 
-        public static Upscale.Filter postFilter = Upscale.Filter.Mitchell;
+        public static Filters.Filter postFilter = Filters.resizeFilters[0];
         public static Upscale.ScaleMode postScaleMode = Upscale.ScaleMode.Percent;
         public static int postScaleValue = 100;
         public static bool postOnlyDownscale = true;
 
-        public static Upscale.Filter preFilter = Upscale.Filter.Mitchell;
+        public static Filters.Filter preFilter = Filters.resizeFilters[0];
         public static Upscale.ScaleMode preScaleMode = Upscale.ScaleMode.Percent;
         public static int preScaleValue = 100;
         public static bool preOnlyDownscale = true;
@@ -249,11 +249,11 @@ namespace Cupscale
         public static async Task PostProcessImage(string path, Format format, bool dontResize)
         {
             Logger.Log($"[ImgProc] Post-Processing {Path.GetFileName(path)} to {format}, resize: {!dontResize}");
+            MagickImage img = ImgUtils.GetMagickImage(path);
 
             if (!dontResize)
-                ResizeImagePost(path);
+                ResizeImagePost(img);
 
-            MagickImage img = ImgUtils.GetMagickImage(path);
             string newExt = "png";
             bool magick = true;
 
@@ -351,7 +351,7 @@ namespace Cupscale
             MagickImage img = ImgUtils.GetMagickImage(path);
             string ext = "dds";
 
-            img = ResizeImagePostMagick(img);
+            img = ResizeImagePost(img);
 
             img.Format = MagickFormat.Png00;
             img.Write(path);
@@ -375,42 +375,27 @@ namespace Cupscale
 
         public static MagickImage ResizeImagePre(MagickImage img)
         {
-            if (!(preScaleMode == Upscale.ScaleMode.Percent && preScaleValue == 100))   // Skip if target scale is 100%
-            {
-                img = ResizeImageAdvancedMagick(img, preScaleValue, preScaleMode, preFilter, preOnlyDownscale);
-                Logger.Log("[ImgProc] ResizeImagePre: Resized to " + img.Width + "x" + img.Height);
-            }
+            if (preScaleMode == Upscale.ScaleMode.Percent && preScaleValue == 100)   // Skip if target scale is 100%
+                return img;
+
+            img = ResizeImageAdvancedMagick(img, preScaleValue, preScaleMode, Filters.GetMagickFilter(preFilter), preOnlyDownscale);
+            Logger.Log("[ImgProc] ResizeImagePre: Resized to " + img.Width + "x" + img.Height);
             return img;
         }
 
-        public static MagickImage ResizeImagePostMagick(MagickImage img)
+        public static MagickImage ResizeImagePost(MagickImage img)
         {
-            if (!(postScaleMode == Upscale.ScaleMode.Percent && postScaleValue == 100))   // Skip if target scale is 100%
-            {
-                img = ResizeImageAdvancedMagick(img, postScaleValue, postScaleMode, postFilter, postOnlyDownscale);
-                Logger.Log("[ImgProc] ResizeImagePost: Resized to " + img.Width + "x" + img.Height);
-            }
+            if (postScaleMode == Upscale.ScaleMode.Percent && postScaleValue == 100)   // Skip if target scale is 100%
+                return img;
+
+            img = ResizeImageAdvancedMagick(img, postScaleValue, postScaleMode, Filters.GetMagickFilter(postFilter), postOnlyDownscale);
+            Logger.Log("[ImgProc] ResizeImagePost: Resized to " + img.Width + "x" + img.Height);
             return img;
         }
 
-        public static void ResizeImagePost(string path)
+        public static MagickImage ResizeImageAdvancedMagick(MagickImage img, int scaleValue, Upscale.ScaleMode scaleMode, FilterType filter, bool onlyDownscale)
         {
-            if (!(postScaleMode == Upscale.ScaleMode.Percent && postScaleValue == 100))   // Skip if target scale is 100%
-            {
-                ImgSharpUtils.ResizeImageAdvanced(path, postScaleValue, postScaleMode, postFilter, postOnlyDownscale);
-                Logger.Log("[ImgProc] ResizeImagePost: Resized using ImageSharp");
-            }
-        }
-
-
-
-        public static MagickImage ResizeImageAdvancedMagick(MagickImage img, int scaleValue, Upscale.ScaleMode scaleMode, Upscale.Filter filter, bool onlyDownscale)
-        {
-            img.FilterType = FilterType.Mitchell;
-            if (filter == Upscale.Filter.Bicubic)
-                img.FilterType = FilterType.Catrom;
-            if (filter == Upscale.Filter.Nearest)
-                img.FilterType = FilterType.Point;
+            img.FilterType = filter;
 
             bool heightLonger = img.Height > img.Width;
             bool widthLonger = img.Width > img.Height;

@@ -48,17 +48,17 @@ namespace Cupscale.Main
 			// Left Panel
 			UiHelpers.InitCombox(aiSelect, 0);
 			UiHelpers.InitCombox(prevClipboardTypeCombox, 0);
-			UiHelpers.FillEnumComboBox(preResizeFilter, typeof(Upscale.Filter), 0);
 			// Right Panel
 			UiHelpers.InitCombox(prevOverwriteCombox, 0);
 			UiHelpers.InitCombox(imageOutputFormat, 0);
-			UiHelpers.FillEnumComboBox(imageOutputFormat, typeof(Upscale.ImgExportMode));
-			UiHelpers.FillEnumComboBox(videoOutputFormat, typeof(Upscale.VidExportMode));
+			UiHelpers.FillComboBoxWithList(imageOutputFormat, typeof(Upscale.ImgExportMode));
+			UiHelpers.FillComboBoxWithList(videoOutputFormat, typeof(Upscale.VidExportMode));
 			UiHelpers.InitCombox(preResizeScale, 1);
 			UiHelpers.InitCombox(preResizeMode, 0);
 			UiHelpers.InitCombox(postResizeScale, 1);
 			UiHelpers.InitCombox(postResizeMode, 0);
-			UiHelpers.FillEnumComboBox(postResizeFilter, typeof(Upscale.Filter), 0);
+			UiHelpers.FillComboBoxWithList(preResizeFilter, Filters.resizeFilters.Select(x => x.Alias).ToList(), 0);
+			UiHelpers.FillComboBoxWithList(postResizeFilter, Filters.resizeFilters.Select(x => x.Alias).ToList(), 0);
 			// Batch Upscale
 			UiHelpers.InitCombox(batchOutMode, 0);
 			UiHelpers.InitCombox(preprocessMode, 0);
@@ -466,12 +466,12 @@ namespace Cupscale.Main
 
 		public void UpdateResizeMode ()
         {
-			ImageProcessing.postFilter = (Upscale.Filter)Enum.Parse(typeof(Upscale.Filter), postResizeFilter.Text.RemoveSpaces());
+			ImageProcessing.postFilter = Filters.GetFilter(postResizeFilter.Text);
 			ImageProcessing.postScaleMode = (Upscale.ScaleMode)Enum.Parse(typeof(Upscale.ScaleMode), postResizeMode.Text.RemoveSpaces());
 			ImageProcessing.postScaleValue = postResizeScale.GetInt();
 			ImageProcessing.postOnlyDownscale = postResizeOnlyDownscale.Checked;
 
-			ImageProcessing.preFilter = (Upscale.Filter)Enum.Parse(typeof(Upscale.Filter), preResizeFilter.Text.RemoveSpaces());
+			ImageProcessing.preFilter = Filters.GetFilter(preResizeFilter.Text);
 			ImageProcessing.preScaleMode = (Upscale.ScaleMode)Enum.Parse(typeof(Upscale.ScaleMode), preResizeMode.Text.RemoveSpaces());
 			ImageProcessing.preScaleValue = preResizeScale.GetInt();
 			ImageProcessing.preOnlyDownscale = preResizeOnlyDownscale.Checked;

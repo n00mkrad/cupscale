@@ -77,7 +77,7 @@ namespace Cupscale
             }
             catch (Exception e)
             {
-                Logger.Log($"Failed to parse value of key '{key}' ('{Get(key)}') to bool: {e.Message} - Default to False");
+                //Logger.Log($"Failed to parse value of key '{key}' ('{Get(key)}') to bool: {e.Message} - Default to False");
                 return false;
             }
         }

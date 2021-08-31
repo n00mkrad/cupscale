@@ -24,7 +24,6 @@ namespace Cupscale.Main
         public static UpscaleMode currentMode = UpscaleMode.Preview;
         public enum ImgExportMode { PNG, SameAsSource, JPEG, WEBP, BMP, TGA, DDS, GIF }
         public enum VidExportMode { MP4, GIF, SameAsSource }
-        public enum Filter { Mitchell, Bicubic, Nearest }
         public enum ScaleMode { Percent, PixelsHeight, PixelsWidth, PixelsShorterSide, PixelsLongerSide }
         public enum Overwrite { No, Yes, }
         public static Overwrite overwriteMode = Overwrite.No;

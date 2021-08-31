@@ -179,13 +179,11 @@ namespace Cupscale.Forms
             int scale = scaleFactor.GetInt();
             Image source = ImgUtils.GetImage(currentSourcePath);
             int newWidth = source.Width * scale;
-            Logger.Log($"int newWidth ({newWidth}) = source.Width({source.Width}) * scale({scale});");
-            Upscale.Filter filter = (Program.currentFilter == FilterType.Point) ? Upscale.Filter.Nearest : Upscale.Filter.Bicubic;
+            Filters.Filter filter = (Program.currentFilter == FilterType.Point) ? Filters.nearest : Filters.bicubic;
             Logger.Log("Scaling image for composition...");
             MagickImage img = new MagickImage(path);
-            img = ImageProcessing.ResizeImageAdvancedMagick(img, newWidth, Upscale.ScaleMode.PixelsWidth, filter, false);
+            img = ImageProcessing.ResizeImageAdvancedMagick(img, newWidth, Upscale.ScaleMode.PixelsWidth, Filters.GetMagickFilter(filter), false);
             img.Write(path);
-            //ImgSharpUtils.ResizeImageAdvanced(path, newWidth, Upscale.ScaleMode.PixelsWidth, filter, false);
             AddText(path, text);
         }
 
