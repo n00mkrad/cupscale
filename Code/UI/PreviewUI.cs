@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Cupscale.Data;
 using Cupscale.Forms;
 using Cupscale.ImageUtils;
 using Cupscale.IO;

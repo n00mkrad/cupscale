@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Paths = Cupscale.IO.Paths;
 using Cupscale.Implementations;
 using Cupscale.OS;
+using Cupscale.Data;
 
 namespace Cupscale.Implementations
 {

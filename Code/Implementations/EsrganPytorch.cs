@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Paths = Cupscale.IO.Paths;
 using Cupscale.OS;
+using Cupscale.Data;
 
 namespace Cupscale.Implementations
 {

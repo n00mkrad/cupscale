@@ -93,6 +93,13 @@ namespace Cupscale.Cupscale
                     }
 
                     string outFilename = Upscale.FilenamePostprocess(lastOutfile);
+
+                    if(outFilename == null)
+                    {
+                        Logger.Log($"[Queue] Error: Upscale.FilenamePostprocess({lastOutfile}) returned null!");
+                        return;
+                    }
+
                     outputFiles.Add(outFilename);
                     Logger.Log("[Queue] Done Post-Processing " + Path.GetFileName(file) + " in " + sw.ElapsedMilliseconds + "ms");
 

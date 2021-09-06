@@ -1,4 +1,5 @@
-﻿using Cupscale.ImageUtils;
+﻿using Cupscale.Data;
+using Cupscale.ImageUtils;
 using Cupscale.Implementations;
 using Cupscale.IO;
 using Cupscale.UI;

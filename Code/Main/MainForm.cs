@@ -16,6 +16,7 @@ using Cupscale.OS;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using static Cupscale.UI.PreviewUi;
 using System.Linq;
+using Cupscale.Data;
 
 namespace Cupscale.Main
 {
