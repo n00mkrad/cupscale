@@ -38,52 +38,52 @@ namespace Cupscale.Forms
         void LoadSettings()
         {
             // General
-            Config.LoadGuiElement(modelPath);
-            Config.LoadGuiElement(alphaBgColor);
-            Config.LoadGuiElement(jpegExtension);
-            Config.LoadComboxIndex(previewFormat);
-            Config.LoadGuiElement(reloadImageBeforeUpscale);
-            Config.LoadComboxIndex(comparisonUseScaling);
-            Config.LoadGuiElement(modelSelectAutoExpand);
+            ConfigParser.LoadGuiElement(modelPath);
+            ConfigParser.LoadGuiElement(alphaBgColor);
+            ConfigParser.LoadGuiElement(jpegExtension);
+            ConfigParser.LoadComboxIndex(previewFormat);
+            ConfigParser.LoadGuiElement(reloadImageBeforeUpscale);
+            ConfigParser.LoadComboxIndex(comparisonUseScaling);
+            ConfigParser.LoadGuiElement(modelSelectAutoExpand);
 
             // ESRGAN Pytorch
-            Config.LoadComboxIndex(esrganPytorchPythonRuntime);
-            Config.LoadComboxIndex(esrganPytorchAlphaMode);
-            Config.LoadComboxIndex(esrganPytorchAlphaDepth);
-            Config.LoadComboxIndex(esrganPytorchSeamlessMode);
-            Config.LoadGuiElement(esrganPytorchGpuId);
-            Config.LoadGuiElement(esrganPytorchMultiGpu);
-            Config.LoadGuiElement(esrganPytorchCpu);
-            Config.LoadGuiElement(esrganPytorchFp16);
+            ConfigParser.LoadComboxIndex(esrganPytorchPythonRuntime);
+            ConfigParser.LoadComboxIndex(esrganPytorchAlphaMode);
+            ConfigParser.LoadComboxIndex(esrganPytorchAlphaDepth);
+            ConfigParser.LoadComboxIndex(esrganPytorchSeamlessMode);
+            ConfigParser.LoadGuiElement(esrganPytorchGpuId);
+            ConfigParser.LoadGuiElement(esrganPytorchMultiGpu);
+            ConfigParser.LoadGuiElement(esrganPytorchCpu);
+            ConfigParser.LoadGuiElement(esrganPytorchFp16);
 
             // ESRGAN NCNN
-            Config.LoadGuiElement(esrganNcnnTilesize);
-            Config.LoadGuiElement(esrganNcnnTta);
-            Config.LoadGuiElement(esrganNcnnGpu);
+            ConfigParser.LoadGuiElement(esrganNcnnTilesize);
+            ConfigParser.LoadGuiElement(esrganNcnnTta);
+            ConfigParser.LoadGuiElement(esrganNcnnGpu);
 
             // RealESRGAN NCNN
-            Config.LoadGuiElement(realEsrganNcnnTilesize);
-            Config.LoadGuiElement(realEsrganNcnnTta);
-            Config.LoadGuiElement(realEsrganNcnnGpus);
+            ConfigParser.LoadGuiElement(realEsrganNcnnTilesize);
+            ConfigParser.LoadGuiElement(realEsrganNcnnTta);
+            ConfigParser.LoadGuiElement(realEsrganNcnnGpus);
 
             // Formats
-            Config.LoadGuiElement(jpegQ);
-            Config.LoadGuiElement(webpQ);
-            Config.LoadGuiElement(dxtMode);
-            Config.LoadGuiElement(ddsEnableMips);
-            Config.LoadGuiElement(flipTga);
-            Config.LoadGuiElement(useMozJpeg);
+            ConfigParser.LoadGuiElement(jpegQ);
+            ConfigParser.LoadGuiElement(webpQ);
+            ConfigParser.LoadGuiElement(dxtMode);
+            ConfigParser.LoadGuiElement(ddsEnableMips);
+            ConfigParser.LoadGuiElement(flipTga);
+            ConfigParser.LoadGuiElement(useMozJpeg);
 
             // Video
-            Config.LoadGuiElement(crf);
-            Config.LoadGuiElement(h265);
-            Config.LoadGuiElement(gifskiQ);
-            Config.LoadGuiElement(vidEnableAudio);
+            ConfigParser.LoadGuiElement(crf);
+            ConfigParser.LoadGuiElement(h265);
+            ConfigParser.LoadGuiElement(gifskiQ);
+            ConfigParser.LoadGuiElement(vidEnableAudio);
 
             // Debug
-            Config.LoadGuiElement(logIo);
-            Config.LoadGuiElement(logStatus);
-            Config.LoadComboxIndex(cmdDebugMode);
+            ConfigParser.LoadGuiElement(logIo);
+            ConfigParser.LoadGuiElement(logStatus);
+            ConfigParser.LoadComboxIndex(cmdDebugMode);
         }
 
         private async void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -108,52 +108,52 @@ namespace Cupscale.Forms
             Clamp();
 
             // General
-            Config.SaveGuiElement(modelPath);
-            Config.SaveGuiElement(alphaBgColor);
-            Config.SaveGuiElement(jpegExtension);
-            Config.SaveComboxIndex(previewFormat);
-            Config.SaveGuiElement(reloadImageBeforeUpscale);
-            Config.SaveComboxIndex(comparisonUseScaling);
-            Config.SaveGuiElement(modelSelectAutoExpand);
+            ConfigParser.SaveGuiElement(modelPath);
+            ConfigParser.SaveGuiElement(alphaBgColor);
+            ConfigParser.SaveGuiElement(jpegExtension);
+            ConfigParser.SaveComboxIndex(previewFormat);
+            ConfigParser.SaveGuiElement(reloadImageBeforeUpscale);
+            ConfigParser.SaveComboxIndex(comparisonUseScaling);
+            ConfigParser.SaveGuiElement(modelSelectAutoExpand);
 
             // ESRGAN Pytorch
-            Config.SaveComboxIndex(esrganPytorchPythonRuntime);
-            Config.SaveComboxIndex(esrganPytorchAlphaMode);
-            Config.SaveComboxIndex(esrganPytorchAlphaDepth);
-            Config.SaveComboxIndex(esrganPytorchSeamlessMode);
-            Config.SaveGuiElement(esrganPytorchGpuId);
-            Config.SaveGuiElement(esrganPytorchMultiGpu);
-            Config.SaveGuiElement(esrganPytorchCpu);
-            Config.SaveGuiElement(esrganPytorchFp16);
+            ConfigParser.SaveComboxIndex(esrganPytorchPythonRuntime);
+            ConfigParser.SaveComboxIndex(esrganPytorchAlphaMode);
+            ConfigParser.SaveComboxIndex(esrganPytorchAlphaDepth);
+            ConfigParser.SaveComboxIndex(esrganPytorchSeamlessMode);
+            ConfigParser.SaveGuiElement(esrganPytorchGpuId);
+            ConfigParser.SaveGuiElement(esrganPytorchMultiGpu);
+            ConfigParser.SaveGuiElement(esrganPytorchCpu);
+            ConfigParser.SaveGuiElement(esrganPytorchFp16);
 
             // ESRGAN NCNN
-            Config.SaveGuiElement(esrganNcnnTilesize);
-            Config.SaveGuiElement(esrganNcnnTta);
-            Config.SaveGuiElement(esrganNcnnGpu);
+            ConfigParser.SaveGuiElement(esrganNcnnTilesize);
+            ConfigParser.SaveGuiElement(esrganNcnnTta);
+            ConfigParser.SaveGuiElement(esrganNcnnGpu);
 
             // RealESRGAN NCNN
-            Config.SaveGuiElement(realEsrganNcnnTilesize);
-            Config.SaveGuiElement(realEsrganNcnnTta);
-            Config.SaveGuiElement(realEsrganNcnnGpus);
+            ConfigParser.SaveGuiElement(realEsrganNcnnTilesize);
+            ConfigParser.SaveGuiElement(realEsrganNcnnTta);
+            ConfigParser.SaveGuiElement(realEsrganNcnnGpus);
 
             // Formats
-            Config.SaveGuiElement(jpegQ, true);
-            Config.SaveGuiElement(webpQ, true);
-            Config.SaveGuiElement(dxtMode);
-            Config.SaveGuiElement(ddsEnableMips);
-            Config.SaveGuiElement(flipTga);
-            Config.SaveGuiElement(useMozJpeg);
+            ConfigParser.SaveGuiElement(jpegQ, ConfigParser.StringMode.Int);
+            ConfigParser.SaveGuiElement(webpQ, ConfigParser.StringMode.Int);
+            ConfigParser.SaveGuiElement(dxtMode);
+            ConfigParser.SaveGuiElement(ddsEnableMips);
+            ConfigParser.SaveGuiElement(flipTga);
+            ConfigParser.SaveGuiElement(useMozJpeg);
             // Video
 
-            Config.SaveGuiElement(crf);
-            Config.SaveGuiElement(h265);
-            Config.SaveGuiElement(gifskiQ);
-            Config.SaveGuiElement(vidEnableAudio);
+            ConfigParser.SaveGuiElement(crf);
+            ConfigParser.SaveGuiElement(h265);
+            ConfigParser.SaveGuiElement(gifskiQ);
+            ConfigParser.SaveGuiElement(vidEnableAudio);
 
             // Debug
-            Config.SaveGuiElement(logIo);
-            Config.SaveGuiElement(logStatus);
-            Config.SaveComboxIndex(cmdDebugMode);
+            ConfigParser.SaveGuiElement(logIo);
+            ConfigParser.SaveGuiElement(logStatus);
+            ConfigParser.SaveComboxIndex(cmdDebugMode);
         }
 
         void Clamp ()
@@ -190,39 +190,6 @@ namespace Cupscale.Forms
                 modelPath.Text = folderDialog.FileName;
         }
 
-        private async void reinstallOverwriteBtn_Click(object sender, EventArgs e)
-        {
-            await Installer.Install();
-            BringToFront();
-        }
-
-        private async void reinstallCleanBtn_Click(object sender, EventArgs e)
-        {
-            Installer.Uninstall(false);
-            await Installer.Install();
-            BringToFront();
-        }
-
-        private void uninstallResBtn_Click(object sender, EventArgs e)
-        {
-            Installer.Uninstall(false);
-            Program.ShowMessage("Uninstalled resources.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.\n" +
-                "However, your settings file was not deleted.", "Message");
-            Logger.disable = true;
-            Config.disable = true;
-            Program.Quit();
-        }
-
-        private void uninstallFullBtn_Click(object sender, EventArgs e)
-        {
-            Close();
-            Installer.Uninstall(true);
-            Program.ShowMessage("Uninstalled all files.\nYou can now delete Cupscale.exe if you want to completely remove it from your PC.", "Message");
-            Logger.disable = true;
-            Config.disable = true;
-            Program.Quit();
-        }
-
         private void installPyBtn_Click(object sender, EventArgs e)
         {
             new DependencyCheckerForm().ShowDialog();
@@ -240,7 +207,7 @@ namespace Cupscale.Forms
                 uninstallPyBtn.Enabled = false;
 
                 Config.Set("esrganPytorchPythonRuntime", "0");
-                Config.LoadComboxIndex(esrganPytorchPythonRuntime);
+                ConfigParser.LoadComboxIndex(esrganPytorchPythonRuntime);
             }
             catch (Exception ex)
             {

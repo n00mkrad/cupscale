@@ -2,6 +2,7 @@ using Cupscale.ImageUtils;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security;
@@ -48,6 +49,39 @@ namespace Cupscale.UI
 			return combobox.Text.GetInt();
 		}
 
+		public static bool GetBool(this string str)
+		{
+			try
+			{
+				return bool.Parse(str);
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		public static float GetFloat(this TextBox textbox)
+		{
+			return GetFloat(textbox.Text);
+		}
+
+		public static float GetFloat(this ComboBox combobox)
+		{
+			return GetFloat(combobox.Text);
+		}
+
+		public static float GetFloat(this string str)
+		{
+			if (str.Length < 1 || str == null)
+				return 0f;
+
+			string num = str.TrimNumbers(true).Replace(",", ".");
+			float value;
+			float.TryParse(num, NumberStyles.Any, CultureInfo.InvariantCulture, out value);
+			return value;
+		}
+
 		public static string GetParentDir (this string path)
         {
 			return Directory.GetParent(path).FullName;
@@ -66,6 +100,14 @@ namespace Cupscale.UI
 		public static string ToStringTitleCase(this Enum en)
 		{
 			return en.ToString().TitleCase();
+		}
+
+		public static string ToStringDot(this float f, string format = "")
+		{
+			if (string.IsNullOrWhiteSpace(format))
+				return f.ToString().Replace(",", ".");
+			else
+				return f.ToString(format).Replace(",", ".");
 		}
 
 		public static string Wrap (this string path, bool addSpaceFront = false, bool addSpaceEnd = false)

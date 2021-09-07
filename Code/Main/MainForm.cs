@@ -34,6 +34,8 @@ namespace Cupscale.Main
 			BatchUpscaleUI.Init(batchOutDir, batchFileList, batchDirLabel);
 			VideoUpscaleUI.Init(videoOutDir, videoLogBox, videoPathLabel, videoOutputFormat);
 			Program.mainForm = this;
+
+
 			WindowState = FormWindowState.Maximized;
 		}
 
@@ -140,14 +142,14 @@ namespace Cupscale.Main
 			foreach (Implementations.Implementation imp in Implementations.Imps.impList)
 				aiSelect.Items.Add(imp.name);
 
-			Config.LoadComboxIndex(aiSelect);
+			ConfigParser.LoadComboxIndex(aiSelect);
 		}
 
 		void LoadLastUsedModels ()
         {
 			string mdl1 = Config.Get("lastMdl1");
 
-            if (File.Exists(mdl1) || (mdl1.EndsWith(".ncnn") && Directory.Exists(mdl1)))
+            if (mdl1 != null && (File.Exists(mdl1) || (mdl1.EndsWith(".ncnn") && Directory.Exists(mdl1))))
             {
 				Program.currentModel1 = mdl1;
 				model1TreeBtn.Text = Path.GetFileNameWithoutExtension(Program.currentModel1);
@@ -155,7 +157,7 @@ namespace Cupscale.Main
 
 			string mdl2 = Config.Get("lastMdl2");
 
-			if (File.Exists(mdl2) || (mdl2.EndsWith(".ncnn") && Directory.Exists(mdl2)))
+			if (mdl2 != null && (File.Exists(mdl2) || (mdl2.EndsWith(".ncnn") && Directory.Exists(mdl2))))
 			{
 				Program.currentModel2 = mdl2;
 				model2TreeBtn.Text = Path.GetFileNameWithoutExtension(Program.currentModel2);
@@ -730,14 +732,14 @@ namespace Cupscale.Main
 		public void SaveEsrganOptions ()
         {
 			if (!initialized) return;
-			Config.SaveGuiElement(alpha);
-			Config.SaveComboxIndex(seamlessMode);
+			ConfigParser.SaveGuiElement(alpha);
+			ConfigParser.SaveComboxIndex(seamlessMode);
 		}
 
 		public void LoadEsrganOptions ()
         {
-			Config.LoadGuiElement(alpha);
-			Config.LoadComboxIndex(seamlessMode);
+			ConfigParser.LoadGuiElement(alpha);
+			ConfigParser.LoadComboxIndex(seamlessMode);
 		}
 
         private void tilesize_SelectedIndexChanged(object sender, EventArgs e)
@@ -865,7 +867,7 @@ namespace Cupscale.Main
         private void aiSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
 			Upscale.currentAi = Implementations.Imps.impList[aiSelect.SelectedIndex];
-			Config.SaveComboxIndex(aiSelect);
+			ConfigParser.SaveComboxIndex(aiSelect);
 
 			mdlPanel.Enabled = Upscale.currentAi.supportsModels;
 			seamlessMode.Enabled = Upscale.currentAi == Implementations.Imps.esrganPytorch;

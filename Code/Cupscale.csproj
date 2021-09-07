@@ -43,6 +43,7 @@
     <PackageReference Include="HTAlt.WinForms" Version="0.1.6" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.23.1" />
     <PackageReference Include="MozJpegSharp" Version="1.0.27" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NvAPIWrapper.Net" Version="0.8.1.101" />
   </ItemGroup>
   <ItemGroup>
