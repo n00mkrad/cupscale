@@ -74,9 +74,6 @@ namespace Cupscale.Forms
             }
 
             await Task.Delay(10);
-
-            NvApi.gpuList.Add(NvApi.gpuList.First());
-
             SetChecking(nvGpu);
 
             if (NvApi.gpuList.Count > 0)
