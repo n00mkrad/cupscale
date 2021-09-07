@@ -64,10 +64,17 @@ namespace Cupscale
             Config.Init();
             Logger.Init();
             Paths.Init();
+            AddBinsToPath();
             Implementations.Imps.Init();
             ResourceLimits.Memory = (ulong)Math.Round(ResourceLimits.Memory * 1.5f);
             Cleanup();
             Application.Run(new MainForm());
+        }
+
+        private static void AddBinsToPath ()
+        {
+            string path = Environment.GetEnvironmentVariable("PATH");
+            Environment.SetEnvironmentVariable($"PATH", path + $";{Paths.binPath}");
         }
 
         public static void Cancel (string reason = "", bool cleanup = true)

@@ -72,7 +72,7 @@ namespace Cupscale.Cupscale
         }
 
         public static string lastOutfile;
-
+        
         public static async Task ProcessQueue ()
         {
             Stopwatch sw = new Stopwatch();
