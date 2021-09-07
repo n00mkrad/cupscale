@@ -30,6 +30,13 @@
         {
             this.tabList1 = new Cyotek.Windows.Forms.TabList();
             this.tabListPage1 = new Cyotek.Windows.Forms.TabListPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.ncnnUpscaling = new System.Windows.Forms.Label();
+            this.cudaUpscaling = new System.Windows.Forms.Label();
+            this.cpuUpscaling = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.gpu = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cv2 = new System.Windows.Forms.Label();
@@ -48,13 +55,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.installBtn = new HTAlt.WinForms.HTButton();
             this.label3 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.ncnnUpscaling = new System.Windows.Forms.Label();
-            this.cudaUpscaling = new System.Windows.Forms.Label();
-            this.cpuUpscaling = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.tabList1.SuspendLayout();
             this.tabListPage1.SuspendLayout();
             this.tabListPage2.SuspendLayout();
@@ -97,6 +97,90 @@
             this.tabListPage1.Size = new System.Drawing.Size(556, 448);
             this.tabListPage1.Text = "Dependency Status";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(6, 348);
+            this.label7.Margin = new System.Windows.Forms.Padding(6);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(120, 20);
+            this.label7.TabIndex = 44;
+            this.label7.Text = "CPU Upscaling:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(6, 412);
+            this.label10.Margin = new System.Windows.Forms.Padding(6);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(184, 20);
+            this.label10.TabIndex = 43;
+            this.label10.Text = "NCNN/Vulkan Upscaling:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(6, 380);
+            this.label11.Margin = new System.Windows.Forms.Padding(6);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(179, 20);
+            this.label11.TabIndex = 42;
+            this.label11.Text = "Nvidia CUDA Upscaling:";
+            // 
+            // ncnnUpscaling
+            // 
+            this.ncnnUpscaling.AutoSize = true;
+            this.ncnnUpscaling.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ncnnUpscaling.ForeColor = System.Drawing.Color.Silver;
+            this.ncnnUpscaling.Location = new System.Drawing.Point(287, 412);
+            this.ncnnUpscaling.Margin = new System.Windows.Forms.Padding(6);
+            this.ncnnUpscaling.Name = "ncnnUpscaling";
+            this.ncnnUpscaling.Size = new System.Drawing.Size(98, 20);
+            this.ncnnUpscaling.TabIndex = 41;
+            this.ncnnUpscaling.Text = "Checking...";
+            // 
+            // cudaUpscaling
+            // 
+            this.cudaUpscaling.AutoSize = true;
+            this.cudaUpscaling.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cudaUpscaling.ForeColor = System.Drawing.Color.Silver;
+            this.cudaUpscaling.Location = new System.Drawing.Point(287, 380);
+            this.cudaUpscaling.Margin = new System.Windows.Forms.Padding(6);
+            this.cudaUpscaling.Name = "cudaUpscaling";
+            this.cudaUpscaling.Size = new System.Drawing.Size(98, 20);
+            this.cudaUpscaling.TabIndex = 40;
+            this.cudaUpscaling.Text = "Checking...";
+            // 
+            // cpuUpscaling
+            // 
+            this.cpuUpscaling.AutoSize = true;
+            this.cpuUpscaling.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cpuUpscaling.ForeColor = System.Drawing.Color.Silver;
+            this.cpuUpscaling.Location = new System.Drawing.Point(287, 348);
+            this.cpuUpscaling.Margin = new System.Windows.Forms.Padding(6);
+            this.cpuUpscaling.Name = "cpuUpscaling";
+            this.cpuUpscaling.Size = new System.Drawing.Size(98, 20);
+            this.cpuUpscaling.TabIndex = 39;
+            this.cpuUpscaling.Text = "Checking...";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(6, 312);
+            this.label9.Margin = new System.Windows.Forms.Padding(6);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(106, 20);
+            this.label9.TabIndex = 35;
+            this.label9.Text = "Your Options:";
+            // 
             // gpu
             // 
             this.gpu.AutoSize = true;
@@ -105,7 +189,7 @@
             this.gpu.Location = new System.Drawing.Point(287, 80);
             this.gpu.Margin = new System.Windows.Forms.Padding(6);
             this.gpu.Name = "gpu";
-            this.gpu.Size = new System.Drawing.Size(116, 24);
+            this.gpu.Size = new System.Drawing.Size(98, 20);
             this.gpu.TabIndex = 33;
             this.gpu.Text = "Checking...";
             // 
@@ -117,7 +201,7 @@
             this.label5.Location = new System.Drawing.Point(6, 80);
             this.label5.Margin = new System.Windows.Forms.Padding(6);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(54, 24);
+            this.label5.Size = new System.Drawing.Size(48, 20);
             this.label5.TabIndex = 32;
             this.label5.Text = "GPU:";
             // 
@@ -129,7 +213,7 @@
             this.cv2.Location = new System.Drawing.Point(287, 240);
             this.cv2.Margin = new System.Windows.Forms.Padding(6);
             this.cv2.Name = "cv2";
-            this.cv2.Size = new System.Drawing.Size(116, 24);
+            this.cv2.Size = new System.Drawing.Size(98, 20);
             this.cv2.TabIndex = 29;
             this.cv2.Text = "Checking...";
             // 
@@ -141,7 +225,7 @@
             this.label2.Location = new System.Drawing.Point(6, 240);
             this.label2.Margin = new System.Windows.Forms.Padding(6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(162, 24);
+            this.label2.Size = new System.Drawing.Size(135, 20);
             this.label2.TabIndex = 28;
             this.label2.Text = "[Python] OpenCV:";
             // 
@@ -152,7 +236,7 @@
             this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(3, 4);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(134, 24);
+            this.label8.Size = new System.Drawing.Size(112, 20);
             this.label8.TabIndex = 2;
             this.label8.Text = "Dependencies";
             this.label8.VisibleChanged += new System.EventHandler(this.label8_VisibleChanged);
@@ -165,7 +249,7 @@
             this.torch.Location = new System.Drawing.Point(287, 208);
             this.torch.Margin = new System.Windows.Forms.Padding(6);
             this.torch.Name = "torch";
-            this.torch.Size = new System.Drawing.Size(116, 24);
+            this.torch.Size = new System.Drawing.Size(98, 20);
             this.torch.TabIndex = 27;
             this.torch.Text = "Checking...";
             // 
@@ -177,7 +261,7 @@
             this.label6.Location = new System.Drawing.Point(6, 208);
             this.label6.Margin = new System.Windows.Forms.Padding(6);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(138, 24);
+            this.label6.Size = new System.Drawing.Size(114, 20);
             this.label6.TabIndex = 26;
             this.label6.Text = "[Python] Torch:";
             // 
@@ -189,7 +273,7 @@
             this.embedPython.Location = new System.Drawing.Point(287, 176);
             this.embedPython.Margin = new System.Windows.Forms.Padding(6);
             this.embedPython.Name = "embedPython";
-            this.embedPython.Size = new System.Drawing.Size(116, 24);
+            this.embedPython.Size = new System.Drawing.Size(98, 20);
             this.embedPython.TabIndex = 25;
             this.embedPython.Text = "Checking...";
             // 
@@ -201,7 +285,7 @@
             this.label4.Location = new System.Drawing.Point(6, 176);
             this.label4.Margin = new System.Windows.Forms.Padding(6);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(173, 24);
+            this.label4.Size = new System.Drawing.Size(144, 20);
             this.label4.TabIndex = 24;
             this.label4.Text = "Embedded Python:";
             // 
@@ -213,7 +297,7 @@
             this.sysPython.Location = new System.Drawing.Point(287, 144);
             this.sysPython.Margin = new System.Windows.Forms.Padding(6);
             this.sysPython.Name = "sysPython";
-            this.sysPython.Size = new System.Drawing.Size(116, 24);
+            this.sysPython.Size = new System.Drawing.Size(98, 20);
             this.sysPython.TabIndex = 23;
             this.sysPython.Text = "Checking...";
             // 
@@ -225,7 +309,7 @@
             this.nvGpu.Location = new System.Drawing.Point(287, 112);
             this.nvGpu.Margin = new System.Windows.Forms.Padding(6);
             this.nvGpu.Name = "nvGpu";
-            this.nvGpu.Size = new System.Drawing.Size(116, 24);
+            this.nvGpu.Size = new System.Drawing.Size(98, 20);
             this.nvGpu.TabIndex = 22;
             this.nvGpu.Text = "Checking...";
             // 
@@ -237,7 +321,7 @@
             this.label1.Location = new System.Drawing.Point(6, 144);
             this.label1.Margin = new System.Windows.Forms.Padding(6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 24);
+            this.label1.Size = new System.Drawing.Size(119, 20);
             this.label1.TabIndex = 21;
             this.label1.Text = "System Python:";
             // 
@@ -249,7 +333,7 @@
             this.label14.Location = new System.Drawing.Point(6, 112);
             this.label14.Margin = new System.Windows.Forms.Padding(6);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(111, 24);
+            this.label14.Size = new System.Drawing.Size(94, 20);
             this.label14.TabIndex = 20;
             this.label14.Text = "Nvidia GPU:";
             // 
@@ -260,7 +344,7 @@
             this.tabListPage2.Controls.Add(this.installBtn);
             this.tabListPage2.Controls.Add(this.label3);
             this.tabListPage2.Name = "tabListPage2";
-            this.tabListPage2.Size = new System.Drawing.Size(556, 443);
+            this.tabListPage2.Size = new System.Drawing.Size(556, 448);
             this.tabListPage2.Text = "Embedded Python Installer";
             // 
             // installerLogBox
@@ -293,7 +377,7 @@
             this.installBtn.FlatAppearance.BorderSize = 0;
             this.installBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.installBtn.ForeColor = System.Drawing.Color.White;
-            this.installBtn.Location = new System.Drawing.Point(348, 71);
+            this.installBtn.Location = new System.Drawing.Point(348, 76);
             this.installBtn.Name = "installBtn";
             this.installBtn.Size = new System.Drawing.Size(200, 30);
             this.installBtn.TabIndex = 32;
@@ -308,97 +392,12 @@
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(3, 4);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(219, 24);
+            this.label3.Size = new System.Drawing.Size(186, 20);
             this.label3.TabIndex = 3;
             this.label3.Text = "Install Embedded Python";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(6, 312);
-            this.label9.Margin = new System.Windows.Forms.Padding(6);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(125, 24);
-            this.label9.TabIndex = 35;
-            this.label9.Text = "Your Options:";
-            // 
-            // ncnnUpscaling
-            // 
-            this.ncnnUpscaling.AutoSize = true;
-            this.ncnnUpscaling.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ncnnUpscaling.ForeColor = System.Drawing.Color.Silver;
-            this.ncnnUpscaling.Location = new System.Drawing.Point(287, 412);
-            this.ncnnUpscaling.Margin = new System.Windows.Forms.Padding(6);
-            this.ncnnUpscaling.Name = "ncnnUpscaling";
-            this.ncnnUpscaling.Size = new System.Drawing.Size(116, 24);
-            this.ncnnUpscaling.TabIndex = 41;
-            this.ncnnUpscaling.Text = "Checking...";
-            // 
-            // cudaUpscaling
-            // 
-            this.cudaUpscaling.AutoSize = true;
-            this.cudaUpscaling.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cudaUpscaling.ForeColor = System.Drawing.Color.Silver;
-            this.cudaUpscaling.Location = new System.Drawing.Point(287, 380);
-            this.cudaUpscaling.Margin = new System.Windows.Forms.Padding(6);
-            this.cudaUpscaling.Name = "cudaUpscaling";
-            this.cudaUpscaling.Size = new System.Drawing.Size(116, 24);
-            this.cudaUpscaling.TabIndex = 40;
-            this.cudaUpscaling.Text = "Checking...";
-            // 
-            // cpuUpscaling
-            // 
-            this.cpuUpscaling.AutoSize = true;
-            this.cpuUpscaling.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cpuUpscaling.ForeColor = System.Drawing.Color.Silver;
-            this.cpuUpscaling.Location = new System.Drawing.Point(287, 348);
-            this.cpuUpscaling.Margin = new System.Windows.Forms.Padding(6);
-            this.cpuUpscaling.Name = "cpuUpscaling";
-            this.cpuUpscaling.Size = new System.Drawing.Size(116, 24);
-            this.cpuUpscaling.TabIndex = 39;
-            this.cpuUpscaling.Text = "Checking...";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(6, 348);
-            this.label7.Margin = new System.Windows.Forms.Padding(6);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(141, 24);
-            this.label7.TabIndex = 44;
-            this.label7.Text = "CPU Upscaling:";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(6, 412);
-            this.label10.Margin = new System.Windows.Forms.Padding(6);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(221, 24);
-            this.label10.TabIndex = 43;
-            this.label10.Text = "NCNN/Vulkan Upscaling:";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(6, 380);
-            this.label11.Margin = new System.Windows.Forms.Padding(6);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(212, 24);
-            this.label11.TabIndex = 42;
-            this.label11.Text = "Nvidia CUDA Upscaling:";
-            // 
             // DependencyCheckerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(714, 456);

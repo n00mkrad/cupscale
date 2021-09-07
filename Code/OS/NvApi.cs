@@ -14,8 +14,6 @@ namespace Cupscale.OS
     {
         public enum Architecture { Undetected, Fermi, Kepler, Maxwell, Pascal, Turing, Ampere };
         public static List<PhysicalGPU> gpuList = new List<PhysicalGPU>();
-        private Dictionary<PhysicalGPU, float> vramTotal = new Dictionary<PhysicalGPU, float>();
-        private Dictionary<PhysicalGPU, float> vramAvail = new Dictionary<PhysicalGPU, float>();
 
         public static async void Init ()
         {
@@ -103,12 +101,13 @@ namespace Cupscale.OS
             Program.mainForm.SetVramLabel(string.Join(" - ", gpusWithVram), Color.White);
         }
 
-        public static string GetGpuName ()
+        public static string GetFirstGpuName ()
         {
             try
             {
                 NVIDIA.Initialize();
                 PhysicalGPU[] gpus = PhysicalGPU.GetPhysicalGPUs();
+
                 if (gpus.Length == 0)
                     return "";
 

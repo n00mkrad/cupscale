@@ -94,14 +94,30 @@ namespace Cupscale.Main
 
 			initialized = true;
 			BusyCheckLoop();
-			Task.Run(() => AsyncChecks());
+			Task.Run(() => LoadPatronsAsync());
+			Task.Run(() => CheckDependenciesAsync());
 		}
 
-		async Task AsyncChecks()
+		async Task LoadPatronsAsync()
 		{
 			await LoadPatronListCsv(previewImg);
 			previewImg.Text = "Drag And Drop An Image Or A Folder Into This Area.\n\n\n\n\n\nThanks to the following patrons for " +
 				"supporting my projects:\n\n" + previewImg.Text;
+		}
+
+		async Task CheckDependenciesAsync()
+		{
+			bool hasAnyPy = Dependencies.SysPyAvail() || Dependencies.EmbedPyAvail();
+			bool hasNvGpu = NvApi.gpuList.Count > 0; 
+
+            if (!hasAnyPy && hasNvGpu)
+            {
+				DialogResult dialog = MessageBox.Show("You have no Python runtime installed, which is required for CUDA-based upscaling! " +
+					"Download it now?", "No Python Runtime Found", MessageBoxButtons.YesNo);
+
+				bool yes = dialog == DialogResult.Yes;
+				new DependencyCheckerForm(yes, yes).ShowDialog();
+			}
 		}
 
 		public async void BusyCheckLoop ()

@@ -1,4 +1,5 @@
-﻿using Cupscale.OS;
+﻿using Cupscale.Main;
+using Cupscale.OS;
 using Cupscale.UI;
 using System;
 using System.Collections.Generic;
@@ -26,12 +27,15 @@ namespace Cupscale.Forms
         bool torchAvail;
         bool cv2Avail;
 
-        public DependencyCheckerForm(bool openInstaller = false)
+        public DependencyCheckerForm(bool openPyInstaller = false, bool startPyInstall = false)
         {
             InitializeComponent();
 
-            if (openInstaller)
+            if (openPyInstaller)
                 tabList1.SelectedIndex = 1;
+
+            if (openPyInstaller && startPyInstall)
+                installBtn_Click(null, null);
         }
 
         private async void DependencyCheckerForm_Load(object sender, EventArgs e)
@@ -59,7 +63,7 @@ namespace Cupscale.Forms
 
             SetChecking(gpu);
 
-            if (HasGpu())
+            if (Dependencies.HasGpu())
             {
                 SetGreen(gpu, "Available");
                 gpuAvail = true;
@@ -71,13 +75,19 @@ namespace Cupscale.Forms
 
             await Task.Delay(10);
 
-            SetChecking(nvGpu);
-            string nvGpuName = NvApi.GetGpuName().Replace("GeForce ", "");
-            Logger.Log("[DepCheck] GPU Name: " + nvGpuName);
+            NvApi.gpuList.Add(NvApi.gpuList.First());
 
-            if (!string.IsNullOrWhiteSpace(nvGpuName))
+            SetChecking(nvGpu);
+
+            if (NvApi.gpuList.Count > 0)
             {
-                SetGreen(nvGpu, nvGpuName);
+                string gpuText = NvApi.GetFirstGpuName().Replace("NVIDIA ", "").Replace("AMD ", "").Replace("GeForce ", "");
+                Logger.Log("[DepCheck] First GPU Name: " + gpuText);
+
+                if (NvApi.gpuList.Count > 1)
+                    gpuText = $"{gpuText} + {NvApi.gpuList.Count - 1}";
+
+                SetGreen(nvGpu, gpuText);
                 nvGpuAvail = true;
             }
             else
@@ -88,7 +98,7 @@ namespace Cupscale.Forms
             await Task.Delay(10);
 
             SetChecking(sysPython);
-            string sysPyVer = GetSysPyVersion();
+            string sysPyVer = Dependencies.GetSysPyVersion();
 
             if (!string.IsNullOrWhiteSpace(sysPyVer) && !sysPyVer.ToLower().Contains("not found") && sysPyVer.Length <= 35)
             {
@@ -103,7 +113,7 @@ namespace Cupscale.Forms
             await Task.Delay(10);
 
             SetChecking(embedPython);
-            string embedPyVer = GetEmbedPyVersion();
+            string embedPyVer = Dependencies.GetEmbedPyVersion();
 
             if (!string.IsNullOrWhiteSpace(embedPyVer) && !embedPyVer.ToLower().Contains("not found") && embedPyVer.Length <= 35)
             {
@@ -124,7 +134,7 @@ namespace Cupscale.Forms
             await Task.Delay(10);
 
             SetChecking(torch);
-            string torchVer = GetPytorchVer();
+            string torchVer = Dependencies.GetPytorchVer();
 
             if (!string.IsNullOrWhiteSpace(torchVer) && torchVer.Length <= 35)
             {
@@ -139,7 +149,7 @@ namespace Cupscale.Forms
             await Task.Delay(10);
 
             SetChecking(cv2);
-            string cv2Ver = GetOpenCvVer();
+            string cv2Ver = Dependencies.GetOpenCvVer();
 
             if (!string.IsNullOrWhiteSpace(cv2Ver) && !cv2Ver.ToLower().Contains("ModuleNotFoundError") && cv2Ver.Length <= 35)
             {
@@ -202,128 +212,6 @@ namespace Cupscale.Forms
         {
             l.Text = t;
             l.ForeColor = Color.Gray;
-        }
-
-        bool HasGpu ()
-        {
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DisplayConfiguration");
-
-            string graphicsCard = string.Empty;
-            foreach (ManagementObject mo in searcher.Get())
-            {
-                foreach (PropertyData property in mo.Properties)
-                {
-                    if (property.Name == "Description")
-                    {
-                        graphicsCard = property.Value.ToString();
-                        if (string.IsNullOrWhiteSpace(graphicsCard) || graphicsCard.ToLower().Contains("microsoft"))
-                            return false;
-                        Logger.Log("[DepCheck] Found GPU: " + graphicsCard);
-                        return true;
-                    }
-                }
-            }
-            Logger.Log("[DepCheck] No GPU found!");
-            return false;
-        }
-
-        string GetSysPyVersion ()
-        {
-            string pythonOut = GetSysPythonOutput();
-            Logger.Log("[DepCheck] System Python Check Output: " + pythonOut.Trim());
-            try
-            {
-                string ver = pythonOut.Split('(')[0].Trim();
-                Logger.Log("[DepCheck] Sys Python Ver: " + ver);
-                return ver;
-            }
-            catch
-            {
-                return "";
-            }
-        }
-
-        string GetEmbedPyVersion()
-        {
-            string pythonOut = GetEmbedPythonOutput();
-            Logger.Log("[DepCheck] Embed Python Check Output: " + pythonOut.Trim());
-            try
-            {
-                string ver = pythonOut.Split('(')[0].Trim();
-                Logger.Log("[DepCheck] Embed Python Ver: " + ver);
-                return ver;
-            }
-            catch
-            {
-                return "";
-            }
-        }
-
-        string GetSysPythonOutput ()
-        {
-            Process py = OsUtils.NewProcess(true);
-            py.StartInfo.Arguments = "/C python -V";
-            Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
-            py.Start();
-            py.WaitForExit();
-            string output = py.StandardOutput.ReadToEnd();
-            string err = py.StandardError.ReadToEnd();
-            return output + "\n" + err;
-        }
-
-        string GetEmbedPythonOutput ()
-        {
-            Process py = OsUtils.NewProcess(true);
-            py.StartInfo.Arguments = "/C " + EmbeddedPython.GetEmbedPyPath().Wrap() + " -V";
-            Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
-            py.Start();
-            py.WaitForExit();
-            string output = py.StandardOutput.ReadToEnd();
-            string err = py.StandardError.ReadToEnd();
-            if (!string.IsNullOrWhiteSpace(err)) output += "\n" + err;
-            return output;
-        }
-
-        string GetPytorchVer ()
-        {
-            try
-            {
-                Process py = OsUtils.NewProcess(true);
-                py.StartInfo.Arguments = "\"/C\" " + EmbeddedPython.GetPyCmd() + " -c \"import torch; print(torch.__version__)\"";
-                Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
-                py.Start();
-                py.WaitForExit();
-                string output = py.StandardOutput.ReadToEnd();
-                string err = py.StandardError.ReadToEnd();
-                if (!string.IsNullOrWhiteSpace(err)) output += "\n" + err;
-                Logger.Log("[DepCheck] Pytorch Check Output: " + output.Trim());
-                return output;
-            }
-            catch
-            {
-                return "";
-            }
-        }
-
-        string GetOpenCvVer()
-        {
-            try
-            {
-                Process py = OsUtils.NewProcess(true);
-                py.StartInfo.Arguments = "\"/C\" " + EmbeddedPython.GetPyCmd() + " -c \"import cv2; print(cv2.__version__)\"";
-                Logger.Log("[DepCheck] CMD: " + py.StartInfo.Arguments);
-                py.Start();
-                py.WaitForExit();
-                string output = py.StandardOutput.ReadToEnd();
-                string err = py.StandardError.ReadToEnd();
-                if(!string.IsNullOrWhiteSpace(err)) output += "\n" + err;
-                Logger.Log("[DepCheck] CV2 Check Output: " + output.Trim());
-                return output;
-            }
-            catch
-            {
-                return "";
-            }
         }
 
         private async void label8_VisibleChanged(object sender, EventArgs e)
