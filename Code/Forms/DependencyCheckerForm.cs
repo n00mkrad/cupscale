@@ -29,6 +29,7 @@ namespace Cupscale.Forms
         public DependencyCheckerForm(bool openInstaller = false)
         {
             InitializeComponent();
+
             if (openInstaller)
                 tabList1.SelectedIndex = 1;
         }
@@ -57,6 +58,7 @@ namespace Cupscale.Forms
             cv2Avail = false;
 
             SetChecking(gpu);
+
             if (HasGpu())
             {
                 SetGreen(gpu, "Available");
@@ -72,6 +74,7 @@ namespace Cupscale.Forms
             SetChecking(nvGpu);
             string nvGpuName = NvApi.GetGpuName().Replace("GeForce ", "");
             Logger.Log("[DepCheck] GPU Name: " + nvGpuName);
+
             if (!string.IsNullOrWhiteSpace(nvGpuName))
             {
                 SetGreen(nvGpu, nvGpuName);
@@ -86,6 +89,7 @@ namespace Cupscale.Forms
 
             SetChecking(sysPython);
             string sysPyVer = GetSysPyVersion();
+
             if (!string.IsNullOrWhiteSpace(sysPyVer) && !sysPyVer.ToLower().Contains("not found") && sysPyVer.Length <= 35)
             {
                 SetGreen(sysPython, sysPyVer);
@@ -100,6 +104,7 @@ namespace Cupscale.Forms
 
             SetChecking(embedPython);
             string embedPyVer = GetEmbedPyVersion();
+
             if (!string.IsNullOrWhiteSpace(embedPyVer) && !embedPyVer.ToLower().Contains("not found") && embedPyVer.Length <= 35)
             {
                 SetGreen(embedPython, embedPyVer);
@@ -110,10 +115,17 @@ namespace Cupscale.Forms
                 SetRed(embedPython);
             }
 
+            if (!sysPyAvail && embedPyAvail)
+                SetGrey(sysPython, "Not Needed");
+
+            if (!embedPyAvail&& sysPyAvail)
+                SetGrey(embedPython, "Not Needed");
+
             await Task.Delay(10);
 
             SetChecking(torch);
             string torchVer = GetPytorchVer();
+
             if (!string.IsNullOrWhiteSpace(torchVer) && torchVer.Length <= 35)
             {
                 SetGreen(torch, torchVer);
@@ -128,6 +140,7 @@ namespace Cupscale.Forms
 
             SetChecking(cv2);
             string cv2Ver = GetOpenCvVer();
+
             if (!string.IsNullOrWhiteSpace(cv2Ver) && !cv2Ver.ToLower().Contains("ModuleNotFoundError") && cv2Ver.Length <= 35)
             {
                 SetGreen(cv2, cv2Ver);
@@ -149,6 +162,7 @@ namespace Cupscale.Forms
             if(hasAnyPy && hasPyDepends)
             {
                 SetGreen(cpuUpscaling, "Available");
+
                 if (nvGpuAvail)
                     SetGreen(cudaUpscaling, "Available");
                 else
@@ -182,6 +196,12 @@ namespace Cupscale.Forms
         {
             l.Text = t;
             l.ForeColor = Color.Red;
+        }
+
+        void SetGrey(Label l, string t = "Not Found")
+        {
+            l.Text = t;
+            l.ForeColor = Color.Gray;
         }
 
         bool HasGpu ()
@@ -310,6 +330,7 @@ namespace Cupscale.Forms
         {
             if (!label8.Visible)
                 return;
+
             await Task.Delay(100);
             await Refresh();
         }
