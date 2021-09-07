@@ -1,5 +1,6 @@
 ﻿using Cupscale.Forms;
 using Cupscale.IO;
+using Cupscale.Main;
 using Cupscale.UI;
 using System;
 using System.Collections.Generic;
@@ -93,7 +94,8 @@ namespace Cupscale.OS
             IoUtils.DeleteIfExists(downloadPath);
             await Task.Delay(10);
 
-            string url = NvApi.HasAmpereOrNewer() ? Paths.pythonAmpereUrl : Paths.pythonTuringUrl;
+            string srv = Servers.closestServer.GetUrl();
+            string url = Path.Combine(srv, NvApi.HasAmpereOrNewer() ? Paths.pythonAmperePath : Paths.pythonTuringPath).Replace("\\", "/");
             Logger.Log($"Downloading embedded Python from '{url}'");
 
             Print("Downloading compressed python runtime...");

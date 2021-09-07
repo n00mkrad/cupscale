@@ -19,8 +19,8 @@ namespace Cupscale.IO
 		public static string compositionOut;
 		public static string framesOutPath;
 
-		public static readonly string pythonTuringUrl = "https://dl.nmkd-hz.de/flowframes/setupfiles/py-tu/v1/py-tu.7z";
-		public static readonly string pythonAmpereUrl = "https://dl.nmkd-hz.de/flowframes/setupfiles/py-amp/v1/py-amp.7z";
+		public static readonly string pythonTuringPath = "flowframes/setupfiles/py-tu/v1/py-tu.7z";
+		public static readonly string pythonAmperePath = "flowframes/setupfiles/py-amp/v1/py-amp.7z";
 
 		public static readonly string ncnnMdlDir = ".ncnn-models";
 

@@ -95,6 +95,7 @@ namespace Cupscale.Main
 			initialized = true;
 			BusyCheckLoop();
 			Task.Run(() => LoadPatronsAsync());
+			Task.Run(() => Servers.Init());
 			Task.Run(() => CheckDependenciesAsync());
 		}
 
