@@ -53,7 +53,7 @@ namespace Cupscale.Main
             Logger.Log($"[Servers] Closest Server: {closest.Key[0]} ({closest.Value} ms)", true);
             closestServer = new Server { name = closest.Key[0], host = closest.Key[1], pattern = closest.Key[2] };
 
-            if(comboBox != null)
+            if (comboBox != null)
             {
                 for (int i = 0; i < comboBox.Items.Count; i++)
                 {
