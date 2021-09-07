@@ -351,26 +351,43 @@ namespace Cupscale.Main
 
 		async Task LoadImages (string [] files)
         {
-			Logger.Log("[MainUI] Dropped " + files.Length + " file(s), files[0] = " + files[0]);
+			Logger.Log($"[MainUI] Dropped {files.Length} file(s), first = {files[0]}");
 			IoUtils.ClearDir(Paths.tempImgPath.GetParentDir());
 			string path = files[0];
+
+            if (IoUtils.IsFileVideo(path))
+            {
+				DialogResult dialog = MessageBox.Show($"Do you want to load the first frame of the video into the preview?\n\n" +
+					$"If not, Cupscale will switch to the Video Upscaling tab.", "Load video as image?", MessageBoxButtons.YesNo);
+
+				if (dialog == DialogResult.No)
+                {
+					VideoUpscaleUI.LoadFile(files[0]);
+					htTabControl.SelectedIndex = 2;
+					return;
+				}
+			}
+
 			if (IoUtils.IsPathDirectory(path))
 			{
 				htTabControl.SelectedIndex = 1;
 				BatchUpscaleUI.LoadDir(path);
 				return;
 			}
+
 			if(files.Length > 1)
             {
 				htTabControl.SelectedIndex = 1;
 				BatchUpscaleUI.LoadImages(files);
 				return;
 			}
+
 			upscaleBtn.Text = "Upscale And Save";
 			htTabControl.SelectedIndex = 0;
 			previewImg.Text = "";
 			SetProgress(0f, "Loading image...");
 			PreviewUi.ResetCachedImages();
+
 			if (!PreviewUi.DroppedImageIsValid(path))
             {
 				SetProgress(0f, "Ready.");
@@ -378,6 +395,7 @@ namespace Cupscale.Main
 				Program.CloseTempForms();
 				return;
 			}
+
 			Program.lastImgPath = path;
 			ReloadImage(false);
 			if (failed) { FailReset(); return; }

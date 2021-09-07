@@ -570,5 +570,18 @@ namespace Cupscale
                 return false;
             }
         }
+
+        /// <summary>
+        /// Checks if a file seems to be a video based on its extensions
+        /// </summary>
+        public static bool IsFileVideo (string path)
+        {
+            string[] exts = new string[] { "mp4", "mkv", "mov", "webm", "avi", "m4v", "gif", "bik" };
+
+            if (exts.Contains(Path.GetExtension(path).Replace(".", "").ToLower()))
+                return true;
+
+            return false;
+        }
     }
 }
