@@ -233,25 +233,20 @@ namespace Cupscale
         public enum Type { String, Int, Float, Bool }
         private static string WriteDefaultValIfExists(string key, Type type)
         {
+            // General
             if (key == "modelPath") return WriteDefault(key, Paths.defaultModelPath);
-            if (key == "tilesize") return WriteDefault(key, "1024");
-            if (key == "alpha") return WriteDefault(key, "False");
-            if (key == "alphaMode") return WriteDefault(key, "1");
-            if (key == "alphaDepth") return WriteDefault(key, "0");
             if (key == "alphaBgColor") return WriteDefault(key, "000000FF");
             if (key == "jpegExtension") return WriteDefault(key, "jpg");
+            if (key == "alphaMode") return WriteDefault(key, "1");
+            if (key == "modelSelectAutoExpand") return WriteDefault(key, "True");
+            if (key == "startMaximized") return WriteDefault(key, "True");
+            // Image Format Settings
             if (key == "jpegQ") return WriteDefault(key, "95");
+            if (key == "useMozJpeg") return WriteDefault(key, "True");
             if (key == "webpQ") return WriteDefault(key, "95");
             if (key == "dxtMode") return WriteDefault(key, "BC1 (DXT1)");
             if (key == "ddsEnableMips") return WriteDefault(key, "True");
-            if (key == "gpuId") return WriteDefault(key, "0");
-            if (key == "reloadImageBeforeUpscale") return WriteDefault(key, "False");
-            if (key == "cmdDebug") return WriteDefault(key, "False");
             if (key == "flipTga") return WriteDefault(key, "True");
-            if (key == "logIo") return WriteDefault(key, "False");
-            if (key == "logStatus") return WriteDefault(key, "False");
-            if (key == "useMozJpeg") return WriteDefault(key, "True");
-            if (key == "modelSelectAutoExpand") return WriteDefault(key, "True");
             // ESRGAN Pytorch
             if (key == "esrganPytorchAlphaMode") return WriteDefault(key, "1");
             if (key == "esrganPytorchFp16") return WriteDefault(key, "True");

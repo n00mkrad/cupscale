@@ -163,6 +163,8 @@
             this.logTbox = new System.Windows.Forms.TextBox();
             this.alphaBgColorDialog = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.startMaximized = new System.Windows.Forms.CheckBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.tabList1.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -226,6 +228,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.startMaximized);
+            this.panel6.Controls.Add(this.label17);
             this.panel6.Controls.Add(this.modelSelectAutoExpand);
             this.panel6.Controls.Add(this.label35);
             this.panel6.Controls.Add(this.comparisonUseScaling);
@@ -1748,6 +1752,24 @@
             this.logTbox.TabIndex = 12;
             this.logTbox.VisibleChanged += new System.EventHandler(this.logTbox_VisibleChanged);
             // 
+            // startMaximized
+            // 
+            this.startMaximized.AutoSize = true;
+            this.startMaximized.Location = new System.Drawing.Point(220, 290);
+            this.startMaximized.Name = "startMaximized";
+            this.startMaximized.Size = new System.Drawing.Size(15, 14);
+            this.startMaximized.TabIndex = 26;
+            this.startMaximized.UseVisualStyleBackColor = true;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 290);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(145, 13);
+            this.label17.TabIndex = 25;
+            this.label17.Text = "Start In A Maximized Window";
+            // 
             // SettingsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1943,5 +1965,7 @@
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.Label label62;
         private System.Windows.Forms.TextBox realEsrganNcnnGpus;
+        private System.Windows.Forms.CheckBox startMaximized;
+        private System.Windows.Forms.Label label17;
     }
 }

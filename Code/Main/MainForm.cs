@@ -35,8 +35,8 @@ namespace Cupscale.Main
 			VideoUpscaleUI.Init(videoOutDir, videoLogBox, videoPathLabel, videoOutputFormat);
 			Program.mainForm = this;
 
-
-			WindowState = FormWindowState.Maximized;
+			if(Config.GetBool("startMaximized"))
+				WindowState = FormWindowState.Maximized;
 		}
 
 		private async void MainForm_Load(object sender, EventArgs e)

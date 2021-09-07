@@ -45,6 +45,7 @@ namespace Cupscale.Forms
             ConfigParser.LoadGuiElement(reloadImageBeforeUpscale);
             ConfigParser.LoadComboxIndex(comparisonUseScaling);
             ConfigParser.LoadGuiElement(modelSelectAutoExpand);
+            ConfigParser.LoadGuiElement(startMaximized);
 
             // ESRGAN Pytorch
             ConfigParser.LoadComboxIndex(esrganPytorchPythonRuntime);
@@ -115,6 +116,7 @@ namespace Cupscale.Forms
             ConfigParser.SaveGuiElement(reloadImageBeforeUpscale);
             ConfigParser.SaveComboxIndex(comparisonUseScaling);
             ConfigParser.SaveGuiElement(modelSelectAutoExpand);
+            ConfigParser.SaveGuiElement(startMaximized);
 
             // ESRGAN Pytorch
             ConfigParser.SaveComboxIndex(esrganPytorchPythonRuntime);
