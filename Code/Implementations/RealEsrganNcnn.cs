@@ -90,7 +90,7 @@ namespace Cupscale.Implementations
 
             if (showTileProgress && line.Trim().EndsWith("%"))
             {
-                float percent = float.Parse(line.Replace("%", "").Replace(",", ".")) / 100f;
+                float percent = float.Parse(line.Replace("%", "").Replace(",", "."));
                 Program.mainForm.SetProgress(percent, $"Upscaling Tiles ({percent}%)");
             }
 
