@@ -74,6 +74,7 @@ namespace Cupscale.Main
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.panel38 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.videoFileListBox = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.panel39 = new System.Windows.Forms.Panel();
             this.label30 = new System.Windows.Forms.Label();
@@ -82,6 +83,7 @@ namespace Cupscale.Main
             this.videoOutPathBtn = new System.Windows.Forms.Button();
             this.videoOutDir = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
             this.panel40 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
             this.videoLogBox = new System.Windows.Forms.TextBox();
@@ -451,7 +453,7 @@ namespace Cupscale.Main
             this.batchTab.Padding = new System.Windows.Forms.Padding(3);
             this.batchTab.Size = new System.Drawing.Size(554, 813);
             this.batchTab.TabIndex = 1;
-            this.batchTab.Text = "Batch Upscale";
+            this.batchTab.Text = "Upscale Images";
             this.batchTab.DragDrop += new System.Windows.Forms.DragEventHandler(this.batchTab_DragDrop);
             this.batchTab.DragEnter += new System.Windows.Forms.DragEventHandler(this.batchTab_DragEnter);
             // 
@@ -544,7 +546,7 @@ namespace Cupscale.Main
             this.label7.Location = new System.Drawing.Point(8, 8);
             this.label7.Margin = new System.Windows.Forms.Padding(8);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(64, 14);
+            this.label7.Size = new System.Drawing.Size(50, 14);
             this.label7.TabIndex = 12;
             this.label7.Text = "Options";
             // 
@@ -572,7 +574,7 @@ namespace Cupscale.Main
             this.label24.Location = new System.Drawing.Point(8, 167);
             this.label24.Margin = new System.Windows.Forms.Padding(8, 8, 8, 2);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(218, 20);
+            this.label24.Size = new System.Drawing.Size(175, 15);
             this.label24.TabIndex = 21;
             this.label24.Text = "Auto-Tiling Mode: (CUDA Only)";
             // 
@@ -591,7 +593,7 @@ namespace Cupscale.Main
             this.batchCacheSplitDepth.Location = new System.Drawing.Point(8, 186);
             this.batchCacheSplitDepth.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
             this.batchCacheSplitDepth.Name = "batchCacheSplitDepth";
-            this.batchCacheSplitDepth.Size = new System.Drawing.Size(255, 28);
+            this.batchCacheSplitDepth.Size = new System.Drawing.Size(255, 23);
             this.batchCacheSplitDepth.TabIndex = 20;
             // 
             // tableLayoutPanel10
@@ -636,7 +638,7 @@ namespace Cupscale.Main
             this.batchOutDir.Location = new System.Drawing.Point(0, 0);
             this.batchOutDir.Margin = new System.Windows.Forms.Padding(0);
             this.batchOutDir.Name = "batchOutDir";
-            this.batchOutDir.Size = new System.Drawing.Size(225, 27);
+            this.batchOutDir.Size = new System.Drawing.Size(225, 23);
             this.batchOutDir.TabIndex = 10;
             this.batchOutDir.Text = "Will get auto-filled once you load a directory.";
             // 
@@ -647,7 +649,7 @@ namespace Cupscale.Main
             this.label19.Location = new System.Drawing.Point(8, 115);
             this.label19.Margin = new System.Windows.Forms.Padding(8, 8, 8, 2);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(109, 20);
+            this.label19.Size = new System.Drawing.Size(89, 15);
             this.label19.TabIndex = 17;
             this.label19.Text = "Pre-Processing:";
             // 
@@ -666,7 +668,7 @@ namespace Cupscale.Main
             this.preprocessMode.Location = new System.Drawing.Point(8, 134);
             this.preprocessMode.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
             this.preprocessMode.Name = "preprocessMode";
-            this.preprocessMode.Size = new System.Drawing.Size(255, 28);
+            this.preprocessMode.Size = new System.Drawing.Size(255, 23);
             this.preprocessMode.TabIndex = 16;
             // 
             // label15
@@ -676,7 +678,7 @@ namespace Cupscale.Main
             this.label15.Location = new System.Drawing.Point(8, 63);
             this.label15.Margin = new System.Windows.Forms.Padding(8, 8, 8, 2);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(101, 20);
+            this.label15.Size = new System.Drawing.Size(82, 15);
             this.label15.TabIndex = 15;
             this.label15.Text = "Output Mode:";
             // 
@@ -695,7 +697,7 @@ namespace Cupscale.Main
             this.batchOutMode.Location = new System.Drawing.Point(8, 82);
             this.batchOutMode.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
             this.batchOutMode.Name = "batchOutMode";
-            this.batchOutMode.Size = new System.Drawing.Size(255, 28);
+            this.batchOutMode.Size = new System.Drawing.Size(255, 23);
             this.batchOutMode.TabIndex = 14;
             this.batchOutMode.SelectedIndexChanged += new System.EventHandler(this.batchOutMode_SelectedIndexChanged);
             // 
@@ -706,7 +708,7 @@ namespace Cupscale.Main
             this.label13.Location = new System.Drawing.Point(8, 7);
             this.label13.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(123, 20);
+            this.label13.Size = new System.Drawing.Size(99, 15);
             this.label13.TabIndex = 13;
             this.label13.Text = "Output Directory:";
             // 
@@ -758,7 +760,7 @@ namespace Cupscale.Main
             this.label6.Location = new System.Drawing.Point(8, 8);
             this.label6.Margin = new System.Windows.Forms.Padding(8);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 14);
+            this.label6.Size = new System.Drawing.Size(48, 14);
             this.label6.TabIndex = 11;
             this.label6.Text = "File List";
             // 
@@ -802,7 +804,7 @@ namespace Cupscale.Main
             this.videoPathLabel.Name = "videoPathLabel";
             this.videoPathLabel.Size = new System.Drawing.Size(542, 55);
             this.videoPathLabel.TabIndex = 11;
-            this.videoPathLabel.Text = "Drag And Drop A GIF/Video File Here";
+            this.videoPathLabel.Text = "Drag And Drop GIF/Video Files Here";
             this.videoPathLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel37
@@ -844,18 +846,35 @@ namespace Cupscale.Main
             // 
             this.tableLayoutPanel11.ColumnCount = 1;
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.Controls.Add(this.videoFileListBox, 0, 3);
             this.tableLayoutPanel11.Controls.Add(this.label31, 0, 0);
             this.tableLayoutPanel11.Controls.Add(this.panel39, 0, 1);
+            this.tableLayoutPanel11.Controls.Add(this.label36, 0, 2);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel11.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel11.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
-            this.tableLayoutPanel11.RowCount = 2;
+            this.tableLayoutPanel11.RowCount = 4;
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 541F));
             this.tableLayoutPanel11.Size = new System.Drawing.Size(271, 721);
             this.tableLayoutPanel11.TabIndex = 13;
+            // 
+            // videoFileListBox
+            // 
+            this.videoFileListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.videoFileListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.videoFileListBox.ForeColor = System.Drawing.Color.White;
+            this.videoFileListBox.Location = new System.Drawing.Point(8, 188);
+            this.videoFileListBox.Margin = new System.Windows.Forms.Padding(8);
+            this.videoFileListBox.Multiline = true;
+            this.videoFileListBox.Name = "videoFileListBox";
+            this.videoFileListBox.ReadOnly = true;
+            this.videoFileListBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.videoFileListBox.Size = new System.Drawing.Size(255, 525);
+            this.videoFileListBox.TabIndex = 14;
             // 
             // label31
             // 
@@ -865,7 +884,7 @@ namespace Cupscale.Main
             this.label31.Location = new System.Drawing.Point(8, 8);
             this.label31.Margin = new System.Windows.Forms.Padding(8);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(64, 14);
+            this.label31.Size = new System.Drawing.Size(50, 14);
             this.label31.TabIndex = 12;
             this.label31.Text = "Options";
             // 
@@ -879,7 +898,7 @@ namespace Cupscale.Main
             this.panel39.Location = new System.Drawing.Point(0, 30);
             this.panel39.Margin = new System.Windows.Forms.Padding(0);
             this.panel39.Name = "panel39";
-            this.panel39.Size = new System.Drawing.Size(271, 691);
+            this.panel39.Size = new System.Drawing.Size(271, 122);
             this.panel39.TabIndex = 11;
             // 
             // label30
@@ -889,7 +908,7 @@ namespace Cupscale.Main
             this.label30.Location = new System.Drawing.Point(5, 63);
             this.label30.Margin = new System.Windows.Forms.Padding(8, 8, 8, 2);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(109, 20);
+            this.label30.Size = new System.Drawing.Size(89, 15);
             this.label30.TabIndex = 19;
             this.label30.Text = "Pre-Processing:";
             // 
@@ -908,7 +927,7 @@ namespace Cupscale.Main
             this.videoPreprocessMode.Location = new System.Drawing.Point(5, 82);
             this.videoPreprocessMode.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
             this.videoPreprocessMode.Name = "videoPreprocessMode";
-            this.videoPreprocessMode.Size = new System.Drawing.Size(255, 28);
+            this.videoPreprocessMode.Size = new System.Drawing.Size(255, 23);
             this.videoPreprocessMode.TabIndex = 18;
             // 
             // tableLayoutPanel12
@@ -953,9 +972,9 @@ namespace Cupscale.Main
             this.videoOutDir.Location = new System.Drawing.Point(0, 0);
             this.videoOutDir.Margin = new System.Windows.Forms.Padding(0);
             this.videoOutDir.Name = "videoOutDir";
-            this.videoOutDir.Size = new System.Drawing.Size(225, 27);
+            this.videoOutDir.Size = new System.Drawing.Size(225, 23);
             this.videoOutDir.TabIndex = 10;
-            this.videoOutDir.Text = "Will get auto-filled once you load a directory.";
+            this.videoOutDir.Text = "Will get auto-filled once you load a file.";
             // 
             // label34
             // 
@@ -964,9 +983,21 @@ namespace Cupscale.Main
             this.label34.Location = new System.Drawing.Point(8, 7);
             this.label34.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(123, 20);
+            this.label34.Size = new System.Drawing.Size(99, 15);
             this.label34.TabIndex = 13;
             this.label34.Text = "Output Directory:";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.label36.ForeColor = System.Drawing.Color.White;
+            this.label36.Location = new System.Drawing.Point(8, 160);
+            this.label36.Margin = new System.Windows.Forms.Padding(8);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(48, 12);
+            this.label36.TabIndex = 13;
+            this.label36.Text = "File List";
             // 
             // panel40
             // 
@@ -1016,7 +1047,7 @@ namespace Cupscale.Main
             this.label35.Location = new System.Drawing.Point(8, 8);
             this.label35.Margin = new System.Windows.Forms.Padding(8);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(151, 14);
+            this.label35.Size = new System.Drawing.Size(118, 14);
             this.label35.TabIndex = 11;
             this.label35.Text = "Video Upscaling Log";
             // 
@@ -1325,7 +1356,7 @@ namespace Cupscale.Main
             this.label20.Location = new System.Drawing.Point(3, 4);
             this.label20.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(82, 15);
+            this.label20.Size = new System.Drawing.Size(76, 13);
             this.label20.TabIndex = 2;
             this.label20.Text = "Upscale/Save";
             // 
@@ -1425,7 +1456,7 @@ namespace Cupscale.Main
             this.label10.ForeColor = System.Drawing.Color.White;
             this.label10.Location = new System.Drawing.Point(5, 23);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(93, 15);
+            this.label10.Size = new System.Drawing.Size(82, 13);
             this.label10.TabIndex = 3;
             this.label10.Text = "Overwrite Mode";
             // 
@@ -1436,7 +1467,7 @@ namespace Cupscale.Main
             this.label23.Location = new System.Drawing.Point(3, 4);
             this.label23.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(89, 15);
+            this.label23.Size = new System.Drawing.Size(79, 13);
             this.label23.TabIndex = 2;
             this.label23.Text = "Saving Options";
             // 
@@ -1489,7 +1520,7 @@ namespace Cupscale.Main
             this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(5, 73);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(85, 15);
+            this.label11.Size = new System.Drawing.Size(74, 13);
             this.label11.TabIndex = 5;
             this.label11.Text = "Output Format";
             // 
@@ -1542,9 +1573,9 @@ namespace Cupscale.Main
             this.postResizeOnlyDownscale.CheckState = System.Windows.Forms.CheckState.Checked;
             this.postResizeOnlyDownscale.Enabled = false;
             this.postResizeOnlyDownscale.ForeColor = System.Drawing.Color.White;
-            this.postResizeOnlyDownscale.Location = new System.Drawing.Point(6, 122);
+            this.postResizeOnlyDownscale.Location = new System.Drawing.Point(6, 124);
             this.postResizeOnlyDownscale.Name = "postResizeOnlyDownscale";
-            this.postResizeOnlyDownscale.Size = new System.Drawing.Size(277, 19);
+            this.postResizeOnlyDownscale.Size = new System.Drawing.Size(239, 17);
             this.postResizeOnlyDownscale.TabIndex = 7;
             this.postResizeOnlyDownscale.Text = "Only Downscale (Ignore if smaller than target)";
             this.postResizeOnlyDownscale.UseVisualStyleBackColor = true;
@@ -1578,7 +1609,7 @@ namespace Cupscale.Main
             this.label22.Location = new System.Drawing.Point(3, 4);
             this.label22.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(130, 15);
+            this.label22.Size = new System.Drawing.Size(114, 13);
             this.label22.TabIndex = 2;
             this.label22.Text = "Resize After Upscaling";
             // 
@@ -1590,7 +1621,7 @@ namespace Cupscale.Main
             this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(5, 23);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(59, 15);
+            this.label8.Size = new System.Drawing.Size(52, 13);
             this.label8.TabIndex = 3;
             this.label8.Text = "New Size";
             // 
@@ -1640,7 +1671,7 @@ namespace Cupscale.Main
             this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(5, 73);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(78, 15);
+            this.label9.Size = new System.Drawing.Size(67, 13);
             this.label9.TabIndex = 5;
             this.label9.Text = "Scaling Filter";
             // 
@@ -1693,9 +1724,9 @@ namespace Cupscale.Main
             this.preResizeOnlyDownscale.CheckState = System.Windows.Forms.CheckState.Checked;
             this.preResizeOnlyDownscale.Enabled = false;
             this.preResizeOnlyDownscale.ForeColor = System.Drawing.Color.White;
-            this.preResizeOnlyDownscale.Location = new System.Drawing.Point(6, 122);
+            this.preResizeOnlyDownscale.Location = new System.Drawing.Point(6, 124);
             this.preResizeOnlyDownscale.Name = "preResizeOnlyDownscale";
-            this.preResizeOnlyDownscale.Size = new System.Drawing.Size(277, 19);
+            this.preResizeOnlyDownscale.Size = new System.Drawing.Size(239, 17);
             this.preResizeOnlyDownscale.TabIndex = 7;
             this.preResizeOnlyDownscale.Text = "Only Downscale (Ignore if smaller than target)";
             this.preResizeOnlyDownscale.UseVisualStyleBackColor = true;
@@ -1728,7 +1759,7 @@ namespace Cupscale.Main
             this.label28.Location = new System.Drawing.Point(3, 4);
             this.label28.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(142, 15);
+            this.label28.Size = new System.Drawing.Size(123, 13);
             this.label28.TabIndex = 2;
             this.label28.Text = "Resize Before Upscaling";
             // 
@@ -1740,7 +1771,7 @@ namespace Cupscale.Main
             this.label17.ForeColor = System.Drawing.Color.White;
             this.label17.Location = new System.Drawing.Point(5, 23);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(59, 15);
+            this.label17.Size = new System.Drawing.Size(52, 13);
             this.label17.TabIndex = 3;
             this.label17.Text = "New Size";
             // 
@@ -1791,7 +1822,7 @@ namespace Cupscale.Main
             this.label18.ForeColor = System.Drawing.Color.White;
             this.label18.Location = new System.Drawing.Point(5, 73);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(78, 15);
+            this.label18.Size = new System.Drawing.Size(67, 13);
             this.label18.TabIndex = 5;
             this.label18.Text = "Scaling Filter";
             // 
@@ -1838,7 +1869,7 @@ namespace Cupscale.Main
             this.label25.Location = new System.Drawing.Point(3, 4);
             this.label25.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(132, 15);
+            this.label25.Size = new System.Drawing.Size(114, 13);
             this.label25.TabIndex = 2;
             this.label25.Text = "Loaded Image Options";
             // 
@@ -1951,7 +1982,7 @@ namespace Cupscale.Main
             this.label21.Location = new System.Drawing.Point(3, 4);
             this.label21.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(98, 15);
+            this.label21.Size = new System.Drawing.Size(86, 13);
             this.label21.TabIndex = 2;
             this.label21.Text = "Preview Controls";
             // 
@@ -2014,7 +2045,7 @@ namespace Cupscale.Main
             this.prevCutoutLabel.ForeColor = System.Drawing.Color.White;
             this.prevCutoutLabel.Location = new System.Drawing.Point(5, 55);
             this.prevCutoutLabel.Name = "prevCutoutLabel";
-            this.prevCutoutLabel.Size = new System.Drawing.Size(42, 15);
+            this.prevCutoutLabel.Size = new System.Drawing.Size(38, 13);
             this.prevCutoutLabel.TabIndex = 8;
             this.prevCutoutLabel.Text = "Cutout";
             // 
@@ -2025,7 +2056,7 @@ namespace Cupscale.Main
             this.prevSizeLabel.ForeColor = System.Drawing.Color.White;
             this.prevSizeLabel.Location = new System.Drawing.Point(5, 39);
             this.prevSizeLabel.Name = "prevSizeLabel";
-            this.prevSizeLabel.Size = new System.Drawing.Size(31, 15);
+            this.prevSizeLabel.Size = new System.Drawing.Size(27, 13);
             this.prevSizeLabel.TabIndex = 7;
             this.prevSizeLabel.Text = "Size";
             // 
@@ -2036,7 +2067,7 @@ namespace Cupscale.Main
             this.label26.Location = new System.Drawing.Point(3, 4);
             this.label26.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(73, 15);
+            this.label26.Size = new System.Drawing.Size(66, 13);
             this.label26.TabIndex = 2;
             this.label26.Text = "Preview Info";
             // 
@@ -2047,7 +2078,7 @@ namespace Cupscale.Main
             this.prevZoomLabel.ForeColor = System.Drawing.Color.White;
             this.prevZoomLabel.Location = new System.Drawing.Point(5, 23);
             this.prevZoomLabel.Name = "prevZoomLabel";
-            this.prevZoomLabel.Size = new System.Drawing.Size(39, 15);
+            this.prevZoomLabel.Size = new System.Drawing.Size(34, 13);
             this.prevZoomLabel.TabIndex = 6;
             this.prevZoomLabel.Text = "Zoom";
             // 
@@ -2111,7 +2142,7 @@ namespace Cupscale.Main
             this.label27.Location = new System.Drawing.Point(3, 4);
             this.label27.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(113, 15);
+            this.label27.Size = new System.Drawing.Size(96, 13);
             this.label27.TabIndex = 2;
             this.label27.Text = "Create Comparison";
             // 
@@ -2139,7 +2170,7 @@ namespace Cupscale.Main
             this.label12.ForeColor = System.Drawing.Color.White;
             this.label12.Location = new System.Drawing.Point(5, 23);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(103, 15);
+            this.label12.Size = new System.Drawing.Size(89, 13);
             this.label12.TabIndex = 6;
             this.label12.Text = "Comparison Type";
             // 
@@ -2242,7 +2273,7 @@ namespace Cupscale.Main
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(4, 60);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 15);
+            this.label2.Size = new System.Drawing.Size(82, 13);
             this.label2.TabIndex = 24;
             this.label2.Text = "Seamless Mode";
             // 
@@ -2250,9 +2281,9 @@ namespace Cupscale.Main
             // 
             this.alpha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.alpha.AutoSize = true;
-            this.alpha.Location = new System.Drawing.Point(174, 29);
+            this.alpha.Location = new System.Drawing.Point(174, 32);
             this.alpha.Name = "alpha";
-            this.alpha.Size = new System.Drawing.Size(18, 17);
+            this.alpha.Size = new System.Drawing.Size(15, 14);
             this.alpha.TabIndex = 23;
             this.alpha.UseVisualStyleBackColor = true;
             this.alpha.CheckedChanged += new System.EventHandler(this.alpha_CheckedChanged);
@@ -2264,7 +2295,7 @@ namespace Cupscale.Main
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(4, 30);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(123, 15);
+            this.label3.Size = new System.Drawing.Size(108, 13);
             this.label3.TabIndex = 22;
             this.label3.Text = "Enable Transparency";
             // 
@@ -2275,7 +2306,7 @@ namespace Cupscale.Main
             this.label29.Location = new System.Drawing.Point(3, 4);
             this.label29.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(166, 15);
+            this.label29.Size = new System.Drawing.Size(146, 13);
             this.label29.TabIndex = 2;
             this.label29.Text = "ESRGAN Processing Options";
             // 
@@ -2328,9 +2359,9 @@ namespace Cupscale.Main
             | System.Windows.Forms.AnchorStyles.Right)));
             this.advancedBtn.AutoSize = true;
             this.advancedBtn.ForeColor = System.Drawing.Color.White;
-            this.advancedBtn.Location = new System.Drawing.Point(15, 107);
+            this.advancedBtn.Location = new System.Drawing.Point(15, 109);
             this.advancedBtn.Name = "advancedBtn";
-            this.advancedBtn.Size = new System.Drawing.Size(81, 19);
+            this.advancedBtn.Size = new System.Drawing.Size(74, 17);
             this.advancedBtn.TabIndex = 20;
             this.advancedBtn.Text = "Advanced";
             this.advancedBtn.UseVisualStyleBackColor = true;
@@ -2343,7 +2374,7 @@ namespace Cupscale.Main
             this.label1.Location = new System.Drawing.Point(3, 4);
             this.label1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(140, 15);
+            this.label1.Size = new System.Drawing.Size(123, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "ESRGAN Model Options";
             // 
@@ -2407,7 +2438,7 @@ namespace Cupscale.Main
             this.label14.ForeColor = System.Drawing.Color.White;
             this.label14.Location = new System.Drawing.Point(8, 154);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(55, 15);
+            this.label14.Size = new System.Drawing.Size(48, 13);
             this.label14.TabIndex = 8;
             this.label14.Text = "Model 1:";
             // 
@@ -2419,7 +2450,7 @@ namespace Cupscale.Main
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(8, 23);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 15);
+            this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 15;
             this.label4.Text = "Model Mode:";
             // 
@@ -2446,9 +2477,9 @@ namespace Cupscale.Main
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chainRbtn.AutoSize = true;
             this.chainRbtn.ForeColor = System.Drawing.Color.White;
-            this.chainRbtn.Location = new System.Drawing.Point(15, 84);
+            this.chainRbtn.Location = new System.Drawing.Point(15, 86);
             this.chainRbtn.Name = "chainRbtn";
-            this.chainRbtn.Size = new System.Drawing.Size(130, 19);
+            this.chainRbtn.Size = new System.Drawing.Size(113, 17);
             this.chainRbtn.TabIndex = 14;
             this.chainRbtn.Text = "Chain Two Models";
             this.chainRbtn.UseVisualStyleBackColor = true;
@@ -2462,7 +2493,7 @@ namespace Cupscale.Main
             this.label16.ForeColor = System.Drawing.Color.White;
             this.label16.Location = new System.Drawing.Point(8, 206);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(55, 15);
+            this.label16.Size = new System.Drawing.Size(48, 13);
             this.label16.TabIndex = 9;
             this.label16.Text = "Model 2:";
             // 
@@ -2472,9 +2503,9 @@ namespace Cupscale.Main
             | System.Windows.Forms.AnchorStyles.Right)));
             this.interpRbtn.AutoSize = true;
             this.interpRbtn.ForeColor = System.Drawing.Color.White;
-            this.interpRbtn.Location = new System.Drawing.Point(15, 61);
+            this.interpRbtn.Location = new System.Drawing.Point(15, 63);
             this.interpRbtn.Name = "interpRbtn";
-            this.interpRbtn.Size = new System.Drawing.Size(207, 19);
+            this.interpRbtn.Size = new System.Drawing.Size(181, 17);
             this.interpRbtn.TabIndex = 13;
             this.interpRbtn.Text = "Interpolate Between Two Models";
             this.interpRbtn.UseVisualStyleBackColor = true;
@@ -2487,9 +2518,9 @@ namespace Cupscale.Main
             this.singleModelRbtn.AutoSize = true;
             this.singleModelRbtn.Checked = true;
             this.singleModelRbtn.ForeColor = System.Drawing.Color.White;
-            this.singleModelRbtn.Location = new System.Drawing.Point(15, 38);
+            this.singleModelRbtn.Location = new System.Drawing.Point(15, 40);
             this.singleModelRbtn.Name = "singleModelRbtn";
-            this.singleModelRbtn.Size = new System.Drawing.Size(126, 19);
+            this.singleModelRbtn.Size = new System.Drawing.Size(108, 17);
             this.singleModelRbtn.TabIndex = 12;
             this.singleModelRbtn.TabStop = true;
             this.singleModelRbtn.Text = "Use Single Model";
@@ -2537,7 +2568,7 @@ namespace Cupscale.Main
             this.label32.Location = new System.Drawing.Point(3, 4);
             this.label32.Margin = new System.Windows.Forms.Padding(3, 0, 3, 6);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(17, 15);
+            this.label32.Size = new System.Drawing.Size(17, 13);
             this.label32.TabIndex = 2;
             this.label32.Text = "AI";
             // 
@@ -2547,7 +2578,7 @@ namespace Cupscale.Main
             this.label33.ForeColor = System.Drawing.Color.White;
             this.label33.Location = new System.Drawing.Point(5, 23);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(108, 15);
+            this.label33.Size = new System.Drawing.Size(99, 13);
             this.label33.TabIndex = 6;
             this.label33.Text = "AI Network To Run";
             // 
@@ -2801,5 +2832,7 @@ namespace Cupscale.Main
         private ComboBox aiSelect;
         private Panel leftSpacer5;
         private Panel panel4;
+        private TextBox videoFileListBox;
+        private Label label36;
     }
 }

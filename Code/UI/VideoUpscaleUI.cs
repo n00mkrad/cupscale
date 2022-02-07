@@ -19,86 +19,105 @@ namespace Cupscale.UI
         static TextBox logBox;
         static Label titleLabel;
         static ComboBox outputFormatBox;
+        static TextBox fileList;
 
         static Upscale.VidExportMode outputFormat = Upscale.VidExportMode.MP4;
 
-        static string currentInPath;
+        static string currentInFile;
+        static string[] currentInFiles;
         static string currentParentDir;
 
         static float fps;
 
-        public static void Init(TextBox outDirBox, TextBox logTextbox, Label mainLabel, ComboBox outFormatBox)
+        public static void Init(TextBox outDirBox, TextBox logTextbox, Label mainLabel, ComboBox outFormatBox, TextBox fileListBox)
         {
             outDir = outDirBox;
             logBox = logTextbox;
             titleLabel = mainLabel;
             outputFormatBox = outFormatBox;
+            fileList = fileListBox;
         }
 
-        public static void LoadFile(string path)
+        public static void LoadFiles(string[] files)
         {
-            if (!IoUtils.videoExtensions.Contains(Path.GetExtension(path).ToLower()))
+            if (files.Any(f => !IoUtils.videoExtensions.Contains(Path.GetExtension(f).ToLower())))
             {
                 Program.ShowMessage("Not a supported video file!");
                 return;
             }
 
-            currentInPath = path.Trim();
-            currentParentDir = path.Trim().GetParentDir();
+            currentInFiles = files;
+            currentParentDir = files.First().GetParentDir();
             outDir.Text = currentParentDir;
-            Program.lastVidPath = currentInPath;
+
+            fileList.Text = string.Join(Environment.NewLine, files);
             TabSelected();
         }
 
         public static void TabSelected()
         {
-            Program.mainForm.SetButtonText("Upscale Video");
-
-            if (string.IsNullOrWhiteSpace(currentInPath))
-                return;
-
-            titleLabel.Text = "Loaded " + currentInPath.Wrap();
+            if (currentInFiles == null || !currentInFiles.Any())
+            {
+                Program.mainForm.SetButtonText("Upscale Videos");
+            }
+            else
+            {
+                titleLabel.Text = $"Loaded {currentInFiles.Length} compatible files.";
+                Program.mainForm.SetButtonText($"Upscale {currentInFiles.Length} Videos");
+            }
         }
 
         public static async Task Run(bool preprocess)
         {
             logBox.Clear();
-            Print("Starting upscale of " + Path.GetFileName(currentInPath));
 
-            if (string.IsNullOrWhiteSpace(currentInPath) || !File.Exists(currentInPath))
+            if (currentInFiles == null || !currentInFiles.Any())
             {
                 Program.ShowMessage("No valid file loaded.", "Error");
                 return;
             }
 
-            Program.mainForm.SetBusy(true);
-            LoadVideo();
-            Print("Extracting frames...");
-            await FFmpegCommands.VideoToFrames(currentInPath, Paths.imgInPath, false, false, false);
-            int amountFrames = IoUtils.GetAmountOfCompatibleFiles(Paths.imgInPath, false);
-            Print($"Done - Extracted {amountFrames} frames.");
-            await PreprocessIfNeeded(preprocess);
-            BatchUpscaleUI.LoadDir(Paths.imgInPath, true);
-            Print("Upscaling frames...");
-            await BatchUpscaleUI.Run(false, true, false, Paths.framesOutPath);
-            RenameOutFiles();
-            Print($"Done upscaling all frames.");
-            BatchUpscaleUI.Reset();
-            Print("Creating video from frames...");
-            await CreateVideo();
-            Print("Done creating video.");
-            CopyBack(Path.Combine(Paths.GetDataPath(), "frames-out.mp4"));
-            Print("Adding audio from source to output video...");
-            IoUtils.ClearDir(Paths.imgInPath);
-            IoUtils.ClearDir(Paths.framesOutPath);
-            Program.mainForm.SetBusy(false);
-            Print("Finished.");
+            foreach (var file in currentInFiles)
+            {
+                if (!File.Exists(file))
+                {
+                    Print($"{file} does not exist, skipping.");
+                    continue;
+                }
+
+                currentInFile = file;
+                Program.lastVidPath = currentInFile;
+                Print("Starting upscale of " + Path.GetFileName(currentInFile));
+
+                Program.mainForm.SetBusy(true);
+                LoadVideo();
+                Print("Extracting frames...");
+                await FFmpegCommands.VideoToFrames(currentInFile, Paths.imgInPath, false, false, false);
+                int amountFrames = IoUtils.GetAmountOfCompatibleFiles(Paths.imgInPath, false);
+                Print($"Done - Extracted {amountFrames} frames.");
+                await PreprocessIfNeeded(preprocess);
+                BatchUpscaleUI.LoadDir(Paths.imgInPath, true);
+                Print("Upscaling frames...");
+                await BatchUpscaleUI.Run(false, true, false, Paths.framesOutPath);
+                RenameOutFiles();
+                Print($"Done upscaling all frames.");
+                BatchUpscaleUI.Reset();
+                Print("Creating video from frames...");
+                await CreateVideo();
+                Print("Done creating video.");
+                CopyBack(Path.Combine(Paths.GetDataPath(), "frames-out.mp4"));
+                Print("Adding audio from source to output video...");
+                IoUtils.ClearDir(Paths.imgInPath);
+                IoUtils.ClearDir(Paths.framesOutPath);
+                Program.mainForm.SetBusy(false);
+                Print("Finished.");
+            }
         }
 
         static void LoadVideo()
         {
             IoUtils.ClearDir(Paths.framesOutPath);
-            fps = FFmpegCommands.GetFramerate(currentInPath);
+            fps = FFmpegCommands.GetFramerate(currentInFile);
             Print("Detected frame rate of video as " + fps);
             IoUtils.ClearDir(Paths.imgInPath);
         }
@@ -145,7 +164,7 @@ namespace Cupscale.UI
             if (outputFormatBox.Text == Upscale.VidExportMode.GIF.ToStringTitleCase())
                 outputFormat = Upscale.VidExportMode.GIF;
             if (outputFormatBox.Text == Upscale.VidExportMode.SameAsSource.ToStringTitleCase())
-                outputFormat = (Upscale.VidExportMode)Enum.Parse(typeof(Upscale.VidExportMode), Path.GetExtension(currentInPath).Replace(".", "").ToUpper());
+                outputFormat = (Upscale.VidExportMode)Enum.Parse(typeof(Upscale.VidExportMode), Path.GetExtension(currentInFile).Replace(".", "").ToUpper());
 
             if (outputFormat == Upscale.VidExportMode.MP4)
             {
@@ -153,7 +172,7 @@ namespace Cupscale.UI
                 await Task.Delay(10);
                 await FFmpegCommands.FramesToMp4(Paths.framesOutPath, Config.GetBool("h265"), Config.GetInt("crf"), fps, "", false);
                 if (Config.GetBool("vidEnableAudio"))
-                    await FFmpegCommands.MergeAudio(Paths.framesOutPath + ".mp4", currentInPath);
+                    await FFmpegCommands.MergeAudio(Paths.framesOutPath + ".mp4", currentInFile);
                 f.Close();
             }
 
@@ -175,7 +194,7 @@ namespace Cupscale.UI
                 return;
             }
 
-            string filename = Path.GetFileNameWithoutExtension(currentInPath);
+            string filename = Path.GetFileNameWithoutExtension(currentInFile);
             string ext = Path.GetExtension(path);
             string outPath = "";
 
@@ -184,7 +203,7 @@ namespace Cupscale.UI
                 if (Upscale.overwriteMode == Upscale.Overwrite.No)
                     outPath = Path.Combine(outDir.Text.Trim(), filename + "-" + Upscale.GetLastModelName() + ext);
                 else
-                    outPath = Path.Combine(outDir.Text.Trim(), Path.GetFileName(currentInPath));
+                    outPath = Path.Combine(outDir.Text.Trim(), Path.GetFileName(currentInFile));
             }
             catch (Exception e)
             {

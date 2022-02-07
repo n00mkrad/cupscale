@@ -32,7 +32,7 @@ namespace Cupscale.Main
 			InitializeComponent();
 			PreviewUi.Init(previewImg, model1TreeBtn, model2TreeBtn, imageOutputFormat, prevOverwriteCombox);
 			BatchUpscaleUI.Init(batchOutDir, batchFileList, batchDirLabel);
-			VideoUpscaleUI.Init(videoOutDir, videoLogBox, videoPathLabel, videoOutputFormat);
+			VideoUpscaleUI.Init(videoOutDir, videoLogBox, videoPathLabel, videoOutputFormat, videoFileListBox);
 			Program.mainForm = this;
 
 			if(Config.GetBool("startMaximized"))
@@ -381,7 +381,7 @@ namespace Cupscale.Main
 
 				if (dialog == DialogResult.No)
                 {
-					VideoUpscaleUI.LoadFile(files[0]);
+					VideoUpscaleUI.LoadFiles(files);
 					htTabControl.SelectedIndex = 2;
 					return;
 				}
@@ -803,7 +803,7 @@ namespace Cupscale.Main
 		private void videoTab_DragDrop(object sender, DragEventArgs e)
 		{
 			string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
-			VideoUpscaleUI.LoadFile(files[0]);
+			VideoUpscaleUI.LoadFiles(files);
         }
 
         private void videoOutPathBtn_Click(object sender, EventArgs e)
