@@ -83,5 +83,33 @@ namespace Cupscale.OS
                 // has probably exited already
             }
         }
+        public static string GetGpus()
+        {
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
+
+            List<string> gpus = new List<string>();
+
+            foreach (ManagementObject mo in searcher.Get())
+            {
+                foreach (PropertyData property in mo.Properties)
+                {
+                    if (property.Name == "Description")
+                    {
+                        string gpuName = property.Value.ToString();
+
+                        if (!gpuName.ToLower().Contains("microsoft"))   // To ignore pseudo-GPUs like on vServers, RDP sessions, etc. (e.g. "Microsoft Basic Display Adapter")
+                        {
+                            gpus.Add(gpuName);
+                            Logger.Log($"[GetGpus] Found GPU: {property.Value}", true);
+                        }
+                    }
+                }
+                //string gpuName = queryObj["Name"].ToString();
+                //gpus.Add(gpuName);
+                //Logger.Log($"[GetGpus] Found GPU: {gpuName}", true);
+            }
+
+            return string.Join(", ", gpus);
+        }
     }
 }

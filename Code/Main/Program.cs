@@ -68,7 +68,13 @@ namespace Cupscale
             Implementations.Imps.Init();
             ResourceLimits.Memory = (ulong)Math.Round(ResourceLimits.Memory * 1.5f);
             Cleanup();
-            Application.Run(new MainForm());
+            string gpus = OsUtils.GetGpus().Replace("NVIDIA ", "").Replace("AMD ", "").Replace("Intel ", "");
+            MainForm ProgramForm = new MainForm();
+            if (!string.IsNullOrWhiteSpace(gpus.Trim()))
+            {
+                ProgramForm.Text = $"{ProgramForm.Text} [GPU: {gpus}]";
+            }
+            Application.Run(ProgramForm);
         }
 
         private static void AddBinsToPath ()
