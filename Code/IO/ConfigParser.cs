@@ -1,4 +1,4 @@
-﻿using Cupscale.UI;
+using Cupscale.UI;
 using System;
 using System.Windows.Forms;
 
@@ -25,7 +25,7 @@ namespace Cupscale.IO
 			{
 				case StringMode.Any: Config.Set(comboBox.Name, comboBox.Text); break;
 				case StringMode.Int: Config.Set(comboBox.Name, comboBox.Text.GetInt().ToString()); break;
-				case StringMode.Float: Config.Set(comboBox.Name, comboBox.Text.GetFloat().ToString().Replace(",", ".")); break;
+				case StringMode.Float: Config.Set(comboBox.Name, comboBox.Text.GetFloat().ToString()); break;
 			}
 		}
 
@@ -38,7 +38,7 @@ namespace Cupscale.IO
 		{
 			switch (stringMode)
 			{
-				case StringMode.Any: Config.Set(upDown.Name, ((float)upDown.Value).ToString().Replace(",", ".")); break;
+				case StringMode.Any: Config.Set(upDown.Name, ((float)upDown.Value).ToString()); break;
 				case StringMode.Int: Config.Set(upDown.Name, ((int)upDown.Value).ToString()); break;
 				case StringMode.Float: Config.Set(upDown.Name, ((float)upDown.Value).ToString().Replace(",", ".")); ; break;
 			}
@@ -74,4 +74,3 @@ namespace Cupscale.IO
 			comboBox.SelectedIndex = Config.GetInt(comboBox.Name);
 		}
 	}
-}
